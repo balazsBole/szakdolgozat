@@ -1,0 +1,20 @@
+
+A beadott alkalmazás tulajdonságai:
+
+Angular felhasználói felülettel, spring boot frameworkot használó java backenddel, és PostgreSQL adatbázissal működő dockerizált hexagonális alklamazás. A buildhez felhasznált alklamazások: maven, nodeJs, npm, angular-cli.
+Az authentikációért és authorizációért dedikált keycloak szerver felel. A frontend és a backend között rest alapú, a bakcend és az adatbázis között jpa alapú kommunikáció valósul meg.
+A fejlesztés TDDben valósul meg. A kódminőségért eslint és sonarqube felel. A verziókövetés githubon keresztül történik.
+
+
+
+A beadott dolgozat felépítése:
+
+1) Abstract, bevezetés, a projekt átfogó leírása (1 oldal).
+
+2) Felhasznált technológiák irodalmi áttekintése (25 oldal)
+
+3) A rendszer átfogó dokumentációja, a felmerült problémák leírása. Felhasználói, üzemeltetési kézikönyv (35 oldal)
+
+4) Összefoglalás, A kitűzött célokkal az elért eredmények összevetése (1 oldal)
+
+5) A továbbfejlesztés lehetséges irányai (1 oldal)
