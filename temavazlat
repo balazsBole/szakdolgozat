@@ -1,15 +1,28 @@
+Helpdesk rendszer megvalósítása Microservices alapú elosztott alkalmazással
 
-A beadott alkalmazás tulajdonságai:
-
-Angular felhasználói felülettel, spring boot frameworkot használó java backenddel, és PostgreSQL adatbázissal működő dockerizált hexagonális alklamazás. A buildhez felhasznált alklamazások: maven, nodeJs, npm, angular-cli.
-Az authentikációért és authorizációért dedikált keycloak szerver felel. A frontend és a backend között rest alapú, a bakcend és az adatbázis között jpa alapú kommunikáció valósul meg.
-A fejlesztés TDDben valósul meg. A kódminőségért eslint és sonarqube felel. A verziókövetés githubon keresztül történik.
-
+A szakdolgozat célja:
+Hogy bemutassam egy microservice alapú elosztott alkalmazás felépítését és működését.
+A fejlesztés során megismert és használt technológiák átfogó összefoglalása (úgy mint hexagonális architektúra, MVC, docker, Angular, Spring Boot, kafka, load balancer, TDD, SOLID, etc.).
+Az alkalmazás átfogó dokumentálása (például felhasználói-, üzemeltetési kézikönyv, komponens- és message flow diagram létrehozása).
 
 
-A beadott dolgozat felépítése:
 
-1) Abstract, bevezetés, a projekt átfogó leírása (1 oldal).
+A szakdolgozat rövid tartalma:
+Az alkalmazás üzleti leírása:
+
+A bestpractical által fejlesztett, open source "Request tracker" alkalmazáshoz hasonló funkciókkal bíró webes program, ami lehetőséget ad  különböző csoportokhoz  tartozó regisztrált ügyfélszolgálati felhasználók különböző e-mail címre érkező problémák vagy feladatok feldolgozására. A példaalkalmazás elérhető a www.bestpractical.com/rt címen.
+Egy új beérkező feladat egy előre meghatározott problémasorba kerül, ahonnan a sorhoz hozzárendelt csoport valamelyik ilyen jogokkal felruházott tagja felelőst vagy felelősöket rendelhet az adott kérdéshez, illetve a kérést más problémasorba is helyezheti. A felelős további levelezésbe bonyolódhat a probléma bejelentőjével a webes felületen keresztül. A probléma egy előre meghatározott állapotsoron megy keresztül, az állapotváltásról minden érintett értesítést kap.
+
+Az alkalmazás technikai leírása:
+Angular felhasználói felülettel, spring boot frameworkot használó java backenddel, és PostgreSQL adatbázissal működő dockerizált hexagonális alklamazás. A buildhez felhasznált programok: maven, nodeJs, npm, angular-cli.
+Az authentikációért és authorizációért dedikált keycloak szerver felel. A frontend és a backend között REST alapú, a bakcend és az adatbázis között jpa alapú, a különböző microservicek között REST és kafka alapú kommunikáció valósul meg.
+A servicek metrikái prometheusba integrálva érhetőek el.
+A fejlesztés TDDben, a SOLID és a clean code elvek mentén történik. A kódminőségért eslint és sonarqube felel. A verziókövetésre githubot áll rendelkezésre.
+
+
+
+A szakdolgozat vázlata (tervezett tartalomjegyzéke): 
+1) Abstract, bevezetés, a projekt átfogó leírása és célja (1 oldal).
 
 2) Felhasznált technológiák irodalmi áttekintése (25 oldal)
 
@@ -18,3 +31,7 @@ A beadott dolgozat felépítése:
 4) Összefoglalás, A kitűzött célokkal az elért eredmények összevetése (1 oldal)
 
 5) A továbbfejlesztés lehetséges irányai (1 oldal)
+ 
+
+
+
