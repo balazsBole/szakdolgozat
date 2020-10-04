@@ -131,6 +131,9 @@ modules.xml
 # Sonarlint plugin
 .idea/sonarlint
 
+#sonarqube
+sonarqube
+
 ### Linux ###
 *~
 
