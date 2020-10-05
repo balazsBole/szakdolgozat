@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -13,6 +13,130 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>helpdesk</module>
-    </modules>
+        <!--  <module>helpdesk</module> -->
+         <module>email</module>
+     </modules>
+
+     <properties>
+         <maven.compiler.source>1.7</maven.compiler.source>
+         <maven.compiler.target>1.7</maven.compiler.target>
+         <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
+         <version.jib-maven-plugin>2.5.2</version.jib-maven-plugin>
+         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+         <jib.args>--spring.profiles.active=default</jib.args>
+     </properties>
+
+    <dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.kafka</groupId>
+        <artifactId>spring-kafka</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-registry-prometheus</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.kafka</groupId>
+        <artifactId>spring-kafka-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
+     <dependencyManagement>
+     <dependencies>
+         <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-dependencies</artifactId>
+             <version>${spring-cloud.version}</version>
+             <type>pom</type>
+             <scope>import</scope>
+         </dependency>
+             <dependency>
+                 <groupId>de.codecentric</groupId>
+                 <artifactId>spring-boot-admin-dependencies</artifactId>
+                 <version>${spring-boot-admin.version}</version>
+                 <type>pom</type>
+                 <scope>import</scope>
+             </dependency>
+             <dependency>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-dependencies</artifactId>
+                 <version>2.3.4.RELEASE</version>
+                 <type>pom</type>
+                 <scope>import</scope>
+             </dependency>
+         </dependencies>
+     </dependencyManagement>
+
+     <build>
+         <plugins>
+             <plugin>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-maven-plugin</artifactId>
+             </plugin>
+
+             <plugin>
+                 <!-- Migrated -->
+                <!-- https://search.maven.org/artifact/com.google.cloud.tools/jib-maven-plugin -->
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${version.jib-maven-plugin}</version>
+                <configuration>
+                    <container>
+                        <args>
+                            <arg>${jib.args}</arg>
+                        </args>
+                    </container>
+                    <from>
+                        <image>gcr.io/distroless/java:11-debug</image>
+                    </from>
+                    <to>
+                        <image>${project.artifactId}</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
