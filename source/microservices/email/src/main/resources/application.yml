@@ -5,3 +5,24 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
   instance:
     appname: email-client
+
+spring:
+  mail:
+    host: smtp.yandex.com
+    username: helpdesk.gdf
+    password: Tha0xi7k
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    pop3:
+      host: pop.yandex.com
+      security: SSL
+      port: 995
+    imap:
+      host: imap.yandex.com
+      security: SSL
+      port: 993
