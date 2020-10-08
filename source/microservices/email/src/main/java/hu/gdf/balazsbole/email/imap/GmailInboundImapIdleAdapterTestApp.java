@@ -76,6 +76,11 @@ public class GmailInboundImapIdleAdapterTestApp {
                     String text =  parsed.hasHtmlContent() ? parsed.getHtmlContent(): parsed.getPlainContent();
 
                     Date receivedDate = parsed.getMimeMessage().getReceivedDate();
+                    logger.info("receivedDate: " + receivedDate);
+
+                    String[] header = parsed.getMimeMessage().getHeader("In-Reply-To");
+                    String inreplyto = header == null ? "empty": header[0];
+                    logger.info("in reply to: " + inreplyto);
 
                     sendMessage(parsed.getMimeMessage().getMessageID(), parsed.getFrom(), parsed.getTo().get(0).toString(), parsed.getSubject(), text, parsed.hasHtmlContent());
                 } catch (Exception e) {
@@ -87,7 +92,7 @@ public class GmailInboundImapIdleAdapterTestApp {
         });
     }
 
-    public static void sendMessage(String messageID, String to, String from, String subject, String text, boolean htmlMessage,) {
+    public static void sendMessage(String messageID, String to, String from, String subject, String text, boolean htmlMessage) {
 
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
         sender.setHost("smtp.yandex.com");
@@ -120,6 +125,7 @@ public class GmailInboundImapIdleAdapterTestApp {
 
             sender.send(message);
             message.getMessageID();
+            message.getSentDate();
 
         } catch (javax.mail.MessagingException e) {
             e.printStackTrace();
