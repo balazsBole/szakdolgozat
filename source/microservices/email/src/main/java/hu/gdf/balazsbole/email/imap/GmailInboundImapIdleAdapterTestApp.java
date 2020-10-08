@@ -21,12 +21,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.mail.util.MimeMessageParser;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.integration.channel.DirectChannel;
 import org.springframework.integration.mail.ImapIdleChannelAdapter;
 import org.springframework.integration.mail.ImapMailReceiver;
-import org.springframework.integration.mail.MailReceiver;
 import org.springframework.integration.mail.support.DefaultMailHeaderMapper;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.messaging.Message;
@@ -34,106 +34,103 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.messaging.MessagingException;
 
 import javax.mail.internet.MimeMessage;
+import javax.print.attribute.DateTimeSyntax;
+import java.util.Date;
+import java.util.Properties;
 
 /**
  * @author Oleg Zhurakousky
  * @author Gary Russell
- *
  */
 public class GmailInboundImapIdleAdapterTestApp {
-	private static Log logger = LogFactory.getLog(GmailInboundImapIdleAdapterTestApp.class);
+    private static Log logger = LogFactory.getLog(GmailInboundImapIdleAdapterTestApp.class);
+
+    public static void main(String[] args) throws Exception {
+        @SuppressWarnings("resource")
+        ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(
+                "/gmail-imap-idle-config.xml");
+
+        ImapMailReceiver mailReceiver = new ImapMailReceiver("imaps://helpdesk.gdf:Tha0xi7k@imap.yandex.com:993/inbox");
+        mailReceiver.setShouldMarkMessagesAsRead(false);
+        mailReceiver.setShouldDeleteMessages(false);
+        mailReceiver.setSimpleContent(false);
+        mailReceiver.setHeaderMapper(new DefaultMailHeaderMapper());
+        mailReceiver.setUserFlag("user-flag-1");
+        ImapIdleChannelAdapter adapter = new ImapIdleChannelAdapter(mailReceiver);
+        adapter.setAutoStartup(true);
+        DirectChannel channel = new DirectChannel();
+        adapter.setOutputChannel(channel);
 
 
+        DirectChannel inputChannel = ac.getBean("receiveChannel", DirectChannel.class);
+        inputChannel.subscribe(new MessageHandler() {
+            @Override
+            public void handleMessage(Message<?> message) throws MessagingException {
+                try {
 
-	public static void main (String[] args) throws Exception {
-		@SuppressWarnings("resource")
-		ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(
-				"/gmail-imap-idle-config.xml");
+                    MimeMessageParser parsed = new MimeMessageParser(((MimeMessage) message.getPayload())).parse();
 
-		ImapMailReceiver mailReceiver = new ImapMailReceiver("imaps://helpdesk.gdf:Tha0xi7k@imap.yandex.com:993/inbox");
-		mailReceiver.setShouldMarkMessagesAsRead(false);
-		mailReceiver.setShouldDeleteMessages(false);
-		mailReceiver.setSimpleContent(false);
-		mailReceiver.setHeaderMapper(new DefaultMailHeaderMapper());
-		mailReceiver.setUserFlag("user-flag-1");
-		ImapIdleChannelAdapter adapter = new ImapIdleChannelAdapter(mailReceiver);
-	adapter.setAutoStartup(true);
-		DirectChannel channel = new DirectChannel();
-		adapter.setOutputChannel(channel);
+                    parsed.getPlainContent();
+                    parsed.getHtmlContent();
 
+                    String text =  parsed.hasHtmlContent() ? parsed.getHtmlContent(): parsed.getPlainContent();
 
-		DirectChannel inputChannel = ac.getBean("receiveChannel", DirectChannel.class);
-		inputChannel.subscribe(new MessageHandler() {
-			@Override
-			public void handleMessage(Message<?> message) throws MessagingException {
-				try {
-					MimeEnt
-					(					(MimeMessage) message).writeTo();
+                    Date receivedDate = parsed.getMimeMessage().getReceivedDate();
 
-					new MimeMessageParser(((MimeMessage) message.getPayload())).parse().hasHtmlContent();
-					new MimeMessageParser(((MimeMessage) message.getPayload())).parse().getPlainContent();
-					new MimeMessageParser(((MimeMessage) message.getPayload())).parse().getHtmlContent();
-					new MimeMessageParser(((MimeMessage) message.getPayload())).parse().getAttachmentList()
-				}catch (Exception e){}
+                    sendMessage(parsed.getMimeMessage().getMessageID(), parsed.getFrom(), parsed.getTo().get(0).toString(), parsed.getSubject(), text, parsed.hasHtmlContent());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-				logger.info("Message: " + message);
-			}
-		});
-	}
+                logger.info("Message: " + message);
+            }
+        });
+    }
 
-	public void sendMessage(){
-		// of course you would use DI in any real-world cases
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		sender.setHost("mail.host.com");
+    public static void sendMessage(String messageID, String to, String from, String subject, String text, boolean htmlMessage,) {
 
-		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message);
-		helper.setTo("test@host.com");
-		helper.setText("Thank you for ordering!");
+        JavaMailSenderImpl sender = new JavaMailSenderImpl();
+        sender.setHost("smtp.yandex.com");
+        sender.setUsername("helpdesk.gdf");
+        sender.setPassword("Tha0xi7k");
+        sender.setPort(465);
+        final String username = "username@gmail.com";
+        final String password = "password";
 
-		sender.send(message);
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.yandex.com");
+        prop.put("mail.smtp.port", "465");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.socketFactory.port", "465");
+        prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        sender.setJavaMailProperties(prop);
 
-
-
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		sender.setHost("mail.host.com");
-
-		MimeMessage message = sender.createMimeMessage();
+        MimeMessage message = sender.createMimeMessage();
 
 // use the true flag to indicate you need a multipart message
-		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setTo("test@host.com");
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-		helper.setText("Check out this image!");
+        helper.setTo(to);
+        helper.setFrom(from);
+        helper.setText(text, htmlMessage);
+        helper.setSubject(subject);
+
+        message.setHeader("In-Reply-To", messageID);
+
+            sender.send(message);
+            message.getMessageID();
+
+        } catch (javax.mail.MessagingException e) {
+            e.printStackTrace();
+        }
 
 // let's attach the infamous windows Sample file (this time copied to c:/)
-		FileSystemResource file = new FileSystemResource(new File("c:/Sample.jpg"));
-		helper.addAttachment("CoolImage.jpg", file);
-
-		sender.send(message);
+        // FileSystemResource file = new FileSystemResource(new File("c:/Sample.jpg"));
+        // helper.addAttachment("CoolImage.jpg", file);
 
 
-		
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		sender.setHost("mail.host.com");
+//todo: store message;
 
-		MimeMessage message = sender.createMimeMessage();
-
-// use the true flag to indicate you need a multipart message
-		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setTo("test@host.com");
-
-// use the true flag to indicate the text included is HTML
-		helper.setText("<html><body><img src='cid:identifier1234'></body></html>", true);
-
-// let's include the infamous windows Sample file (this time copied to c:/)
-		FileSystemResource res = new FileSystemResource(new File("c:/Sample.jpg"));
-		helper.addInline("identifier1234", res);
-
-		sender.send(message);
-
-
-
-
-	}
+    }
 }
