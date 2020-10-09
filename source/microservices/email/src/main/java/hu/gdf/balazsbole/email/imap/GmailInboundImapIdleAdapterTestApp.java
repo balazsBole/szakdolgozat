@@ -77,12 +77,17 @@ public class GmailInboundImapIdleAdapterTestApp {
 
                     Date receivedDate = parsed.getMimeMessage().getReceivedDate();
                     logger.info("receivedDate: " + receivedDate);
-
+                    logger.info("text" + text);
+                    logger.info("message id: " + parsed.getMimeMessage().getMessageID());
                     String[] header = parsed.getMimeMessage().getHeader("In-Reply-To");
                     String inreplyto = header == null ? "empty": header[0];
                     logger.info("in reply to: " + inreplyto);
 
-                    sendMessage(parsed.getMimeMessage().getMessageID(), parsed.getFrom(), parsed.getTo().get(0).toString(), parsed.getSubject(), text, parsed.hasHtmlContent());
+                    logger.info("from " + parsed.getFrom());
+                    logger.info("subject " + parsed.getSubject());
+                    logger.info("________________________________");
+
+              //      sendMessage(parsed.getMimeMessage().getMessageID(), parsed.getFrom(), parsed.getTo().get(0).toString(), parsed.getSubject(), text, parsed.hasHtmlContent());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

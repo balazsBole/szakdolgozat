@@ -1,0 +1,421 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-UUID_generator
+      author: Balazs
+      dbms: postgresql
+      changes:
+        - sql:
+            sql: CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+  - changeSet:
+      id: 1602252209665-1
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: content_pk
+                  defaultValueComputed: uuid_generate_v4()
+                  name: id
+                  type: UUID
+              - column:
+                  name: body
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+                  name: html
+                  type: BOOLEAN
+            tableName: content
+  - changeSet:
+      id: 1602252209665-2
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: header_pk
+                  defaultValueComputed: uuid_generate_v4()
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: message_id
+                  type: TEXT
+              - column:
+                  name: in_reply_to
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: from
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: to
+                  type: TEXT
+              - column:
+                  name: subject
+                  type: TEXT
+            tableName: header
+  - changeSet:
+      id: 1602252209665-3
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: attachment_pk
+                  defaultValueComputed: uuid_generate_v4()
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: content_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: data
+                  type: BYTEA
+              - column:
+                  constraints:
+                    nullable: false
+                  name: content_type
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: filename
+                  type: TEXT
+            tableName: attachment
+  - changeSet:
+      id: 1602252209665-4
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: direction_pk
+                  defaultValueComputed: uuid_generate_v4()
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: direction
+                  type: TEXT
+            tableName: direction
+  - changeSet:
+      id: 1602252209665-5
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: status_pk
+                  defaultValueComputed: uuid_generate_v4()
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: status
+                  type: TEXT
+            tableName: status
+  - changeSet:
+      id: 1602252209665-6
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: thread_pk
+                  defaultValueComputed: uuid_generate_v4()
+                  name: id
+                  type: UUID
+              - column:
+                  name: user_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: status_id
+                  type: UUID
+            tableName: thread
+  - changeSet:
+      id: 1602252209665-7
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: user_pk
+                  defaultValueComputed: uuid_generate_v4()
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: username
+                  type: TEXT
+            tableName: users
+  - changeSet:
+      id: 1602252209665-8
+      author: Balazs (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: email_pk
+                  name: id
+                  type: UUID
+              - column:
+                  name: parent_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: thread_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: direction_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: header_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: content_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+                  name: read
+                  type: BOOLEAN
+              - column:
+                  constraints:
+                    nullable: false
+                  name: processed
+                  type: date
+            tableName: email
+  - changeSet:
+      id: 1602252209665-9
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: content_id
+            baseTableName: email
+            constraintName: email_content_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: content
+            validate: true
+  - changeSet:
+      id: 1602252209665-10
+      author: Balazs (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: message_id
+            indexName: header_message_id_uindex
+            tableName: header
+            unique: true
+  - changeSet:
+      id: 1602252209665-11
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: content_id
+            baseTableName: attachment
+            constraintName: attachment_content_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: content
+            validate: true
+  - changeSet:
+      id: 1602252209665-12
+      author: Balazs (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: direction
+            indexName: direction_direction_uindex
+            tableName: direction
+            unique: true
+  - changeSet:
+      id: 1602252209665-13
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: direction_id
+            baseTableName: email
+            constraintName: email_direction_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: direction
+            validate: true
+  - changeSet:
+      id: 1602252209665-14
+      author: Balazs (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: status
+            indexName: status_status_uindex
+            tableName: status
+            unique: true
+  - changeSet:
+      id: 1602252209665-15
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: status_id
+            baseTableName: thread
+            constraintName: thread_status_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: status
+            validate: true
+  - changeSet:
+      id: 1602252209665-16
+      author: Balazs (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: username
+            indexName: users_username_uindex
+            tableName: users
+            unique: true
+  - changeSet:
+      id: 1602252209665-17
+      author: Balazs (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: header_id
+            indexName: email_header_id_uindex
+            tableName: email
+            unique: true
+  - changeSet:
+      id: 1602252209665-18
+      author: Balazs (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: parent_id
+            indexName: email_parent_id_uindex
+            tableName: email
+            unique: true
+  - changeSet:
+      id: 1602252209665-19
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: parent_id
+            baseTableName: email
+            constraintName: email_email_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: email
+            validate: true
+  - changeSet:
+      id: 1602252209665-20
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: header_id
+            baseTableName: email
+            constraintName: email_header_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: header
+            validate: true
+  - changeSet:
+      id: 1602252209665-21
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: thread_id
+            baseTableName: email
+            constraintName: email_thread_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: thread
+            validate: true
+  - changeSet:
+      id: 1602252209665-22
+      author: Balazs (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: thread
+            constraintName: thread_users_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: users
+            validate: true
+

@@ -1,0 +1,14 @@
+#
+# Database changelog
+#
+# NOTE: Be careful with indentation!
+# Dash with 2 spaces, property with 4 spaces.
+#
+
+databaseChangeLog:
+  - include:
+      file: changeset/00001_initial_table_generator.yml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/00002_initial_sql.yml
+      relativeToChangelogFile: true

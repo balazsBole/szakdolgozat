@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-grant_acces_to_helpdesk_app
+      author: Balazs
+      dbms: postgresql
+      # Creating grant for tables ON CS_KOLA FOR HELPDESK_APP
+      changes:
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON content TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON header TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON attachment TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON direction TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON status TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON thread TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON users TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON email TO HELPDESK_APP;
+  - changeSet:
+      id: 2-Add_default_values
+      author: Balazs
+      dbms: postgresql
+      # Creating grant for tables ON CS_KOLA FOR HELPDESK_APP
+      changes:
+        - sql:
+            sql: INSERT INTO status(status) values ('OPEN');
+        - sql:
+            sql: INSERT INTO status(status) values ('RESOLVED');
+        - sql:
+            sql: INSERT INTO status(status) values ('CLARIFICATION');
+        - sql:
+            sql: INSERT into DIRECTION(direction) VALUES ('IN');
+        - sql:
+            sql: INSERT into DIRECTION(direction) VALUES ('OUT');
