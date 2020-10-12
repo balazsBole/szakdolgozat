@@ -12,7 +12,7 @@ import java.io.OutputStream;
 @Data
 @ApiModel(description = "Full DTO for attachment")
 public class Attachment {
-    private ContentEntity contentEntity;
+    private Content content;
     private byte[] data;
     private String contentType;
     private String filename;

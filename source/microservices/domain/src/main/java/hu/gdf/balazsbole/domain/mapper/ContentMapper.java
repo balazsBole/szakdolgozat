@@ -1,23 +1,33 @@
 package hu.gdf.balazsbole.domain.mapper;
 
 import hu.gdf.balazsbole.domain.dto.Content;
-import org.apache.commons.mail.util.MimeMessageParser;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import hu.gdf.balazsbole.domain.entity.ContentEntity;
+import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
+import org.mapstruct.*;
 
-import javax.mail.MessagingException;
-
-@Mapper(componentModel = "spring", uses = {AtachmentMapper.class})
+@Mapper(componentModel = "spring")
 public interface ContentMapper {
 
-    @Mapping(source = "attachmentList", target = "attachments")
-    @Mapping(source = "htmlContent", target = "html")
-    Content mapReceived(MimeMessageParser parser) throws MessagingException;
+    @Mapping(source = "attachmentEntities", target = "attachments")
+    Content map(ContentEntity entity);
 
-    default void afterMapping(@MappingTarget Content content, MimeMessageParser parser) {
-        String emailtext = content.isHtml() ? parser.getHtmlContent() : parser.getPlainContent();
-        content.setBody(emailtext);
+    @InheritInverseConfiguration
+    ContentEntity map(Content content);
+
+    Content map(EmailProtocolValue emailProtocolValue);
+
+    @AfterMapping
+    default void afterMapping(@MappingTarget Content content) {
+        content.getAttachments().forEach(attachment -> attachment.setContent(content));
+    }
+
+    @AfterMapping
+    default void afterMapping(@MappingTarget ContentEntity contentEntity) {
+        contentEntity.getAttachmentEntities().forEach(attachment -> attachment.setContentEntity(contentEntity));
+    }
+
+    default byte[] bytebufferToBytearray(java.nio.ByteBuffer byteBuffer) {
+        return byteBuffer.array();
     }
 
 }

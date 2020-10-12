@@ -50,6 +50,12 @@
             <artifactId>commons-email</artifactId>
             <version>1.5</version>
         </dependency>
+        <dependency>
+            <groupId>cs.gdf.balazsbole.domain</groupId>
+            <artifactId>helpdesk-domain</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

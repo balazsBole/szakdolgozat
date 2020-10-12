@@ -1,0 +1,33 @@
+/**
+
+* Email representation for kafka
+
+*/
+
+@namespace("hu.gdf.balazsbole.kafka.email")
+protocol EmailProtocol {
+
+  record EmailProtocolKey {
+    string messageId;
+  }
+
+  record EmailProtocolValue {
+    string messageId;
+    string inReplyTo;
+    string from;
+    string to;
+    string subject;
+    string body;
+    boolean html;
+    array <AttachmentProtocol> attachments;
+    @logicalType("local-timestamp-micros") long processed;
+
+  }
+
+  record AttachmentProtocol {
+    bytes data;
+    string contentType;
+    string filename;
+  }
+
+}

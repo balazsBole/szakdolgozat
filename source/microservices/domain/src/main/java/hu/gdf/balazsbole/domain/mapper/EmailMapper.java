@@ -2,27 +2,32 @@ package hu.gdf.balazsbole.domain.mapper;
 
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
-import org.apache.commons.mail.util.MimeMessageParser;
+import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import javax.mail.Address;
-import javax.mail.MessagingException;
-import java.util.List;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
-@Mapper(componentModel = "spring", uses = {HeaderMapper.class, ContentMapper.class})
+@Mapper(componentModel = "spring", uses = ContentMapper.class)
 public interface EmailMapper {
 
     Email map(EmailEntity entity);
 
     EmailEntity map(Email entity);
 
-    @Mapping(constant = "false", target = "read")
-    @Mapping(constant = "IN", target = "direction")
-    @Mapping(source = "mimeMessage.receivedDate", target = "processed")
-    @Mapping(source = "parser", target = "content")
-    @Mapping(source = "parser", target = "header")
-    Email mapReceived(MimeMessageParser parser) throws MessagingException;
+    @Mapping(source = "messageId", target = "header.messageId")
+    @Mapping(source = "inReplyTo", target = "header.inReplyTo")
+    @Mapping(source = "from", target = "header.from")
+    @Mapping(source = "to", target = "header.to")
+    @Mapping(source = "subject", target = "header.subject")
+    @Mapping(source = "emailProtocolValue", target = "content")
+    Email map(EmailProtocolValue emailProtocolValue);
+
+    default LocalDateTime createLocalDateTimeFromEpoch(long value) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(value), ZoneId.systemDefault());
+    }
 
 
 }
