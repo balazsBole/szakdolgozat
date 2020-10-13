@@ -1,6 +1,5 @@
 package hu.gdf.balazsbole.domain.mapper;
 
-import hu.gdf.balazsbole.domain.dto.Attachment;
 import hu.gdf.balazsbole.kafka.email.AttachmentProtocol;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

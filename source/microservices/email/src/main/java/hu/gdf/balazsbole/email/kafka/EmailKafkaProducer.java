@@ -1,9 +1,6 @@
 package hu.gdf.balazsbole.email.kafka;
 
-import hu.gdf.balazsbole.domain.dto.Email;
-import hu.gdf.balazsbole.domain.mapper.EmailMapper;
 import hu.gdf.balazsbole.domain.mapper.EmailProtocolMapper;
-import hu.gdf.balazsbole.kafka.email.EmailProtocol;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import lombok.extern.slf4j.Slf4j;
@@ -16,25 +13,19 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class EmailKafkaProducer {
 
-    @Value("${spring.kafka.topic.emailIn}")
+    private final KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate;
+
+    @Value("${spring.kafka.topic.emailOut}")
     private String topicName;
 
-    private final KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate;
-    private final EmailProtocolMapper mapper;
 
-
-    public EmailKafkaProducer(KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate, EmailProtocolMapper mapper) {
+    public EmailKafkaProducer(KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
-        this.mapper = mapper;
     }
 
 
-    public void sendMessage(MimeMessageParser parser) {
-        try {
-            kafkaTemplate.send(topicName, mapper.mapKey(parser), mapper.mapValue(parser));
-        } catch (Exception e) {
-            log.error("Error, Message parsing! {}", parser);
-        }
+    public void sendMessage(EmailProtocolKey key, EmailProtocolValue value) {
+        kafkaTemplate.send(topicName, key, value);
     }
 
 

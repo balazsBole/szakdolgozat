@@ -3,39 +3,65 @@ package hu.gdf.balazsbole.domain.mapper;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import org.apache.commons.mail.util.MimeMessageParser;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 import javax.mail.Address;
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {AttachmentProtocolMapper.class})
 public interface EmailProtocolMapper {
 
+    @Named("generated")
     @Mapping(source = "mimeMessage.messageID", target = "messageId")
     @Mapping(source = "mimeMessage.receivedDate", target = "processed")
-    @Mapping(source = "htmlContent", target = "html")
+    @Mapping(source = "parser", target = "html", qualifiedByName = "isHtml")
+    @Mapping(source = "mimeMessage", target = "inReplyTo", qualifiedByName = "inReplyTo")
+    @Mapping(source = "parser", target = "body", qualifiedByName = "bodyParser")
     @Mapping(source = "attachmentList", target = "attachments")
-    EmailProtocolValue mapValue(MimeMessageParser parser) throws Exception;
+    EmailProtocolValue mapValueGenerated(MimeMessageParser parser) throws Exception;
 
+    @Named("generated")
     @Mapping(source = "mimeMessage.messageID", target = "messageId")
-    EmailProtocolKey mapKey(MimeMessageParser parser) throws Exception;
+    EmailProtocolKey mapKeyGenerated(MimeMessageParser parser) throws Exception;
 
-    @AfterMapping
-    default void afterMapping(@MappingTarget EmailProtocolValue emailProtocolValue, MimeMessageParser parser) throws MessagingException {
-        String emailtext = emailProtocolValue.getHtml() ? parser.getHtmlContent() : parser.getPlainContent();
-        emailProtocolValue.setBody(emailtext);
 
-        String[] header = parser.getMimeMessage().getHeader("In-Reply-To");
-        String replyTo = header == null ? null : header[0];
-        emailProtocolValue.setInReplyTo(replyTo);
+    default EmailProtocolValue mapValue(MimeMessage message) {
+        try {
+            return mapValueGenerated(new MimeMessageParser(message).parse());
+        } catch (Exception e) {
+            throw new MappingException(e);
+        }
     }
 
+    default EmailProtocolKey mapKey(MimeMessage message) {
+        try {
+            return mapKeyGenerated(new MimeMessageParser(message).parse());
+        } catch (Exception e) {
+            throw new MappingException(e);
+        }
+    }
 
-    default String getFirstAdressAsString(List<Address> value) {
+    @Named("bodyParser")
+    default String parseBody(MimeMessageParser parser) {
+        return parser.hasHtmlContent() ? parser.getHtmlContent() : parser.getPlainContent();
+    }
+
+    @Named("isHtml")
+    default Boolean isHtml(MimeMessageParser parser) {
+        return parser.hasHtmlContent();
+    }
+
+    @Named("inReplyTo")
+    default String mapInReplyTo(MimeMessage mimeMessage) throws MessagingException {
+        String[] header = mimeMessage.getHeader("In-Reply-To");
+        return header == null ? null : header[0];
+    }
+
+    default String getFirstAddressAsString(List<Address> value) {
         return value.isEmpty() ? null : value.get(0).toString();
     }
 

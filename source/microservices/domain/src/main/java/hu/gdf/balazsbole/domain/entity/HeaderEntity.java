@@ -23,8 +23,7 @@ public class HeaderEntity  extends AbstractEntity implements Serializable {
     @Column(name = "message_id", nullable = false)
     private String messageId;
 
-    @NotNull
-    @Column(name = "in_reply_to", nullable = false)
+    @Column(name = "in_reply_to")
     private String inReplyTo;
 
     @NotNull

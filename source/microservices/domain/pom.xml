@@ -17,6 +17,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
             <!-- https://search.maven.org/artifact/org.mapstruct/mapstruct -->
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>

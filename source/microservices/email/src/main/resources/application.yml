@@ -1,3 +1,4 @@
+debug: false
 eureka:
   client:
     enabled: true
@@ -57,9 +58,8 @@ spring:
             enable: true
     imap:
       host: imap.yandex.com
-      security: SSL
       port: 993
-      userFlag: ckient1
+      userFlag: client18
 
   kafka:
     enable: true
@@ -69,30 +69,21 @@ spring:
       emailIn: "email.in.v1.pub"
       emailOut: "email.out.v1.pub"
 
+    properties:
+      schema.registry.url: "http://localhost:8081"
+      specific.avro.reader: true
 
     consumer:
       group-id: "email-client-0001"
-      key-deserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
-      value-deserializer: "io.confluent.kafka.serializers.KafkaAvroDeserializer"
+      key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       enable-auto-commit: true
-      auto-offset-reset: true
+      auto-offset-reset: earliest
       properties:
         max-poll-ms-intervall: 1000
 
     producer:
-      key-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
-      value-serializer: "io.confluent.kafka.serializers.KafkaAvroSerializer"
+      key-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
 
 
-
-    kafka:
-      #build: .
-      image: wurstmeister/kafka
-      ports:
-        - 9092:9092
-      environment:
-        KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
-        KAFKA_CREATE_TOPICS: "email.in.v1.pub:2:3,email.out.v1.pub:2:3"
-        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock

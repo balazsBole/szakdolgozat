@@ -27,7 +27,7 @@ public class OutgoingEmailObserver {
         log.info("New kafka message received. Partition: {}, Offset: {}, TS: {}",
                 record.partition(), record.offset(), record.timestamp());
 
-        final var value = record.value();
+        EmailProtocolValue value = record.value();
         if (null == value) {
             log.error("Error, Empty message! Partition: {}, Offset: {}, TS: {}", record.partition(), record.offset(), record.timestamp());
             return;
@@ -36,7 +36,7 @@ public class OutgoingEmailObserver {
         try {
             final var email = mapper.map(value);
 
-            service.createEmailWithParent(email);
+           service.createEmailWithParent(email);
         //todo: send email instead of store
 
         } catch (final Throwable e) {

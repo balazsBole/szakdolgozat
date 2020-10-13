@@ -13,13 +13,13 @@ protocol EmailProtocol {
 
   record EmailProtocolValue {
     string messageId;
-    string inReplyTo;
+    union {null, string} inReplyTo;
     string from;
     string to;
     string subject;
     string body;
     boolean html;
-    array <AttachmentProtocol> attachments;
+    union {null, array <AttachmentProtocol>} attachments;
     @logicalType("local-timestamp-micros") long processed;
 
   }
