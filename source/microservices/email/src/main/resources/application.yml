@@ -59,6 +59,7 @@ spring:
       host: imap.yandex.com
       security: SSL
       port: 993
+      userFlag: ckient1
 
   kafka:
     enable: true

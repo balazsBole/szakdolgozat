@@ -1,5 +1,6 @@
 package hu.gdf.balazsbole.domain.mapper;
 
+import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import org.apache.commons.mail.util.MimeMessageParser;
 import org.mapstruct.AfterMapping;
@@ -18,7 +19,10 @@ public interface EmailProtocolMapper {
     @Mapping(source = "mimeMessage.receivedDate", target = "processed")
     @Mapping(source = "htmlContent", target = "html")
     @Mapping(source = "attachmentList", target = "attachments")
-    EmailProtocolValue mapReceived(MimeMessageParser parser) throws Exception;
+    EmailProtocolValue mapValue(MimeMessageParser parser) throws Exception;
+
+    @Mapping(source = "mimeMessage.messageID", target = "messageId")
+    EmailProtocolKey mapKey(MimeMessageParser parser) throws Exception;
 
     @AfterMapping
     default void afterMapping(@MappingTarget EmailProtocolValue emailProtocolValue, MimeMessageParser parser) throws MessagingException {
