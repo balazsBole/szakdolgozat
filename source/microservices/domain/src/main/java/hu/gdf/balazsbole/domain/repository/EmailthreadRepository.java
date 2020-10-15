@@ -1,10 +1,10 @@
 package hu.gdf.balazsbole.domain.repository;
 
+import hu.gdf.balazsbole.domain.dto.Emailthread;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
+import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -12,12 +12,10 @@ import java.util.UUID;
 
 
 /**
- * Spring Data  repository for the {@link EmailEntity}.
+ * Spring Data  repository for the {@link EmailthreadRepository}.
  */
 @Repository
-public interface EmailRepository extends JpaRepository<EmailEntity, UUID> {
+public interface EmailthreadRepository extends JpaRepository<EmailthreadEntity, UUID> {
 
-    @Transactional(readOnly = true)
-    Optional<EmailEntity> findByHeader_MessageId(String messageID);
 
 }

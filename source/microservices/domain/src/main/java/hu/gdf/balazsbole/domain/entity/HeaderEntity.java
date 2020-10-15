@@ -27,11 +27,11 @@ public class HeaderEntity  extends AbstractEntity implements Serializable {
     private String inReplyTo;
 
     @NotNull
-    @Column(name = "from", nullable = false)
+    @Column(name = "from_", nullable = false)
     private String  from;
 
     @NotNull
-    @Column(name = "to", nullable = false)
+    @Column(name = "to_", nullable = false)
     private String  to;
 
     @NotNull

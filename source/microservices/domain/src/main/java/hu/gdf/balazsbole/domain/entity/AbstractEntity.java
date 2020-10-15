@@ -30,10 +30,7 @@ public class AbstractEntity implements Serializable {
 
   private static final long serialVersionUID = -1460211229605324421L;
 
-  public static final String UUID_TYPE = "uuid-binary";
-
   @Id
-  @Type(type = UUID_TYPE)
   @Column(name = "id", nullable = false, unique = true, updatable = false)
   @Nonnull
   private UUID id;

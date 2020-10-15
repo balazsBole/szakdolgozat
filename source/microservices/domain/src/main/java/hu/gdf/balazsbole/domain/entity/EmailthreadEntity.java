@@ -4,6 +4,9 @@ import hu.gdf.balazsbole.domain.enumeration.Status;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,17 +23,16 @@ public class EmailthreadEntity  extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 744405217690804672L;
 
-    @ManyToOne
-    @NotNull
-    @Column(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional= true)
     private UserEntity user;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status_id", nullable = false)
+    @Column(name = "status", nullable = false)
     private Status status;
 
-    @OneToMany(mappedBy = "email", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "emailthread", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<EmailEntity> emails = new ArrayList<>();
 
 }

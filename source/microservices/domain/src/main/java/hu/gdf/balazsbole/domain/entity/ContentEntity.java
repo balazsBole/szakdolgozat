@@ -29,6 +29,6 @@ public class ContentEntity extends AbstractEntity implements Serializable {
     private boolean html;
 
     @OneToMany(mappedBy = "content", cascade = CascadeType.PERSIST, orphanRemoval = false, fetch = FetchType.LAZY)
-    private List<AttachmentEntity> attachmentEntities = new ArrayList<>();
+    private List<AttachmentEntity> attachments = new ArrayList<>();
 
 }

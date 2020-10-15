@@ -21,9 +21,10 @@ public class AttachmentEntity extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 5072970713595961865L;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "content_id")
-    private ContentEntity contentEntity;
+    @NotNull
+    @JoinColumn(name = "content_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional= false)
+    private ContentEntity content;
 
     @NotNull
     @Column(name = "data", nullable = false)

@@ -3,6 +3,7 @@ package hu.gdf.balazsbole.domain.service.impl;
 
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
+import hu.gdf.balazsbole.domain.enumeration.Direction;
 import hu.gdf.balazsbole.domain.mapper.EmailMapper;
 import hu.gdf.balazsbole.domain.repository.EmailRepository;
 import hu.gdf.balazsbole.domain.service.EmailService;
@@ -39,16 +40,12 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Transactional
-    public void createEmailWithParent(Email email){
+    public void createEmailWithParent(Email email) {
         EmailEntity entity = mapper.map(email);
-
-        entity.setRead(true);
-        var optionalParent = findParent(entity);
-        if(optionalParent.isPresent()) {
-            EmailEntity parent = optionalParent.get();
-            entity.setEmailthread(parent.getEmailthread());
-            entity.setParent(parent);
-        }
+        EmailEntity parent = findParent(entity).get();
+        entity.setEmailthread(parent.getEmailthread());
+        entity.setDirection(Direction.IN);
+        entity.setParent(parent);
         repository.saveAndFlush(entity);
     }
 
@@ -56,6 +53,14 @@ public class EmailServiceImpl implements EmailService {
         String parentMessageID = entity.getHeader().getInReplyTo();
         Optional<EmailEntity> parent = repository.findByHeader_MessageId(parentMessageID);
         return parent;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean hasParent(Email email) {
+        if (email.getParent() != null)
+            return true;
+        return findParent(mapper.map(email)).isPresent();
     }
 
 

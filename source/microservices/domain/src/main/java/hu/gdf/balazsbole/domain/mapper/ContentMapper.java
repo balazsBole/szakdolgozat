@@ -8,7 +8,6 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ContentMapper {
 
-    @Mapping(source = "attachmentEntities", target = "attachments")
     Content map(ContentEntity entity);
 
     @InheritInverseConfiguration
@@ -17,13 +16,9 @@ public interface ContentMapper {
     Content map(EmailProtocolValue emailProtocolValue);
 
     @AfterMapping
-    default void afterMapping(@MappingTarget Content content) {
-        content.getAttachments().forEach(attachment -> attachment.setContent(content));
-    }
-
-    @AfterMapping
-    default void afterMapping(@MappingTarget ContentEntity contentEntity) {
-        contentEntity.getAttachmentEntities().forEach(attachment -> attachment.setContentEntity(contentEntity));
+    default ContentEntity  afterMapping(@MappingTarget ContentEntity contentEntity) {
+        contentEntity.getAttachments().forEach(attachment -> attachment.setContent(contentEntity));
+        return contentEntity;
     }
 
     default byte[] bytebufferToBytearray(java.nio.ByteBuffer byteBuffer) {

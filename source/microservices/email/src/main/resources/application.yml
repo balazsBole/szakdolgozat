@@ -1,4 +1,4 @@
-debug: false
+debug: true
 eureka:
   client:
     enabled: true
@@ -74,7 +74,7 @@ spring:
       specific.avro.reader: true
 
     consumer:
-      group-id: "email-client-0001"
+      group-id: "email-client-0010"
       key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       enable-auto-commit: true
@@ -86,4 +86,13 @@ spring:
       key-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
 
+logging:
+  file:
+    clean-history-on-start: true
+
+  level:
+    org.springfamework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+    com.zaxxer.hikari: DEBUG
 

@@ -23,7 +23,7 @@ public class UserEntity extends AbstractEntity implements Serializable {
     @Column(name = "username", nullable = false)
     private String  username;
 
-    @OneToMany(mappedBy = "email", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<EmailEntity> emails = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<EmailthreadEntity> emailthreads = new ArrayList<>();
 
 }
