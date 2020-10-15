@@ -3,7 +3,10 @@ package hu.gdf.balazsbole.domain.mapper;
 import hu.gdf.balazsbole.domain.dto.Content;
 import hu.gdf.balazsbole.domain.entity.ContentEntity;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
-import org.mapstruct.*;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface ContentMapper {

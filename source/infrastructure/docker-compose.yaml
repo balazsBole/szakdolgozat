@@ -2,8 +2,11 @@ services:
     email-client:
       image: email-client
       environment:
-        EUREKA_CLIENT_ENABLED: "false"
-        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+        SPRING_MAIL_IMAP_USERFLAG: "client19"
+        SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
+        SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
+        SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://172.17.0.1:8081
       depends_on:
         - eureka
         - zookeeper
@@ -50,7 +53,7 @@ services:
     keycloak:
       image: quay.io/keycloak/keycloak:11.0.2
       ports:
-        - 8081:8080
+        - 8082:8080
       environment:
         KEYCLOAK_USER: admin
         KEYCLOAK_PASSWORD: admin

@@ -1,4 +1,4 @@
-package hu.gdf.balazsbole.domain.mapper;
+package hu.gdf.balazsbole.email.mapper;
 
 public class MappingException  extends RuntimeException{
     public MappingException(Exception e) {

@@ -8,43 +8,6 @@ eureka:
     appname: email-client
 
 spring:
-  datasource:
-    url: 'jdbc:postgresql://localhost:5432/helpdesk'
-    username: helpdesk_app
-    password: helpdesk
-    hikari:
-      schema: helpdesk
-      connectionTimeout: 30000
-      initialization-fail-timeout: 60000
-      maximumPoolSize: 10
-      auto-commit: false
-
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: none
-    open-in-view: false
-    properties:
-      hibernate:
-        order_inserts: true
-        order_updates: true
-        connection:
-          provider_disables_autocommit: true
-        cache:
-          use_second_level_cache: false
-        jdbc:
-          batch_size: 30
-          lob:
-            non_contextual_creation: true
-
-  liquibase:
-    contexts: prod
-    enabled: true
-    default-schema: public
-    user: helpdesk
-    password: helpdesk
-
   mail:
     host: smtp.yandex.com
     username: helpdesk.gdf
@@ -92,10 +55,3 @@ spring:
 logging:
   file:
     clean-history-on-start: true
-
-  level:
-    org.springfamework.web: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type: TRACE
-    com.zaxxer.hikari: DEBUG
-

@@ -3,7 +3,6 @@ package hu.gdf.balazsbole.domain.service.impl;
 
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.dto.Emailthread;
-import hu.gdf.balazsbole.domain.dto.User;
 import hu.gdf.balazsbole.domain.enumeration.Direction;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailthreadMapper;

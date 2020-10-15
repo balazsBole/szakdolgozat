@@ -2,7 +2,6 @@ package hu.gdf.balazsbole.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;

@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <!--  <module>helpdesk</module> -->
+        <module>backend</module>
         <module>domain</module>
         <module>email</module>
     </modules>
@@ -22,9 +22,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <spring-boot-admin.version>2.3.0</spring-boot-admin.version>
-        <version.jib-maven-plugin>2.6.0</version.jib-maven-plugin>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-        <jib.args>--spring.profiles.active=default</jib.args>
         <version.lombok>1.18.12</version.lombok>
     </properties>
 
@@ -110,41 +108,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
-            <plugin>
-                <!-- Migrated -->
-                <!-- https://search.maven.org/artifact/com.google.cloud.tools/jib-maven-plugin -->
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>${version.jib-maven-plugin}</version>
-                <configuration>
-                    <container>
-                        <mainClass>hu.gdf.balazsbole.email.EmailClientApplication</mainClass>
-                        <args>
-                            <arg>${jib.args}</arg>
-                        </args>
-                    </container>
-                    <from>
-                        <image>gcr.io/distroless/java:11-debug</image>
-                    </from>
-                    <to>
-                        <image>${project.artifactId}</image>
-                        <tags>
-                            <tag>${project.version}</tag>
-                            <tag>latest</tag>
-                        </tags>
-                    </to>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>dockerBuild</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <name>maven confluent repository</name>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
 
 </project>

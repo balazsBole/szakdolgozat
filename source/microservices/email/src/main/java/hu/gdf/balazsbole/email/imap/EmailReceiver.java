@@ -1,7 +1,7 @@
 package hu.gdf.balazsbole.email.imap;
 
-import hu.gdf.balazsbole.domain.mapper.MimeMessageMapper;
 import hu.gdf.balazsbole.email.kafka.EmailKafkaProducer;
+import hu.gdf.balazsbole.email.mapper.MimeMessageMapper;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import lombok.extern.slf4j.Slf4j;

@@ -1,9 +1,7 @@
 package hu.gdf.balazsbole.email.mapper;
 
-import hu.gdf.balazsbole.domain.mapper.MappingException;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.mail.util.MimeMessageParser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

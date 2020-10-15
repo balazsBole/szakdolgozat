@@ -1,13 +1,10 @@
 package hu.gdf.balazsbole.domain.dto;
 
-import com.sun.xml.bind.v2.util.ByteArrayOutputStreamEx;
-import hu.gdf.balazsbole.domain.entity.ContentEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 
 @Data
 @ApiModel(description = "Full DTO for attachment")

@@ -1,7 +1,7 @@
 package hu.gdf.balazsbole.email.smtp;
 
 
-import hu.gdf.balazsbole.domain.mapper.MimeMessageMapper;
+import hu.gdf.balazsbole.email.mapper.MimeMessageMapper;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;

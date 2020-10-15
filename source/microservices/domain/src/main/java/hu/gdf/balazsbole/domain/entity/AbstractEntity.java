@@ -1,19 +1,15 @@
 package hu.gdf.balazsbole.domain.entity;
 
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.Type;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Abstract entity to solve common things:

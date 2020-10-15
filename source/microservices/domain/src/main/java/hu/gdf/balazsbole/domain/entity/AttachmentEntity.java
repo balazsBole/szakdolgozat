@@ -1,15 +1,11 @@
 package hu.gdf.balazsbole.domain.entity;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.engine.jdbc.BinaryStream;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.io.Serializable;
 
 @Getter
