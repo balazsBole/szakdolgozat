@@ -1,4 +1,4 @@
-package hu.gdf.balazsbole.domain.service;
+package hu.gdf.balazsbole.backend.service;
 
 import hu.gdf.balazsbole.domain.dto.Email;
 import org.springframework.transaction.annotation.Transactional;

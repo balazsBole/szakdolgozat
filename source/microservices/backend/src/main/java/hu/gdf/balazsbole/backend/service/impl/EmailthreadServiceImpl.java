@@ -1,13 +1,12 @@
-package hu.gdf.balazsbole.domain.service.impl;
+package hu.gdf.balazsbole.backend.service.impl;
 
 
+import hu.gdf.balazsbole.backend.service.EmailthreadService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.dto.Emailthread;
-import hu.gdf.balazsbole.domain.enumeration.Direction;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailthreadMapper;
 import hu.gdf.balazsbole.domain.repository.EmailthreadRepository;
-import hu.gdf.balazsbole.domain.service.EmailthreadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,6 @@ public class EmailthreadServiceImpl implements EmailthreadService {
     @Override
     public void createEmailThreadFor(Email email) {
         Emailthread emailthread = new Emailthread();
-        email.setDirection(Direction.IN);
         emailthread.getEmails().add(email);
         emailthread.setStatus(Status.OPEN);
         repository.saveAndFlush(mapper.map(emailthread));
