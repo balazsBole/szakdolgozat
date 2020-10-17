@@ -8,7 +8,7 @@
         <version>0.0.1</version>
     </parent>
 
-    <groupId>cs.gdf.bolebalazs.email</groupId>
+    <groupId>hu.gdf.bolebalazs.email</groupId>
     <artifactId>email-client</artifactId>
 
     <dependencies>

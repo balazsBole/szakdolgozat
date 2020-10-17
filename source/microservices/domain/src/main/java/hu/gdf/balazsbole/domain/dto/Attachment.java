@@ -1,17 +1,31 @@
 package hu.gdf.balazsbole.domain.dto;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 @Data
 @ApiModel(description = "Full DTO for attachment")
 public class Attachment {
+
+    @ApiModelProperty(value = "The attachment is part of this email content.")
+    @NotNull
     private Content content;
+
+    @ApiModelProperty(value = "The binary bytearray of the data.")
+    @NotNull
     private byte[] data;
+
+    @ApiModelProperty(value = "The content type of the data.")
+    @NotNull
     private String contentType;
+
+    @ApiModelProperty(value = "The name of the data.")
+    @NotNull
     private String filename;
 
     public byte[] getData() {

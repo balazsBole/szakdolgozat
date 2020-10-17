@@ -9,10 +9,12 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.time.*;
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {ContentMapper.class})
 public interface EmailMapper {
 
+    @Mapping(target = "emailthread.emails", ignore = true)
     Email map(EmailEntity entity);
 
     EmailEntity map(Email entity);
@@ -43,5 +45,6 @@ public interface EmailMapper {
         return localDateTime.toInstant(offset).toEpochMilli();
     }
 
+    List<Email> mapList(List<EmailEntity> entity);
 
 }

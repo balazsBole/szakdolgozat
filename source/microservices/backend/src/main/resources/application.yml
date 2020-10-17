@@ -1,11 +1,17 @@
 debug: true
 eureka:
   client:
-    enabled: true
+    enabled: false
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
   instance:
     appname: helpdesk-backend
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 spring:
   datasource:
@@ -58,7 +64,7 @@ spring:
       specific.avro.reader: true
 
     consumer:
-      group-id: "helpdesk-backend-0001"
+      group-id: "helpdesk-backend-0002"
       key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       enable-auto-commit: true
