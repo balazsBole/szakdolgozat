@@ -49,6 +49,39 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <!-- Migrated -->
+                <!-- https://search.maven.org/artifact/com.github.kongchen/swagger-maven-plugin -->
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>true</springmvc>
+                            <locations>hu.gdf.balazsbole.*</locations>
+                            <schemes>
+                                <scheme>http</scheme>
+                            </schemes>
+                            <host>localhost:8080</host>
+                            <info>
+                                <title>${project.name}</title>
+                                <version>${project.version}</version>
+                            </info>
+                            <swaggerDirectory>${project.build.directory}/classes/public/swagger/v2</swaggerDirectory>
+                            <attachSwaggerArtifact>true</attachSwaggerArtifact>
+                            <outputFormats>json</outputFormats>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

@@ -1,6 +1,5 @@
 package hu.gdf.balazsbole.backend.web.rest;
 
-import hu.gdf.balazsbole.backend.rest.EmailthreadRestController;
 import hu.gdf.balazsbole.backend.service.EmailthreadService;
 import hu.gdf.balazsbole.domain.dto.Emailthread;
 import hu.gdf.balazsbole.domain.dto.User;

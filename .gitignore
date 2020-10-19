@@ -166,4 +166,7 @@ buildNumber.properties
 #Sonar generated dir
 /.sonar/
 
+### swagger codegen ###
+/source/microservices/frontend/src/app/api/
+
 # End of https://www.toptal.com/developers/gitignore/api/sonar,linux,git,jetbrains+all,java,maven
