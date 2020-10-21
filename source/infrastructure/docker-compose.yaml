@@ -1,110 +1,111 @@
+version: '3.7'
 services:
-    email-client:
-      image: email-client
-      environment:
-        SPRING_MAIL_IMAP_USERFLAG: "client19"
-        SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
-        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
-        SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
-        SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://172.17.0.1:8081
-      depends_on:
-        - eureka
-        - zookeeper
-        - kafka
+  email-client:
+    image: email-client
+    environment:
+      SPRING_MAIL_IMAP_USERFLAG: "client19"
+      SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
+      SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://172.17.0.1:8081
+    depends_on:
+      - eureka
+      - zookeeper
+      - kafka
 
-    eureka:
-      image: springcloud/eureka
-      ports:
-       - 8761:8761
+  eureka:
+    image: springcloud/eureka
+    ports:
+      - 8761:8761
 
-    db:
-      image: postgres
-      ports:
-        - 5432:5432
-      volumes:
-        - ./postgres:/docker-entrypoint-initdb.d
-      environment:
-        POSTGRES_PASSWORD: postgres
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: postgres
 
-    adminer:
-      image: adminer
-      ports:
-        - 15432:8080
-      environment:
-        ADMINER_DESIGN: hever
+  adminer:
+    image: adminer
+    ports:
+      - 15432:8080
+    environment:
+      ADMINER_DESIGN: hever
 
-    sonarqube:
-      # http://localhost:9000/
-      # default: admin/admin
-      image: sonarqube
-      ports:
-        - 9000:9000
-      volumes:
-        - ./sonarqube/sonarqube_data:/opt/sonarqube/data
-        - ./sonarqube/sonarqube_extensions:/opt/sonarqube/extensions
-        - ./sonarqube/sonarqube_logs:/opt/sonarqube/logs
-      environment:
-        SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
-        SONAR_JDBC_USERNAME: sonarqube
-        SONAR_JDBC_PASSWORD: sonarqube
-      depends_on:
-        - db
+  sonarqube:
+    # http://localhost:9000/
+    # default: admin/admin
+    image: sonarqube
+    ports:
+      - 9000:9000
+    volumes:
+      - ./sonarqube/sonarqube_data:/opt/sonarqube/data
+      - ./sonarqube/sonarqube_extensions:/opt/sonarqube/extensions
+      - ./sonarqube/sonarqube_logs:/opt/sonarqube/logs
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
+      SONAR_JDBC_USERNAME: sonarqube
+      SONAR_JDBC_PASSWORD: sonarqube
+    depends_on:
+      - db
 
-    keycloak:
-      image: quay.io/keycloak/keycloak:11.0.2
-      ports:
-        - 8082:8080
-      environment:
-        KEYCLOAK_USER: admin
-        KEYCLOAK_PASSWORD: admin
-
-
-    prometheus:
-      image: prom/prometheus:v2.1.0
-      volumes:
-        - ./prometheus/:/etc/prometheus/
-      command:
-        - '--config.file=/etc/prometheus/prometheus.yml'
-        - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-        - '--web.console.templates=/usr/share/prometheus/consoles'
-      ports:
-        - 9090:9090
+  keycloak:
+    image: quay.io/keycloak/keycloak:11.0.2
+    ports:
+      - 8082:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
 
 
-    zookeeper:
-      image: wurstmeister/zookeeper
-      ports:
-        - "2181:2181"
+  prometheus:
+    image: prom/prometheus:v2.1.0
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
 
-    kafka:
-      image: wurstmeister/kafka
-      ports:
-        - 9092:9092
-      environment:
-        KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
-        KAFKA_CREATE_TOPICS: "email.in.v1.pub:2:3,email.out.v1.pub:2:3"
-        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
 
-    clusterManager:
-      image: vimagick/cmak
-      ports:
-       - 9093:9000
-      environment:
-        ZK_HOSTS: zookeeper:2181
-      depends_on:
-        - kafka
-        - zookeeper
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
 
-    schema-registry:
-      image: confluentinc/cp-schema-registry
-      ports:
-        - 8081:8081
-      depends_on:
-        - zookeeper
-        - kafka
-      environment:
-        SCHEMA_REGISTRY_HOST_NAME: schema-registry
-        SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
-        SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka:9092
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
+      KAFKA_CREATE_TOPICS: "email.in.v1.pub:2:3,email.out.v1.pub:2:3"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  clusterManager:
+    image: vimagick/cmak
+    ports:
+      - 9093:9000
+    environment:
+      ZK_HOSTS: zookeeper:2181
+    depends_on:
+      - kafka
+      - zookeeper
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry
+    ports:
+      - 8081:8081
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka:9092

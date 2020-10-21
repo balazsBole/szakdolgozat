@@ -17,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = EmailthreadRestController.ROOT_PATH, produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
+@CrossOrigin
 public class EmailthreadRestController {
 
     public static final String ROOT_PATH = "/emailthread";

@@ -81,7 +81,7 @@ logging:
     clean-history-on-start: true
 
   level:
-    org.springfamework.web: DEBUG
+    org.springfamework.web: info
     org.hibernate.SQL: DEBUG
     org.hibernate.type: TRACE
     com.zaxxer.hikari: DEBUG

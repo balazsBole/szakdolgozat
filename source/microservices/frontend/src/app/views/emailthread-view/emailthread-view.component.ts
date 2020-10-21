@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {Observable} from "rxjs";
+import {Emailthread} from "../../api/models";
 
 @Component({
   selector: 'app-emailthread-view',
@@ -7,10 +10,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class EmailthreadViewComponent implements OnInit {
 
-  constructor() {
+  emailthreads$: Observable<Emailthread[]>;
+  numberOfElements$: Observable<number>;
+
+  constructor(private facade: EmailthreadFacade) {
   }
 
   ngOnInit(): void {
+    this.facade.unassigned({});
+    this.emailthreads$ = this.facade.emailthreads$;
+    this.numberOfElements$ = this.facade.numberOfElements$;
   }
 
 }
