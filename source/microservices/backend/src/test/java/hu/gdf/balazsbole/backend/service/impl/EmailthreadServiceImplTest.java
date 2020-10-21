@@ -61,7 +61,7 @@ class EmailthreadServiceImplTest implements RunsWithMappers {
         final var id = UUID.randomUUID();
         EmailthreadEntity emailthreadEntity = new EmailthreadEntity();
         emailthreadEntity.setStatus(Status.OPEN);
-        when(repository.findAllByStatusAndUser_Id(eq(Status.OPEN), eq(id))).thenReturn(Collections.singletonList(emailthreadEntity));
+        when(repository.findAllByStatusAndUser_KeycloakID(eq(Status.OPEN), eq(id))).thenReturn(Collections.singletonList(emailthreadEntity));
 
         List<Emailthread> result = service.findAllByStatusAndUser(id, Status.OPEN);
         assertEquals(1, result.size());

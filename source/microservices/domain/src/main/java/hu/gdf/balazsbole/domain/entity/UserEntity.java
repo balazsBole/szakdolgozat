@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -21,7 +22,12 @@ public class UserEntity extends AbstractEntity implements Serializable {
 
     @NotNull
     @Column(name = "username", nullable = false)
-    private String  username;
+    private String username;
+
+    @Column(name = "keycloak_id", nullable = false, unique = true, updatable = false)
+    @NotNull
+    private UUID keycloakID;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<EmailthreadEntity> emailthreads = new ArrayList<>();

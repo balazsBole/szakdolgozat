@@ -47,8 +47,8 @@ public class EmailthreadServiceImpl implements EmailthreadService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Emailthread> findAllByStatusAndUser(UUID userId, Status status) {
-        List<EmailthreadEntity> allByStatusAndUser = repository.findAllByStatusAndUser_Id(status, userId);
+    public List<Emailthread> findAllByStatusAndUser(UUID keycloakId, Status status) {
+        List<EmailthreadEntity> allByStatusAndUser = repository.findAllByStatusAndUser_KeycloakID(status, keycloakId);
         return mapper.mapList(allByStatusAndUser);
     }
 

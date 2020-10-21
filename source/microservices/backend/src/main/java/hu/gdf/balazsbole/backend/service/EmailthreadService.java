@@ -17,5 +17,5 @@ public interface EmailthreadService {
     List<Emailthread> getUnassignedEmailThreads();
 
     @Transactional(readOnly = true)
-    List<Emailthread> findAllByStatusAndUser(UUID userId, Status status);
+    List<Emailthread> findAllByStatusAndUser(UUID keycloakId, Status status);
 }

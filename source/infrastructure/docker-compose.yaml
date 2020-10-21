@@ -3,7 +3,8 @@ services:
   email-client:
     image: email-client
     environment:
-      SPRING_MAIL_IMAP_USERFLAG: "client19"
+      EUREKA_CLIENT_ENABLED: "false"
+      SPRING_MAIL_IMAP_USERFLAG: "client22"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092

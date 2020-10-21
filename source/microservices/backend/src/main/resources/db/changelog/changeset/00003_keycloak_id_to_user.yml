@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-drop_uniquness_of_username
+      author: Balazs
+      changes:
+        - dropIndex:
+            tableName: users
+            indexName: users_username_uindex
+  - changeSet:
+      id: 2-add_keycloak_id_to_users
+      author: Balazs
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: keycloak_id
+                  type: UUID
+  - changeSet:
+      id: 3-keycloak_id_is_unique
+      author: Balazs (generated)
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: keycloak_id
+            indexName: users_keycloak_id_uindex
+            tableName: users
+            unique: true

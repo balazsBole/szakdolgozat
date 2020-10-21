@@ -7,6 +7,7 @@ import hu.gdf.balazsbole.domain.enumeration.Status;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,19 +44,19 @@ public class EmailthreadRestController {
         return ResponseEntity.ok(threads);
     }
 
-    @GetMapping("/{userid}}")
+    @GetMapping("/my")
     @ApiOperation(nickname = "findAllByStatusAndUser", value = "Get the emailthreads of a user with a specific status.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return unassigned emailthreads."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
     public ResponseEntity<List<Emailthread>> findAllByStatusAndUser(
-            @ApiParam(value = "User identifier", required = true) @PathVariable("userid") final UUID userId,
-            @ApiParam(value = "Emailthread status") @RequestHeader(value = "status", defaultValue = "OPEN") final String status,
-            @ApiParam(value = "Pagination page", example = "1", allowableValues = "range[0, infinity]") @RequestParam(name = "page", defaultValue = "0") final int page,
-            @ApiParam(value = "Pagination size", example = "1", allowableValues = "range[1, infinity]") @RequestParam(name = "size", defaultValue = "1") final int size
+            @ApiParam(value = "Emailthread status") @RequestHeader(value = "status", defaultValue = "OPEN") final String status
     ) {
-        List<Emailthread> threads = service.findAllByStatusAndUser(userId, Status.valueOf(status));
+        String keycloakUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+
+        List<Emailthread> threads = service.findAllByStatusAndUser(UUID.fromString(keycloakUsername), Status.valueOf(status));
         return ResponseEntity.ok(threads);
     }
 

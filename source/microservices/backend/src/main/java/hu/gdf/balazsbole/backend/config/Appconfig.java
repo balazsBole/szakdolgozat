@@ -1,4 +1,4 @@
-package hu.gdf.balazsbole.backend;
+package hu.gdf.balazsbole.backend.config;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;

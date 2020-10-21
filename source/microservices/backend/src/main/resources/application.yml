@@ -7,6 +7,15 @@ eureka:
   instance:
     appname: helpdesk-backend
 
+
+keycloak:
+  auth-server-url: http://localhost:8082/auth/
+  resource: helpdesk-backend
+  realm: helpdesk
+  .public-client: false
+  credentials:
+    secret: a19c684e-3cd7-461d-8da9-78fd53136710
+
 management:
   endpoints:
     web:
@@ -51,6 +60,12 @@ spring:
     user: helpdesk
     password: helpdesk
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/auth/realms/helpdesk
+
   kafka:
     enable: true
     bootstrap-servers: "localhost:9092"
@@ -81,7 +96,7 @@ logging:
     clean-history-on-start: true
 
   level:
-    org.springfamework.web: info
+    org.springfamework.web: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type: TRACE
     com.zaxxer.hikari: DEBUG
