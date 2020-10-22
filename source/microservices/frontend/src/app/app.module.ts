@@ -20,15 +20,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
         realm: 'helpdesk',
         clientId: 'helpdesk-frontend',
       },
-      // initOptions: {
-      //   onLoad: 'login-required',
-      // },
       initOptions: {
         onLoad: 'check-sso',
         silentCheckSsoRedirectUri:
           window.location.origin + '/assets/silent-check-sso.html',
       },
-      // enableBearerInterceptor: true,
     });
 }
 

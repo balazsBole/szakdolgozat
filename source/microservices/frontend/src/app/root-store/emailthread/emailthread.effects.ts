@@ -1,24 +1,39 @@
 import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Action} from '@ngrx/store';
-import {Observable, of} from 'rxjs';
-import {catchError, map, switchMap} from 'rxjs/operators';
-import {searchUnassignedAction, searchUnassignedFailAction, searchUnassignedSuccessAction} from './emailthread.actions';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {of} from 'rxjs';
+import {catchError, map, mergeMap} from 'rxjs/operators';
+import {
+  searchAssignedToMeByStatusAction,
+  searchAssignedToMeFailAction,
+  searchAssignedToMeSuccessAction,
+  searchUnassignedAction,
+  searchUnassignedFailAction,
+  searchUnassignedSuccessAction
+} from './emailthread.actions';
 import {EmailthreadService} from "../../api/services";
 import {Emailthread} from "../../api/models/emailthread";
 
 @Injectable()
 export class EmailthreadEffects {
-  @Effect()
-  searchUnassigned$: Observable<Action> = this.actions$.pipe(
+
+  searchUnassigned$ = createEffect(() => this.actions$.pipe(
     ofType(searchUnassignedAction),
-    switchMap((action) => {
-      return this.service.unassigned(action.params).pipe(
-        map((searchResults: Array<Emailthread>) => searchUnassignedSuccessAction({searchResults}),
-          catchError((error) => of(searchUnassignedFailAction({error})))
-        )
-      );
-    })
+    mergeMap((action) => this.service.unassigned(action.params)
+      .pipe(
+        map((searchResults: Array<Emailthread>) => searchUnassignedSuccessAction({searchResults})),
+        catchError((error) => of(searchUnassignedFailAction({error})))
+      ))
+    )
+  );
+
+  searchAssignedToMeByStatus$ = createEffect(() => this.actions$.pipe(
+    ofType(searchAssignedToMeByStatusAction),
+    mergeMap((action) => this.service.assignedToMeByStatus(action.status)
+      .pipe(
+        map((searchResults: Array<Emailthread>) => searchAssignedToMeSuccessAction({searchResults})),
+        catchError((error) => of(searchAssignedToMeFailAction({error})))
+      ))
+    )
   );
 
   constructor(private readonly actions$: Actions, private readonly service: EmailthreadService) {

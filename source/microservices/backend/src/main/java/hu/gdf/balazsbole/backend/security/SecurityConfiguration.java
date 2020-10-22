@@ -37,10 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/actuator/info").permitAll()
                 .antMatchers("/actuator/prometheus").permitAll()
                 .antMatchers("/actuator/**").permitAll()
-//                .anyRequest().permitAll()
                 .anyRequest().authenticated()
-                .and().oauth2ResourceServer().jwt().decoder(JwtDecoders.fromOidcIssuerLocation(issuerUri))
-        ;
+                .and().oauth2ResourceServer().jwt().decoder(JwtDecoders.fromOidcIssuerLocation(issuerUri));
     }
 
 }

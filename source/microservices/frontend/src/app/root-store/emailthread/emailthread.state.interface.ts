@@ -3,8 +3,10 @@ import {Emailthread} from "../../api/models/emailthread";
 export const EMAILTHREAD_FEATURE_KEY = 'emailthread';
 
 export interface EmailthreadStoreState {
-  emailthreads?: Emailthread[];
-  totalCount?: number;
+  unassigned?: Emailthread[];
+  numberOfUnassigned?: number;
+  assignedToMe?: Emailthread[];
+  numberOfAssignedToMe?: number;
   error?: any;
   loading: boolean;
 }

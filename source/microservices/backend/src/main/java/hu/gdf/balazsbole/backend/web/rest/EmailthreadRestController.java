@@ -44,19 +44,18 @@ public class EmailthreadRestController {
         return ResponseEntity.ok(threads);
     }
 
-    @GetMapping("/my")
-    @ApiOperation(nickname = "findAllByStatusAndUser", value = "Get the emailthreads of a user with a specific status.")
+    @GetMapping("/assignedToMe")
+    @ApiOperation(nickname = "assignedToMeByStatus", value = "Get the emailthreads of the authenticated user with a specific status.")
     @ApiResponses({
-            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return unassigned emailthreads."),
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return found emailthreads."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
-    public ResponseEntity<List<Emailthread>> findAllByStatusAndUser(
+    public ResponseEntity<List<Emailthread>> findMinesByStatus(
             @ApiParam(value = "Emailthread status") @RequestHeader(value = "status", defaultValue = "OPEN") final String status
     ) {
         String keycloakUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
-
-        List<Emailthread> threads = service.findAllByStatusAndUser(UUID.fromString(keycloakUsername), Status.valueOf(status));
+        List<Emailthread> threads = service.findAllByStatusAndKeycloakUser(UUID.fromString(keycloakUsername), Status.valueOf(status));
         return ResponseEntity.ok(threads);
     }
 

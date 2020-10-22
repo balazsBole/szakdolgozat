@@ -6,10 +6,14 @@ export const selectEmailthreadStoreState: MemoizedSelector<object, EmailthreadSt
 
 export const getError = (state: EmailthreadStoreState): any => state.error;
 export const isLoading = (state: EmailthreadStoreState): boolean => state.loading;
-export const getEmailthreads = (state: EmailthreadStoreState): Emailthread[] => state.emailthreads;
-export const getTotalCount = (state: EmailthreadStoreState): number => state.totalCount;
+export const getUnassigned = (state: EmailthreadStoreState): Emailthread[] => state.unassigned;
+export const getTotalCount = (state: EmailthreadStoreState): number => state.numberOfUnassigned;
+export const getAssignedToMe = (state: EmailthreadStoreState): Emailthread[] => state.assignedToMe;
+export const getTotalCountOfAssigned = (state: EmailthreadStoreState): number => state.numberOfAssignedToMe;
 
-export const selectEmailthreadError: MemoizedSelector<object, any> = createSelector(selectEmailthreadStoreState, getError);
-export const selectEmailthreadIsLoading: MemoizedSelector<object, boolean> = createSelector(selectEmailthreadStoreState, isLoading);
-export const selectEmailthreads: MemoizedSelector<object, Emailthread[]> = createSelector(selectEmailthreadStoreState, getEmailthreads);
-export const selectEmailthreadsTotalCount: MemoizedSelector<object, number> = createSelector(selectEmailthreadStoreState, getTotalCount);
+export const selectError: MemoizedSelector<object, any> = createSelector(selectEmailthreadStoreState, getError);
+export const selectIsLoading: MemoizedSelector<object, boolean> = createSelector(selectEmailthreadStoreState, isLoading);
+export const selectUnassigned: MemoizedSelector<object, Emailthread[]> = createSelector(selectEmailthreadStoreState, getUnassigned);
+export const selectUnassignedTotalCount: MemoizedSelector<object, number> = createSelector(selectEmailthreadStoreState, getTotalCount);
+export const selectAssigned: MemoizedSelector<object, Emailthread[]> = createSelector(selectEmailthreadStoreState, getAssignedToMe);
+export const selectAssignedTotalCount: MemoizedSelector<object, number> = createSelector(selectEmailthreadStoreState, getTotalCountOfAssigned);
