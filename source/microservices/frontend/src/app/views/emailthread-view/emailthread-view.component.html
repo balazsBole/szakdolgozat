@@ -1,4 +1,14 @@
-<p>emailthread-view works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>Search</mat-label>
+  <mat-select (selectionChange)="assignedToMeWith($event.value)" [(value)]="selectedStatus">
+    <mat-option value="OPEN">OPEN</mat-option>
+    <mat-option value="RESOLVED">RESOLVED</mat-option>
+    <mat-option value="CLARIFICATION">CLARIFICATION</mat-option>
+  </mat-select>
+</mat-form-field>
 
-number of elements: {{numberOfUnassignedEmailthreads}}
-
+<ng-container *ngIf="assignedThreads">
+  <div *ngFor="let thread of assignedThreads" class="emailthread">
+    <emailthread [emailthread]="thread"></emailthread>
+  </div>
+</ng-container>

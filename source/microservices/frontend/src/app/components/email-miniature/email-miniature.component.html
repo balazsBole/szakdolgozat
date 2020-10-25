@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <div>
+      <mat-icon *ngIf="!email.read">fiber_new</mat-icon>
+      <mat-icon *ngIf="email.direction==='IN'">arrow_left</mat-icon>
+      <mat-icon *ngIf="email.direction==='OUT'">arrow_right</mat-icon>
+    </div>
+    <mat-card-title>From: {{email.header.from}}</mat-card-title>
+    <mat-card-subtitle>To: {{email.header.to}}</mat-card-subtitle>
+    <mat-card-subtitle>{{email.header.subject}}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>
+
+

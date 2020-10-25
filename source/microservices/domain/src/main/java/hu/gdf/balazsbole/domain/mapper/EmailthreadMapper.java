@@ -8,7 +8,7 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = EmailMapper.class)
+@Mapper(componentModel = "spring", uses = {EmailMapper.class})
 public interface EmailthreadMapper {
 
     Emailthread map(EmailthreadEntity entity);
@@ -18,8 +18,6 @@ public interface EmailthreadMapper {
     @AfterMapping
     default EmailthreadEntity afterMapping(@MappingTarget EmailthreadEntity entity) {
         entity.getEmails().forEach(attachment -> attachment.setEmailthread(entity));
-        if (entity.getUser() != null)
-            entity.getUser().getEmailthreads().add(entity);
         return entity;
     }
 

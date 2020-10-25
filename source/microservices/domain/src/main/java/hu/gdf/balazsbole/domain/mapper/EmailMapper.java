@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 import java.time.*;
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {ContentMapper.class})
+@Mapper(componentModel = "spring", uses = {ContentMapper.class, EmailthreadMapper.class})
 public interface EmailMapper {
 
     @Mapping(target = "emailthread.emails", ignore = true)

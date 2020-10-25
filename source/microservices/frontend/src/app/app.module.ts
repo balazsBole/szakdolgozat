@@ -4,7 +4,7 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {EmailthreadsComponent} from './components/emailthreads/emailthreads.component';
+import {EmailthreadComponent} from './components/emailthread/emailthread.component';
 import {EmailthreadViewComponent} from './views/emailthread-view/emailthread-view.component';
 import {HelpdeskBackendModule} from "./api/helpdesk-backend.module";
 import {RootStoreModule} from "./root-store/root-store.module";
@@ -18,6 +18,12 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {LoginComponent} from './components/login/login.component';
 import {LoggedOutViewComponent} from './views/logged-out-view/logged-out-view.component';
+import {EmailMiniatureComponent} from './components/email-miniature/email-miniature.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
+import {MatTreeModule} from "@angular/material/tree";
+import {MatSelectModule} from "@angular/material/select";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -39,10 +45,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
 @NgModule({
   declarations: [
     AppComponent,
-    EmailthreadsComponent,
+    EmailthreadComponent,
     EmailthreadViewComponent,
     LoginComponent,
-    LoggedOutViewComponent
+    LoggedOutViewComponent,
+    EmailMiniatureComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +65,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatListModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MatTreeModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   providers: [
     {

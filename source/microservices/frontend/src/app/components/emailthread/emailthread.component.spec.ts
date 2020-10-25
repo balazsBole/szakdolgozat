@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {EmailthreadsComponent} from './emailthreads.component';
+import {EmailthreadComponent} from './emailthread.component';
 
 describe('EmailthreadsComponent', () => {
-  let component: EmailthreadsComponent;
-  let fixture: ComponentFixture<EmailthreadsComponent>;
+  let component: EmailthreadComponent;
+  let fixture: ComponentFixture<EmailthreadComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EmailthreadsComponent]
+      declarations: [EmailthreadComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmailthreadsComponent);
+    fixture = TestBed.createComponent(EmailthreadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

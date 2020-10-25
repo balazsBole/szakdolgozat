@@ -4,6 +4,7 @@ import {Subject} from "rxjs";
 import {Emailthread} from "../../api/models";
 import {takeUntil} from "rxjs/operators";
 
+
 @Component({
   selector: 'app-emailthread-view',
   templateUrl: './emailthread-view.component.html',
@@ -11,20 +12,21 @@ import {takeUntil} from "rxjs/operators";
 })
 export class EmailthreadViewComponent implements OnInit, OnDestroy {
 
-  unassignedEmailthreads: Emailthread[];
-  numberOfUnassignedEmailthreads: number;
   private readonly ngUnsubscribe = new Subject();
+  assignedThreads: Emailthread[];
+  selectedStatus: string = "OPEN";
 
   constructor(private facade: EmailthreadFacade) {
   }
 
   ngOnInit(): void {
-    this.facade.unassigned({});
-    this.facade.emailthreads$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      (result: Emailthread[]) => this.unassignedEmailthreads = result);
-    this.facade.numberOfElements$
-      .pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      (result: number) => this.numberOfUnassignedEmailthreads = result);
+    this.assignedToMeWith(this.selectedStatus);
+    this.facade.assignedThreads.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+      (result: Emailthread[]) => this.assignedThreads = result);
+  }
+
+  assignedToMeWith(status: string): void {
+    this.facade.assignedToMeWith(status)
   }
 
   ngOnDestroy() {

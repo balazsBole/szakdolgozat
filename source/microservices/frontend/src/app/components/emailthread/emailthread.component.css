@@ -1,0 +1,12 @@
+ul, li {
+  list-style-type: none;
+}
+
+div.outer {
+  max-width: 400px;
+}
+
+mat-card {
+  background-color: ButtonHighlight;
+  margin: 2px;
+}
