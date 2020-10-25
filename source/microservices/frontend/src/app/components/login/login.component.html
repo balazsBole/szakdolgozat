@@ -1,0 +1,8 @@
+<ng-container *ngIf="loggedIn">
+  {{username}}
+  <a (click)="logout()" mat-button>Log out</a>
+</ng-container>
+
+<ng-container *ngIf="!loggedIn">
+  <a (click)="login()" mat-button>Log in</a>
+</ng-container>

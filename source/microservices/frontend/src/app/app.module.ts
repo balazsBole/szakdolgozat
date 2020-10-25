@@ -10,6 +10,14 @@ import {HelpdeskBackendModule} from "./api/helpdesk-backend.module";
 import {RootStoreModule} from "./root-store/root-store.module";
 import {MatDividerModule} from "@angular/material/divider";
 import {KeycloakAngularModule, KeycloakService} from "keycloak-angular";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from "@angular/material/button";
+import {MatListModule} from "@angular/material/list";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {LoginComponent} from './components/login/login.component';
+import {LoggedOutViewComponent} from './views/logged-out-view/logged-out-view.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -32,7 +40,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
   declarations: [
     AppComponent,
     EmailthreadsComponent,
-    EmailthreadViewComponent
+    EmailthreadViewComponent,
+    LoginComponent,
+    LoggedOutViewComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +51,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
     HelpdeskBackendModule,
     RootStoreModule,
     MatDividerModule,
+    MatCardModule,
     KeycloakAngularModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [
     {

@@ -3,6 +3,8 @@ import {NgModule} from '@angular/core';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {EmailthreadStoreModule} from "./emailthread/emailthread-store.module";
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {UserStoreModule} from "./user/user-store.module";
 
 @NgModule({
   imports: [
@@ -16,8 +18,10 @@ import {EmailthreadStoreModule} from "./emailthread/emailthread-store.module";
         }
       }
     ),
+    StoreDevtoolsModule.instrument({}),
     EffectsModule.forRoot([]),
-    EmailthreadStoreModule
+    EmailthreadStoreModule,
+    UserStoreModule
   ]
 })
 export class RootStoreModule {
