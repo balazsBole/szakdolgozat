@@ -12,6 +12,7 @@ import {
 } from './emailthread.actions';
 import {EmailthreadService} from "../../api/services";
 import {Emailthread} from "../../api/models/emailthread";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable()
 export class EmailthreadEffects {
@@ -21,7 +22,10 @@ export class EmailthreadEffects {
     mergeMap((action) => this.service.unassigned(action.params)
       .pipe(
         map((searchResults: Array<Emailthread>) => searchUnassignedSuccessAction({searchResults})),
-        catchError((error) => of(searchUnassignedFailAction({error})))
+        catchError((error) => {
+          this._snackBar.open(error.message, "", {duration: 2000});
+          return of(searchUnassignedFailAction({error}))
+        })
       ))
     )
   );
@@ -31,12 +35,15 @@ export class EmailthreadEffects {
     mergeMap((action) => this.service.assignedToMeByStatus(action.status)
       .pipe(
         map((searchResults: Array<Emailthread>) => searchAssignedToMeSuccessAction({searchResults})),
-        catchError((error) => of(searchAssignedToMeFailAction({error})))
+        catchError((error) => {
+          this._snackBar.open(error.message, "", {duration: 2000});
+          return of(searchAssignedToMeFailAction({error}));
+        })
       ))
     )
   );
 
-  constructor(private readonly actions$: Actions, private readonly service: EmailthreadService) {
+  constructor(private readonly actions$: Actions, private readonly service: EmailthreadService, private readonly _snackBar: MatSnackBar) {
   }
 
 }
