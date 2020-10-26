@@ -1,3 +1,16 @@
 .emailthread {
   padding: 1px;
 }
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.emails {
+  flex: 35%;
+}
+
+.emailTexts {
+  flex: 65%;
+}

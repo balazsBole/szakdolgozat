@@ -32,8 +32,8 @@ export class EmailthreadFacade {
     this.numberOfElements$ = this.store.select(selectUnassignedTotalCount);
     this.assignedThreads = this.store.select(selectAssigned);
     this.numberOfAssignedThreads$ = this.store.select(selectAssignedTotalCount);
-    this.error$ = this.store.select(selectIsLoading);
-    this.loading$ = this.store.select(selectError);
+    this.error$ = this.store.select(selectError);
+    this.loading$ = this.store.select(selectIsLoading);
   }
 
   unassigned(params: EmailthreadService.UnassignedParams) {

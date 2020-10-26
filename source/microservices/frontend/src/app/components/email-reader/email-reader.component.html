@@ -1,0 +1,9 @@
+<mat-card>
+  <mat-card-content>
+    <div *ngIf="email.content.html" [innerHTML]="email.content.body"></div>
+    <p *ngIf="!email.content.html">{{email.content.body}}</p>
+  </mat-card-content>
+</mat-card>
+
+
+

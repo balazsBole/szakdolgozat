@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [ngClass]="{'picked': picked}">
   <mat-card-header>
     <div>
       <mat-icon *ngIf="!email.read">fiber_new</mat-icon>

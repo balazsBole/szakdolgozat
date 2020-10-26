@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Emailthread} from "../../api/models/emailthread";
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
@@ -13,15 +13,27 @@ export class EmailthreadComponent implements OnInit {
   @Input() emailthread: Emailthread;
   @Input() showMiniatures: boolean = false;
 
+  @Output('emailPicked') pickEmitter = new EventEmitter<Email>();
+
   unread: number;
   allEmail: number;
   lastMail: Date;
   treeControl = new NestedTreeControl<EmailNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<EmailNode>();
   hasChild = (_: number, node: EmailNode) => !!node.children && node.children.length > 0;
+  private pickedEmail: Email;
 
 
   constructor() {
+  }
+
+  pickEmail(email: Email) {
+    if (this.pickedEmail === email) {
+      this.pickedEmail = null;
+    } else {
+      this.pickedEmail = email;
+    }
+    this.pickEmitter.emit(this.pickedEmail);
   }
 
   ngOnInit(): void {
@@ -35,6 +47,9 @@ export class EmailthreadComponent implements OnInit {
 
   toggle() {
     this.showMiniatures = !this.showMiniatures;
+    if (!this.showMiniatures) {
+      this.pickEmail(null);
+    }
   }
 
   private orderToEmailNodes(emails: Array<Email>) {

@@ -25,6 +25,12 @@ import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {MatTreeModule} from "@angular/material/tree";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {EmailHeaderComponent} from './components/email-header/email-header.component';
+import {EmailReaderComponent} from "./components/email-reader/email-reader.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -50,7 +56,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EmailthreadViewComponent,
     LoginComponent,
     LoggedOutViewComponent,
-    EmailMiniatureComponent
+    EmailMiniatureComponent,
+    EmailReaderComponent,
+    EmailHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -74,6 +82,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatOptionModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule
   ],
   providers: [
     {

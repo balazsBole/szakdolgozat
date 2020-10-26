@@ -9,6 +9,7 @@ import {Email} from "../../api/models/email";
 export class EmailMiniatureComponent implements OnInit {
 
   @Input() email: Email;
+  @Input() picked: boolean;
 
   constructor() {
   }
