@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-modify_processed_DataType
+      author: Balazs
+      changes:
+        - modifyDataType:
+            columnName: processed
+            newDataType: timestamp
+            tableName: email

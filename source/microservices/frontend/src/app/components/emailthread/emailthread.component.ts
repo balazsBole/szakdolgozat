@@ -42,7 +42,7 @@ export class EmailthreadComponent implements OnInit {
     this.unread = this.emailthread.emails.filter(email => !email.read).length;
     this.allEmail = this.emailthread.emails.length;
     this.allEmail = this.emailthread.emails.length;
-    this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort().reverse()[0];
+    this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort()[0];
   }
 
   toggle() {

@@ -15,3 +15,6 @@ databaseChangeLog:
   - include:
       file: changeset/00003_keycloak_id_to_user.yml
       relativeToChangelogFile: true
+  - include:
+      file: changeset/00004_change_processed_datatype.yml
+      relativeToChangelogFile: true
