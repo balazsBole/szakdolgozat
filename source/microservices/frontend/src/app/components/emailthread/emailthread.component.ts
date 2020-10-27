@@ -28,11 +28,7 @@ export class EmailthreadComponent implements OnInit {
   }
 
   pickEmail(email: Email) {
-    if (this.pickedEmail === email) {
-      this.pickedEmail = null;
-    } else {
-      this.pickedEmail = email;
-    }
+    this.pickedEmail = email;
     this.pickEmitter.emit(this.pickedEmail);
   }
 

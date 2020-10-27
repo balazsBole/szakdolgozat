@@ -15,6 +15,7 @@ export const _emailthreadReducer = createReducer(
 
   on(searchUnassignedAction, searchAssignedToMeByStatusAction, (state) => ({
     ...state,
+    error: null,
     loading: true
   })),
 
@@ -28,6 +29,7 @@ export const _emailthreadReducer = createReducer(
     ...state,
     unassigned: searchResults,
     numberOfUnassigned: searchResults.length,
+    error: null,
     loading: false
   })),
 
@@ -35,6 +37,7 @@ export const _emailthreadReducer = createReducer(
     ...state,
     assignedToMe: searchResults,
     numberOfAssignedToMe: searchResults.length,
+    error: null,
     loading: false
   })),
 );

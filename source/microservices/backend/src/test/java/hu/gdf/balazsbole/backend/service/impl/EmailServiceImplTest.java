@@ -18,9 +18,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -60,6 +60,18 @@ class EmailServiceImplTest implements RunsWithMappers {
     }
 
     @Test
+    void findById_should_return_result_from_service() {
+        final var id = UUID.randomUUID();
+
+        when(repository.findById(eq(id))).thenReturn(Optional.of(emailEntity));
+        Optional<Email> email = service.findById(id);
+        verify(repository).findById(id);
+
+        assertTrue(email.isPresent());
+        assertEquals(emailEntity.getHeader().getMessageId(), email.get().getHeader().getMessageId());
+    }
+
+    @Test
     void should_search_for_parent_with_messageId() {
         Optional<EmailEntity> parent = service.findParent(emailEntity);
         verify(repository).findByHeader_MessageId("test_parent_message_id");
@@ -89,14 +101,6 @@ class EmailServiceImplTest implements RunsWithMappers {
         verify(repository).saveAndFlush(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
     }
 
-    @Test
-    void should_set_parent_toEntity() {
-        assertNull(emailEntity.getEmailthread());
-        service.storeNew(mapper.map(emailEntity));
-        verify(repository).saveAndFlush(argThat(savedEntity ->
-                parentEntity.equals(savedEntity.getParent()) &&
-                        savedEntity.getEmailthread() != null));
-    }
 
     private EmailEntity createEmail(String mesageId, String inReplyTo) {
         EmailEntity emailEntity = new EmailEntity();
@@ -105,5 +109,15 @@ class EmailServiceImplTest implements RunsWithMappers {
         header.setMessageId(mesageId);
         header.setInReplyTo(inReplyTo);
         return emailEntity;
+    }
+
+
+    @Test
+    void should_set_parent_toEntity() {
+        assertNull(emailEntity.getEmailthread());
+        service.storeNew(mapper.map(emailEntity));
+        verify(repository).saveAndFlush(argThat(savedEntity ->
+                parentEntity.equals(savedEntity.getParent()) &&
+                        savedEntity.getEmailthread() != null));
     }
 }

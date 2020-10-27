@@ -15,6 +15,8 @@ import java.util.List;
 public interface EmailMapper {
 
     @Mapping(target = "emailthread.emails", ignore = true)
+    @Mapping(target = "parent.parent", ignore = true)
+    @Mapping(target = "parent.emailthread", ignore = true)
     Email map(EmailEntity entity);
 
     EmailEntity map(Email entity);

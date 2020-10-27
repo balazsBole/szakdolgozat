@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
 /**
@@ -30,6 +31,12 @@ public class EmailServiceImpl implements EmailService {
         this.repository = repository;
         this.mapper = mapper;
         this.threadService = threadService;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Email> findById(UUID emailId) {
+        return repository.findById(emailId).map(mapper::map);
     }
 
     @Override

@@ -31,16 +31,18 @@ import {EmailReaderComponent} from "./components/email-reader/email-reader.compo
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {EmailReplyViewComponent} from './views/email-reply-view/email-reply-view.component';
+import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
-    keycloak.init({
-      config: {
-        url: 'http://localhost:8082/auth',
-        realm: 'helpdesk',
-        clientId: 'helpdesk-frontend',
-      },
+      keycloak.init({
+        config: {
+          url: 'http://localhost:8082/auth',
+          realm: 'helpdesk',
+          clientId: 'helpdesk-frontend',
+        },
       initOptions: {
         onLoad: 'check-sso',
         silentCheckSsoRedirectUri:
@@ -58,7 +60,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     LoggedOutViewComponent,
     EmailMiniatureComponent,
     EmailReaderComponent,
-    EmailHeaderComponent
+    EmailHeaderComponent,
+    EmailReplyViewComponent
   ],
   imports: [
     BrowserModule,
@@ -85,9 +88,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   providers: [
+    EmailIdResolver,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,

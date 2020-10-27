@@ -18,4 +18,7 @@ public interface EmailRepository extends JpaRepository<EmailEntity, UUID> {
     @Transactional(readOnly = true)
     Optional<EmailEntity> findByHeader_MessageId(String messageID);
 
+    @Transactional(readOnly = true)
+    Optional<EmailEntity> findById(UUID emailId);
+
 }

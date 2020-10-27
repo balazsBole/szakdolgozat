@@ -8,7 +8,8 @@ export const _userReducer = createReducer(
 
   on(getDetailsAction, (state) => ({
     ...state,
-    loading: true
+    loading: true,
+    error: null
   })),
 
   on(getDetailsFailAction, (state, {error}) => ({
@@ -20,7 +21,8 @@ export const _userReducer = createReducer(
   on(getDetailsSuccessAction, (state, {user}) => ({
     ...state,
     user: user,
-    loading: false
+    loading: false,
+    error: null
   })),
 );
 

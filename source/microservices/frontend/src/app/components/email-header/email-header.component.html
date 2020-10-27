@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="readonly">
   <mat-card-content>
     <div>
       <mat-form-field appearance="fill">
@@ -31,11 +31,41 @@
               matTooltip="Mark email as unread">
         <mat-icon>markunread</mat-icon>
       </button>
-      <button aria-label="Reply button" color="primary" mat-icon-button matTooltip="Reply">
+      <button [disabled]="email.direction==='OUT'" [routerLink]="'/replyTo/'+email.id"
+              aria-label="Reply button"
+              color="primary"
+              mat-icon-button matTooltip="Reply">
         <mat-icon>reply</mat-icon>
       </button>
     </div>
   </mat-card-content>
 </mat-card>
+
+
+<mat-card *ngIf="!readonly">
+  <mat-card-content>
+    <div>
+      <mat-form-field appearance="standard">
+        <mat-label>From:</mat-label>
+        <input disabled matInput value="{{email.header.from}}">
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>To:</mat-label>
+        <input matInput value="{{email.header.to}}">
+      </mat-form-field>
+
+    </div>
+
+    <div>
+      <mat-form-field appearance="standard">
+        <mat-label>Subject:</mat-label>
+        <input matInput value="{{email.header.subject}}">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
 
 

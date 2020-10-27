@@ -38,5 +38,8 @@ public final class DomainConstants {
 //     * @see org.springframework.http.HttpStatus#FORBIDDEN
 //     */
         public static final int FORBIDDEN = 403;
+
+        public static final int NOT_FOUND = 404;
+
     }
 }
