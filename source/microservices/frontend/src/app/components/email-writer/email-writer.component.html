@@ -1,0 +1,37 @@
+<form (ngSubmit)="send()" [formGroup]="emailForm">
+  <mat-card>
+    <mat-card-content>
+      <ng-container formGroupName="header">
+        <div>
+          <mat-form-field>
+            <mat-label>From:</mat-label>
+            <input *ngIf="!email" formControlName="from" matInput>
+            <input *ngIf="email" disabled matInput value="{{email.header.from}}">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>To:</mat-label>
+            <input formControlName="to" matInput>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Subject:</mat-label>
+            <input formControlName="subject" matInput>
+          </mat-form-field>
+          <span class="spacer"></span>
+
+          <button [disabled]="!emailForm.valid" aria-label="send button"
+                  mat-icon-button matTooltip="Send email"
+                  type="submit">
+            <mat-icon>send</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+      <quill-editor [modules]="quillModules"
+                    [styles]="{minHeight: '15em'}"
+                    formControlName="body"></quill-editor>
+    </mat-card-content>
+  </mat-card>
+
+</form>

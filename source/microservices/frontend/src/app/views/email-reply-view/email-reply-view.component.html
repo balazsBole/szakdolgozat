@@ -1,2 +1,3 @@
-<email-reader [email]="parentEmail"></email-reader>
-<email-header [email]="email" [readonly]="false"></email-header>
+<email-reader [email]="parentEmail" title="Previous email"></email-reader>
+
+<email-writer (done)="send($event)" [initial]="reply"></email-writer>

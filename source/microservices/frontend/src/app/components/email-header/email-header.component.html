@@ -1,4 +1,4 @@
-<mat-card *ngIf="readonly">
+<mat-card>
   <mat-card-content>
     <div>
       <mat-form-field appearance="fill">
@@ -40,32 +40,6 @@
     </div>
   </mat-card-content>
 </mat-card>
-
-
-<mat-card *ngIf="!readonly">
-  <mat-card-content>
-    <div>
-      <mat-form-field appearance="standard">
-        <mat-label>From:</mat-label>
-        <input disabled matInput value="{{email.header.from}}">
-      </mat-form-field>
-      <mat-form-field appearance="standard">
-        <mat-label>To:</mat-label>
-        <input matInput value="{{email.header.to}}">
-      </mat-form-field>
-
-    </div>
-
-    <div>
-      <mat-form-field appearance="standard">
-        <mat-label>Subject:</mat-label>
-        <input matInput value="{{email.header.subject}}">
-      </mat-form-field>
-    </div>
-  </mat-card-content>
-</mat-card>
-
-
 
 
 

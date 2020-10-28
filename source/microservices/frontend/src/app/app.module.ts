@@ -33,16 +33,18 @@ import {MatInputModule} from "@angular/material/input";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {EmailReplyViewComponent} from './views/email-reply-view/email-reply-view.component';
 import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
+import {QuillModule} from 'ngx-quill';
+import {EmailWriterComponent} from './components/email-writer/email-writer.component'
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
-      keycloak.init({
-        config: {
-          url: 'http://localhost:8082/auth',
-          realm: 'helpdesk',
-          clientId: 'helpdesk-frontend',
-        },
+    keycloak.init({
+      config: {
+        url: 'http://localhost:8082/auth',
+        realm: 'helpdesk',
+        clientId: 'helpdesk-frontend',
+      },
       initOptions: {
         onLoad: 'check-sso',
         silentCheckSsoRedirectUri:
@@ -61,7 +63,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EmailMiniatureComponent,
     EmailReaderComponent,
     EmailHeaderComponent,
-    EmailReplyViewComponent
+    EmailReplyViewComponent,
+    EmailWriterComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +92,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
+    QuillModule.forRoot(),
+    FormsModule
   ],
   providers: [
     EmailIdResolver,

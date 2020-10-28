@@ -9,6 +9,7 @@ import {Email} from "../../api/models/email";
 export class EmailReaderComponent implements OnInit {
 
   @Input() email: Email;
+  @Input() title: string;
 
   constructor() {
   }

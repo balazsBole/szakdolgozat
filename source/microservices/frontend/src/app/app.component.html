@@ -1,27 +1,24 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button>
-      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
-    </button>
-    <h1>GDF Helpdesk</h1>
-    <span class="spacer"></span>
-    <login></login>
+<div style="height: 100vh;">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+      </button>
+      <h1>GDF Helpdesk</h1>
+      <span class="spacer"></span>
+      <login></login>
 
-  </mat-toolbar-row>
-</mat-toolbar>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-<mat-sidenav-container>
-  <mat-sidenav #sidenav [opened]="true" mode="side">
-    <mat-nav-list>
-
-      <a [routerLink]="'/emailthread'" mat-list-item> Email threads </a>
-
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <div style="height: 100vh;">
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav class="hide-on-small-screens" mode="side" opened>
+      <mat-nav-list>
+        <a [routerLink]="'/emailthread'" mat-list-item> Email threads </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
       <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

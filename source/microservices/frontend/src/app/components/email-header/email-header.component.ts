@@ -9,7 +9,6 @@ import {Email} from "../../api/models/email";
 export class EmailHeaderComponent implements OnInit {
 
   @Input() email: Email;
-  @Input() readonly: boolean = true;
 
   constructor() {
   }
