@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,9 +20,8 @@ public class EmailEntity extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 5072970713595961865L;
 
-    @JoinColumn(name = "parent_id", nullable = true)
-    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = false, fetch = FetchType.LAZY)
-    private EmailEntity parent;
+    @Column(name = "parent_id")
+    private UUID parentId;
 
     @JoinColumn(name = "thread_id", nullable = false)
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = false)

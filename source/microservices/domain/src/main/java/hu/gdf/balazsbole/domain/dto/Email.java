@@ -19,7 +19,7 @@ public class Email {
     private UUID id;
 
     @ApiModelProperty(value = "Reply to this email.")
-    private Email parent;
+    private UUID parentId;
 
     @ApiModelProperty(value = "The emailthread which contains this email.")
     @NotNull

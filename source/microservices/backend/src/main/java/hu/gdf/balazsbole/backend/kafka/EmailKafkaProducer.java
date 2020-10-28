@@ -1,7 +1,7 @@
 package hu.gdf.balazsbole.backend.kafka;
 
 import hu.gdf.balazsbole.domain.dto.Email;
-import hu.gdf.balazsbole.domain.mapper.EmailMapper;
+import hu.gdf.balazsbole.domain.mapper.EmailProtocolMapper;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import lombok.extern.slf4j.Slf4j;
@@ -14,17 +14,16 @@ import org.springframework.stereotype.Component;
 public class EmailKafkaProducer {
 
     private final KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate;
-    private final EmailMapper mapper;
+    private final EmailProtocolMapper mapper;
 
     @Value("${spring.kafka.topic.emailOut}")
     private String topicName;
 
 
-    public EmailKafkaProducer(KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate, EmailMapper mapper) {
+    public EmailKafkaProducer(KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate, EmailProtocolMapper mapper) {
         this.kafkaTemplate = kafkaTemplate;
         this.mapper = mapper;
     }
-
 
     public void sendMessage(Email email) {
         EmailProtocolKey key = mapper.mapAvroKey(email);

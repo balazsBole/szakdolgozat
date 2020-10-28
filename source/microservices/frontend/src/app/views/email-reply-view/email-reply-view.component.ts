@@ -39,17 +39,18 @@ function createReplyEmail(email: Email): Email {
   return {
     content: {body: "", html: true, attachments: []},
     direction: "OUT",
-    emailthread: email.emailthread,
-    header: {
-      messageId: "",
-      from: email.header.to,
-      inReplyTo: email.header.messageId,
-      subject: email.header.subject,
-      to: email.header.from
-    },
-    id: "",
-    parent: email,
-    processed: "",
-    read: true
+      emailthread: email.emailthread,
+      header: {
+          messageId: "",
+          from: email.header.to,
+          inReplyTo: email.header.messageId,
+          references: "${email.header.references} ${email.header.messageId}",
+          subject: email.header.subject,
+          to: email.header.from
+      },
+      id: "",
+      parentId: email.id,
+      processed: "",
+      read: true
   };
 }

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "header")
 @DynamicUpdate
-public class HeaderEntity  extends AbstractEntity implements Serializable {
+public class HeaderEntity extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = -8317235648494896758L;
 
@@ -26,13 +26,16 @@ public class HeaderEntity  extends AbstractEntity implements Serializable {
     @Column(name = "in_reply_to")
     private String inReplyTo;
 
+    @Column(name = "references_")
+    private String references;
+
     @NotNull
     @Column(name = "from_", nullable = false)
-    private String  from;
+    private String from;
 
     @NotNull
     @Column(name = "to_", nullable = false)
-    private String  to;
+    private String to;
 
     @NotNull
     @Column(name = "subject", nullable = false)

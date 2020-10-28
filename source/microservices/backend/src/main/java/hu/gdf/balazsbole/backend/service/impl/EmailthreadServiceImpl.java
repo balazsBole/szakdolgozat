@@ -4,6 +4,7 @@ package hu.gdf.balazsbole.backend.service.impl;
 import hu.gdf.balazsbole.backend.service.EmailthreadService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.dto.Emailthread;
+import hu.gdf.balazsbole.domain.entity.EmailEntity;
 import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailthreadMapper;
@@ -30,11 +31,13 @@ public class EmailthreadServiceImpl implements EmailthreadService {
 
     @Override
     @Transactional
-    public void createEmailThreadFor(Email email) {
+    public EmailEntity createEmailThreadFor(Email email) {
         Emailthread emailthread = new Emailthread();
         emailthread.getEmails().add(email);
         emailthread.setStatus(Status.OPEN);
-        repository.saveAndFlush(mapper.map(emailthread));
+        EmailthreadEntity entity = mapper.map(emailthread);
+        repository.saveAndFlush(entity);
+        return entity.getEmails().get(0);
     }
 
     @Override

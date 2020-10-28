@@ -2,6 +2,7 @@ package hu.gdf.balazsbole.email.mapper;
 
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.util.MimeMessageParser;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -35,6 +36,7 @@ public interface MimeMessageMapper {
     @Mapping(source = "mimeMessage.receivedDate", target = "processed")
     @Mapping(source = "parser", target = "html", qualifiedByName = "isHtml")
     @Mapping(source = "mimeMessage", target = "inReplyTo", qualifiedByName = "inReplyTo")
+    @Mapping(source = "mimeMessage", target = "references", qualifiedByName = "references")
     @Mapping(source = "parser", target = "body", qualifiedByName = "bodyParser")
     @Mapping(source = "attachmentList", target = "attachments")
     EmailProtocolValue mapValueGenerated(MimeMessageParser parser) throws Exception;
@@ -63,6 +65,12 @@ public interface MimeMessageMapper {
         return header == null ? null : header[0];
     }
 
+    @Named("references")
+    default String mapReferences(MimeMessage mimeMessage) throws MessagingException {
+        String[] header = mimeMessage.getHeader("References");
+        return header == null ? null : header[0];
+    }
+
     default String getFirstAddressAsString(List<Address> value) {
         return value.isEmpty() ? null : value.get(0).toString();
     }
@@ -79,9 +87,13 @@ public interface MimeMessageMapper {
             helper.setSubject(avroValue.getSubject());
             helper.setText(avroValue.getBody(), avroValue.getHtml());
 
-            message.setHeader("In-Reply-To", avroValue.getInReplyTo());
             message.setHeader("Message-ID", avroValue.getMessageId());
             message.setSentDate(new Date(avroValue.getProcessed()));
+
+            if (StringUtils.isNoneBlank(avroValue.getInReplyTo()))
+                message.setHeader("In-Reply-To", avroValue.getInReplyTo());
+            if (StringUtils.isNoneBlank(avroValue.getReferences()))
+                message.setHeader("References", avroValue.getReferences());
 
             return message;
         } catch (MessagingException e) {

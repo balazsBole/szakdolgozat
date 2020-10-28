@@ -14,6 +14,7 @@ protocol EmailProtocol {
   record EmailProtocolValue {
     string messageId;
     union {null, string} inReplyTo;
+    union {null, string} references;
     string from;
     string to;
     string subject;

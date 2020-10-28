@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-add_references_to_header
+      author: Balazs
+      changes:
+        - addColumn:
+            tableName: header
+            columns:
+              - column:
+                  name: references_
+                  type: TEXT

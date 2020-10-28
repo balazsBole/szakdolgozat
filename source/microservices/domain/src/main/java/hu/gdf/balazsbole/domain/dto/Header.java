@@ -19,6 +19,10 @@ public class Header {
     @NotNull
     private String inReplyTo;
 
+    @ApiModelProperty(value = "The References identifier. It contains the messageIDs of the previous emails. See rfc5322.")
+    @NotNull
+    private String references;
+
     @ApiModelProperty(value = "The email received from this address.")
     @NotNull
     @Email

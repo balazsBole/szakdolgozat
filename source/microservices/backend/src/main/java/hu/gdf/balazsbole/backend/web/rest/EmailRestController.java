@@ -1,12 +1,11 @@
 package hu.gdf.balazsbole.backend.web.rest;
 
+import hu.gdf.balazsbole.backend.kafka.EmailKafkaProducer;
 import hu.gdf.balazsbole.backend.service.EmailService;
 import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.Email;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import hu.gdf.balazsbole.domain.enumeration.Status;
+import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,12 @@ public class EmailRestController {
     public static final String ROOT_PATH = "/email";
 
     private final EmailService service;
+    private final EmailKafkaProducer kafkaProducer;
 
-    public EmailRestController(EmailService service) {
+
+    public EmailRestController(EmailService service, EmailKafkaProducer kafkaProducer) {
         this.service = service;
+        this.kafkaProducer = kafkaProducer;
     }
 
 
@@ -46,6 +48,20 @@ public class EmailRestController {
         Optional<Email> emailOptional = service.findById(emailId);
         return ResponseEntity.ok(emailOptional.orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found")));
+    }
+
+    @PutMapping("/send")
+    @ApiOperation(nickname = "send", value = "Send an Email.")
+    @ApiResponses({
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns email."),
+            @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+    })
+    public ResponseEntity<Email> getEmail(@ApiParam(value = "Email") @RequestParam(name = "email") final Email email,
+                                          @ApiParam(value = "New status of the emailThread") @RequestParam(name = "status") final Status status) {
+        Email prepared = service.prepareForSending(email);
+        kafkaProducer.sendMessage(prepared);
+        Email saved = service.storeNew(prepared, status);
+        return ResponseEntity.ok(saved);
     }
 
 }

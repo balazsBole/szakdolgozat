@@ -3,6 +3,7 @@ package hu.gdf.balazsbole.backend.kafka;
 import hu.gdf.balazsbole.backend.RunsWithMappers;
 import hu.gdf.balazsbole.backend.service.EmailService;
 import hu.gdf.balazsbole.domain.enumeration.Direction;
+import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -30,6 +31,6 @@ class IncomingEmailObserverTest implements RunsWithMappers {
     @Test
     void should_store_incoming_direction() {
         observer.receiveOutgoingEmails(new ConsumerRecord<>("topic", 1, 0, new EmailProtocolKey(), new EmailProtocolValue()));
-        verify(service).storeNew(argThat(entity -> Direction.IN.equals(entity.getDirection())));
+        verify(service).storeNew(argThat(entity -> Direction.IN.equals(entity.getDirection())), Status.OPEN);
     }
 }

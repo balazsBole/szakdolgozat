@@ -7,6 +7,7 @@ import hu.gdf.balazsbole.domain.dto.Header;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
 import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
 import hu.gdf.balazsbole.domain.entity.HeaderEntity;
+import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailMapper;
 import hu.gdf.balazsbole.domain.repository.EmailRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +56,7 @@ class EmailServiceImplTest implements RunsWithMappers {
 
     private void createEmailWithParent(EmailEntity parent, EmailEntity child) {
         child.setEmailthread(parent.getEmailthread());
-        child.setParent(parent);
+        child.setParentId(parent.getId());
         repository.saveAndFlush(child);
     }
 
@@ -91,13 +92,13 @@ class EmailServiceImplTest implements RunsWithMappers {
         Email email = new Email();
         email.setHeader(new Header());
 
-        service.storeNew(email);
+        service.storeNew(email, Status.OPEN);
         verify(threadService).createEmailThreadFor(email);
     }
 
     @Test
     void should_create_email_if_parent_exist() {
-        service.storeNew(mapper.map(emailEntity));
+        service.storeNew(mapper.map(emailEntity), Status.OPEN);
         verify(repository).saveAndFlush(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
     }
 
@@ -115,9 +116,9 @@ class EmailServiceImplTest implements RunsWithMappers {
     @Test
     void should_set_parent_toEntity() {
         assertNull(emailEntity.getEmailthread());
-        service.storeNew(mapper.map(emailEntity));
+        service.storeNew(mapper.map(emailEntity), Status.OPEN);
         verify(repository).saveAndFlush(argThat(savedEntity ->
-                parentEntity.equals(savedEntity.getParent()) &&
+                parentEntity.getId().equals(savedEntity.getParentId()) &&
                         savedEntity.getEmailthread() != null));
     }
 }

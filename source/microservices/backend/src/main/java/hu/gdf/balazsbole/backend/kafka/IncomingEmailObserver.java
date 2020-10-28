@@ -3,7 +3,8 @@ package hu.gdf.balazsbole.backend.kafka;
 import hu.gdf.balazsbole.backend.service.EmailService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.enumeration.Direction;
-import hu.gdf.balazsbole.domain.mapper.EmailMapper;
+import hu.gdf.balazsbole.domain.enumeration.Status;
+import hu.gdf.balazsbole.domain.mapper.EmailProtocolMapper;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +16,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class IncomingEmailObserver {
 
-    private final EmailMapper mapper;
+    private final EmailProtocolMapper mapper;
     private final EmailService service;
 
-    public IncomingEmailObserver(EmailMapper mapper, EmailService service) {
+    public IncomingEmailObserver(EmailProtocolMapper mapper, EmailService service) {
         this.mapper = mapper;
         this.service = service;
     }
@@ -29,7 +30,7 @@ public class IncomingEmailObserver {
 
         Email email = mapper.map(record.value());
         email.setDirection(Direction.IN);
-        service.storeNew(email);
+        service.storeNew(email, Status.OPEN);
 
     }
 
