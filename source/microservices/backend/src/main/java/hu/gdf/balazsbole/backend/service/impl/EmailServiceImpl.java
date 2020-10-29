@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -28,7 +29,7 @@ public class EmailServiceImpl implements EmailService {
     private final EmailMapper mapper;
     private final EmailRepository repository;
     private final EmailthreadService threadService;
-
+    private static final AtomicInteger id = new AtomicInteger();
 
     public EmailServiceImpl(final EmailRepository repository, EmailMapper mapper, EmailthreadService threadService) {
         this.repository = repository;
@@ -54,11 +55,13 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private String getUniqueMessageIDValue() {
+
+
         StringBuilder stringBuilder = new StringBuilder();
         return stringBuilder.append(stringBuilder.hashCode()).append('.').
-                append(UUID.randomUUID()).append('.').
+                append(id.getAndIncrement()).append('.').
                 append(System.currentTimeMillis()).
-                append("@helpdesk.gdf.localdomain").toString();
+                append("@helpdesk.localdomain").toString();
     }
 
     @Override
