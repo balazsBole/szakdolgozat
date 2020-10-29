@@ -1,5 +1,5 @@
 <div>
-  <mat-card (click)="toggle()">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>Unread: {{unread}}/{{allEmail}}</mat-card-title>
       <mat-card-subtitle>Last one: {{lastMail | date:'medium'}}</mat-card-subtitle>
@@ -13,9 +13,9 @@
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
           <li>
             <email-miniature
-              (click)="pickEmail(node.email)"
+              (click)="pickEmail(node.email.id)"
               [email]="node.email"
-              [picked]="node.email === pickedEmail">
+              [picked]="node.email.id === emailId">
             </email-miniature>
             <ul>
               <ng-container matTreeNodeOutlet></ng-container>

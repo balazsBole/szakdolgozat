@@ -12,6 +12,13 @@
             <mat-label>To:</mat-label>
             <input formControlName="to" matInput>
           </mat-form-field>
+
+          <span class="spacer"></span>
+          <button (click)="discard()" aria-label="discard button"
+                  mat-icon-button matTooltip="Discard email">
+            <mat-icon>cancel_presentation</mat-icon>
+          </button>
+
         </div>
       <div>
         <mat-form-field formGroupName="header">

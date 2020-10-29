@@ -3,6 +3,7 @@ import {Email} from "../../api/models/email";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Header} from "../../api/models/header";
 import {Content} from "../../api/models/content";
+import {Location} from '@angular/common';
 
 export type newEmail = { status: any, email: Email };
 
@@ -53,7 +54,7 @@ export class EmailWriterComponent implements OnInit {
     }
   };
 
-  constructor(private readonly fb: FormBuilder) {
+  constructor(private readonly fb: FormBuilder, private readonly location: Location) {
   }
 
   ngOnInit(): void {
@@ -72,9 +73,12 @@ export class EmailWriterComponent implements OnInit {
   }
 
   send() {
-    console.log(this.emailForm);
     const status: any = this.emailForm.get('status').value as string;
     this.sendEmitter.emit({status: status, email: this.createEmail()});
+  }
+
+  discard() {
+    this.location.back();
   }
 
   private createEmail(): Email {

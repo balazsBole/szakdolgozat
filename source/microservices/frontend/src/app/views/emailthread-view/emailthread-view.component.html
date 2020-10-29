@@ -17,8 +17,10 @@
   <div class="emails scrollable">
     <ng-container *ngIf="assignedThreads">
       <div *ngFor="let thread of assignedThreads" class="emailthread">
-        <emailthread (emailPicked)="emailToDisplay=$event" [emailthread]="thread"
-                     [showMiniatures]="numberOfAssignedThreads===1"></emailthread>
+        <emailthread (click)="emailThreadPicked(thread.id)"
+                     (pickedEmailId)="emailPicked($event)" [emailthread]="thread"
+                     [emilToShow]="emailToDisplay?.id" [picked]="thread.id===emailThreadIdToDisplay"
+        ></emailthread>
       </div>
     </ng-container>
   </div>

@@ -10,10 +10,12 @@ import {Email} from "../../api/models/email";
   styleUrls: ['./emailthread.component.css']
 })
 export class EmailthreadComponent implements OnInit {
-  @Input() emailthread: Emailthread;
-  @Input() showMiniatures: boolean = false;
 
-  @Output('emailPicked') pickEmitter = new EventEmitter<Email>();
+  @Input() emailthread: Emailthread;
+  @Input('picked') showMiniatures: boolean = false;
+  @Input('emilToShow') emailId: string;
+
+  @Output('pickedEmailId') pickEmitter = new EventEmitter<string>();
 
   unread: number;
   allEmail: number;
@@ -21,15 +23,14 @@ export class EmailthreadComponent implements OnInit {
   treeControl = new NestedTreeControl<EmailNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<EmailNode>();
   hasChild = (_: number, node: EmailNode) => !!node.children && node.children.length > 0;
-  private pickedEmail: Email;
 
 
   constructor() {
   }
 
-  pickEmail(email: Email) {
-    this.pickedEmail = email;
-    this.pickEmitter.emit(this.pickedEmail);
+  pickEmail(emailId: string) {
+    this.emailId = emailId;
+    this.pickEmitter.emit(emailId);
   }
 
   ngOnInit(): void {
@@ -37,13 +38,6 @@ export class EmailthreadComponent implements OnInit {
     this.unread = this.emailthread.emails.filter(email => !email.read).length;
     this.allEmail = this.emailthread.emails.length;
     this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort()[0];
-  }
-
-  toggle() {
-    this.showMiniatures = !this.showMiniatures;
-    if (!this.showMiniatures) {
-      this.pickEmail(null);
-    }
   }
 
   private orderToEmailNodes(emails: Array<Email>): EmailNode[] {

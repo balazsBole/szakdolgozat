@@ -16,7 +16,7 @@
       <mat-form-field appearance="fill">
         <mat-label *ngIf="email.direction==='IN'">Received:</mat-label>
         <mat-label *ngIf="email.direction==='OUT'">Sent:</mat-label>
-        <input disabled matInput value="{{email.processed}}">
+        <input disabled matInput value="{{email.processed  | date:'medium'}}">
       </mat-form-field>
     </div>
     <div>
