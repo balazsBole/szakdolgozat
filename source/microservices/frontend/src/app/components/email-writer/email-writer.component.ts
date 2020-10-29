@@ -1,6 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {EmailService} from "../../api/services/email.service";
+import {Header} from "../../api/models/header";
+import {Content} from "../../api/models/content";
 
 @Component({
   selector: 'email-writer',
@@ -10,7 +13,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class EmailWriterComponent implements OnInit {
 
   @Input("initial") email: Email;
-  @Output('done') sendEmitter = new EventEmitter<Email>();
+  @Output('done') sendEmitter = new EventEmitter<EmailService.SendParams>();
 
   emailForm: FormGroup = this.fb.group({
     header: this.fb.group({
@@ -18,9 +21,13 @@ export class EmailWriterComponent implements OnInit {
       to: ["", [Validators.required, Validators.email]],
       subject: [""]
     }),
-    body: [""],
-    html: [true]
+    content: this.fb.group({
+      body: [""],
+      html: [true],
+    }),
+    status: ["CLARIFICATION", Validators.required]
   })
+
   quillModules: any = {
     toolbar: {
       container:
@@ -57,19 +64,36 @@ export class EmailWriterComponent implements OnInit {
             to: this.email.header.to,
             subject: this.email.header.subject
           },
-          body: this.email.content.body
+          content: {
+            body: this.email.content.body
+          }
         });
   }
 
   send() {
-    if (!this.email) return this.sendEmitter.emit(this.emailForm.value);
+    console.log(this.emailForm);
+    const status: any = this.emailForm.get('status').value as string;
+    this.sendEmitter.emit({status: status, body: this.createEmail()});
+  }
 
-    this.email.header.from = this.emailForm.get('header').get('from').value as string;
-    this.email.header.to = this.emailForm.get('header').get('to').value as string;
-    this.email.header.subject = this.emailForm.get('header').get('subject').value as string;
-    this.email.content.body = this.emailForm.get('body').value as string;
-    this.email.content.html = true;
-    this.sendEmitter.emit(this.email);
+  private createEmail(): Email {
+    const header: Header = this.emailForm.get('header').value as Header;
+
+    let email;
+    if (this.email) {
+      this.email.header.from = header.from;
+      this.email.header.to = header.to;
+      this.email.header.subject = header.subject;
+      email = this.email;
+    } else {
+      email = {
+        content: undefined,
+        header: header
+      };
+    }
+    email.content = this.emailForm.get('content').value as Content;
+
+    return email;
   }
 
 }

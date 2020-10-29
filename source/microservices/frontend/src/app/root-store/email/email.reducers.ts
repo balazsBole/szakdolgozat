@@ -1,18 +1,25 @@
 import {createReducer, on} from '@ngrx/store';
 import {initialState} from "./email.state.interface";
-import {getDetailsAction, getDetailsFailAction, getDetailsSuccessAction} from "./email.actions";
+import {
+  getDetailsAction,
+  getDetailsFailAction,
+  getDetailsSuccessAction,
+  sendEmailAction,
+  sendEmailFailAction,
+  sendEmailSuccessAction
+} from "./email.actions";
 
 
 export const _emailReducer = createReducer(
   initialState,
 
-  on(getDetailsAction, (state) => ({
+  on(getDetailsAction, sendEmailAction, (state) => ({
     ...state,
     loading: true,
     error: null
   })),
 
-  on(getDetailsFailAction, (state, {error}) => ({
+  on(getDetailsFailAction, sendEmailFailAction, (state, {error}) => ({
     ...state,
     error,
     loading: false
@@ -21,6 +28,13 @@ export const _emailReducer = createReducer(
   on(getDetailsSuccessAction, (state, {email}) => ({
     ...state,
     email: email,
+    loading: false,
+    error: null
+  })),
+
+  on(sendEmailSuccessAction, (state, {email}) => ({
+    ...state,
+    sentEmail: email,
     loading: false,
     error: null
   })),

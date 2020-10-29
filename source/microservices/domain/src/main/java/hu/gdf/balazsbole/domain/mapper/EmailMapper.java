@@ -15,7 +15,7 @@ public interface EmailMapper {
     @Mapping(target = "parent.emailthread", ignore = true)
     Email map(EmailEntity entity);
 
-    EmailEntity map(Email entity);
+    EmailEntity map(Email dto);
 
     List<Email> mapList(List<EmailEntity> entity);
 

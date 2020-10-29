@@ -58,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
         return stringBuilder.append(stringBuilder.hashCode()).append('.').
                 append(UUID.randomUUID()).append('.').
                 append(System.currentTimeMillis()).
-                append("@helpdesk.gdf..localdomain").toString();
+                append("@helpdesk.gdf.localdomain").toString();
     }
 
     @Override

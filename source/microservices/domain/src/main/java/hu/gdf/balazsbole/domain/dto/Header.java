@@ -12,15 +12,12 @@ import javax.validation.constraints.NotNull;
 public class Header {
 
     @ApiModelProperty(value = "The globally unique identifier (messageID) of the corresponding email. See rfc5322.")
-    @NotNull
     private String messageId;
 
     @ApiModelProperty(value = "The messageID of the previous email. See rfc5322.")
-    @NotNull
     private String inReplyTo;
 
     @ApiModelProperty(value = "The References identifier. It contains the messageIDs of the previous emails. See rfc5322.")
-    @NotNull
     private String references;
 
     @ApiModelProperty(value = "The email received from this address.")
@@ -34,7 +31,6 @@ public class Header {
     private String to;
 
     @ApiModelProperty(value = "The subject of the mail.")
-    @NotNull
     private String subject;
 
 }

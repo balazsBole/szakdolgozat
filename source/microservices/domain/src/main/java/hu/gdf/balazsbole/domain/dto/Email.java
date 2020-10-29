@@ -15,14 +15,12 @@ import java.util.UUID;
 public class Email {
 
     @ApiModelProperty(value = "Unique internal identifier", example = "06484c9f-6f59-4b9f-ad5e-aaaa0ec332cc")
-    @NotNull
     private UUID id;
 
     @ApiModelProperty(value = "Reply to this email.")
     private UUID parentId;
 
     @ApiModelProperty(value = "The emailthread which contains this email.")
-    @NotNull
     private Emailthread emailthread;
 
     @ApiModelProperty(value = "The direction of the email.")
@@ -30,10 +28,12 @@ public class Email {
 
     @ApiModelProperty(value = "The header of the email.")
     @Valid
+    @NotNull
     private Header header;
 
     @ApiModelProperty(value = "The content of the email.")
     @Valid
+    @NotNull
     private Content content;
 
     @ApiModelProperty(value = "The email has been read.")

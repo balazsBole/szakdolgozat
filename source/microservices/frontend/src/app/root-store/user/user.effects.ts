@@ -5,7 +5,6 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 import {getDetailsAction, getDetailsFailAction, getDetailsSuccessAction} from './user.actions';
 import {UserService} from "../../api/services";
 import {User} from "../../api/models/user";
-import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable()
 export class UserEffects {
@@ -15,15 +14,12 @@ export class UserEffects {
     mergeMap((action) => this.service.details()
       .pipe(
         map((user: User) => getDetailsSuccessAction({user})),
-        catchError((error) => {
-          this._snackBar.open(error.message, "", {duration: 2000});
-          return of(getDetailsFailAction({error}))
-        })
+        catchError((error) => of(getDetailsFailAction({error})))
       ))
     )
   );
 
-  constructor(private readonly actions$: Actions, private readonly service: UserService, private readonly _snackBar: MatSnackBar) {
+  constructor(private readonly actions$: Actions, private readonly service: UserService) {
   }
 
 }

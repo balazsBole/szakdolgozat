@@ -3,54 +3,49 @@ import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {FormBuilder} from "@angular/forms";
+import {EmailService} from "../../api/services/email.service";
 
 @Component({
-  selector: 'app-email-reply-view',
-  templateUrl: './email-reply-view.component.html',
-  styleUrls: ['./email-reply-view.component.css']
+    selector: 'app-email-reply-view',
+    templateUrl: './email-reply-view.component.html',
+    styleUrls: ['./email-reply-view.component.css']
 })
 export class EmailReplyViewComponent implements OnInit {
-  reply: Email;
+    reply: Email;
 
-  parentEmail: Email;
-  private readonly ngUnsubscribe = new Subject();
+    parentEmail: Email;
+    private readonly ngUnsubscribe = new Subject();
 
-  constructor(private readonly facade: EmailFacade, fb: FormBuilder) {
-  }
+    constructor(private readonly facade: EmailFacade) {
+    }
 
-  ngOnInit(): void {
-    this.facade.email$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      (email: Email) => {
-        this.parentEmail = email
-        this.reply = createReplyEmail(email);
-      });
+    ngOnInit(): void {
+        this.facade.email$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+            (email: Email) => {
+                this.parentEmail = email
+                this.reply = createReplyEmail(email);
+            });
 
-  }
+    }
 
-  send(email: Email) {
-    console.log(email.content.body);
-    console.log(this.parentEmail.content.body);
-  }
+    send(param: EmailService.SendParams) {
+        this.facade.send(param);
+    }
 }
 
-
 function createReplyEmail(email: Email): Email {
-  return {
-    content: {body: "", html: true, attachments: []},
-    direction: "OUT",
-      emailthread: email.emailthread,
-      header: {
-          messageId: "",
-          from: email.header.to,
-          inReplyTo: email.header.messageId,
-          references: "${email.header.references} ${email.header.messageId}",
-          subject: email.header.subject,
-          to: email.header.from
-      },
-      id: "",
-      parentId: email.id,
-      processed: "",
-      read: true
-  };
+    return {
+        content: {body: "", html: true, attachments: []},
+        direction: "OUT",
+        emailthread: email.emailthread,
+        header: {
+            from: email.header.to,
+            inReplyTo: email.header.messageId,
+            references: email.header.references ? email.header.references + " " : "" + email.header.messageId,
+            subject: email.header.subject,
+            to: email.header.from
+        },
+        parentId: email.id,
+        read: true
+    };
 }

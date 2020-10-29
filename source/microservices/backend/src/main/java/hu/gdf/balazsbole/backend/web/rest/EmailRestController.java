@@ -50,14 +50,14 @@ public class EmailRestController {
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found")));
     }
 
-    @PutMapping("/send")
+    @PostMapping("/send/{status}")
     @ApiOperation(nickname = "send", value = "Send an Email.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns email."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
-    public ResponseEntity<Email> getEmail(@ApiParam(value = "Email") @RequestParam(name = "email") final Email email,
-                                          @ApiParam(value = "New status of the emailThread") @RequestParam(name = "status") final Status status) {
+    public ResponseEntity<Email> getEmail(@ApiParam(value = "Email to send", required = true) @RequestBody final Email email,
+                                          @ApiParam(value = "New status of the emailThread") @PathVariable("status") final Status status) {
         Email prepared = service.prepareForSending(email);
         kafkaProducer.sendMessage(prepared);
         Email saved = service.storeNew(prepared, status);
