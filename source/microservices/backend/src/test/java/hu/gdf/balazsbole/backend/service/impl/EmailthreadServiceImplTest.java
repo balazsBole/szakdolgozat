@@ -32,7 +32,7 @@ class EmailthreadServiceImplTest implements RunsWithMappers {
     @Test
     void new_emailthread_should_be_store_status() {
         service.createThreadWith(Status.OPEN);
-        verify(repository, times(1)).saveAndFlush(argThat(entity -> Status.OPEN.equals(entity.getStatus())));
+        verify(repository, times(1)).save(argThat(entity -> Status.OPEN.equals(entity.getStatus())));
     }
 
     @Test

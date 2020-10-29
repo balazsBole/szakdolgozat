@@ -62,7 +62,7 @@ public class EmailthreadServiceImpl implements EmailthreadService {
         EmailthreadEntity thread = emailthreadEntity.orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
         thread.setStatus(status);
-        return mapper.map(repository.saveAndFlush(thread));
+        return mapper.map(repository.save(thread));
     }
 
     @Override
@@ -74,7 +74,7 @@ public class EmailthreadServiceImpl implements EmailthreadService {
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
         thread.setUser(userEntity);
 
-        return mapper.map(repository.saveAndFlush(thread));
+        return mapper.map(repository.save(thread));
     }
 
 

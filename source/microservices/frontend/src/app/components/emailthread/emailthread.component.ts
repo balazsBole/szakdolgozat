@@ -53,7 +53,7 @@ export class EmailthreadComponent implements OnInit {
     emails.forEach(e => emailNodes.push({email: e}));
 
     emailNodes.forEach(node => {
-      if (node.email.header.inReplyTo === null) {
+      if (node.email.parentId === null) {
         rootNodes.push(node);
         return;
       }
@@ -61,7 +61,7 @@ export class EmailthreadComponent implements OnInit {
       const parent: EmailNode = findParent();
 
       function findParent() {
-        return emailNodes.find(e => e.email.header.messageId === node.email.header.inReplyTo);
+        return emailNodes.find(e => e.email.id === node.email.parentId);
       }
 
       parent.children = [...(parent.children || []), node];

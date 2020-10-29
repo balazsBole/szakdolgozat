@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
         Optional<UserEntity> optionalUserEntity = repository.findByKeycloakID(fromAuthentication.getKeycloakID());
         if (optionalUserEntity.isEmpty()) {
-            repository.saveAndFlush(fromAuthentication);
+            repository.save(fromAuthentication);
         }
         return mapper.map(optionalUserEntity.orElse(fromAuthentication));
 

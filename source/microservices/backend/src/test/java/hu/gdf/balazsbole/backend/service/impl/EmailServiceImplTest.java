@@ -93,7 +93,7 @@ class EmailServiceImplTest implements RunsWithMappers {
     @Test
     void should_create_email_if_parent_exist() {
         service.storeNew(mapper.map(emailEntity));
-        verify(repository).saveAndFlush(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
+        verify(repository).save(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
     }
 
 
@@ -103,9 +103,9 @@ class EmailServiceImplTest implements RunsWithMappers {
         emailEntity.getHeader().setInReplyTo("");
         service.storeNew(mapper.map(emailEntity));
 
-        verify(repository).saveAndFlush(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
-        verify(repository).saveAndFlush(argThat(entity -> parentEntity.getEmailthread().equals(entity.getEmailthread())));
-        verify(repository).saveAndFlush(argThat(entity -> entity.getParentId() == null));
+        verify(repository).save(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
+        verify(repository).save(argThat(entity -> parentEntity.getEmailthread().equals(entity.getEmailthread())));
+        verify(repository).save(argThat(entity -> entity.getParentId() == null));
     }
 
 
@@ -113,9 +113,9 @@ class EmailServiceImplTest implements RunsWithMappers {
     void should_set_parent_toEntity() {
         assertNull(emailEntity.getEmailthread());
         service.storeNew(mapper.map(emailEntity));
-        verify(repository).saveAndFlush(argThat(savedEntity ->
+        verify(repository).save(argThat(savedEntity ->
                 savedEntity.getEmailthread() != null));
-        verify(repository).saveAndFlush(argThat(savedEntity ->
+        verify(repository).save(argThat(savedEntity ->
                 parentEntity.getId().equals(savedEntity.getParentId())));
     }
 

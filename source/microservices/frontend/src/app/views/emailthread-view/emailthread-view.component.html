@@ -14,7 +14,7 @@
 
 
 <div class="flex-container">
-  <div class="emails">
+  <div class="emails scrollable">
     <ng-container *ngIf="assignedThreads">
       <div *ngFor="let thread of assignedThreads" class="emailthread">
         <emailthread (emailPicked)="emailToDisplay=$event" [emailthread]="thread"
@@ -23,7 +23,7 @@
     </ng-container>
   </div>
 
-  <div class="emailTexts">
+  <div class="emailTexts scrollable">
     <ng-container *ngIf="emailToDisplay">
       <email-header [email]="emailToDisplay"></email-header>
       <email-reader [email]="emailToDisplay"></email-reader>

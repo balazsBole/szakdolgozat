@@ -14,3 +14,8 @@
 .emailTexts {
   flex: 65%;
 }
+
+.scrollable {
+  overflow-y: auto;
+  height: calc(100vh - 135px);
+}

@@ -11,13 +11,13 @@ import {newEmail} from "../../components/email-writer/email-writer.component";
     styleUrls: ['./email-reply-view.component.css']
 })
 export class EmailReplyViewComponent implements OnInit {
-    reply: Email;
+  reply: Email;
 
-    parentEmail: Email;
-    private readonly ngUnsubscribe = new Subject();
+  parentEmail: Email;
+  private readonly ngUnsubscribe = new Subject();
 
-    constructor(private readonly facade: EmailFacade) {
-    }
+  constructor(private readonly facade: EmailFacade) {
+  }
 
   ngOnInit(): void {
     this.facade.email$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(

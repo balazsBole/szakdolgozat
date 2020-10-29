@@ -64,7 +64,7 @@ public class EmailServiceImpl implements EmailService {
         EmailEntity emailEntity = repository.findById(emailId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
         emailEntity.setRead(read);
-        repository.saveAndFlush(emailEntity);
+        repository.save(emailEntity);
     }
 
     private String getUniqueMessageIDValue() {
@@ -87,7 +87,7 @@ public class EmailServiceImpl implements EmailService {
         } else {
             Optional<EmailEntity> relevantEmail = findRelevantEmail(emailEntity.getHeader().getReferences());
             EmailthreadEntity emailthreadEntity = relevantEmail.map(EmailEntity::getEmailthread)
-                    .orElse(threadService.createThreadWith(Status.OPEN));
+                    .orElseGet(() -> threadService.createThreadWith(Status.OPEN));
             emailEntity.setEmailthread(emailthreadEntity);
         }
         if (Direction.IN.equals(emailEntity.getDirection()))

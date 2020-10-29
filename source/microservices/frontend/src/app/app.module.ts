@@ -35,6 +35,7 @@ import {EmailReplyViewComponent} from './views/email-reply-view/email-reply-view
 import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
 import {QuillModule} from 'ngx-quill';
 import {EmailWriterComponent} from './components/email-writer/email-writer.component'
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -93,7 +94,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatInputModule,
     MatTooltipModule,
     QuillModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ScrollingModule
   ],
   providers: [
     EmailIdResolver,
