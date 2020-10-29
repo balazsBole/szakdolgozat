@@ -3,7 +3,7 @@ import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
 import {takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
-import {EmailService} from "../../api/services/email.service";
+import {newEmail} from "../../components/email-writer/email-writer.component";
 
 @Component({
     selector: 'app-email-reply-view',
@@ -19,18 +19,20 @@ export class EmailReplyViewComponent implements OnInit {
     constructor(private readonly facade: EmailFacade) {
     }
 
-    ngOnInit(): void {
-        this.facade.email$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-            (email: Email) => {
-                this.parentEmail = email
-                this.reply = createReplyEmail(email);
-            });
+  ngOnInit(): void {
+    this.facade.email$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+      (email: Email) => {
+        this.parentEmail = email
+        this.reply = createReplyEmail(email);
+      });
 
-    }
+  }
 
-    send(param: EmailService.SendParams) {
-        this.facade.send(param);
-    }
+  handleNewEmail(newEmail: newEmail) {
+    this.facade.send(newEmail.email);
+    //todo: switch thread status
+  }
+
 }
 
 function createReplyEmail(email: Email): Email {

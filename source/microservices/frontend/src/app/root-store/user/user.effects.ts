@@ -11,7 +11,7 @@ export class UserEffects {
 
   getDetails$ = createEffect(() => this.actions$.pipe(
     ofType(getDetailsAction),
-    mergeMap((action) => this.service.details()
+    mergeMap((action) => this.service.authenticatedUserDetails()
       .pipe(
         map((user: User) => getDetailsSuccessAction({user})),
         catchError((error) => of(getDetailsFailAction({error})))

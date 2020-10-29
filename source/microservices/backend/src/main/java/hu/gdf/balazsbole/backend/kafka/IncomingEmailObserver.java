@@ -3,7 +3,6 @@ package hu.gdf.balazsbole.backend.kafka;
 import hu.gdf.balazsbole.backend.service.EmailService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.enumeration.Direction;
-import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailProtocolMapper;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolKey;
 import hu.gdf.balazsbole.kafka.email.EmailProtocolValue;
@@ -30,7 +29,7 @@ public class IncomingEmailObserver {
 
         Email email = mapper.map(record.value());
         email.setDirection(Direction.IN);
-        service.storeNew(email, Status.OPEN);
+        service.storeNew(email);
 
     }
 

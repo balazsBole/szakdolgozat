@@ -1,6 +1,5 @@
 import {createAction, props} from '@ngrx/store';
 import {Email} from "../../api/models/email";
-import {EmailService} from "../../api/services/email.service";
 
 export enum ActionTypes {
   GET_DETAILS = '[EMAIL] Get email details',
@@ -26,7 +25,7 @@ export const getDetailsFailAction = createAction(
 
 export const sendEmailAction = createAction(
   ActionTypes.SEND_EMAIL,
-  props<{ params: EmailService.SendParams }>());
+  props<{ email: Email }>());
 export const sendEmailSuccessAction = createAction(
   ActionTypes.SEND_EMAIL_SUCCESS,
   props<{ email: Email }>());

@@ -34,7 +34,7 @@ public class UserRestController {
 
 
     @GetMapping("/details")
-    @ApiOperation(nickname = "details", value = "Get details of the authenticated user.")
+    @ApiOperation(nickname = "authenticatedUserDetails", value = "Get details of the authenticated user.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return authenticated user details."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),

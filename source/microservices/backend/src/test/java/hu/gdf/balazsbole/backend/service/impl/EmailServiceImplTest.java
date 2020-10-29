@@ -51,13 +51,7 @@ class EmailServiceImplTest implements RunsWithMappers {
         parentEntity.setEmailthread(new EmailthreadEntity());
 
         when(repository.findByHeader_MessageId(eq("test_parent_message_id"))).thenReturn(Optional.of(parentEntity));
-    }
-
-
-    private void createEmailWithParent(EmailEntity parent, EmailEntity child) {
-        child.setEmailthread(parent.getEmailthread());
-        child.setParentId(parent.getId());
-        repository.saveAndFlush(child);
+        when(repository.findByHeader_MessageId(eq(""))).thenReturn(Optional.empty());
     }
 
     @Test
@@ -88,37 +82,51 @@ class EmailServiceImplTest implements RunsWithMappers {
     }
 
     @Test
-    void should_create_emailthread_if_parent_not_exist() {
+    void should_create_emailthread_if_no_relevant_email_exist() {
         Email email = new Email();
         email.setHeader(new Header());
 
-        service.storeNew(email, Status.OPEN);
-        verify(threadService).createEmailThreadFor(email);
+        service.storeNew(email);
+        verify(threadService).createThreadWith(any(Status.class));
     }
 
     @Test
     void should_create_email_if_parent_exist() {
-        service.storeNew(mapper.map(emailEntity), Status.OPEN);
+        service.storeNew(mapper.map(emailEntity));
         verify(repository).saveAndFlush(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
     }
 
 
-    private EmailEntity createEmail(String mesageId, String inReplyTo) {
-        EmailEntity emailEntity = new EmailEntity();
-        HeaderEntity header = new HeaderEntity();
-        emailEntity.setHeader(header);
-        header.setMessageId(mesageId);
-        header.setInReplyTo(inReplyTo);
-        return emailEntity;
+    @Test
+    void if_reference_contains_email_then_email_thread_should_be_the_same() {
+        emailEntity.getHeader().setReferences(emailEntity.getHeader().getInReplyTo());
+        emailEntity.getHeader().setInReplyTo("");
+        service.storeNew(mapper.map(emailEntity));
+
+        verify(repository).saveAndFlush(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
+        verify(repository).saveAndFlush(argThat(entity -> parentEntity.getEmailthread().equals(entity.getEmailthread())));
+        verify(repository).saveAndFlush(argThat(entity -> entity.getParentId() == null));
     }
 
 
     @Test
     void should_set_parent_toEntity() {
         assertNull(emailEntity.getEmailthread());
-        service.storeNew(mapper.map(emailEntity), Status.OPEN);
+        service.storeNew(mapper.map(emailEntity));
         verify(repository).saveAndFlush(argThat(savedEntity ->
-                parentEntity.getId().equals(savedEntity.getParentId()) &&
-                        savedEntity.getEmailthread() != null));
+                savedEntity.getEmailthread() != null));
+        verify(repository).saveAndFlush(argThat(savedEntity ->
+                parentEntity.getId().equals(savedEntity.getParentId())));
     }
+
+    private EmailEntity createEmail(String mesageId, String inReplyTo) {
+        EmailEntity emailEntity = new EmailEntity();
+        HeaderEntity header = new HeaderEntity();
+        emailEntity.setId(UUID.randomUUID());
+        emailEntity.setHeader(header);
+        header.setMessageId(mesageId);
+        header.setInReplyTo(inReplyTo);
+        return emailEntity;
+    }
+
 }

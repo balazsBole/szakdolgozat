@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {EmailService} from "../../api/services/email.service";
 import {Header} from "../../api/models/header";
 import {Content} from "../../api/models/content";
+
+export type newEmail = { status: any, email: Email };
 
 @Component({
   selector: 'email-writer',
@@ -13,7 +14,7 @@ import {Content} from "../../api/models/content";
 export class EmailWriterComponent implements OnInit {
 
   @Input("initial") email: Email;
-  @Output('done') sendEmitter = new EventEmitter<EmailService.SendParams>();
+  @Output("emailCreated") sendEmitter = new EventEmitter<newEmail>();
 
   emailForm: FormGroup = this.fb.group({
     header: this.fb.group({
@@ -73,7 +74,7 @@ export class EmailWriterComponent implements OnInit {
   send() {
     console.log(this.emailForm);
     const status: any = this.emailForm.get('status').value as string;
-    this.sendEmitter.emit({status: status, body: this.createEmail()});
+    this.sendEmitter.emit({status: status, email: this.createEmail()});
   }
 
   private createEmail(): Email {
@@ -97,3 +98,4 @@ export class EmailWriterComponent implements OnInit {
   }
 
 }
+

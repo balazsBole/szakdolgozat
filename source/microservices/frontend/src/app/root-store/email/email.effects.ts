@@ -28,7 +28,7 @@ export class EmailEffects {
 
   sendEmail$ = createEffect(() => this.actions$.pipe(
     ofType(sendEmailAction),
-    mergeMap((action) => this.service.send(action.params)
+    mergeMap((action) => this.service.send(action.email)
       .pipe(
         map((email: Email) => sendEmailSuccessAction({email})),
         catchError((error) => of(sendEmailFailAction({error})))

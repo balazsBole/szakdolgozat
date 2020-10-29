@@ -5,18 +5,23 @@ import hu.gdf.balazsbole.backend.service.EmailService;
 import hu.gdf.balazsbole.backend.service.EmailthreadService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
+import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
 import hu.gdf.balazsbole.domain.enumeration.Direction;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailMapper;
 import hu.gdf.balazsbole.domain.repository.EmailRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 
 /**
@@ -26,10 +31,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
+    private static final AtomicInteger id = new AtomicInteger();
     private final EmailMapper mapper;
     private final EmailRepository repository;
     private final EmailthreadService threadService;
-    private static final AtomicInteger id = new AtomicInteger();
 
     public EmailServiceImpl(final EmailRepository repository, EmailMapper mapper, EmailthreadService threadService) {
         this.repository = repository;
@@ -54,9 +59,15 @@ public class EmailServiceImpl implements EmailService {
         return email;
     }
 
+    @Override
+    public void changeReadStatus(UUID emailId, Boolean read) {
+        EmailEntity emailEntity = repository.findById(emailId).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
+        emailEntity.setRead(read);
+        repository.saveAndFlush(emailEntity);
+    }
+
     private String getUniqueMessageIDValue() {
-
-
         StringBuilder stringBuilder = new StringBuilder();
         return stringBuilder.append(stringBuilder.hashCode()).append('.').
                 append(id.getAndIncrement()).append('.').
@@ -66,16 +77,22 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Transactional
-    public Email storeNew(Email email, Status status) {
+    public Email storeNew(Email email) {
         EmailEntity emailEntity = mapper.map(email);
+
         Optional<EmailEntity> optionalParent = findParent(emailEntity);
-        EmailEntity created;
         if (optionalParent.isPresent()) {
-            created = createEmailWithParent(optionalParent.get(), emailEntity, status);
+            emailEntity.setParentId(optionalParent.get().getId());
+            emailEntity.setEmailthread(optionalParent.get().getEmailthread());
         } else {
-            created = threadService.createEmailThreadFor(email);
+            Optional<EmailEntity> relevantEmail = findRelevantEmail(emailEntity.getHeader().getReferences());
+            EmailthreadEntity emailthreadEntity = relevantEmail.map(EmailEntity::getEmailthread)
+                    .orElse(threadService.createThreadWith(Status.OPEN));
+            emailEntity.setEmailthread(emailthreadEntity);
         }
-        return mapper.map(created);
+        if (Direction.IN.equals(emailEntity.getDirection()))
+            emailEntity.getEmailthread().setStatus(Status.OPEN);
+        return mapper.map(repository.saveAndFlush(emailEntity));
     }
 
     Optional<EmailEntity> findParent(EmailEntity entity) {
@@ -84,12 +101,11 @@ public class EmailServiceImpl implements EmailService {
         return parent;
     }
 
-    EmailEntity createEmailWithParent(EmailEntity parent, EmailEntity child, Status status) {
-        child.setParentId(parent.getId());
-        child.setEmailthread(parent.getEmailthread());
-        child.getEmailthread().setStatus(status);
-        return repository.saveAndFlush(child);
+    Optional<EmailEntity> findRelevantEmail(String references) {
+        String[] referenceIds = StringUtils.stripToEmpty(references).split("\\s+");
+        return Stream.of(referenceIds)
+                .map(repository::findByHeader_MessageId).filter(Optional::isPresent)
+                .map(Optional::get).findAny();
     }
-
 
 }

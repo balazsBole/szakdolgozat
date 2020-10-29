@@ -33,10 +33,8 @@ export class EmailthreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let root = new Array(this.orderToEmailNodes(this.emailthread.emails));
-    this.dataSource.data = root;
+    this.dataSource.data = this.orderToEmailNodes(this.emailthread.emails);
     this.unread = this.emailthread.emails.filter(email => !email.read).length;
-    this.allEmail = this.emailthread.emails.length;
     this.allEmail = this.emailthread.emails.length;
     this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort()[0];
   }
@@ -48,15 +46,15 @@ export class EmailthreadComponent implements OnInit {
     }
   }
 
-  private orderToEmailNodes(emails: Array<Email>) {
-    let root: EmailNode;
+  private orderToEmailNodes(emails: Array<Email>): EmailNode[] {
+    let rootNodes: EmailNode[] = [];
 
     let emailNodes: EmailNode[] = [];
     emails.forEach(e => emailNodes.push({email: e}));
 
     emailNodes.forEach(node => {
       if (node.email.header.inReplyTo === null) {
-        root = node;
+        rootNodes.push(node);
         return;
       }
 
@@ -75,10 +73,9 @@ export class EmailthreadComponent implements OnInit {
           return new Date(a.email.processed).getTime() - new Date(b.email.processed).getTime();
         });
       }
-
     });
 
-    return root;
+    return rootNodes;
   }
 }
 

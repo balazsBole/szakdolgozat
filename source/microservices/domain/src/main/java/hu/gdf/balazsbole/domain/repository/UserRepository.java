@@ -18,4 +18,7 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     @Transactional(readOnly = true)
     Optional<UserEntity> findByKeycloakID(UUID keycloakId);
 
+    @Transactional(readOnly = true)
+    Optional<UserEntity> findById(UUID userId);
+
 }

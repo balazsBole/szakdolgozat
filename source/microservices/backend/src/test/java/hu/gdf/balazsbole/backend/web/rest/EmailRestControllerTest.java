@@ -1,5 +1,6 @@
 package hu.gdf.balazsbole.backend.web.rest;
 
+import hu.gdf.balazsbole.backend.kafka.EmailKafkaProducer;
 import hu.gdf.balazsbole.backend.service.EmailService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import org.junit.jupiter.api.Assertions;
@@ -40,6 +41,9 @@ class EmailRestControllerTest {
 
     @MockBean
     private EmailService service;
+
+    @MockBean
+    private EmailKafkaProducer kafkaProducer;
 
 
     @Test

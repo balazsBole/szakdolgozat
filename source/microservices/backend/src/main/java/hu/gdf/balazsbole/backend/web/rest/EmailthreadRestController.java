@@ -50,13 +50,39 @@ public class EmailthreadRestController {
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return found emailthreads."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
-    public ResponseEntity<List<Emailthread>> findMinesByStatus(
+    public ResponseEntity<List<Emailthread>> assignedToMeByStatus(
             @ApiParam(value = "Emailthread status") @RequestHeader(value = "status", defaultValue = "OPEN") final String status
     ) {
         String keycloakUsername = SecurityContextHolder.getContext().getAuthentication().getName();
 
         List<Emailthread> threads = service.findAllByStatusAndKeycloakUser(UUID.fromString(keycloakUsername), Status.valueOf(status));
         return ResponseEntity.ok(threads);
+    }
+
+    @PutMapping("/status/{emailThreadId}")
+    @ApiOperation(nickname = "changeStatus", value = "Change the status of the emailthread.")
+    @ApiResponses({
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return found emailthreads."),
+            @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "Email with the given ID does not exists."),
+            @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+    })
+    public ResponseEntity<Emailthread> changeStatus(
+            @ApiParam(value = "Id of the emailThread") @PathVariable("emailThreadId") final UUID emailThreadId,
+            @ApiParam(value = "New status", required = true) @RequestBody final Status status) {
+        return ResponseEntity.ok(service.updateStatus(emailThreadId, status));
+    }
+
+    @PutMapping("/user/{emailThreadId}")
+    @ApiOperation(nickname = "changeUser", value = "Change the owner of the emailthread.")
+    @ApiResponses({
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return found emailthreads."),
+            @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "Email with the given ID does not exists."),
+            @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+    })
+    public ResponseEntity<Emailthread> changeUser(
+            @ApiParam(value = "Id of the emailThread") @PathVariable("emailThreadId") final UUID emailThreadId,
+            @ApiParam(value = "New user's id", required = true) @RequestBody final UUID userId) {
+        return ResponseEntity.ok(service.updateUser(emailThreadId, userId));
     }
 
 }

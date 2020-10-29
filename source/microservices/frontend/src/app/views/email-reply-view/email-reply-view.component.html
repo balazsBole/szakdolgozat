@@ -1,3 +1,3 @@
 <email-reader [email]="parentEmail" title="Previous email"></email-reader>
 
-<email-writer (done)="send($event)" [initial]="reply"></email-writer>
+<email-writer (emailCreated)="handleNewEmail($event)" [initial]="reply"></email-writer>

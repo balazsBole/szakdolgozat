@@ -5,7 +5,6 @@ import {getDetailsAction, sendEmailAction} from './email.actions';
 import {selectEmail, selectError, selectIsLoading, selectSentEmail} from './email.selectors';
 import {EmailStoreState} from './email.state.interface';
 import {Email} from "../../api/models";
-import {EmailService} from "../../api/services/email.service";
 
 @Injectable({providedIn: 'root'})
 export class EmailFacade {
@@ -29,8 +28,8 @@ export class EmailFacade {
     this.store.dispatch(getDetailsAction({id}));
   }
 
-  send(params: EmailService.SendParams) {
-    this.store.dispatch(sendEmailAction({params}));
+  send(email: Email) {
+    this.store.dispatch(sendEmailAction({email}));
   }
 
 }
