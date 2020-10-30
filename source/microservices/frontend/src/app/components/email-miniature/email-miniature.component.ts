@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
 import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {filter, take} from "rxjs/operators";
 
 @Component({
   selector: 'email-miniature',
@@ -22,7 +23,10 @@ export class EmailMiniatureComponent implements OnInit {
   markAsRead() {
     if (!this.email.read) {
       this.facade.markEmailAs(this.email, true);
-      this.emailthreadFacade.assignedToMeWith(this.email.emailthread.status);
+      this.facade.loading$.pipe(
+        filter((loading: boolean) => !loading),
+        take(1)
+      ).subscribe(() => this.emailthreadFacade.assignedToMeWith(this.email.emailthread.status));
     }
   }
 }

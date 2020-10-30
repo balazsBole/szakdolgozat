@@ -20,8 +20,8 @@ export class EmailFacade {
 
   initObservables() {
     this.email$ = this.store.select(selectEmail);
-    this.error$ = this.store.select(selectIsLoading);
-    this.loading$ = this.store.select(selectError);
+    this.error$ = this.store.select(selectError);
+    this.loading$ = this.store.select(selectIsLoading);
     this.sentEmail$ = this.store.select(selectSentEmail)
   }
 

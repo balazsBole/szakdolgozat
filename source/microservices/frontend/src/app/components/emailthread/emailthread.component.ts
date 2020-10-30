@@ -59,17 +59,17 @@ export class EmailthreadComponent implements OnInit {
       }
 
       parent.children = [...(parent.children || []), node];
-
-      sortByDate();
-
-      function sortByDate() {
-        parent.children.sort((a: EmailNode, b: EmailNode) => {
-          return new Date(a.email.processed).getTime() - new Date(b.email.processed).getTime();
-        });
-      }
+      sortEmailNodesByDate(parent.children);
     });
 
+    sortEmailNodesByDate(rootNodes);
     return rootNodes;
+
+    function sortEmailNodesByDate(nodes: EmailNode[]) {
+      nodes.sort((a: EmailNode, b: EmailNode) => {
+        return new Date(a.email.processed).getTime() - new Date(b.email.processed).getTime();
+      });
+    }
   }
 }
 
