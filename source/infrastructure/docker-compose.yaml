@@ -54,11 +54,14 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:11.0.2
+    volumes:
+      - ./keycloak:/opt/jboss/keycloak/imports
     ports:
       - 8082:8080
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json
 
 
   prometheus:
