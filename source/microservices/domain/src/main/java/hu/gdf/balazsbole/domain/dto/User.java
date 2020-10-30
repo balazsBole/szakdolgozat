@@ -11,6 +11,9 @@ import java.util.UUID;
 @ApiModel(description = "Full DTO for users")
 public class User {
 
+    @ApiModelProperty(value = "Unique internal identifier", example = "06484c9f-6f59-4b9f-ad5e-aaaa0ec332cc")
+    private UUID id;
+
     @ApiModelProperty(value = "Username.")
     @NotNull
     private String username;

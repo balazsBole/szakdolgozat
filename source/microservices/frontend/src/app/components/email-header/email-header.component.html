@@ -28,7 +28,7 @@
       <span class="spacer"></span>
 
       <button [disabled]="!email.read" aria-label="mark unread button" mat-icon-button
-              matTooltip="Mark email as unread">
+              (click)="markAsUnread()" matTooltip="Mark email as unread">
         <mat-icon>markunread</mat-icon>
       </button>
       <button [disabled]="email.direction==='OUT'" [routerLink]="'/replyTo/'+email.id"

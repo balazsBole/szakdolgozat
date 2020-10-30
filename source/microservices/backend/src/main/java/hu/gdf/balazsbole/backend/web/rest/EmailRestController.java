@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -61,7 +62,7 @@ public class EmailRestController {
         return ResponseEntity.ok(saved);
     }
 
-    @PutMapping("/{emailId}")
+    @PatchMapping("/{emailId}")
     @ApiOperation(nickname = "changeRead", value = "Change ths status of the email's read property'.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "New status of the email has been set"),
@@ -70,8 +71,8 @@ public class EmailRestController {
     })
     public ResponseEntity<Void> changeRead(
             @PathVariable("emailId") final UUID emailId,
-            @ApiParam(value = "Email has been read", required = true) @RequestBody final boolean read) {
-        service.changeReadStatus(emailId, read);
+            @ApiParam(value = "Email has been read", required = true) @RequestBody Map<String, Boolean> update) {
+        service.changeReadStatus(emailId, update.get("read"));
         return ResponseEntity.ok().build();
     }
 

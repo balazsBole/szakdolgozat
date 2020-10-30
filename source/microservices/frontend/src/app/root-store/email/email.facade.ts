@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {getDetailsAction, sendEmailAction} from './email.actions';
+import {changeReadAction, getDetailsAction, sendEmailAction} from './email.actions';
 import {selectEmail, selectError, selectIsLoading, selectSentEmail} from './email.selectors';
 import {EmailStoreState} from './email.state.interface';
 import {Email} from "../../api/models";
+import {EmailService} from "../../api/services/email.service";
 
 @Injectable({providedIn: 'root'})
 export class EmailFacade {
@@ -32,4 +33,8 @@ export class EmailFacade {
     this.store.dispatch(sendEmailAction({email}));
   }
 
+  markEmailAs(email: Email, read: boolean) {
+    const params: EmailService.ChangeReadParams = {body: {"read": read}, emailId: email.id}
+    this.store.dispatch(changeReadAction({params}));
+  }
 }

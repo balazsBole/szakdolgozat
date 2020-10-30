@@ -75,9 +75,10 @@ export class EmailWriterComponent implements OnInit {
   send() {
     const status: any = this.emailForm.get('status').value as string;
     this.sendEmitter.emit({status: status, email: this.createEmail()});
+    this.exit();
   }
 
-  discard() {
+  exit() {
     this.location.back();
   }
 

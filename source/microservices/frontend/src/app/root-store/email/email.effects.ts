@@ -3,6 +3,9 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {
+  changeReadAction,
+  changeReadFailAction,
+  changeReadSuccessAction,
   getDetailsAction,
   getDetailsFailAction,
   getDetailsSuccessAction,
@@ -32,6 +35,16 @@ export class EmailEffects {
       .pipe(
         map((email: Email) => sendEmailSuccessAction({email})),
         catchError((error) => of(sendEmailFailAction({error})))
+      ))
+    )
+  );
+
+  changeRead$ = createEffect(() => this.actions$.pipe(
+    ofType(changeReadAction),
+    mergeMap((action) => this.service.changeRead(action.params)
+      .pipe(
+        map((email: Email) => changeReadSuccessAction()),
+        catchError((error) => of(changeReadFailAction({error})))
       ))
     )
   );

@@ -3,6 +3,7 @@ package hu.gdf.balazsbole.backend.web.rest;
 import hu.gdf.balazsbole.backend.service.EmailthreadService;
 import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.Emailthread;
+import hu.gdf.balazsbole.domain.dto.User;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
@@ -59,7 +60,7 @@ public class EmailthreadRestController {
         return ResponseEntity.ok(threads);
     }
 
-    @PutMapping("/status/{emailThreadId}")
+    @PatchMapping("/status/{emailThreadId}")
     @ApiOperation(nickname = "changeStatus", value = "Change the status of the emailthread.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return found emailthreads."),
@@ -72,7 +73,7 @@ public class EmailthreadRestController {
         return ResponseEntity.ok(service.updateStatus(emailThreadId, status));
     }
 
-    @PutMapping("/user/{emailThreadId}")
+    @PatchMapping("/user/{emailThreadId}")
     @ApiOperation(nickname = "changeUser", value = "Change the owner of the emailthread.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return found emailthreads."),
@@ -81,8 +82,8 @@ public class EmailthreadRestController {
     })
     public ResponseEntity<Emailthread> changeUser(
             @ApiParam(value = "Id of the emailThread") @PathVariable("emailThreadId") final UUID emailThreadId,
-            @ApiParam(value = "New user's id", required = true) @RequestBody final UUID userId) {
-        return ResponseEntity.ok(service.updateUser(emailThreadId, userId));
+            @ApiParam(value = "New user's id", required = true) @RequestBody final User user) {
+        return ResponseEntity.ok(service.updateUser(emailThreadId, user.getId()));
     }
 
 }
