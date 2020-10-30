@@ -1,6 +1,7 @@
 import {createReducer, on} from '@ngrx/store';
 import {initialState} from "./emailthread.state.interface";
 import {
+  patchAction, patchFailAction, patchSuccessAction,
   searchAssignedToMeByStatusAction,
   searchAssignedToMeFailAction,
   searchAssignedToMeSuccessAction,
@@ -13,15 +14,22 @@ import {
 export const _emailthreadReducer = createReducer(
   initialState,
 
-  on(searchUnassignedAction, searchAssignedToMeByStatusAction, (state) => ({
+  on(searchUnassignedAction, searchAssignedToMeByStatusAction, patchAction, (state) => ({
     ...state,
     error: null,
     loading: true
   })),
 
-  on(searchUnassignedFailAction, searchAssignedToMeFailAction, (state, {error}) => ({
+  on(searchUnassignedFailAction, searchAssignedToMeFailAction, patchFailAction, (state, {error}) => ({
     ...state,
     error,
+    loading: false
+  })),
+
+  on(patchSuccessAction, (state, {emailthread}) => ({
+    ...state,
+    patched: emailthread,
+    error: null,
     loading: false
   })),
 

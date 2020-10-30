@@ -4,8 +4,10 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Header} from "../../api/models/header";
 import {Content} from "../../api/models/content";
 import {Location} from '@angular/common';
-
-export type newEmail = { status: any, email: Email };
+import {EmailFacade} from "../../root-store/email/email.facade";
+import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {filter, take, takeUntil} from "rxjs/operators";
+import {Observable, Subject} from "rxjs";
 
 @Component({
   selector: 'email-writer',
@@ -15,7 +17,9 @@ export type newEmail = { status: any, email: Email };
 export class EmailWriterComponent implements OnInit {
 
   @Input("initial") email: Email;
-  @Output("emailCreated") sendEmitter = new EventEmitter<newEmail>();
+  @Output("emailCreated") sendEmitter = new EventEmitter<Email>();
+  private readonly ngUnsubscribe = new Subject();
+
 
   emailForm: FormGroup = this.fb.group({
     header: this.fb.group({
@@ -53,11 +57,14 @@ export class EmailWriterComponent implements OnInit {
         ]
     }
   };
+  loading$: Observable<boolean>;
 
-  constructor(private readonly fb: FormBuilder, private readonly location: Location) {
+  constructor(private readonly fb: FormBuilder, private readonly location: Location,
+              private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade) {
   }
 
   ngOnInit(): void {
+    this.loading$ = this.facade.loading$;
     if (this.email)
       this.emailForm.patchValue(
         {
@@ -73,9 +80,17 @@ export class EmailWriterComponent implements OnInit {
   }
 
   send() {
+    const email: Email = this.createEmail();
+    this.facade.send(email);
+    console.log(email);
+
     const status: any = this.emailForm.get('status').value as string;
-    this.sendEmitter.emit({status: status, email: this.createEmail()});
-    this.exit();
+    this.facade.sentEmail$.pipe(takeUntil(this.ngUnsubscribe)).pipe(filter(value => !!value), take(1)).subscribe((sent: Email) => {
+      console.log(sent);
+      if (status !== sent.emailthread.status)
+        this.emailthreadFacade.patchStatus(status, sent.emailthread.id);
+      this.sendEmitter.emit(sent);
+    });
   }
 
   exit() {

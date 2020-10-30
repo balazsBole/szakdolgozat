@@ -3,6 +3,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {
+  patchAction, patchFailAction, patchSuccessAction,
   searchAssignedToMeByStatusAction,
   searchAssignedToMeFailAction,
   searchAssignedToMeSuccessAction,
@@ -32,6 +33,16 @@ export class EmailthreadEffects {
       .pipe(
         map((searchResults: Array<Emailthread>) => searchAssignedToMeSuccessAction({searchResults})),
         catchError((error) => of(searchAssignedToMeFailAction({error})))
+      ))
+    )
+  );
+
+  patch$ = createEffect(() => this.actions$.pipe(
+    ofType(patchAction),
+    mergeMap((action) => this.service.patch(action.params)
+      .pipe(
+        map((emailthread: Emailthread) => patchSuccessAction({emailthread})),
+        catchError((error) => of(patchFailAction({error})))
       ))
     )
   );

@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
 import {Subject} from "rxjs";
 import {Email, Emailthread} from "../../api/models";
-import {takeUntil} from "rxjs/operators";
+import {filter, takeUntil} from "rxjs/operators";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 
 
 @Component({
@@ -27,6 +27,7 @@ export class EmailthreadViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.updateStatusFromUrl();
     this.assignedToMeWith(this.selectedStatus);
     this.facade.numberOfAssignedThreads$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (number: number) => this.numberOfAssignedThreads = number);
@@ -52,24 +53,35 @@ export class EmailthreadViewComponent implements OnInit, OnDestroy {
       });
   }
 
+  private updateStatusFromUrl() {
+    this.route.queryParamMap.pipe(filter((paramMap: ParamMap) => paramMap.has('status')), takeUntil(this.ngUnsubscribe)).subscribe((paramMap: ParamMap) => {
+      this.selectedStatus = paramMap.get('status');
+    });
+  }
+
   assignedToMeWith(status: string): void {
+    const urlParameters : Params = {...this.route.snapshot.queryParams, status: status};
+    this.updateUrl(urlParameters);
     this.facade.assignedToMeWith(status)
+  }
+
+  private updateUrl(urlParameters: Params) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: urlParameters
+    });
   }
 
   emailThreadPicked(threadId: string) {
     const urlParameters = {...this.route.snapshot.queryParams, emailThreadId: threadId};
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: urlParameters
-    });
+    this.updateUrl(urlParameters);
+
   }
 
   emailPicked(emailId: string) {
     const urlParameters = {...this.route.snapshot.queryParams, emailId: emailId};
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: urlParameters
-    });
+    this.updateUrl(urlParameters);
+
   }
 
   ngOnDestroy() {

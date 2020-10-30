@@ -1,25 +1,25 @@
-<form (ngSubmit)="send()" [formGroup]="emailForm">
+<form [formGroup]="emailForm">
   <mat-card>
     <mat-card-content>
-        <div formGroupName="header">
-          <mat-form-field>
-            <mat-label>From:</mat-label>
-            <input *ngIf="!email" formControlName="from" matInput>
-            <input *ngIf="email" disabled matInput value="{{email.header.from}}">
-          </mat-form-field>
+      <div formGroupName="header">
+        <mat-form-field>
+          <mat-label>From:</mat-label>
+          <input *ngIf="!email" formControlName="from" matInput>
+          <input *ngIf="email" disabled matInput value="{{email.header.from}}">
+        </mat-form-field>
 
-          <mat-form-field>
-            <mat-label>To:</mat-label>
-            <input formControlName="to" matInput>
-          </mat-form-field>
+        <mat-form-field>
+          <mat-label>To:</mat-label>
+          <input formControlName="to" matInput>
+        </mat-form-field>
 
-          <span class="spacer"></span>
-          <button (click)="exit()" aria-label="discard button"
-                  mat-icon-button matTooltip="Discard email">
-            <mat-icon>cancel_presentation</mat-icon>
-          </button>
+        <span class="spacer"></span>
+        <button (click)="exit()" aria-label="discard button"
+                mat-icon-button matTooltip="Discard email">
+          <mat-icon>cancel_presentation</mat-icon>
+        </button>
 
-        </div>
+      </div>
       <div>
         <mat-form-field formGroupName="header">
           <mat-label>Subject:</mat-label>
@@ -37,9 +37,9 @@
           </mat-select>
         </mat-form-field>
 
-        <button [disabled]="!emailForm.valid" aria-label="send button"
+        <button [disabled]="!emailForm.valid || (loading$ | async)" aria-label="send button"
                 mat-icon-button matTooltip="Send email"
-                type="submit">
+                (click)="send()">
           <mat-icon>send</mat-icon>
         </button>
       </div>

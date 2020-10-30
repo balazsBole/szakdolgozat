@@ -12,7 +12,7 @@ export class EmailFacade {
   email$: Observable<Email>;
   error$: Observable<any>;
   loading$: Observable<boolean>;
-  private sentEmail$: Observable<Email>;
+  sentEmail$: Observable<Email>;
 
   constructor(private readonly store: Store<EmailStoreState>) {
     this.initObservables();
