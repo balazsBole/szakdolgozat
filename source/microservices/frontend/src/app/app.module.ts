@@ -36,6 +36,8 @@ import {QuillModule} from 'ngx-quill';
 import {EmailWriterComponent} from './components/email-writer/email-writer.component'
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import {LandingViewComponent} from './views/landing-view/landing-view.component';
+import {UnassignedViewComponent} from './views/unassigned-view/unassigned-view.component';
+import {MultipleEmailThreadComponent} from './components/multiple-email-thread/multiple-email-thread.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -65,7 +67,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EmailHeaderComponent,
     EmailReplyViewComponent,
     EmailWriterComponent,
-    LandingViewComponent
+    LandingViewComponent,
+    UnassignedViewComponent,
+    MultipleEmailThreadComponent
   ],
   imports: [
     BrowserModule,

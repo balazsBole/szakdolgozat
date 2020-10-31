@@ -1,0 +1,20 @@
+<div id="flex-container">
+  <div [ngStyle]="{ height: flexContainerHeight }" class="emails scrollable">
+    <ng-container *ngIf="threads">
+      <div *ngFor="let thread of threads" class="emailthread">
+        <emailthread (click)="emailThreadPicked(thread.id)"
+                     (pickedEmailId)="emailPicked($event)" [emailthread]="thread"
+                     [emilToShow]="email?.id" [picked]="thread.id===emailThreadId"
+        ></emailthread>
+      </div>
+    </ng-container>
+  </div>
+
+  <div [ngStyle]="{ height: flexContainerHeight }" class="emailTexts scrollable">
+    <ng-container *ngIf="email">
+      <email-header [email]="email" [reply]="reply" [unread]="unread"></email-header>
+      <email-reader [email]="email"></email-reader>
+    </ng-container>
+  </div>
+
+</div>

@@ -12,24 +12,4 @@
   <mat-icon>refresh</mat-icon>
 </button>
 
-
-<div class="flex-container">
-  <div class="emails scrollable">
-    <ng-container *ngIf="assignedThreads">
-      <div *ngFor="let thread of assignedThreads" class="emailthread">
-        <emailthread (click)="emailThreadPicked(thread.id)"
-                     (pickedEmailId)="emailPicked($event)" [emailthread]="thread"
-                     [emilToShow]="emailToDisplay?.id" [picked]="thread.id===emailThreadIdToDisplay"
-        ></emailthread>
-      </div>
-    </ng-container>
-  </div>
-
-  <div class="emailTexts scrollable">
-    <ng-container *ngIf="emailToDisplay">
-      <email-header [email]="emailToDisplay"></email-header>
-      <email-reader [email]="emailToDisplay"></email-reader>
-    </ng-container>
-  </div>
-
-</div>
+<multiple-email-thread [threads]="assignedThreads" reply="true" unread="true"></multiple-email-thread>

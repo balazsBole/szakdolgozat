@@ -12,6 +12,8 @@ import {filter, take} from "rxjs/operators";
 export class EmailHeaderComponent implements OnInit {
 
   @Input() email: Email;
+  @Input() unread: boolean;
+  @Input() reply: boolean;
 
   constructor(private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade) {
   }

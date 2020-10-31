@@ -5,6 +5,7 @@ import {AuthenticationGuardService} from "./service/authentication-guard.service
 import {EmailReplyViewComponent} from "./views/email-reply-view/email-reply-view.component";
 import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
 import {LandingViewComponent} from "./views/landing-view/landing-view.component";
+import {UnassignedViewComponent} from "./views/unassigned-view/unassigned-view.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'landing-page',
     component: LandingViewComponent,
+  },
+  {
+    path: 'unassigned',
+    component: UnassignedViewComponent,
   },
   {
     path: '**',

@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import {patchAction, searchAssignedToMeByStatusAction, searchUnassignedAction} from './emailthread.actions';
 import {
   selectAssigned,
-  selectAssignedTotalCount,
   selectError,
   selectIsLoading,
   selectPatched,
@@ -17,12 +16,11 @@ import {Emailthread} from "../../api/models";
 
 @Injectable({providedIn: 'root'})
 export class EmailthreadFacade {
-  emailthreads$: Observable<Emailthread[]>;
+  unassigned$: Observable<Emailthread[]>;
   numberOfElements$: Observable<number>;
   error$: Observable<any>;
   loading$: Observable<boolean>;
   assignedThreads: Observable<Emailthread[]>;
-  numberOfAssignedThreads$: Observable<number>;
   patched$: Observable<Emailthread>;
 
   constructor(private readonly store: Store<EmailthreadStoreState>) {
@@ -30,10 +28,9 @@ export class EmailthreadFacade {
   }
 
   initObservables() {
-    this.emailthreads$ = this.store.select(selectUnassigned);
+    this.unassigned$ = this.store.select(selectUnassigned);
     this.numberOfElements$ = this.store.select(selectUnassignedTotalCount);
     this.assignedThreads = this.store.select(selectAssigned);
-    this.numberOfAssignedThreads$ = this.store.select(selectAssignedTotalCount);
     this.patched$ = this.store.select(selectPatched);
     this.error$ = this.store.select(selectError);
     this.loading$ = this.store.select(selectIsLoading);

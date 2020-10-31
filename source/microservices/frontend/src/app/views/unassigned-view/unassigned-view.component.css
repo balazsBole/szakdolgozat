@@ -1,0 +1,21 @@
+.emailthread {
+  padding: 1px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.emails {
+  flex: 35%;
+}
+
+.emailTexts {
+  flex: 65%;
+}
+
+.scrollable {
+  overflow-y: auto;
+  height: calc(100vh - 9.8em);
+}
