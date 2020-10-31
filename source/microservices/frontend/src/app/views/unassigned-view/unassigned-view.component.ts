@@ -13,15 +13,20 @@ import {Subject} from "rxjs";
 export class UnassignedViewComponent implements OnInit, OnDestroy {
   threads: Emailthread[];
   private readonly ngUnsubscribe = new Subject();
+  numberOfUnassigned: number;
 
   constructor(private readonly facade: EmailthreadFacade, private readonly _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
-    this.facade.unassigned({})
+    this.search();
     this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (error) => {
         if (error) this._snackBar.open(error.message, "", {duration: 2000})
+      });
+    this.facade.numberOfUnassigned$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+      (numberOfUnassigned) => {
+        this.numberOfUnassigned = numberOfUnassigned;
       });
     this.facade.unassigned$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (result: Emailthread[]) => {
@@ -34,4 +39,7 @@ export class UnassignedViewComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
+  search() {
+    this.facade.unassigned({});
+  }
 }

@@ -24,12 +24,14 @@ const routes: Routes = [
     }
   },
   {
-    path: 'landing-page',
-    component: LandingViewComponent,
-  },
-  {
     path: 'unassigned',
     component: UnassignedViewComponent,
+    canActivate: [AuthenticationGuardService],
+    data: {roles: ['regular_user']}
+  },
+  {
+    path: 'landing-page',
+    component: LandingViewComponent,
   },
   {
     path: '**',

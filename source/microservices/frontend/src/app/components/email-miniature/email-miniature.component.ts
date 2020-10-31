@@ -2,7 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
 import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
-import {filter, take} from "rxjs/operators";
+import {filter, take, takeUntil} from "rxjs/operators";
+import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'email-miniature',
@@ -12,16 +14,24 @@ import {filter, take} from "rxjs/operators";
 export class EmailMiniatureComponent implements OnInit {
 
   @Input() email: Email;
-  @Input() picked: boolean;
+  picked: boolean;
+  @Input() readEmailsWhenClicked: boolean = true;
+  private readonly ngUnsubscribe = new Subject();
 
-  constructor(private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade) {
+  constructor(private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade,
+              private readonly router: Router, private readonly route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.route.queryParamMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('emailId')) {
+        this.picked = this.email.id === paramMap.get('emailId');
+      }
+    });
   }
 
   markAsRead() {
-    if (!this.email.read) {
+    if (this.readEmailsWhenClicked && !this.email.read) {
       this.facade.markEmailAs(this.email, true);
       this.facade.loading$.pipe(
         filter((loading: boolean) => !loading),
@@ -29,4 +39,17 @@ export class EmailMiniatureComponent implements OnInit {
       ).subscribe(() => this.emailthreadFacade.assignedToMeWith(this.email.emailthread.status));
     }
   }
+
+  pick() {
+    const urlParameters = {...this.route.snapshot.queryParams, emailId: this.email.id};
+    this.updateUrl(urlParameters);
+  }
+
+  private updateUrl(urlParameters: Params) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: urlParameters
+    });
+  }
+
 }

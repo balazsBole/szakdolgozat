@@ -17,7 +17,7 @@ import {Emailthread} from "../../api/models";
 @Injectable({providedIn: 'root'})
 export class EmailthreadFacade {
   unassigned$: Observable<Emailthread[]>;
-  numberOfElements$: Observable<number>;
+  numberOfUnassigned$: Observable<number>;
   error$: Observable<any>;
   loading$: Observable<boolean>;
   assignedThreads: Observable<Emailthread[]>;
@@ -29,7 +29,7 @@ export class EmailthreadFacade {
 
   initObservables() {
     this.unassigned$ = this.store.select(selectUnassigned);
-    this.numberOfElements$ = this.store.select(selectUnassignedTotalCount);
+    this.numberOfUnassigned$ = this.store.select(selectUnassignedTotalCount);
     this.assignedThreads = this.store.select(selectAssigned);
     this.patched$ = this.store.select(selectPatched);
     this.error$ = this.store.select(selectError);

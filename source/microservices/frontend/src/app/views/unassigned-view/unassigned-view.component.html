@@ -1,1 +1,10 @@
+<div>
+  <mat-card>
+    <button (click)="search()" aria-label="Refresh button" mat-icon-button
+            matTooltip="Refresh">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    Found {{numberOfUnassigned || 0}} unassigned thread.
+  </mat-card>
+</div>
 <multiple-email-thread [threads]="threads"></multiple-email-thread>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Emailthread} from "../../api/models/emailthread";
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
@@ -13,33 +13,29 @@ export class EmailthreadComponent implements OnInit {
 
   @Input() emailthread: Emailthread;
   @Input('picked') showMiniatures: boolean = false;
-  @Input('emilToShow') emailId: string;
+  @Input() readEmailsWhenClicked: boolean;
 
-  @Output('pickedEmailId') pickEmitter = new EventEmitter<string>();
-
-  unread: number;
-  allEmail: number;
   lastMail: Date;
   treeControl = new NestedTreeControl<EmailNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<EmailNode>();
   hasChild = (_: number, node: EmailNode) => !!node.children && node.children.length > 0;
+  unreadRatio: string;
 
 
   constructor() {
   }
 
-  pickEmail(emailId: string) {
-    this.emailId = emailId;
-    this.pickEmitter.emit(emailId);
-  }
-
   ngOnInit(): void {
     this.dataSource.data = orderToEmailNodes(this.emailthread.emails);
-    this.unread = this.emailthread.emails.filter(email => !email.read).length;
-    this.allEmail = this.emailthread.emails.length;
+    this.unreadRatio = this.calculateUnreadRation();
     this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort()[0];
   }
 
+  private calculateUnreadRation(): string {
+    const unread = this.emailthread.emails.filter(email => !email.read).length;
+    const allEmail = this.emailthread.emails.length;
+    return "" + unread || "0" + "/" + allEmail || "0";
+  }
 }
 
 interface EmailNode {

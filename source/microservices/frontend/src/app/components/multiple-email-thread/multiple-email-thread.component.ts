@@ -12,7 +12,7 @@ import {Email} from "../../api/models/email";
 })
 export class MultipleEmailThreadComponent implements OnInit, OnDestroy, OnChanges {
   @Input() threads: Emailthread[];
-  @Input() unread: boolean;
+  @Input() markAsRead: boolean;
   @Input() reply: boolean;
   email: Email;
   emailThreadId: string;
@@ -78,7 +78,7 @@ export class MultipleEmailThreadComponent implements OnInit, OnDestroy, OnChange
 
     function topOfFlexContainer(): number {
       let top = document.getElementById('flex-container').getBoundingClientRect().top;
-      return Math.ceil(top + 2);
+      return Math.ceil(top + 3);
     }
   }
 
