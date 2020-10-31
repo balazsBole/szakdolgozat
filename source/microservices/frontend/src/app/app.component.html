@@ -1,4 +1,4 @@
-<div class="content">
+<div>
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button mat-icon-button>
@@ -7,7 +7,6 @@
       <h1>GDF Helpdesk</h1>
       <span class="spacer"></span>
       <login></login>
-
     </mat-toolbar-row>
   </mat-toolbar>
 
@@ -16,8 +15,11 @@
       <mat-nav-list>
         <a [routerLink]="'/emailthread'" mat-list-item> Email threads </a>
       </mat-nav-list>
+      <mat-nav-list class="bottom">
+        <a href="http://localhost:8082/" mat-list-item> Login service </a>
+      </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content class="content">
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

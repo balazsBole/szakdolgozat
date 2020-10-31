@@ -84,7 +84,7 @@ export class EmailthreadViewComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

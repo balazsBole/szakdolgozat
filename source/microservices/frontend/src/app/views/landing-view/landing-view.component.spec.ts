@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LoggedOutViewComponent} from './logged-out-view.component';
+import {LandingViewComponent} from './landing-view.component';
 
-describe('LoggedOutViewComponent', () => {
-  let component: LoggedOutViewComponent;
-  let fixture: ComponentFixture<LoggedOutViewComponent>;
+describe('LandingViewComponent', () => {
+  let component: LandingViewComponent;
+  let fixture: ComponentFixture<LandingViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LoggedOutViewComponent]
+      declarations: [LandingViewComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoggedOutViewComponent);
+    fixture = TestBed.createComponent(LandingViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

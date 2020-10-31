@@ -17,7 +17,6 @@ import {MatListModule} from "@angular/material/list";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {LoginComponent} from './components/login/login.component';
-import {LoggedOutViewComponent} from './views/logged-out-view/logged-out-view.component';
 import {EmailMiniatureComponent} from './components/email-miniature/email-miniature.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
@@ -36,6 +35,7 @@ import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
 import {QuillModule} from 'ngx-quill';
 import {EmailWriterComponent} from './components/email-writer/email-writer.component'
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import {LandingViewComponent} from './views/landing-view/landing-view.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -60,12 +60,12 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EmailthreadComponent,
     EmailthreadViewComponent,
     LoginComponent,
-    LoggedOutViewComponent,
     EmailMiniatureComponent,
     EmailReaderComponent,
     EmailHeaderComponent,
     EmailReplyViewComponent,
-    EmailWriterComponent
+    EmailWriterComponent,
+    LandingViewComponent
   ],
   imports: [
     BrowserModule,
