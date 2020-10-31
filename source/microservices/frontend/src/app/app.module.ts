@@ -38,6 +38,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import {LandingViewComponent} from './views/landing-view/landing-view.component';
 import {UnassignedViewComponent} from './views/unassigned-view/unassigned-view.component';
 import {MultipleEmailThreadComponent} from './components/multiple-email-thread/multiple-email-thread.component';
+import {AssignThreadViewComponent} from './views/assign-thread-view/assign-thread-view.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -69,7 +70,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EmailWriterComponent,
     LandingViewComponent,
     UnassignedViewComponent,
-    MultipleEmailThreadComponent
+    MultipleEmailThreadComponent,
+    AssignThreadViewComponent
   ],
   imports: [
     BrowserModule,

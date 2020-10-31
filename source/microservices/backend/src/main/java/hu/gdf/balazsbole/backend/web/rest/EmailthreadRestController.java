@@ -6,14 +6,17 @@ import hu.gdf.balazsbole.domain.dto.Emailthread;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import io.swagger.annotations.*;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Api(tags = "Emailthread")
@@ -31,6 +34,19 @@ public class EmailthreadRestController {
         this.service = service;
     }
 
+    @GetMapping("/{emailThreadId}")
+    @ApiOperation(nickname = "details", value = "Get EmailThread by UUID.")
+    @ApiResponses({
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns email."),
+            @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "EmailThread with the given ID does not exists."),
+            @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+    })
+    public ResponseEntity<Emailthread> details(
+            @PathVariable("emailThreadId") final UUID emailThreadId) {
+        Optional<Emailthread> emailthreadOptional = service.findById(emailThreadId);
+        return ResponseEntity.ok(emailthreadOptional.orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found")));
+    }
 
     @GetMapping("/unassigned")
     @ApiOperation(nickname = "unassigned", value = "Get all the unassigned emailthreads.")

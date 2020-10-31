@@ -4,6 +4,10 @@ import {Emailthread} from "../../api/models/emailthread";
 
 
 export enum ActionTypes {
+  GET_DETAILS = '[EMAILTHREAD] Get emailThread details',
+  GET_DETAILS_SUCCESS = '[EMAILTHREAD] Get emailThread details Succes',
+  GET_DETAILS_FAIL = '[EMAILTHREAD] Get emailThread details  Fail',
+
   SEARCH_UNASSIGNED = '[EMAILTHREAD] Search unassigned',
   SEARCH_UNASSIGNED_SUCCESS = '[EMAILTHREAD] Search unassigned Success',
   SEARCH_UNASSIGNED_FAIL = '[EMAILTHREAD] Search unassigned Fail',
@@ -16,6 +20,17 @@ export enum ActionTypes {
   PATCH_SUCCESS = '[EMAILTHREAD] Patch values Success',
   PATCH_FAIL = '[EMAILTHREAD] Patch values Fail',
 }
+
+export const getDetailsAction = createAction(
+  ActionTypes.GET_DETAILS,
+  props<{ id: string }>());
+export const getDetailsSuccessAction = createAction(
+  ActionTypes.GET_DETAILS_SUCCESS,
+  props<{ emailThread: Emailthread }>());
+export const getDetailsFailAction = createAction(
+  ActionTypes.GET_DETAILS_FAIL,
+  props<{ error: any }>());
+
 
 export const searchUnassignedAction = createAction(
   ActionTypes.SEARCH_UNASSIGNED,

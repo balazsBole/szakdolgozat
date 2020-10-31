@@ -3,7 +3,12 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {of} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {
-  patchAction, patchFailAction, patchSuccessAction,
+  getDetailsAction,
+  getDetailsFailAction,
+  getDetailsSuccessAction,
+  patchAction,
+  patchFailAction,
+  patchSuccessAction,
   searchAssignedToMeByStatusAction,
   searchAssignedToMeFailAction,
   searchAssignedToMeSuccessAction,
@@ -16,6 +21,18 @@ import {Emailthread} from "../../api/models/emailthread";
 
 @Injectable()
 export class EmailthreadEffects {
+
+
+  getDetails$ = createEffect(() => this.actions$.pipe(
+    ofType(getDetailsAction),
+    mergeMap((action) => this.service.details(action.id)
+      .pipe(
+        map((emailThread: Emailthread) => getDetailsSuccessAction({emailThread})),
+        catchError((error) => of(getDetailsFailAction({error})))
+      ))
+    )
+  );
+
 
   searchUnassigned$ = createEffect(() => this.actions$.pipe(
     ofType(searchUnassignedAction),

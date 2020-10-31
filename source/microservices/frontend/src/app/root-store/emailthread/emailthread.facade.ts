@@ -1,9 +1,15 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {patchAction, searchAssignedToMeByStatusAction, searchUnassignedAction} from './emailthread.actions';
+import {
+  getDetailsAction,
+  patchAction,
+  searchAssignedToMeByStatusAction,
+  searchUnassignedAction
+} from './emailthread.actions';
 import {
   selectAssigned,
+  selectDetails,
   selectError,
   selectIsLoading,
   selectPatched,
@@ -22,9 +28,14 @@ export class EmailthreadFacade {
   loading$: Observable<boolean>;
   assignedThreads: Observable<Emailthread[]>;
   patched$: Observable<Emailthread>;
+  details$: Observable<Emailthread>;
 
   constructor(private readonly store: Store<EmailthreadStoreState>) {
     this.initObservables();
+  }
+
+  details(id: string) {
+    this.store.dispatch(getDetailsAction({id}));
   }
 
   initObservables() {
@@ -32,6 +43,7 @@ export class EmailthreadFacade {
     this.numberOfUnassigned$ = this.store.select(selectUnassignedTotalCount);
     this.assignedThreads = this.store.select(selectAssigned);
     this.patched$ = this.store.select(selectPatched);
+    this.details$ = this.store.select(selectDetails);
     this.error$ = this.store.select(selectError);
     this.loading$ = this.store.select(selectIsLoading);
   }

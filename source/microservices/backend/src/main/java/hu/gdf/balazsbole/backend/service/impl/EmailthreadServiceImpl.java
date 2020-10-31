@@ -77,5 +77,11 @@ public class EmailthreadServiceImpl implements EmailthreadService {
         return mapper.map(repository.save(thread));
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Emailthread> findById(UUID emailThreadId) {
+        return repository.findById(emailThreadId).map(mapper::map);
+    }
+
 
 }

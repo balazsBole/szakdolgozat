@@ -2,8 +2,7 @@
   <div [ngStyle]="{ height: flexContainerHeight }" class="emails scrollable">
     <ng-container *ngIf="threads">
       <div *ngFor="let thread of threads" class="emailthread">
-        <emailthread [emailthread]="thread" [readEmailsWhenClicked]="markAsRead"
-        ></emailthread>
+        <emailthread [emailthread]="thread" [readEmailsWhenClicked]="markAsRead"></emailthread>
       </div>
     </ng-container>
   </div>

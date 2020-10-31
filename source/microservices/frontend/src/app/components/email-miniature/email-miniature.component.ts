@@ -16,6 +16,7 @@ export class EmailMiniatureComponent implements OnInit {
   @Input() email: Email;
   picked: boolean;
   @Input() readEmailsWhenClicked: boolean = true;
+  @Input() skipLocationChange: boolean = false;
   private readonly ngUnsubscribe = new Subject();
 
   constructor(private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade,
@@ -48,7 +49,8 @@ export class EmailMiniatureComponent implements OnInit {
   private updateUrl(urlParameters: Params) {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: urlParameters
+      queryParams: urlParameters,
+      skipLocationChange: this.skipLocationChange
     });
   }
 

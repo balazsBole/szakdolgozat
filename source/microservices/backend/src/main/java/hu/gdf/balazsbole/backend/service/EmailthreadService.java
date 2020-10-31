@@ -6,6 +6,7 @@ import hu.gdf.balazsbole.domain.enumeration.Status;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface EmailthreadService {
@@ -23,4 +24,7 @@ public interface EmailthreadService {
     Emailthread updateStatus(UUID emailThreadId, Status status);
 
     Emailthread updateUser(UUID emailThreadId, UUID userId);
+
+    @Transactional(readOnly = true)
+    Optional<Emailthread> findById(UUID emailThreadId);
 }

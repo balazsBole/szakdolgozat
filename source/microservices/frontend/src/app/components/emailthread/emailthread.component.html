@@ -2,8 +2,9 @@
   <mat-card (click)="pick()">
     <mat-card-header>
       <div mat-card-avatar>
-        <button aria-label="assign to someone else" mat-icon-button
-                (click)="assign($event)" matTooltip="Assign this thread">
+        <button (click)="assign($event)"
+                aria-label="assign to someone else" mat-icon-button
+                mat-icon-button matTooltip="Assign this thread">
           <mat-icon>assignment_ind</mat-icon>
         </button>
       </div>
@@ -13,13 +14,13 @@
     </mat-card-header>
   </mat-card>
 
-  <ng-container *ngIf="showMiniatures">
+  <ng-container *ngIf="picked || showMiniatures">
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <ul>
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
           <li>
-            <email-miniature
-              [email]="node.email" [readEmailsWhenClicked]="readEmailsWhenClicked">
+            <email-miniature [email]="node.email" [readEmailsWhenClicked]="readEmailsWhenClicked"
+                             [skipLocationChange]="skipLocationChange">
             </email-miniature>
             <ul>
               <ng-container matTreeNodeOutlet></ng-container>

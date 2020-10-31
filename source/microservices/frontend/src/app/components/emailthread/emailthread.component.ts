@@ -15,7 +15,9 @@ import {takeUntil} from "rxjs/operators";
 export class EmailthreadComponent implements OnInit {
 
   @Input() emailthread: Emailthread;
-  @Input('picked') showMiniatures: boolean = false;
+  @Input('picked') picked: boolean = false;
+  @Input() skipLocationChange: boolean = false;
+  showMiniatures: boolean;
   @Input() readEmailsWhenClicked: boolean;
 
   lastMail: Date;
@@ -56,13 +58,14 @@ export class EmailthreadComponent implements OnInit {
 
   assign($event: MouseEvent) {
     $event.stopPropagation();
-    console.log("assign");
+    this.router.navigate(['/assign/' + this.emailthread.id]);
   }
 
   private updateUrl(urlParameters: Params) {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: urlParameters
+      queryParams: urlParameters,
+      skipLocationChange: this.skipLocationChange
     });
   }
 }
