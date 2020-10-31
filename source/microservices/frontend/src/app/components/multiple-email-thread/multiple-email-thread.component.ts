@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Subject} from "rxjs";
 import {Emailthread} from "../../api/models/emailthread";
-import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {takeUntil} from "rxjs/operators";
 import {Email} from "../../api/models/email";
 
@@ -25,14 +25,13 @@ export class MultipleEmailThreadComponent implements OnInit, OnDestroy, OnChange
 
   ngOnInit(): void {
     this.route.queryParamMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('emailThreadId')) {
+      if (paramMap.has('emailThreadId') && paramMap.has('emailId')) {
         this.emailThreadId = paramMap.get('emailThreadId');
-      }
-      if (paramMap.has('emailId')) {
         this.emailId = paramMap.get('emailId');
+        if (this.threads) this.email = this.getEmailFrom(this.threads);
+      } else {
+        this.email = null
       }
-      if (this.threads)
-        this.email = this.getEmailFrom(this.threads);
     });
     this.calculateFlexContainerHeight()
 
@@ -45,16 +44,6 @@ export class MultipleEmailThreadComponent implements OnInit, OnDestroy, OnChange
       this.email = this.getEmailFrom(availableThreads);
   }
 
-  emailThreadPicked(threadId: string) {
-    const urlParameters = {...this.route.snapshot.queryParams, emailThreadId: threadId};
-    this.updateUrl(urlParameters);
-  }
-
-  emailPicked(emailId: string) {
-    const urlParameters = {...this.route.snapshot.queryParams, emailId: emailId};
-    this.updateUrl(urlParameters);
-  }
-
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
@@ -65,12 +54,6 @@ export class MultipleEmailThreadComponent implements OnInit, OnDestroy, OnChange
     return emails?.find(email => email.id === this.emailId);
   }
 
-  private updateUrl(urlParameters: Params) {
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: urlParameters
-    });
-  }
 
   private calculateFlexContainerHeight() {
     const height = topOfFlexContainer();

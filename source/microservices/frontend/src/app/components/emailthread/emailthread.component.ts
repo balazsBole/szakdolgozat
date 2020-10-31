@@ -3,6 +3,9 @@ import {Emailthread} from "../../api/models/emailthread";
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
 import {Email} from "../../api/models/email";
+import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'emailthread',
@@ -20,21 +23,47 @@ export class EmailthreadComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<EmailNode>();
   hasChild = (_: number, node: EmailNode) => !!node.children && node.children.length > 0;
   unreadRatio: string;
+  private readonly ngUnsubscribe = new Subject();
 
 
-  constructor() {
+  constructor(private readonly router: Router, private readonly route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.dataSource.data = orderToEmailNodes(this.emailthread.emails);
     this.unreadRatio = this.calculateUnreadRation();
     this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort()[0];
+
+    this.route.queryParamMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe((paramMap: ParamMap) => {
+      this.showMiniatures = this.emailthread.id === paramMap.get('emailThreadId');
+    });
   }
 
   private calculateUnreadRation(): string {
     const unread = this.emailthread.emails.filter(email => !email.read).length;
     const allEmail = this.emailthread.emails.length;
     return "" + unread || "0" + "/" + allEmail || "0";
+  }
+
+
+  pick() {
+    const urlParameters = {
+      ...this.route.snapshot.queryParams,
+      emailThreadId: this.showMiniatures ? null : this.emailthread.id
+    };
+    this.updateUrl(urlParameters);
+  }
+
+  assign($event: MouseEvent) {
+    $event.stopPropagation();
+    console.log("assign");
+  }
+
+  private updateUrl(urlParameters: Params) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: urlParameters
+    });
   }
 }
 

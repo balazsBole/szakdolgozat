@@ -1,9 +1,9 @@
 <div>
-  <mat-card>
+  <mat-card (click)="pick()">
     <mat-card-header>
       <div mat-card-avatar>
         <button aria-label="assign to someone else" mat-icon-button
-                matTooltip="Assign this thread">
+                (click)="assign($event)" matTooltip="Assign this thread">
           <mat-icon>assignment_ind</mat-icon>
         </button>
       </div>
