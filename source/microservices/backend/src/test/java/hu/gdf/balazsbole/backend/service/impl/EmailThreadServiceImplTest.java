@@ -3,8 +3,10 @@ package hu.gdf.balazsbole.backend.service.impl;
 import hu.gdf.balazsbole.backend.RunsWithMappers;
 import hu.gdf.balazsbole.domain.dto.EmailThread;
 import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
+import hu.gdf.balazsbole.domain.entity.QueueEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.repository.EmailThreadRepository;
+import hu.gdf.balazsbole.domain.repository.QueueRepository;
 import hu.gdf.balazsbole.domain.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,13 +33,18 @@ class EmailThreadServiceImplTest implements RunsWithMappers {
     @MockBean
     private UserRepository userRepository;
 
+    @MockBean
+    private QueueRepository queueRepository;
+
     @Autowired
     private EmailThreadServiceImpl service;
 
     @Test
-    void new_emailThread_should_be_store_status() {
-        service.createThreadWith(Status.OPEN);
-        verify(repository, times(1)).save(argThat(entity -> Status.OPEN.equals(entity.getStatus())));
+    void new_emailThread_should_be_store_queue() {
+        QueueEntity valueFromRepository = new QueueEntity();
+        when(queueRepository.findByEmail(eq("email"))).thenReturn(Optional.of(valueFromRepository));
+        service.createThreadFor("email");
+        verify(repository, times(1)).save(argThat(entity -> valueFromRepository.equals(entity.getQueue())));
     }
 
     @Test

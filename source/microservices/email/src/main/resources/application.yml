@@ -33,7 +33,7 @@ spring:
 
     topic:
       emailIn: "email.in.v1.pub"
-      emailOut: "email.out.v1.pub"
+      emailOut: "helpdesk.gdf@yandex.com.v1.pub"
 
     properties:
       schema.registry.url: "http://localhost:8081"

@@ -22,6 +22,11 @@ public class EmailThread {
     @Valid
     private User user;
 
+    @ApiModelProperty(value = "The queue of the emailThread.")
+    @NotNull
+    @Valid
+    private Queue queue;
+
     @ApiModelProperty(value = "The status of the emailThread.")
     @NotNull
     private Status status;

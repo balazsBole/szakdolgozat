@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface EmailThreadService {
 
     @Transactional
-    EmailThreadEntity createThreadWith(Status status);
+    EmailThreadEntity createThreadFor(String email);
 
     @Transactional(readOnly = true)
     List<EmailThread> getUnassignedEmailThreads();

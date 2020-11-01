@@ -8,6 +8,7 @@ import hu.gdf.balazsbole.domain.entity.UserEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailThreadMapper;
 import hu.gdf.balazsbole.domain.repository.EmailThreadRepository;
+import hu.gdf.balazsbole.domain.repository.QueueRepository;
 import hu.gdf.balazsbole.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -24,20 +25,23 @@ import java.util.UUID;
 public class EmailThreadServiceImpl implements EmailThreadService {
 
     private final EmailThreadRepository repository;
+    private final QueueRepository queueRepository;
     private final UserRepository userRepository;
     private final EmailThreadMapper mapper;
 
-    public EmailThreadServiceImpl(EmailThreadRepository repository, UserRepository userRepository, EmailThreadMapper mapper) {
+    public EmailThreadServiceImpl(EmailThreadRepository repository, QueueRepository queueRepository, UserRepository userRepository, EmailThreadMapper mapper) {
         this.repository = repository;
+        this.queueRepository = queueRepository;
         this.userRepository = userRepository;
         this.mapper = mapper;
     }
 
     @Override
     @Transactional
-    public EmailThreadEntity createThreadWith(Status status) {
+    public EmailThreadEntity createThreadFor(String email) {
         EmailThreadEntity entity = new EmailThreadEntity();
-        entity.setStatus(status);
+        entity.setStatus(Status.OPEN);
+        entity.setQueue(queueRepository.findByEmail(email).get());
         return repository.save(entity);
     }
 

@@ -72,14 +72,14 @@ spring:
 
     topic:
       emailIn: "email.in.v1.pub"
-      emailOut: "email.out.v1.pub"
+      emailOutSuffix: ".v1.pub"
 
     properties:
       schema.registry.url: "http://localhost:8081"
       specific.avro.reader: true
 
     consumer:
-      group-id: "helpdesk-backend-0002"
+      group-id: "helpdesk-backend-0005"
       key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       enable-auto-commit: true

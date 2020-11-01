@@ -7,7 +7,6 @@ import hu.gdf.balazsbole.domain.dto.Header;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
 import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
 import hu.gdf.balazsbole.domain.entity.HeaderEntity;
-import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailMapper;
 import hu.gdf.balazsbole.domain.repository.EmailRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -87,7 +86,7 @@ class EmailServiceImplTest implements RunsWithMappers {
         email.setHeader(new Header());
 
         service.storeNew(email);
-        verify(threadService).createThreadWith(any(Status.class));
+        verify(threadService).createThreadFor(any());
     }
 
     @Test

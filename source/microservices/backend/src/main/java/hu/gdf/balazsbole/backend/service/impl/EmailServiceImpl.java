@@ -87,12 +87,18 @@ public class EmailServiceImpl implements EmailService {
         } else {
             Optional<EmailEntity> relevantEmail = findRelevantEmail(emailEntity.getHeader().getReferences());
             EmailThreadEntity emailThreadEntity = relevantEmail.map(EmailEntity::getEmailThread)
-                    .orElseGet(() -> threadService.createThreadWith(Status.OPEN));
+                    .orElseGet(() -> threadService.createThreadFor(getQueueEmail(emailEntity)));
             emailEntity.setEmailThread(emailThreadEntity);
         }
         if (Direction.IN.equals(emailEntity.getDirection()))
             emailEntity.getEmailThread().setStatus(Status.OPEN);
         return mapper.map(repository.save(emailEntity));
+    }
+
+    private String getQueueEmail(EmailEntity emailEntity) {
+        if (Direction.IN.equals(emailEntity.getDirection()))
+            return emailEntity.getHeader().getTo();
+        return emailEntity.getHeader().getFrom();
     }
 
     Optional<EmailEntity> findParent(EmailEntity entity) {

@@ -16,8 +16,8 @@ public class EmailKafkaProducer {
     private final KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate;
     private final EmailProtocolMapper mapper;
 
-    @Value("${spring.kafka.topic.emailOut}")
-    private String topicName;
+    @Value("${spring.kafka.topic.emailOutSuffix}")
+    private String topicSuffix;
 
 
     public EmailKafkaProducer(KafkaTemplate<EmailProtocolKey, EmailProtocolValue> kafkaTemplate, EmailProtocolMapper mapper) {
@@ -28,6 +28,7 @@ public class EmailKafkaProducer {
     public void sendMessage(Email email) {
         EmailProtocolKey key = mapper.mapAvroKey(email);
         EmailProtocolValue value = mapper.mapAvroValue(email);
+        String topicName = email.getHeader().getFrom() + topicSuffix;
 
         log.info("Sending email to {} kafkatopic. Message key: {}", topicName, key.getMessageId());
         kafkaTemplate.send(topicName, key, value);

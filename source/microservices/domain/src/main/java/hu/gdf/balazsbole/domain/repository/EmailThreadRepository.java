@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 /**
- * Spring Data  repository for the {@link EmailThreadRepository}.
+ * Spring Data repository for the {@link EmailThreadRepository}.
  */
 @Repository
 public interface EmailThreadRepository extends JpaRepository<EmailThreadEntity, UUID> {

@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.UUID;
@@ -28,5 +26,8 @@ public class UserEntity extends AbstractEntity implements Serializable {
     @NotNull
     private UUID keycloakID;
 
+    @JoinColumn(name = "queue_id", nullable = true)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = true)
+    private QueueEntity queue;
 
 }

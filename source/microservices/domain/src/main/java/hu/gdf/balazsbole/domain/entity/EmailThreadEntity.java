@@ -32,4 +32,8 @@ public class EmailThreadEntity extends AbstractEntity implements Serializable {
     @OneToMany(mappedBy = "emailThread", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<EmailEntity> emails = new ArrayList<>();
 
+    @NotNull
+    @JoinColumn(name = "queue_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private QueueEntity queue;
 }

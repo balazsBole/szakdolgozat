@@ -1,0 +1,122 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create_table_queue
+      author: Balazs
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: queue_pk
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                  name: name
+                  type: TEXT
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: email
+                  type: TEXT
+            tableName: queue
+  - changeSet:
+      id: 2-email_is_unique
+      author: Balazs
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: email
+            indexName: queue_email_uindex
+            tableName: queue
+            unique: true
+  - changeSet:
+      id: 3-name_is_unique
+      author: Balazs
+      changes:
+        - createIndex:
+            columns:
+              - column:
+                  name: name
+            indexName: queue_name_uindex
+            tableName: queue
+            unique: true
+  - changeSet:
+      id: 4-add_queue_id_to_users
+      author: Balazs
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: queue_id
+                  type: UUID
+  - changeSet:
+      id: 5-add_queue_id_to_thread
+      author: Balazs
+      changes:
+        - addColumn:
+            tableName: thread
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: queue_id
+                  type: UUID
+  - changeSet:
+      id: 6-add_foreign_key_to_users
+      author: Balazs
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: queue_id
+            baseTableName: users
+            constraintName: users_queue_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: queue
+            validate: true
+  - changeSet:
+      id: 7-add_foreign_key_to_thread
+      author: Balazs
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: queue_id
+            baseTableName: thread
+            constraintName: thread_queue_id_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: queue
+            validate: true
+  - changeSet:
+      id: 8-grant_acces_to_helpdesk_app
+      author: Balazs
+      dbms: postgresql
+      changes:
+        - sql:
+            sql: GRANT SELECT ON queue TO HELPDESK_APP;
+  - changeSet:
+      id: 9-create_initial_queues
+      author: Balazs
+      dbms: postgresql
+      changes:
+        - sql:
+            sql: GRANT SELECT ON queue TO HELPDESK_APP;
+        - sql:
+            sql: insert into queue(id, name, description, email) values ('d1e11e7a-cf13-4607-b237-f385a9d94afb','generic', 'generic email-queue for all the mails form helpdesk.gdf@yandex.com', 'helpdesk.gdf@yandex.com');
+        - sql:
+            sql: insert into queue(id, name, description, email) values ('b1d6ebc3-c624-4442-9170-67d62532fe8f', 'travel', 'queue for travel related emails', 'helpdesk.gdf.travel@yandex.com');
+        - sql:
+            sql: insert into queue(id, name, description, email) values ('03a10ed9-0b39-46c4-824a-28d441889586', 'theater', 'queue for theater related emails', 'h.gdf.theater@gmx.com');
