@@ -14,7 +14,6 @@ export class ReplyViewComponent implements OnInit, OnDestroy {
   openThreads: EmailThread[];
   private readonly ngUnsubscribe = new Subject();
 
-
   constructor(private readonly facade: EmailThreadFacade, private readonly snackBar: MatSnackBar) {
   }
 

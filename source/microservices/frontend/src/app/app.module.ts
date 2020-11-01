@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EmailThreadComponent} from './components/email-thread/email-thread.component';
-import {EmailThreadViewComponent} from './views/email-thread-view/email-thread-view.component';
+import {EmailThreadEditViewComponent} from './views/email-thread-edit-view/email-thread-edit-view.component';
 import {HelpdeskBackendModule} from "./api/helpdesk-backend.module";
 import {RootStoreModule} from "./root-store/root-store.module";
 import {MatDividerModule} from "@angular/material/divider";
@@ -63,7 +63,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
   declarations: [
     AppComponent,
     EmailThreadComponent,
-    EmailThreadViewComponent,
+    EmailThreadEditViewComponent,
     LoginComponent,
     EmailMiniatureComponent,
     EmailReaderComponent,

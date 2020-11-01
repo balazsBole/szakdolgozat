@@ -1,8 +1,13 @@
 <div>
   <mat-card (click)="pick()">
     <mat-card-header>
-      <div *ngIf="assignable" mat-card-avatar>
-        <button (click)="assign($event)"
+      <div *ngIf="assignable || editable" mat-card-avatar>
+        <button (click)="edit($event)" *ngIf="editable"
+                aria-label="assign to someone else" mat-icon-button
+                mat-icon-button matTooltip="Assign this thread">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button (click)="assign($event)" *ngIf="assignable"
                 aria-label="assign to someone else" mat-icon-button
                 mat-icon-button matTooltip="Assign this thread">
           <mat-icon>assignment_ind</mat-icon>

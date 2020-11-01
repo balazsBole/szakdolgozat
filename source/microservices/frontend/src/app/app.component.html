@@ -13,9 +13,9 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav class="hide-on-small-screens" mode="side" opened>
       <mat-nav-list>
-        <a [routerLink]="'/reply'" mat-list-item> Reply </a>
-        <a [routerLink]="'/email-thread'" mat-list-item> Email threads </a>
-        <a [routerLink]="'/unassigned'" mat-list-item> Unassigned </a>
+        <a [routerLink]="'/email/reply'" mat-list-item> Reply </a>
+        <a [routerLink]="'/email-thread/edit'" mat-list-item> Edit threads </a>
+        <a [routerLink]="'/email-thread/unassigned'" mat-list-item> Unassigned </a>
       </mat-nav-list>
       <mat-nav-list class="bottom">
         <a href="http://localhost:8082/" mat-list-item> Login service </a>

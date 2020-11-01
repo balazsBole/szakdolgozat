@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {EmailThreadViewComponent} from "./views/email-thread-view/email-thread-view.component";
+import {EmailThreadEditViewComponent} from "./views/email-thread-edit-view/email-thread-edit-view.component";
 import {AuthenticationGuardService} from "./service/authentication-guard.service";
 import {EmailReplyViewComponent} from "./views/email-reply-view/email-reply-view.component";
 import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
@@ -12,19 +12,19 @@ import {ReplyViewComponent} from "./views/reply-view/reply-view.component";
 
 const routes: Routes = [
   {
-    path: 'reply',
+    path: 'email/reply',
     component: ReplyViewComponent,
     canActivate: [AuthenticationGuardService],
     data: {roles: ['regular_user']}
   },
   {
-    path: 'email-thread',
-    component: EmailThreadViewComponent,
+    path: 'email-thread/edit',
+    component: EmailThreadEditViewComponent,
     canActivate: [AuthenticationGuardService],
     data: {roles: ['regular_user']}
   },
   {
-    path: 'replyTo/:uuid',
+    path: 'email/replyTo/:uuid',
     component: EmailReplyViewComponent,
     canActivate: [AuthenticationGuardService],
     data: {roles: ['regular_user']},
@@ -33,7 +33,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'assign/:uuid',
+    path: 'email-thread/assign/:uuid',
     component: AssignThreadViewComponent,
     canActivate: [AuthenticationGuardService],
     data: {roles: ['regular_user']},
@@ -42,7 +42,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'unassigned',
+    path: 'email-thread/unassigned',
     component: UnassignedViewComponent,
     canActivate: [AuthenticationGuardService],
     data: {roles: ['regular_user']}

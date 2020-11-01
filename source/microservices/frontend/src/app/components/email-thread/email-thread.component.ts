@@ -20,6 +20,7 @@ export class EmailThreadComponent implements OnInit {
   showMiniatures: boolean;
   @Input() readEmailsWhenClicked: boolean;
   @Input() assignable: boolean;
+  @Input() editable: boolean;
 
   lastMail: Date;
   treeControl = new NestedTreeControl<EmailNode>(node => node.children);
@@ -54,7 +55,7 @@ export class EmailThreadComponent implements OnInit {
 
   assign($event: MouseEvent) {
     $event.stopPropagation();
-    this.router.navigate(['/assign/' + this.emailThread.id]);
+    this.router.navigate(['/email-thread/assign/' + this.emailThread.id]);
   }
 
   private updateUrl(urlParameters: Params) {
@@ -63,6 +64,11 @@ export class EmailThreadComponent implements OnInit {
       queryParams: urlParameters,
       skipLocationChange: this.skipLocationChange
     });
+  }
+
+  edit($event: MouseEvent) {
+    $event.stopPropagation();
+    this.router.navigate(['/email-thread/edit/' + this.emailThread.id]);
   }
 }
 

@@ -9,10 +9,10 @@ import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-emailThread-view',
-  templateUrl: './email-thread-view.component.html',
-  styleUrls: ['./email-thread-view.component.css']
+  templateUrl: './email-thread-edit-view.component.html',
+  styleUrls: ['./email-thread-edit-view.component.css']
 })
-export class EmailThreadViewComponent implements OnInit, OnDestroy {
+export class EmailThreadEditViewComponent implements OnInit, OnDestroy {
 
   private readonly ngUnsubscribe = new Subject();
   assignedThreads: EmailThread[];
