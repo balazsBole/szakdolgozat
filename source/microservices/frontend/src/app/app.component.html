@@ -13,6 +13,7 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav class="hide-on-small-screens" mode="side" opened>
       <mat-nav-list>
+        <a [routerLink]="'/reply'" mat-list-item> Reply </a>
         <a [routerLink]="'/email-thread'" mat-list-item> Email threads </a>
         <a [routerLink]="'/unassigned'" mat-list-item> Unassigned </a>
       </mat-nav-list>

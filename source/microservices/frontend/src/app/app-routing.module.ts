@@ -8,8 +8,15 @@ import {LandingViewComponent} from "./views/landing-view/landing-view.component"
 import {UnassignedViewComponent} from "./views/unassigned-view/unassigned-view.component";
 import {AssignThreadViewComponent} from "./views/assign-thread-view/assign-thread-view.component";
 import {EmailThreadIdResolver} from "./views/assign-thread-view/thread-id-resolver";
+import {ReplyViewComponent} from "./views/reply-view/reply-view.component";
 
 const routes: Routes = [
+  {
+    path: 'reply',
+    component: ReplyViewComponent,
+    canActivate: [AuthenticationGuardService],
+    data: {roles: ['regular_user']}
+  },
   {
     path: 'email-thread',
     component: EmailThreadViewComponent,

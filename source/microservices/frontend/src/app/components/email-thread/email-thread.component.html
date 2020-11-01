@@ -1,7 +1,7 @@
 <div>
   <mat-card (click)="pick()">
     <mat-card-header>
-      <div mat-card-avatar>
+      <div *ngIf="assignable" mat-card-avatar>
         <button (click)="assign($event)"
                 aria-label="assign to someone else" mat-icon-button
                 mat-icon-button matTooltip="Assign this thread">

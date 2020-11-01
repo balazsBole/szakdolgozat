@@ -19,6 +19,7 @@ export class EmailThreadComponent implements OnInit {
   @Input() skipLocationChange: boolean = false;
   showMiniatures: boolean;
   @Input() readEmailsWhenClicked: boolean;
+  @Input() assignable: boolean;
 
   lastMail: Date;
   treeControl = new NestedTreeControl<EmailNode>(node => node.children);

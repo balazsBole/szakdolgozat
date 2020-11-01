@@ -40,6 +40,7 @@ import {UnassignedViewComponent} from './views/unassigned-view/unassigned-view.c
 import {MultipleEmailThreadComponent} from './components/multiple-email-thread/multiple-email-thread.component';
 import {AssignThreadViewComponent} from './views/assign-thread-view/assign-thread-view.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {ReplyViewComponent} from './views/reply-view/reply-view.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -72,7 +73,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     LandingViewComponent,
     UnassignedViewComponent,
     MultipleEmailThreadComponent,
-    AssignThreadViewComponent
+    AssignThreadViewComponent,
+    ReplyViewComponent
   ],
   imports: [
     BrowserModule,

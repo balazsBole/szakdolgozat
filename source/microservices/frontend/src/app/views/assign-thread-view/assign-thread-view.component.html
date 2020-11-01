@@ -6,11 +6,8 @@
   <div [ngStyle]="{ height: flexContainerHeight }" class="emailTexts scrollable">
     <mat-card>
       <mat-card-content>
-
         <form [formGroup]="assignForm">
-
           <div>
-
             <mat-form-field>
               <input [matAutocomplete]="auto"
                      aria-label="User input"
@@ -25,19 +22,11 @@
               </mat-autocomplete>
             </mat-form-field>
 
-
-            <!--          <mat-form-field appearance="fill">-->
-            <!--            <mat-label>Assign this thread to</mat-label>-->
-            <!--            <mat-select [(value)]="userId">-->
-            <!--              <mat-option value="userid">username</mat-option>-->
-            <!--            </mat-select>-->
-            <!--          </mat-form-field>-->
             <button (click)="exit()" aria-label="discard button"
                     mat-icon-button matTooltip="Cancel assignment">
               <mat-icon>cancel</mat-icon>
             </button>
           </div>
-
           <div>
             <button (click)="assign()"
                     [disabled]="!assignForm.valid" aria-label="assign"

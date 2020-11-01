@@ -1,0 +1,9 @@
+<div>
+  <mat-card>
+    <button (click)="search()" aria-label="Refresh button" mat-icon-button matTooltip="Refresh">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    Found {{openThreads?.length || 0}} open thread.
+  </mat-card>
+</div>
+<multiple-email-thread [threads]="openThreads" markAsRead="true" reply="true"></multiple-email-thread>

@@ -14,6 +14,7 @@ export class MultipleEmailThreadComponent implements OnInit, OnDestroy, OnChange
   @Input() threads: EmailThread[];
   @Input() markAsRead: boolean;
   @Input() reply: boolean;
+  @Input() assignable: boolean;
   email: Email;
   emailThreadId: string;
   flexContainerHeight: string;
