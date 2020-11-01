@@ -17,9 +17,11 @@ import {debounceTime, distinctUntilChanged, filter, take, takeUntil} from "rxjs/
 export class EditEmailThreadComponent implements OnInit {
 
   @Input() emailThread: EmailThread;
+  @Input() statusEditable: boolean;
   availableUsers: User[];
   assignForm: FormGroup = this.fb.group({
-    user: ["", [Validators.required, userValidator()],]
+    user: ["", [Validators.required, userValidator()]],
+    status: ["", Validators.required]
   })
   private readonly ngUnsubscribe = new Subject();
 
@@ -33,6 +35,11 @@ export class EditEmailThreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.assignForm.patchValue(
+      {
+        user: this.emailThread.user,
+        status: this.emailThread.status
+      });
     this.userFacade.autocomplete$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (userArray: User[]) => {
         this.availableUsers = userArray;
@@ -59,10 +66,10 @@ export class EditEmailThreadComponent implements OnInit {
     this.location.back();
   }
 
-
-  assign() {
+  save() {
     const userFromForm = this.assignForm.get('user').value as User;
-    const emailThread = {...this.emailThread, user: userFromForm};
+    const statusFromForm = this.assignForm.get('status').value as string;
+    const emailThread = {...this.emailThread, user: userFromForm, status: statusFromForm};
     this.facade.patch(emailThread);
     this.facade.patched$.pipe(
       filter((success: boolean) => success),

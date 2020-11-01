@@ -38,7 +38,7 @@
         </mat-form-field>
 
         <button [disabled]="!emailForm.valid || (loading$ | async)" aria-label="send button"
-                mat-icon-button matTooltip="Send email"
+                color="primary" mat-icon-button matTooltip="Send email"
                 (click)="send()">
           <mat-icon>send</mat-icon>
         </button>

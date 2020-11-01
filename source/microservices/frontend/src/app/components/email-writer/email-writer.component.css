@@ -9,3 +9,7 @@ mat-card {
 div {
   display: flex;
 }
+
+.mat-form-field {
+  margin: 4px;
+}

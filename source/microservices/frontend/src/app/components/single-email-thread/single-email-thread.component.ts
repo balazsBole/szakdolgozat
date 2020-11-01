@@ -15,6 +15,7 @@ import {takeUntil} from "rxjs/operators";
 export class SingleEmailThreadComponent implements OnInit {
 
   @Input() emailThread: EmailThread;
+  @Input() statusEditable: boolean;
   email: Email;
   flexContainerHeight: string;
   private readonly ngUnsubscribe = new Subject();

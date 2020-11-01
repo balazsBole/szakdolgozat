@@ -4,7 +4,7 @@
   </div>
 
   <div [ngStyle]="{ height: flexContainerHeight }" class="emailTexts scrollable">
-    <edit-email-thread [emailThread]="emailThread"></edit-email-thread>
+    <edit-email-thread [emailThread]="emailThread" [statusEditable]="statusEditable"></edit-email-thread>
     <ng-container *ngIf="email">
       <email-header [email]="email"></email-header>
       <email-reader [email]="email"></email-reader>
