@@ -1,0 +1,14 @@
+<div id="flex-container">
+  <div [ngStyle]="{ height: flexContainerHeight }" class="emails scrollable">
+    <emailThread [emailThread]="emailThread" picked="true" skipLocationChange="true"></emailThread>
+  </div>
+
+  <div [ngStyle]="{ height: flexContainerHeight }" class="emailTexts scrollable">
+    <edit-email-thread [emailThread]="emailThread"></edit-email-thread>
+    <ng-container *ngIf="email">
+      <email-header [email]="email"></email-header>
+      <email-reader [email]="email"></email-reader>
+    </ng-container>
+  </div>
+
+</div>

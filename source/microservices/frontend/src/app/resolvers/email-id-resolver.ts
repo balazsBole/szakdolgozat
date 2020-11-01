@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
-import {Email} from "../../api/models/email";
-import {EmailFacade} from "../../root-store/email/email.facade";
+import {Email} from "../api/models/email";
+import {EmailFacade} from "../root-store/email/email.facade";
 import {filter, take} from "rxjs/operators";
 
 @Injectable({providedIn: 'root'})

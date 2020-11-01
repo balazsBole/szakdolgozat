@@ -31,7 +31,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {EmailReplyViewComponent} from './views/email-reply-view/email-reply-view.component';
-import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
+import {EmailIdResolver} from "./resolvers/email-id-resolver";
 import {QuillModule} from 'ngx-quill';
 import {EmailWriterComponent} from './components/email-writer/email-writer.component'
 import {ScrollingModule} from "@angular/cdk/scrolling";
@@ -41,6 +41,9 @@ import {MultipleEmailThreadComponent} from './components/multiple-email-thread/m
 import {AssignThreadViewComponent} from './views/assign-thread-view/assign-thread-view.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ReplyViewComponent} from './views/reply-view/reply-view.component';
+import {EditThreadViewComponent} from './views/edit-thread-view/edit-thread-view.component';
+import {EditEmailThreadComponent} from './components/edit-email-thread/edit-email-thread.component';
+import {SingleEmailThreadComponent} from './components/single-email-thread/single-email-thread.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -74,7 +77,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     UnassignedViewComponent,
     MultipleEmailThreadComponent,
     AssignThreadViewComponent,
-    ReplyViewComponent
+    ReplyViewComponent,
+    EditThreadViewComponent,
+    EditEmailThreadComponent,
+    SingleEmailThreadComponent
   ],
   imports: [
     BrowserModule,
