@@ -68,7 +68,7 @@ export class EditEmailThreadComponent implements OnInit {
 
   save() {
     const userFromForm = this.assignForm.get('user').value as User;
-    const statusFromForm = this.assignForm.get('status').value as string;
+    const statusFromForm = this.assignForm.get('status').value as any;
     const emailThread = {...this.emailThread, user: userFromForm, status: statusFromForm};
     this.facade.patch(emailThread);
     this.facade.patched$.pipe(

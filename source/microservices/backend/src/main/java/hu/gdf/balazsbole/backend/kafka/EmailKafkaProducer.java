@@ -28,7 +28,7 @@ public class EmailKafkaProducer {
     public void sendMessage(Email email) {
         EmailProtocolKey key = mapper.mapAvroKey(email);
         EmailProtocolValue value = mapper.mapAvroValue(email);
-        String topicName = email.getHeader().getFrom() + topicSuffix;
+        String topicName = email.getHeader().getFrom().replaceAll("@", "_") + topicSuffix;
 
         log.info("Sending email to {} kafkatopic. Message key: {}", topicName, key.getMessageId());
         kafkaTemplate.send(topicName, key, value);

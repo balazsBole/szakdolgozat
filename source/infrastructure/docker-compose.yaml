@@ -3,13 +3,13 @@ services:
   email-client-generic:
     image: email-client
     environment:
-      SPRING_KAFKA_TOPIC_EMAILOUT: "helpdesk.gdf@yandex.com.v1.pub"
+      SPRING_KAFKA_TOPIC_EMAILOUT: "helpdesk.gdf_yandex.com.v1.pub"
       SPRING_MAIL_HOST: smtp.yandex.com
       SPRING_MAIL_IMAP_HOST: imap.yandex.com
       SPRING_MAIL_USERNAME: helpdesk.gdf
       SPRING_MAIL_PASSWORD: Tha0xi7k
       EUREKA_CLIENT_ENABLED: "false"
-      SPRING_MAIL_IMAP_USERFLAG: "client38"
+      SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
@@ -22,13 +22,13 @@ services:
   email-client-travel:
     image: email-client
     environment:
-      SPRING_KAFKA_TOPIC_EMAILOUT: "helpdesk.gdf.travel@yandex.com.v1.pub"
+      SPRING_KAFKA_TOPIC_EMAILOUT: "helpdesk.gdf.travel_yandex.com.v1.pub"
       SPRING_MAIL_HOST: smtp.yandex.com
       SPRING_MAIL_IMAP_HOST: imap.yandex.com
       SPRING_MAIL_USERNAME: helpdesk.gdf.travel
       SPRING_MAIL_PASSWORD: Xo8nua4o
       EUREKA_CLIENT_ENABLED: "false"
-      SPRING_MAIL_IMAP_USERFLAG: "client38"
+      SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
@@ -41,14 +41,15 @@ services:
   email-client-theater:
     image: email-client
     environment:
-      SPRING_KAFKA_TOPIC_EMAILOUT: "h.gdf.theater@gmx.com.v1.pub"
+      SPRING_KAFKA_TOPIC_EMAILOUT: "h.gdf.theater_gmx.com.v1.pub"
       SPRING_MAIL_HOST: mail.gmx.com
       SPRING_MAIL_PORT: 587
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_SOCKETFACTORY_PORT: 587
       SPRING_MAIL_IMAP_HOST: imap.gmx.com
-      SPRING_MAIL_USERNAME: h.gdf.theater
+      SPRING_MAIL_USERNAME: h.gdf.theater%40gmx.com
       SPRING_MAIL_PASSWORD: Thu9esejThu9esej
       EUREKA_CLIENT_ENABLED: "false"
-      SPRING_MAIL_IMAP_USERFLAG: "client38"
+      SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
@@ -131,7 +132,7 @@ services:
       - 9092:9092
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
-      KAFKA_CREATE_TOPICS: "email.in.v1.pub:2:3,helpdesk.gdf@yandex.com.v1.pub:2:3,helpdesk.gdf.travel@yandex.com.v1.pub:2:3,h.gdf.theater@gmx.com.v1.pub:2:3"
+      KAFKA_CREATE_TOPICS: "email.in.v1.pub:2:3,helpdesk.gdf_yandex.com.v1.pub:2:3,helpdesk.gdf.travel_yandex.com.v1.pub:2:3,h.gdf.theater_gmx.com.v1.pub:2:3"
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
