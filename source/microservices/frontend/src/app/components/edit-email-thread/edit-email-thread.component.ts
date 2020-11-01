@@ -8,6 +8,8 @@ import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
 import {UserFacade} from "../../root-store/user/user.facade";
 import {debounceTime, distinctUntilChanged, filter, take, takeUntil} from "rxjs/operators";
+import {QueueFacade} from "../../root-store/queue/queue.facade";
+import {Queue} from "../../api/models/queue";
 
 @Component({
   selector: 'edit-email-thread',
@@ -20,14 +22,16 @@ export class EditEmailThreadComponent implements OnInit {
   @Input() statusEditable: boolean;
   availableUsers: User[];
   assignForm: FormGroup = this.fb.group({
+    queueId: ["", Validators.required],
     user: ["", [Validators.required, userValidator()]],
     status: ["", Validators.required]
   })
   private readonly ngUnsubscribe = new Subject();
+  private allQueues: Queue[];
 
   constructor(private readonly facade: EmailThreadFacade, private readonly location: Location,
               private readonly route: ActivatedRoute, private readonly fb: FormBuilder,
-              private readonly userFacade: UserFacade) {
+              private readonly userFacade: UserFacade, private readonly queueFacade: QueueFacade) {
   }
 
   getUsername(user: User): string {
@@ -35,8 +39,14 @@ export class EditEmailThreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.queueFacade.getAll();
+    this.queueFacade.queueArray$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+      (queueArray: Queue[]) => {
+        this.allQueues = queueArray;
+      });
     this.assignForm.patchValue(
       {
+        queueId: this.emailThread.queue.id,
         user: this.emailThread.user,
         status: this.emailThread.status
       });
@@ -55,6 +65,7 @@ export class EditEmailThreadComponent implements OnInit {
           this.userFacade.reset();
         }
       });
+
   }
 
   ngOnDestroy(): void {
@@ -67,9 +78,10 @@ export class EditEmailThreadComponent implements OnInit {
   }
 
   save() {
-    const userFromForm = this.assignForm.get('user').value as User;
-    const statusFromForm = this.assignForm.get('status').value as any;
-    const emailThread = {...this.emailThread, user: userFromForm, status: statusFromForm};
+    const user = this.assignForm.get('user').value as User;
+    const status = this.assignForm.get('status').value as any;
+    const queue = this.allQueues.find(q => q.id === this.assignForm.get('queueId').value as string);
+    const emailThread = {...this.emailThread, user: user, status: status, queue: queue};
     this.facade.patch(emailThread);
     this.facade.patched$.pipe(
       filter((success: boolean) => success),

@@ -55,7 +55,7 @@ const routes: Routes = [
     path: 'email-thread/unassigned',
     component: UnassignedViewComponent,
     canActivate: [AuthenticationGuardService],
-    data: {roles: ['regular_user']}
+    data: {roles: ['admin_user']}
   },
   {
     path: 'landing-page',

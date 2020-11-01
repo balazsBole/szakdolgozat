@@ -6,6 +6,7 @@ import {EmailThreadStoreModule} from "./email-thread/email-thread-store.module";
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {UserStoreModule} from "./user/user-store.module";
 import {EmailStoreModule} from "./email/email-store.module";
+import {QueueStoreModule} from "./queue/queue-store.module";
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {EmailStoreModule} from "./email/email-store.module";
     EffectsModule.forRoot([]),
     EmailThreadStoreModule,
     UserStoreModule,
-    EmailStoreModule
+    EmailStoreModule,
+    QueueStoreModule
   ]
 })
 export class RootStoreModule {

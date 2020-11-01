@@ -5,6 +5,14 @@
               mat-icon-button matTooltip="Cancel">
         <mat-icon>cancel</mat-icon>
       </button>
+
+      <mat-form-field>
+        <mat-label>Change queue</mat-label>
+        <mat-select formControlName="queueId">
+          <mat-option *ngFor="let queue of allQueues" [value]="queue.id">{{queue.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field>
         <input [matAutocomplete]="auto"
                aria-label="User input"
@@ -25,6 +33,7 @@
           <mat-option value="OPEN">OPEN</mat-option>
           <mat-option value="RESOLVED">RESOLVED</mat-option>
           <mat-option value="CLARIFICATION">CLARIFICATION</mat-option>
+          <mat-option value="CHANGE_QUEUE">CHANGE QUEUE</mat-option>
         </mat-select>
       </mat-form-field>
 
