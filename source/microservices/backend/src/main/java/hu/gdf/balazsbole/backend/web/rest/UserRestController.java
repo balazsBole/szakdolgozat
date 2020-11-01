@@ -3,19 +3,15 @@ package hu.gdf.balazsbole.backend.web.rest;
 import hu.gdf.balazsbole.backend.service.UserService;
 import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.User;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(tags = "User")
 @RestController
@@ -45,4 +41,15 @@ public class UserRestController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping(value = "/search/autocomplete")
+    @ApiOperation(nickname = "autocomplete", value = "AutoComplete search for User. Searches for username with like.")
+    @ApiResponses({
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "First (size) count values about BIC field."),
+            @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+            @ApiResponse(code = DomainConstants.HttpStatus.UNPROCESSABLE_ENTITY, message = "Operation not permitted."),
+    })
+    public List<User> searchAutoComplete(
+            @ApiParam(value = "Username, min length 3", example = "testUser") @RequestParam(name = "username", defaultValue = "") final String username) {
+        return service.searchAutoComplete(username);
+    }
 }

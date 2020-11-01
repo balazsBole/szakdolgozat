@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,4 +22,6 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     @Transactional(readOnly = true)
     Optional<UserEntity> findById(UUID userId);
 
+    @Transactional(readOnly = true)
+    List<UserEntity> findAllByUsernameIgnoreCaseContaining(String username);
 }

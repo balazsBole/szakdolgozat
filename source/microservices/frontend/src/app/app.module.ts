@@ -39,6 +39,7 @@ import {LandingViewComponent} from './views/landing-view/landing-view.component'
 import {UnassignedViewComponent} from './views/unassigned-view/unassigned-view.component';
 import {MultipleEmailThreadComponent} from './components/multiple-email-thread/multiple-email-thread.component';
 import {AssignThreadViewComponent} from './views/assign-thread-view/assign-thread-view.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -101,7 +102,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatTooltipModule,
     QuillModule.forRoot(),
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    MatAutocompleteModule
   ],
   providers: [
     EmailIdResolver,

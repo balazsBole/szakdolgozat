@@ -6,24 +6,47 @@
   <div [ngStyle]="{ height: flexContainerHeight }" class="emailTexts scrollable">
     <mat-card>
       <mat-card-content>
-        <div>
-          <mat-form-field appearance="fill">
-            <mat-label>Assign this thread to</mat-label>
-            <mat-select [(value)]="userId">
-              <mat-option value="userid">username</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button (click)="exit()" aria-label="discard button"
-                  mat-icon-button matTooltip="Cancel assignment">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </div>
-        <div>
-          <button [disabled]="!userId" aria-label="assign"
-                  mat-icon-button matTooltip="Assign email thread">
-            Assign
-          </button>
-        </div>
+
+        <form [formGroup]="assignForm">
+
+          <div>
+
+            <mat-form-field>
+              <input [matAutocomplete]="auto"
+                     aria-label="User input"
+                     formControlName="user"
+                     matInput
+                     placeholder="Assign this thread to"
+                     type="text">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="getUsername" autoActiveFirstOption>
+                <mat-option *ngFor="let user of availableUsers" [value]="user">
+                  {{user.username}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+
+            <!--          <mat-form-field appearance="fill">-->
+            <!--            <mat-label>Assign this thread to</mat-label>-->
+            <!--            <mat-select [(value)]="userId">-->
+            <!--              <mat-option value="userid">username</mat-option>-->
+            <!--            </mat-select>-->
+            <!--          </mat-form-field>-->
+            <button (click)="exit()" aria-label="discard button"
+                    mat-icon-button matTooltip="Cancel assignment">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+
+          <div>
+            <button (click)="assign()"
+                    [disabled]="!assignForm.valid" aria-label="assign"
+                    mat-icon-button matTooltip="Assign email thread">
+              Assign
+            </button>
+          </div>
+
+        </form>
       </mat-card-content>
     </mat-card>
 

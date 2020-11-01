@@ -1,21 +1,39 @@
 import {createReducer, on} from '@ngrx/store';
 import {initialState} from "./user.state.interface";
-import {getDetailsAction, getDetailsFailAction, getDetailsSuccessAction} from "./user.actions";
+import {
+  autocompleteAction,
+  autocompleteFailAction,
+  autocompleteSuccessAction,
+  getDetailsAction,
+  getDetailsFailAction,
+  getDetailsSuccessAction,
+  resetAction
+} from "./user.actions";
 
 
 export const _userReducer = createReducer(
   initialState,
 
-  on(getDetailsAction, (state) => ({
+  on(resetAction, () => initialState
+  ),
+
+  on(getDetailsAction, autocompleteAction, (state) => ({
     ...state,
     loading: true,
     error: null
   })),
 
-  on(getDetailsFailAction, (state, {error}) => ({
+  on(getDetailsFailAction, autocompleteFailAction, (state, {error}) => ({
     ...state,
     error,
     loading: false
+  })),
+
+  on(autocompleteSuccessAction, (state, {userArray}) => ({
+    ...state,
+    autocomplete: userArray,
+    loading: false,
+    error: null
   })),
 
   on(getDetailsSuccessAction, (state, {user}) => ({
