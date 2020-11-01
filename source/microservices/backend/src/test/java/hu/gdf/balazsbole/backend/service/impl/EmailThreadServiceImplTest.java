@@ -1,10 +1,11 @@
 package hu.gdf.balazsbole.backend.service.impl;
 
 import hu.gdf.balazsbole.backend.RunsWithMappers;
-import hu.gdf.balazsbole.domain.dto.Emailthread;
-import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
+import hu.gdf.balazsbole.domain.dto.EmailThread;
+import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
-import hu.gdf.balazsbole.domain.repository.EmailthreadRepository;
+import hu.gdf.balazsbole.domain.repository.EmailThreadRepository;
+import hu.gdf.balazsbole.domain.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +21,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = {EmailthreadServiceImpl.class})
-class EmailthreadServiceImplTest implements RunsWithMappers {
+@SpringBootTest(classes = {EmailThreadServiceImpl.class})
+class EmailThreadServiceImplTest implements RunsWithMappers {
 
     @MockBean
-    private EmailthreadRepository repository;
+    private EmailThreadRepository repository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Autowired
-    private EmailthreadServiceImpl service;
+    private EmailThreadServiceImpl service;
 
     @Test
-    void new_emailthread_should_be_store_status() {
+    void new_emailThread_should_be_store_status() {
         service.createThreadWith(Status.OPEN);
         verify(repository, times(1)).save(argThat(entity -> Status.OPEN.equals(entity.getStatus())));
     }
 
     @Test
     void getUnassignedEmailThreads_should_sreturn_values_from_repository() {
-        EmailthreadEntity emailthreadEntity = new EmailthreadEntity();
-        emailthreadEntity.setStatus(Status.OPEN);
-        when(repository.findAllByUserIsNull()).thenReturn(Collections.singletonList(emailthreadEntity));
+        EmailThreadEntity emailThreadEntity = new EmailThreadEntity();
+        emailThreadEntity.setStatus(Status.OPEN);
+        when(repository.findAllByUserIsNull()).thenReturn(Collections.singletonList(emailThreadEntity));
 
-        List<Emailthread> result = service.getUnassignedEmailThreads();
+        List<EmailThread> result = service.getUnassignedEmailThreads();
         assertEquals(1, result.size());
         assertEquals(Status.OPEN, result.get(0).getStatus());
     }
@@ -50,11 +54,11 @@ class EmailthreadServiceImplTest implements RunsWithMappers {
     @Test
     void findAllByStatusAndUser_should_sreturn_values_from_repository() {
         final var id = UUID.randomUUID();
-        EmailthreadEntity emailthreadEntity = new EmailthreadEntity();
-        emailthreadEntity.setStatus(Status.OPEN);
-        when(repository.findAllByStatusAndUser_KeycloakID(eq(Status.OPEN), eq(id))).thenReturn(Collections.singletonList(emailthreadEntity));
+        EmailThreadEntity emailThreadEntity = new EmailThreadEntity();
+        emailThreadEntity.setStatus(Status.OPEN);
+        when(repository.findAllByStatusAndUser_KeycloakID(eq(Status.OPEN), eq(id))).thenReturn(Collections.singletonList(emailThreadEntity));
 
-        List<Emailthread> result = service.findAllByStatusAndKeycloakUser(id, Status.OPEN);
+        List<EmailThread> result = service.findAllByStatusAndKeycloakUser(id, Status.OPEN);
         assertEquals(1, result.size());
         assertEquals(Status.OPEN, result.get(0).getStatus());
     }

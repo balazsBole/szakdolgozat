@@ -20,8 +20,8 @@ public class Email {
     @ApiModelProperty(value = "Reply to this email.")
     private UUID parentId;
 
-    @ApiModelProperty(value = "The emailthread which contains this email.")
-    private Emailthread emailthread;
+    @ApiModelProperty(value = "The emailThread which contains this email.")
+    private EmailThread emailThread;
 
     @ApiModelProperty(value = "The direction of the email.")
     private Direction direction;

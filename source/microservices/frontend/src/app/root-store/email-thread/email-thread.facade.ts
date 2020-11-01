@@ -6,7 +6,7 @@ import {
   patchAction,
   searchAssignedToMeByStatusAction,
   searchUnassignedAction
-} from './emailthread.actions';
+} from './email-thread.actions';
 import {
   selectAssigned,
   selectDetails,
@@ -15,22 +15,22 @@ import {
   selectPatched,
   selectUnassigned,
   selectUnassignedTotalCount
-} from './emailthread.selectors';
-import {EmailthreadStoreState} from './emailthread.state.interface';
-import {EmailthreadService} from "../../api/services/emailthread.service";
-import {Emailthread} from "../../api/models";
+} from './email-thread.selectors';
+import {EmailThreadStoreState} from './email-thread.state.interface';
+import {EmailThreadService} from "../../api/services/email-thread.service";
+import {EmailThread} from "../../api/models";
 
 @Injectable({providedIn: 'root'})
-export class EmailthreadFacade {
-  unassigned$: Observable<Emailthread[]>;
+export class EmailThreadFacade {
+  unassigned$: Observable<EmailThread[]>;
   numberOfUnassigned$: Observable<number>;
   error$: Observable<any>;
   loading$: Observable<boolean>;
-  assignedThreads: Observable<Emailthread[]>;
+  assignedThreads: Observable<EmailThread[]>;
   patched$: Observable<boolean>;
-  details$: Observable<Emailthread>;
+  details$: Observable<EmailThread>;
 
-  constructor(private readonly store: Store<EmailthreadStoreState>) {
+  constructor(private readonly store: Store<EmailThreadStoreState>) {
     this.initObservables();
   }
 
@@ -48,7 +48,7 @@ export class EmailthreadFacade {
     this.loading$ = this.store.select(selectIsLoading);
   }
 
-  unassigned(params: EmailthreadService.UnassignedParams) {
+  unassigned(params: EmailThreadService.UnassignedParams) {
     this.store.dispatch(searchUnassignedAction({params}));
   }
 
@@ -56,8 +56,8 @@ export class EmailthreadFacade {
     this.store.dispatch(searchAssignedToMeByStatusAction({status}));
   }
 
-  patch(emalthread: Emailthread) {
-    const params: EmailthreadService.PatchParams = {
+  patch(emalthread: EmailThread) {
+    const params: EmailThreadService.PatchParams = {
       body: {"status": emalthread.status, "userId": emalthread.user.id},
       emailThreadId: emalthread.id
     }
@@ -65,7 +65,7 @@ export class EmailthreadFacade {
   }
 
   patchStatus(status: any, id: string) {
-    const params: EmailthreadService.PatchParams = {
+    const params: EmailThreadService.PatchParams = {
       body: {"status": status}, emailThreadId: id
     }
     this.store.dispatch(patchAction({params}))

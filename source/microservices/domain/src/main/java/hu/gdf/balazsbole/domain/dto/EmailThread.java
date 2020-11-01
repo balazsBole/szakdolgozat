@@ -13,20 +13,20 @@ import java.util.UUID;
 
 @Data
 @ApiModel(description = "Full DTO for thread")
-public class Emailthread {
+public class EmailThread {
     @ApiModelProperty(value = "Unique internal identifier", example = "06484c9f-6f59-4b9f-ad5e-aaaa0ec332cc")
     @NotNull
     private UUID id;
 
-    @ApiModelProperty(value = "The user who is working on the emailthread.")
+    @ApiModelProperty(value = "The user who is working on the emailThread.")
     @Valid
     private User user;
 
-    @ApiModelProperty(value = "The status of the emailthread.")
+    @ApiModelProperty(value = "The status of the emailThread.")
     @NotNull
     private Status status;
 
-    @ApiModelProperty(value = "The emails related to the emailthread.")
+    @ApiModelProperty(value = "The emails related to the emailThread.")
     @NotNull
     private List<Email> emails = new ArrayList<>();
 

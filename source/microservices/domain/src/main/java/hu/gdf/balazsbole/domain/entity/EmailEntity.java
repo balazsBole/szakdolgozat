@@ -25,7 +25,7 @@ public class EmailEntity extends AbstractEntity implements Serializable {
 
     @JoinColumn(name = "thread_id", nullable = false)
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = false)
-    private EmailthreadEntity emailthread;
+    private EmailThreadEntity emailThread;
 
     @NotNull
     @Enumerated(EnumType.STRING)

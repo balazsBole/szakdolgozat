@@ -2,19 +2,19 @@ import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
 import {Observable} from 'rxjs';
 import {filter, take} from "rxjs/operators";
-import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
-import {Emailthread} from "../../api/models/emailthread";
+import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
+import {EmailThread} from "../../api/models/email-thread";
 
 @Injectable({providedIn: 'root'})
-export class EmailThreadIdResolver implements Resolve<Emailthread> {
-  constructor(private readonly facade: EmailthreadFacade) {
+export class EmailThreadIdResolver implements Resolve<EmailThread> {
+  constructor(private readonly facade: EmailThreadFacade) {
   }
 
-  resolve(route: ActivatedRouteSnapshot): Observable<Emailthread> {
+  resolve(route: ActivatedRouteSnapshot): Observable<EmailThread> {
     const uuid: string = route.paramMap.get('uuid');
     this.facade.details(uuid);
     return this.facade.details$.pipe(
-      filter((emailThread: Emailthread) => !!emailThread && emailThread.id === uuid),
+      filter((emailThread: EmailThread) => !!emailThread && emailThread.id === uuid),
       take(1)
     );
   }

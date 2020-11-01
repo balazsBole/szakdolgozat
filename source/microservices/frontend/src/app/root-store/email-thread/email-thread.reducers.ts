@@ -1,5 +1,5 @@
 import {createReducer, on} from '@ngrx/store';
-import {initialState} from "./emailthread.state.interface";
+import {initialState} from "./email-thread.state.interface";
 import {
   getDetailsAction,
   getDetailsFailAction,
@@ -13,10 +13,10 @@ import {
   searchUnassignedAction,
   searchUnassignedFailAction,
   searchUnassignedSuccessAction
-} from "./emailthread.actions";
+} from "./email-thread.actions";
 
 
-export const _emailthreadReducer = createReducer(
+export const _emailThreadReducer = createReducer(
   initialState,
 
   on(searchUnassignedAction, searchAssignedToMeByStatusAction, patchAction, getDetailsAction, (state) => ({
@@ -62,6 +62,6 @@ export const _emailthreadReducer = createReducer(
   })),
 );
 
-export function emailthreadReducer(state, action) {
-  return _emailthreadReducer(state, action);
+export function emailThreadReducer(state, action) {
+  return _emailThreadReducer(state, action);
 }

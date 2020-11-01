@@ -1,7 +1,7 @@
 package hu.gdf.balazsbole.backend.web.rest;
 
-import hu.gdf.balazsbole.backend.service.EmailthreadService;
-import hu.gdf.balazsbole.domain.dto.Emailthread;
+import hu.gdf.balazsbole.backend.service.EmailThreadService;
+import hu.gdf.balazsbole.domain.dto.EmailThread;
 import hu.gdf.balazsbole.domain.dto.User;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import org.junit.jupiter.api.Assertions;
@@ -27,28 +27,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(addFilters = false)
-@WebMvcTest(controllers = EmailthreadRestController.class)
-class EmailthreadRestControllerTest {
+@WebMvcTest(controllers = EmailThreadRestController.class)
+class EmailThreadRestControllerTest {
 
 
-    private static final String REST_URL = EmailthreadRestController.ROOT_PATH;
+    private static final String REST_URL = EmailThreadRestController.ROOT_PATH;
 
     @Autowired
-    private EmailthreadRestController controller;
+    private EmailThreadRestController controller;
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private EmailthreadService service;
+    private EmailThreadService service;
 
 
     @Test
     void unassigned_should_return_result_from_service() throws Exception {
-        Emailthread emailthread = new Emailthread();
-        emailthread.setUser(new User());
-        emailthread.getUser().setUsername("test");
-        when(service.getUnassignedEmailThreads()).thenReturn(Collections.singletonList(emailthread));
+        EmailThread emailThread = new EmailThread();
+        emailThread.setUser(new User());
+        emailThread.getUser().setUsername("test");
+        when(service.getUnassignedEmailThreads()).thenReturn(Collections.singletonList(emailThread));
 
         Assertions.assertDoesNotThrow(() ->
                 mvc.perform(get(REST_URL + "/unassigned"))
@@ -62,13 +62,13 @@ class EmailthreadRestControllerTest {
     void findAllByStatusAndUser_should_return_result_from_service() throws Exception {
         UUID uuid = UUID.fromString("bf92cc37-fbc9-4774-ae9b-d818fcd66676");
 
-        Emailthread emailthread = new Emailthread();
-        emailthread.setUser(new User());
-        emailthread.getUser().setUsername("test");
-        when(service.findAllByStatusAndKeycloakUser(eq(uuid), eq(Status.OPEN))).thenReturn(Collections.singletonList(emailthread));
+        EmailThread emailThread = new EmailThread();
+        emailThread.setUser(new User());
+        emailThread.getUser().setUsername("test");
+        when(service.findAllByStatusAndKeycloakUser(eq(uuid), eq(Status.OPEN))).thenReturn(Collections.singletonList(emailThread));
 
         Assertions.assertDoesNotThrow(() ->
-                mvc.perform(get(REST_URL + "/assignedToMe"))
+                mvc.perform(get(REST_URL + "/assigned-to-me"))
                         .andExpect(status().isOk())
                         .andExpect(jsonPath("$[0].user.username", is("test"))));
     }

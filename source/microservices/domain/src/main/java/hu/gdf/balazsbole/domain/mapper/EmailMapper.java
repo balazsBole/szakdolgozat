@@ -7,12 +7,12 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {ContentMapper.class, EmailthreadMapper.class})
+@Mapper(componentModel = "spring", uses = {ContentMapper.class, EmailThreadMapper.class})
 public interface EmailMapper {
 
-    @Mapping(target = "emailthread.emails", ignore = true)
+    @Mapping(target = "emailThread.emails", ignore = true)
     @Mapping(target = "parent.parent", ignore = true)
-    @Mapping(target = "parent.emailthread", ignore = true)
+    @Mapping(target = "parent.emailThread", ignore = true)
     Email map(EmailEntity entity);
 
     EmailEntity map(Email dto);

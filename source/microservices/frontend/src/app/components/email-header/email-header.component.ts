@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
-import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
 import {filter, take} from "rxjs/operators";
 
 @Component({
@@ -15,7 +15,7 @@ export class EmailHeaderComponent implements OnInit {
   @Input() unread: boolean;
   @Input() reply: boolean;
 
-  constructor(private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade) {
+  constructor(private readonly facade: EmailFacade, private readonly emailThreadFacade: EmailThreadFacade) {
   }
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class EmailHeaderComponent implements OnInit {
     this.facade.loading$.pipe(
       filter((loading: boolean) => !loading),
       take(1)
-    ).subscribe(() => this.emailthreadFacade.assignedToMeWith(this.email.emailthread.status));
+    ).subscribe(() => this.emailThreadFacade.assignedToMeWith(this.email.emailThread.status));
 
   }
 }

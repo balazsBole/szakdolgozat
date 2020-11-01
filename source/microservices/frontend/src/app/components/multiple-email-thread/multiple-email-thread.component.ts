@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Subject} from "rxjs";
-import {Emailthread} from "../../api/models/emailthread";
+import {EmailThread} from "../../api/models/email-thread";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {takeUntil} from "rxjs/operators";
 import {Email} from "../../api/models/email";
@@ -11,7 +11,7 @@ import {Email} from "../../api/models/email";
   styleUrls: ['./multiple-email-thread.component.css']
 })
 export class MultipleEmailThreadComponent implements OnInit, OnDestroy, OnChanges {
-  @Input() threads: Emailthread[];
+  @Input() threads: EmailThread[];
   @Input() markAsRead: boolean;
   @Input() reply: boolean;
   email: Email;

@@ -2,10 +2,10 @@ package hu.gdf.balazsbole.backend.service.impl;
 
 
 import hu.gdf.balazsbole.backend.service.EmailService;
-import hu.gdf.balazsbole.backend.service.EmailthreadService;
+import hu.gdf.balazsbole.backend.service.EmailThreadService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
-import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
+import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
 import hu.gdf.balazsbole.domain.enumeration.Direction;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailMapper;
@@ -34,9 +34,9 @@ public class EmailServiceImpl implements EmailService {
     private static final AtomicInteger id = new AtomicInteger();
     private final EmailMapper mapper;
     private final EmailRepository repository;
-    private final EmailthreadService threadService;
+    private final EmailThreadService threadService;
 
-    public EmailServiceImpl(final EmailRepository repository, EmailMapper mapper, EmailthreadService threadService) {
+    public EmailServiceImpl(final EmailRepository repository, EmailMapper mapper, EmailThreadService threadService) {
         this.repository = repository;
         this.mapper = mapper;
         this.threadService = threadService;
@@ -83,16 +83,16 @@ public class EmailServiceImpl implements EmailService {
         Optional<EmailEntity> optionalParent = findParent(emailEntity);
         if (optionalParent.isPresent()) {
             emailEntity.setParentId(optionalParent.get().getId());
-            emailEntity.setEmailthread(optionalParent.get().getEmailthread());
+            emailEntity.setEmailThread(optionalParent.get().getEmailThread());
         } else {
             Optional<EmailEntity> relevantEmail = findRelevantEmail(emailEntity.getHeader().getReferences());
-            EmailthreadEntity emailthreadEntity = relevantEmail.map(EmailEntity::getEmailthread)
+            EmailThreadEntity emailThreadEntity = relevantEmail.map(EmailEntity::getEmailThread)
                     .orElseGet(() -> threadService.createThreadWith(Status.OPEN));
-            emailEntity.setEmailthread(emailthreadEntity);
+            emailEntity.setEmailThread(emailThreadEntity);
         }
         if (Direction.IN.equals(emailEntity.getDirection()))
-            emailEntity.getEmailthread().setStatus(Status.OPEN);
-        return mapper.map(repository.saveAndFlush(emailEntity));
+            emailEntity.getEmailThread().setStatus(Status.OPEN);
+        return mapper.map(repository.save(emailEntity));
     }
 
     Optional<EmailEntity> findParent(EmailEntity entity) {

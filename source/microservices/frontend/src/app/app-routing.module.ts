@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {EmailthreadViewComponent} from "./views/emailthread-view/emailthread-view.component";
+import {EmailThreadViewComponent} from "./views/email-thread-view/email-thread-view.component";
 import {AuthenticationGuardService} from "./service/authentication-guard.service";
 import {EmailReplyViewComponent} from "./views/email-reply-view/email-reply-view.component";
 import {EmailIdResolver} from "./views/email-reply-view/email-id-resolver";
@@ -11,8 +11,8 @@ import {EmailThreadIdResolver} from "./views/assign-thread-view/thread-id-resolv
 
 const routes: Routes = [
   {
-    path: 'emailthread',
-    component: EmailthreadViewComponent,
+    path: 'email-thread',
+    component: EmailThreadViewComponent,
     canActivate: [AuthenticationGuardService],
     data: {roles: ['regular_user']}
   },

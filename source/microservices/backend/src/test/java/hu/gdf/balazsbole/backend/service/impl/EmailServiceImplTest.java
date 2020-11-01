@@ -1,11 +1,11 @@
 package hu.gdf.balazsbole.backend.service.impl;
 
 import hu.gdf.balazsbole.backend.RunsWithMappers;
-import hu.gdf.balazsbole.backend.service.EmailthreadService;
+import hu.gdf.balazsbole.backend.service.EmailThreadService;
 import hu.gdf.balazsbole.domain.dto.Email;
 import hu.gdf.balazsbole.domain.dto.Header;
 import hu.gdf.balazsbole.domain.entity.EmailEntity;
-import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
+import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
 import hu.gdf.balazsbole.domain.entity.HeaderEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailMapper;
@@ -32,7 +32,7 @@ class EmailServiceImplTest implements RunsWithMappers {
     private EmailRepository repository;
 
     @MockBean
-    private EmailthreadService threadService;
+    private EmailThreadService threadService;
 
     @Autowired
     private EmailServiceImpl service;
@@ -48,7 +48,7 @@ class EmailServiceImplTest implements RunsWithMappers {
     void init() {
         emailEntity = createEmail("test_mesage_id", "test_parent_message_id");
         parentEntity = createEmail("test_parent_message_id", null);
-        parentEntity.setEmailthread(new EmailthreadEntity());
+        parentEntity.setEmailThread(new EmailThreadEntity());
 
         when(repository.findByHeader_MessageId(eq("test_parent_message_id"))).thenReturn(Optional.of(parentEntity));
         when(repository.findByHeader_MessageId(eq(""))).thenReturn(Optional.empty());
@@ -82,7 +82,7 @@ class EmailServiceImplTest implements RunsWithMappers {
     }
 
     @Test
-    void should_create_emailthread_if_no_relevant_email_exist() {
+    void should_create_emailThread_if_no_relevant_email_exist() {
         Email email = new Email();
         email.setHeader(new Header());
 
@@ -104,17 +104,17 @@ class EmailServiceImplTest implements RunsWithMappers {
         service.storeNew(mapper.map(emailEntity));
 
         verify(repository).save(argThat(entity -> emailEntity.getHeader().getMessageId().equals(entity.getHeader().getMessageId())));
-        verify(repository).save(argThat(entity -> parentEntity.getEmailthread().equals(entity.getEmailthread())));
+        verify(repository).save(argThat(entity -> parentEntity.getEmailThread().equals(entity.getEmailThread())));
         verify(repository).save(argThat(entity -> entity.getParentId() == null));
     }
 
 
     @Test
     void should_set_parent_toEntity() {
-        assertNull(emailEntity.getEmailthread());
+        assertNull(emailEntity.getEmailThread());
         service.storeNew(mapper.map(emailEntity));
         verify(repository).save(argThat(savedEntity ->
-                savedEntity.getEmailthread() != null));
+                savedEntity.getEmailThread() != null));
         verify(repository).save(argThat(savedEntity ->
                 parentEntity.getId().equals(savedEntity.getParentId())));
     }

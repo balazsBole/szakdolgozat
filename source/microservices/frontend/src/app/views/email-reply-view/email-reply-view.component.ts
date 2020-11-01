@@ -38,7 +38,7 @@ function createReplyEmail(email: Email): Email {
   return {
     content: {body: "", html: true, attachments: []},
     direction: "OUT",
-    emailthread: email.emailthread,
+    emailThread: email.emailThread,
     header: {
       from: email.header.to,
       inReplyTo: email.header.messageId,

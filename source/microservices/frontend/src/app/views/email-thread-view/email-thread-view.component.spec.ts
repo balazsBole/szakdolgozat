@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {EmailthreadComponent} from './emailthread.component';
+import {EmailThreadViewComponent} from './email-thread-view.component';
 
-describe('EmailthreadsComponent', () => {
-  let component: EmailthreadComponent;
-  let fixture: ComponentFixture<EmailthreadComponent>;
+describe('EmailThreadViewComponent', () => {
+  let component: EmailThreadViewComponent;
+  let fixture: ComponentFixture<EmailThreadViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EmailthreadComponent]
+      declarations: [EmailThreadViewComponent]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmailthreadComponent);
+    fixture = TestBed.createComponent(EmailThreadViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

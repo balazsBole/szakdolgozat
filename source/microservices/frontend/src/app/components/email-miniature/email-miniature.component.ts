@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
-import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
 import {filter, take, takeUntil} from "rxjs/operators";
 import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 import {Subject} from "rxjs";
@@ -19,7 +19,7 @@ export class EmailMiniatureComponent implements OnInit {
   @Input() skipLocationChange: boolean = false;
   private readonly ngUnsubscribe = new Subject();
 
-  constructor(private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade,
+  constructor(private readonly facade: EmailFacade, private readonly emailThreadFacade: EmailThreadFacade,
               private readonly router: Router, private readonly route: ActivatedRoute) {
   }
 
@@ -37,7 +37,7 @@ export class EmailMiniatureComponent implements OnInit {
       this.facade.loading$.pipe(
         filter((loading: boolean) => !loading),
         take(1)
-      ).subscribe(() => this.emailthreadFacade.assignedToMeWith(this.email.emailthread.status));
+      ).subscribe(() => this.emailThreadFacade.assignedToMeWith(this.email.emailThread.status));
     }
   }
 

@@ -1,13 +1,13 @@
 package hu.gdf.balazsbole.backend.service.impl;
 
 
-import hu.gdf.balazsbole.backend.service.EmailthreadService;
-import hu.gdf.balazsbole.domain.dto.Emailthread;
-import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
+import hu.gdf.balazsbole.backend.service.EmailThreadService;
+import hu.gdf.balazsbole.domain.dto.EmailThread;
+import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
 import hu.gdf.balazsbole.domain.entity.UserEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
-import hu.gdf.balazsbole.domain.mapper.EmailthreadMapper;
-import hu.gdf.balazsbole.domain.repository.EmailthreadRepository;
+import hu.gdf.balazsbole.domain.mapper.EmailThreadMapper;
+import hu.gdf.balazsbole.domain.repository.EmailThreadRepository;
 import hu.gdf.balazsbole.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,13 +21,13 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-public class EmailthreadServiceImpl implements EmailthreadService {
+public class EmailThreadServiceImpl implements EmailThreadService {
 
-    private final EmailthreadRepository repository;
+    private final EmailThreadRepository repository;
     private final UserRepository userRepository;
-    private final EmailthreadMapper mapper;
+    private final EmailThreadMapper mapper;
 
-    public EmailthreadServiceImpl(EmailthreadRepository repository, UserRepository userRepository, EmailthreadMapper mapper) {
+    public EmailThreadServiceImpl(EmailThreadRepository repository, UserRepository userRepository, EmailThreadMapper mapper) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.mapper = mapper;
@@ -35,32 +35,32 @@ public class EmailthreadServiceImpl implements EmailthreadService {
 
     @Override
     @Transactional
-    public EmailthreadEntity createThreadWith(Status status) {
-        EmailthreadEntity entity = new EmailthreadEntity();
+    public EmailThreadEntity createThreadWith(Status status) {
+        EmailThreadEntity entity = new EmailThreadEntity();
         entity.setStatus(status);
-        return repository.saveAndFlush(entity);
+        return repository.save(entity);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Emailthread> getUnassignedEmailThreads() {
-        List<EmailthreadEntity> userIsNull = repository.findAllByUserIsNull();
+    public List<EmailThread> getUnassignedEmailThreads() {
+        List<EmailThreadEntity> userIsNull = repository.findAllByUserIsNull();
         return mapper.mapList(userIsNull);
     }
 
 
     @Override
     @Transactional(readOnly = true)
-    public List<Emailthread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status) {
-        List<EmailthreadEntity> allByStatusAndUser = repository.findAllByStatusAndUser_KeycloakID(status, keycloakId);
+    public List<EmailThread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status) {
+        List<EmailThreadEntity> allByStatusAndUser = repository.findAllByStatusAndUser_KeycloakID(status, keycloakId);
         return mapper.mapList(allByStatusAndUser);
     }
 
     @Override
     @Transactional
     public void updateStatus(UUID emailThreadId, Status status) {
-        Optional<EmailthreadEntity> emailthreadEntity = repository.findById(emailThreadId);
-        EmailthreadEntity thread = emailthreadEntity.orElseThrow(
+        Optional<EmailThreadEntity> emailThreadEntity = repository.findById(emailThreadId);
+        EmailThreadEntity thread = emailThreadEntity.orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
         if (status != thread.getStatus()) {
             thread.setStatus(status);
@@ -71,7 +71,7 @@ public class EmailthreadServiceImpl implements EmailthreadService {
     @Override
     @Transactional
     public void updateUser(UUID emailThreadId, UUID userId) {
-        EmailthreadEntity thread = repository.findById(emailThreadId).orElseThrow(
+        EmailThreadEntity thread = repository.findById(emailThreadId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
 
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(
@@ -85,7 +85,7 @@ public class EmailthreadServiceImpl implements EmailthreadService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Emailthread> findById(UUID emailThreadId) {
+    public Optional<EmailThread> findById(UUID emailThreadId) {
         return repository.findById(emailThreadId).map(mapper::map);
     }
 

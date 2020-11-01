@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store';
-import {EmailthreadService} from "../../api/services/emailthread.service";
-import {Emailthread} from "../../api/models/emailthread";
+import {EmailThreadService} from "../../api/services/email-thread.service";
+import {EmailThread} from "../../api/models/email-thread";
 
 
 export enum ActionTypes {
@@ -26,7 +26,7 @@ export const getDetailsAction = createAction(
   props<{ id: string }>());
 export const getDetailsSuccessAction = createAction(
   ActionTypes.GET_DETAILS_SUCCESS,
-  props<{ emailThread: Emailthread }>());
+  props<{ emailThread: EmailThread }>());
 export const getDetailsFailAction = createAction(
   ActionTypes.GET_DETAILS_FAIL,
   props<{ error: any }>());
@@ -34,10 +34,10 @@ export const getDetailsFailAction = createAction(
 
 export const searchUnassignedAction = createAction(
   ActionTypes.SEARCH_UNASSIGNED,
-  props<{ params: EmailthreadService.UnassignedParams }>());
+  props<{ params: EmailThreadService.UnassignedParams }>());
 export const searchUnassignedSuccessAction = createAction(
   ActionTypes.SEARCH_UNASSIGNED_SUCCESS,
-  props<{ searchResults: Array<Emailthread> }>());
+  props<{ searchResults: Array<EmailThread> }>());
 export const searchUnassignedFailAction = createAction(
   ActionTypes.SEARCH_UNASSIGNED_FAIL,
   props<{ error: any }>());
@@ -47,14 +47,14 @@ export const searchAssignedToMeByStatusAction = createAction(
   props<{ status?: string }>());
 export const searchAssignedToMeSuccessAction = createAction(
   ActionTypes.SEARCH_ASSIGNED_TO_ME_SUCCESS,
-  props<{ searchResults: Array<Emailthread> }>());
+  props<{ searchResults: Array<EmailThread> }>());
 export const searchAssignedToMeFailAction = createAction(
   ActionTypes.SEARCH_ASSIGNED_TO_ME_FAIL,
   props<{ error: any }>());
 
 export const patchAction = createAction(
   ActionTypes.PATCH,
-  props<{ params: EmailthreadService.PatchParams }>());
+  props<{ params: EmailThreadService.PatchParams }>());
 export const patchSuccessAction = createAction(
   ActionTypes.PATCH_SUCCESS);
 export const patchFailAction = createAction(

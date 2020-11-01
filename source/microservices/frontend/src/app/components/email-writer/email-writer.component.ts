@@ -5,7 +5,7 @@ import {Header} from "../../api/models/header";
 import {Content} from "../../api/models/content";
 import {Location} from '@angular/common';
 import {EmailFacade} from "../../root-store/email/email.facade";
-import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
 import {filter, take, takeUntil} from "rxjs/operators";
 import {Observable, Subject} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -61,7 +61,7 @@ export class EmailWriterComponent implements OnInit {
   loading$: Observable<boolean>;
 
   constructor(private readonly fb: FormBuilder, private readonly location: Location, private readonly snackBar: MatSnackBar,
-              private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade) {
+              private readonly facade: EmailFacade, private readonly emailThreadFacade: EmailThreadFacade) {
   }
 
   ngOnInit(): void {
@@ -90,9 +90,8 @@ export class EmailWriterComponent implements OnInit {
 
     const status: any = this.emailForm.get('status').value as string;
     this.facade.sentEmail$.pipe(takeUntil(this.ngUnsubscribe)).pipe(filter(value => !!value), take(1)).subscribe((sent: Email) => {
-      console.log(sent);
-      if (status !== sent.emailthread.status)
-        this.emailthreadFacade.patchStatus(status, sent.emailthread.id);
+      if (status !== sent.emailThread.status)
+        this.emailThreadFacade.patchStatus(status, sent.emailThread.id);
       this.sendEmitter.emit(sent);
     });
   }

@@ -1,27 +1,27 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
 import {Subject} from "rxjs";
-import {Email, Emailthread} from "../../api/models";
+import {Email, EmailThread} from "../../api/models";
 import {filter, takeUntil} from "rxjs/operators";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
 
 
 @Component({
-  selector: 'app-emailthread-view',
-  templateUrl: './emailthread-view.component.html',
-  styleUrls: ['./emailthread-view.component.css']
+  selector: 'app-emailThread-view',
+  templateUrl: './email-thread-view.component.html',
+  styleUrls: ['./email-thread-view.component.css']
 })
-export class EmailthreadViewComponent implements OnInit, OnDestroy {
+export class EmailThreadViewComponent implements OnInit, OnDestroy {
 
   private readonly ngUnsubscribe = new Subject();
-  assignedThreads: Emailthread[];
+  assignedThreads: EmailThread[];
   selectedStatus: string = "OPEN";
 
   emailToDisplay: Email;
   emailThreadIdToDisplay: string = "";
 
-  constructor(private readonly facade: EmailthreadFacade, private readonly snackBar: MatSnackBar,
+  constructor(private readonly facade: EmailThreadFacade, private readonly snackBar: MatSnackBar,
               private readonly router: Router, private readonly route: ActivatedRoute,) {
   }
 
@@ -33,7 +33,7 @@ export class EmailthreadViewComponent implements OnInit, OnDestroy {
         if (error) this.snackBar.open(error.message, "", {duration: 2000})
       });
     this.facade.assignedThreads.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      (result: Emailthread[]) => {
+      (result: EmailThread[]) => {
         this.assignedThreads = result
       });
   }

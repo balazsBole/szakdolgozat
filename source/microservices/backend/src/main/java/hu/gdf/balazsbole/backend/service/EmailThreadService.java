@@ -1,7 +1,7 @@
 package hu.gdf.balazsbole.backend.service;
 
-import hu.gdf.balazsbole.domain.dto.Emailthread;
-import hu.gdf.balazsbole.domain.entity.EmailthreadEntity;
+import hu.gdf.balazsbole.domain.dto.EmailThread;
+import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface EmailthreadService {
+public interface EmailThreadService {
 
     @Transactional
-    EmailthreadEntity createThreadWith(Status status);
+    EmailThreadEntity createThreadWith(Status status);
 
     @Transactional(readOnly = true)
-    List<Emailthread> getUnassignedEmailThreads();
+    List<EmailThread> getUnassignedEmailThreads();
 
     @Transactional(readOnly = true)
-    List<Emailthread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status);
+    List<EmailThread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status);
 
     @Transactional
     void updateStatus(UUID emailThreadId, Status status);
@@ -26,5 +26,5 @@ public interface EmailthreadService {
     void updateUser(UUID emailThreadId, UUID userId);
 
     @Transactional(readOnly = true)
-    Optional<Emailthread> findById(UUID emailThreadId);
+    Optional<EmailThread> findById(UUID emailThreadId);
 }

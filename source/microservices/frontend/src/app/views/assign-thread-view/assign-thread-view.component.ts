@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Subject} from "rxjs";
 import {Location} from "@angular/common";
 import {debounceTime, distinctUntilChanged, filter, take, takeUntil} from "rxjs/operators";
-import {Emailthread} from "../../api/models/emailthread";
-import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
+import {EmailThread} from "../../api/models/email-thread";
+import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
 import {Email} from "../../api/models/email";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
@@ -20,7 +20,7 @@ export class AssignThreadViewComponent implements OnInit {
 
   email: Email;
   flexContainerHeight: string;
-  emailThread: Emailthread;
+  emailThread: EmailThread;
   availableUsers: User[];
   private readonly ngUnsubscribe = new Subject();
 
@@ -28,7 +28,7 @@ export class AssignThreadViewComponent implements OnInit {
     user: ["", [Validators.required, userValidator()],]
   })
 
-  constructor(private readonly facade: EmailthreadFacade, private readonly location: Location,
+  constructor(private readonly facade: EmailThreadFacade, private readonly location: Location,
               private readonly route: ActivatedRoute, private readonly fb: FormBuilder,
               private readonly userFacade: UserFacade, private readonly snackBar: MatSnackBar) {
   }
@@ -39,7 +39,7 @@ export class AssignThreadViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.details$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      (emailThread: Emailthread) => {
+      (emailThread: EmailThread) => {
         this.emailThread = emailThread;
       });
     this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(

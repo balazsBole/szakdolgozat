@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Emailthread} from "../../api/models/emailthread";
+import {EmailThread} from "../../api/models/email-thread";
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
 import {Email} from "../../api/models/email";
@@ -8,13 +8,13 @@ import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 
 @Component({
-  selector: 'emailthread',
-  templateUrl: './emailthread.component.html',
-  styleUrls: ['./emailthread.component.css']
+  selector: 'emailThread',
+  templateUrl: './email-thread.component.html',
+  styleUrls: ['./email-thread.component.css']
 })
-export class EmailthreadComponent implements OnInit {
+export class EmailThreadComponent implements OnInit {
 
-  @Input() emailthread: Emailthread;
+  @Input() emailThread: EmailThread;
   @Input('picked') picked: boolean = false;
   @Input() skipLocationChange: boolean = false;
   showMiniatures: boolean;
@@ -33,27 +33,27 @@ export class EmailthreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource.data = orderToEmailNodes(this.emailthread.emails);
-    this.unread = this.emailthread.emails.filter(email => !email.read).length;
-    this.allEmail = this.emailthread.emails.length;
-    this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort()[0];
+    this.dataSource.data = orderToEmailNodes(this.emailThread.emails);
+    this.unread = this.emailThread.emails.filter(email => !email.read).length;
+    this.allEmail = this.emailThread.emails.length;
+    this.lastMail = this.emailThread.emails.map(e => new Date(e.processed)).sort()[0];
 
     this.route.queryParamMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe((paramMap: ParamMap) => {
-      this.showMiniatures = this.emailthread.id === paramMap.get('emailThreadId');
+      this.showMiniatures = this.emailThread.id === paramMap.get('emailThreadId');
     });
   }
 
   pick() {
     const urlParameters = {
       ...this.route.snapshot.queryParams,
-      emailThreadId: this.showMiniatures ? null : this.emailthread.id
+      emailThreadId: this.showMiniatures ? null : this.emailThread.id
     };
     this.updateUrl(urlParameters);
   }
 
   assign($event: MouseEvent) {
     $event.stopPropagation();
-    this.router.navigate(['/assign/' + this.emailthread.id]);
+    this.router.navigate(['/assign/' + this.emailThread.id]);
   }
 
   private updateUrl(urlParameters: Params) {
