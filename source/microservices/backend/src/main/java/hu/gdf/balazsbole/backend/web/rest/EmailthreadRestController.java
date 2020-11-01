@@ -80,23 +80,22 @@ public class EmailthreadRestController {
     @PatchMapping("/{emailThreadId}")
     @ApiOperation(nickname = "patch", value = "Change the owner, or the status of the emailthread.")
     @ApiResponses({
-            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return the changed emailthreads."),
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "New fileds of the emailThread has been set"),
             @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "Emailthread with the given ID does not exists."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
-    public ResponseEntity<Emailthread> patch(
+    public ResponseEntity<Void> patch(
             @ApiParam(value = "Id of the emailThread") @PathVariable("emailThreadId") final UUID emailThreadId,
             @ApiParam(value = "New properties", required = true) @RequestBody Map<String, String> update) {
         String status = update.get("status");
         String userId = update.get("userId");
-        Emailthread emailthread = null;
         if (StringUtils.isNotBlank(status)) {
-            emailthread = service.updateStatus(emailThreadId, Status.valueOf(status));
+            service.updateStatus(emailThreadId, Status.valueOf(status));
         }
         if (StringUtils.isNotBlank(userId))
-            emailthread = service.updateUser(emailThreadId, UUID.fromString(userId));
+            service.updateUser(emailThreadId, UUID.fromString(userId));
 
-        return ResponseEntity.ok(emailthread);
+        return ResponseEntity.ok().build();
     }
 
 }

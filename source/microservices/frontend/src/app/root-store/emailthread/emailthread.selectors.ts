@@ -10,7 +10,7 @@ export const getUnassigned = (state: EmailthreadStoreState): Emailthread[] => st
 export const getTotalCount = (state: EmailthreadStoreState): number => state.numberOfUnassigned;
 export const getAssignedToMe = (state: EmailthreadStoreState): Emailthread[] => state.assignedToMe;
 export const getTotalCountOfAssigned = (state: EmailthreadStoreState): number => state.numberOfAssignedToMe;
-export const getPatched = (state: EmailthreadStoreState): Emailthread => state.patched;
+export const getPatched = (state: EmailthreadStoreState): boolean => state.patched;
 export const getDetails = (state: EmailthreadStoreState): Emailthread => state.details;
 
 export const selectError: MemoizedSelector<object, any> = createSelector(selectEmailthreadStoreState, getError);
@@ -19,5 +19,5 @@ export const selectUnassigned: MemoizedSelector<object, Emailthread[]> = createS
 export const selectUnassignedTotalCount: MemoizedSelector<object, number> = createSelector(selectEmailthreadStoreState, getTotalCount);
 export const selectAssigned: MemoizedSelector<object, Emailthread[]> = createSelector(selectEmailthreadStoreState, getAssignedToMe);
 export const selectAssignedTotalCount: MemoizedSelector<object, number> = createSelector(selectEmailthreadStoreState, getTotalCountOfAssigned);
-export const selectPatched: MemoizedSelector<object, Emailthread> = createSelector(selectEmailthreadStoreState, getPatched);
+export const selectPatched: MemoizedSelector<object, boolean> = createSelector(selectEmailthreadStoreState, getPatched);
 export const selectDetails: MemoizedSelector<object, Emailthread> = createSelector(selectEmailthreadStoreState, getDetails);

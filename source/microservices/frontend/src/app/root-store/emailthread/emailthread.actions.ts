@@ -56,8 +56,7 @@ export const patchAction = createAction(
   ActionTypes.PATCH,
   props<{ params: EmailthreadService.PatchParams }>());
 export const patchSuccessAction = createAction(
-  ActionTypes.PATCH_SUCCESS,
-  props<{ emailthread: Emailthread }>());
+  ActionTypes.PATCH_SUCCESS);
 export const patchFailAction = createAction(
   ActionTypes.PATCH_FAIL,
   props<{ error: any }>());

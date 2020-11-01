@@ -57,24 +57,30 @@ public class EmailthreadServiceImpl implements EmailthreadService {
     }
 
     @Override
-    public Emailthread updateStatus(UUID emailThreadId, Status status) {
+    @Transactional
+    public void updateStatus(UUID emailThreadId, Status status) {
         Optional<EmailthreadEntity> emailthreadEntity = repository.findById(emailThreadId);
         EmailthreadEntity thread = emailthreadEntity.orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
-        thread.setStatus(status);
-        return mapper.map(repository.save(thread));
+        if (status != thread.getStatus()) {
+            thread.setStatus(status);
+            repository.save(thread);
+        }
     }
 
     @Override
-    public Emailthread updateUser(UUID emailThreadId, UUID userId) {
+    @Transactional
+    public void updateUser(UUID emailThreadId, UUID userId) {
         EmailthreadEntity thread = repository.findById(emailThreadId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
 
         UserEntity userEntity = userRepository.findById(userId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
-        thread.setUser(userEntity);
 
-        return mapper.map(repository.save(thread));
+        if (userEntity != thread.getUser()) {
+            thread.setUser(userEntity);
+            repository.save(thread);
+        }
     }
 
     @Override

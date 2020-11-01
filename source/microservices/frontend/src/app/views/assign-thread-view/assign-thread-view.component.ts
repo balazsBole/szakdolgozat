@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Subject} from "rxjs";
 import {Location} from "@angular/common";
-import {debounceTime, distinctUntilChanged, takeUntil} from "rxjs/operators";
+import {debounceTime, distinctUntilChanged, filter, take, takeUntil} from "rxjs/operators";
 import {Emailthread} from "../../api/models/emailthread";
 import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
 import {Email} from "../../api/models/email";
@@ -9,6 +9,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {UserFacade} from "../../root-store/user/user.facade";
 import {User} from "../../api/models/user";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-assign-thread-view',
@@ -29,7 +30,7 @@ export class AssignThreadViewComponent implements OnInit {
 
   constructor(private readonly facade: EmailthreadFacade, private readonly location: Location,
               private readonly route: ActivatedRoute, private readonly fb: FormBuilder,
-              private readonly userFacade: UserFacade) {
+              private readonly userFacade: UserFacade, private readonly snackBar: MatSnackBar) {
   }
 
   getUsername(user: User): string {
@@ -41,7 +42,10 @@ export class AssignThreadViewComponent implements OnInit {
       (emailThread: Emailthread) => {
         this.emailThread = emailThread;
       });
-
+    this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+      (error) => {
+        if (error) this.snackBar.open(error.message, "", {duration: 2000})
+      });
     this.userFacade.autocomplete$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (userArray: User[]) => {
         this.availableUsers = userArray;
@@ -86,8 +90,13 @@ export class AssignThreadViewComponent implements OnInit {
   }
 
   assign() {
-    let newVar = this.assignForm.get('user').value as User;
-    console.log(newVar.id)
+    const userFromForm = this.assignForm.get('user').value as User;
+    const emailThread = {...this.emailThread, user: userFromForm};
+    this.facade.patch(emailThread);
+    this.facade.patched$.pipe(
+      filter((success: boolean) => success),
+      take(1)
+    ).subscribe(() => this.exit())
   }
 }
 

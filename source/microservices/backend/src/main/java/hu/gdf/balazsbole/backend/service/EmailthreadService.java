@@ -21,9 +21,9 @@ public interface EmailthreadService {
     List<Emailthread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status);
 
     @Transactional
-    Emailthread updateStatus(UUID emailThreadId, Status status);
+    void updateStatus(UUID emailThreadId, Status status);
 
-    Emailthread updateUser(UUID emailThreadId, UUID userId);
+    void updateUser(UUID emailThreadId, UUID userId);
 
     @Transactional(readOnly = true)
     Optional<Emailthread> findById(UUID emailThreadId);

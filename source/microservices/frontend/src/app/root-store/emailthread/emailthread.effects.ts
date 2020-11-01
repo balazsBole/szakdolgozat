@@ -58,7 +58,7 @@ export class EmailthreadEffects {
     ofType(patchAction),
     mergeMap((action) => this.service.patch(action.params)
       .pipe(
-        map((emailthread: Emailthread) => patchSuccessAction({emailthread})),
+        map(() => patchSuccessAction()),
         catchError((error) => of(patchFailAction({error})))
       ))
     )

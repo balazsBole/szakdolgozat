@@ -4,7 +4,7 @@ export const EMAILTHREAD_FEATURE_KEY = 'emailthread';
 
 export interface EmailthreadStoreState {
   details?: Emailthread;
-  patched?: Emailthread;
+  patched?: boolean;
   unassigned?: Emailthread[];
   numberOfUnassigned?: number;
   assignedToMe?: Emailthread[];

@@ -23,8 +23,9 @@ export class EmailthreadComponent implements OnInit {
   lastMail: Date;
   treeControl = new NestedTreeControl<EmailNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<EmailNode>();
+  unread: number;
+  allEmail: number;
   hasChild = (_: number, node: EmailNode) => !!node.children && node.children.length > 0;
-  unreadRatio: string;
   private readonly ngUnsubscribe = new Subject();
 
 
@@ -33,20 +34,14 @@ export class EmailthreadComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.data = orderToEmailNodes(this.emailthread.emails);
-    this.unreadRatio = this.calculateUnreadRation();
+    this.unread = this.emailthread.emails.filter(email => !email.read).length;
+    this.allEmail = this.emailthread.emails.length;
     this.lastMail = this.emailthread.emails.map(e => new Date(e.processed)).sort()[0];
 
     this.route.queryParamMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe((paramMap: ParamMap) => {
       this.showMiniatures = this.emailthread.id === paramMap.get('emailThreadId');
     });
   }
-
-  private calculateUnreadRation(): string {
-    const unread = this.emailthread.emails.filter(email => !email.read).length;
-    const allEmail = this.emailthread.emails.length;
-    return "" + unread || "0" + "/" + allEmail || "0";
-  }
-
 
   pick() {
     const urlParameters = {

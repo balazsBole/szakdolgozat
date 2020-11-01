@@ -15,14 +15,14 @@ export class UnassignedViewComponent implements OnInit, OnDestroy {
   private readonly ngUnsubscribe = new Subject();
   numberOfUnassigned: number;
 
-  constructor(private readonly facade: EmailthreadFacade, private readonly _snackBar: MatSnackBar) {
+  constructor(private readonly facade: EmailthreadFacade, private readonly snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
     this.search();
     this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (error) => {
-        if (error) this._snackBar.open(error.message, "", {duration: 2000})
+        if (error) this.snackBar.open(error.message, "", {duration: 2000})
       });
     this.facade.numberOfUnassigned$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (numberOfUnassigned) => {

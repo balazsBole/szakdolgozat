@@ -21,7 +21,7 @@ export class EmailthreadViewComponent implements OnInit, OnDestroy {
   emailToDisplay: Email;
   emailThreadIdToDisplay: string = "";
 
-  constructor(private readonly facade: EmailthreadFacade, private readonly _snackBar: MatSnackBar,
+  constructor(private readonly facade: EmailthreadFacade, private readonly snackBar: MatSnackBar,
               private readonly router: Router, private readonly route: ActivatedRoute,) {
   }
 
@@ -30,7 +30,7 @@ export class EmailthreadViewComponent implements OnInit, OnDestroy {
     this.assignedToMeWith(this.selectedStatus);
     this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (error) => {
-        if (error) this._snackBar.open(error.message, "", {duration: 2000})
+        if (error) this.snackBar.open(error.message, "", {duration: 2000})
       });
     this.facade.assignedThreads.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (result: Emailthread[]) => {

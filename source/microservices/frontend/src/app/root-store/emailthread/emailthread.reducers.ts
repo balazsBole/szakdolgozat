@@ -21,6 +21,7 @@ export const _emailthreadReducer = createReducer(
 
   on(searchUnassignedAction, searchAssignedToMeByStatusAction, patchAction, getDetailsAction, (state) => ({
     ...state,
+    patched: false,
     error: null,
     loading: true
   })),
@@ -37,9 +38,9 @@ export const _emailthreadReducer = createReducer(
     error: null,
     loading: false
   })),
-  on(patchSuccessAction, (state, {emailthread}) => ({
+  on(patchSuccessAction, (state) => ({
     ...state,
-    patched: emailthread,
+    patched: true,
     error: null,
     loading: false
   })),

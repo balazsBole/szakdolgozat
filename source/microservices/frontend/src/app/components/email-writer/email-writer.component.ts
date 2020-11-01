@@ -8,6 +8,7 @@ import {EmailFacade} from "../../root-store/email/email.facade";
 import {EmailthreadFacade} from "../../root-store/emailthread/emailthread.facade";
 import {filter, take, takeUntil} from "rxjs/operators";
 import {Observable, Subject} from "rxjs";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'email-writer',
@@ -59,12 +60,16 @@ export class EmailWriterComponent implements OnInit {
   };
   loading$: Observable<boolean>;
 
-  constructor(private readonly fb: FormBuilder, private readonly location: Location,
+  constructor(private readonly fb: FormBuilder, private readonly location: Location, private readonly snackBar: MatSnackBar,
               private readonly facade: EmailFacade, private readonly emailthreadFacade: EmailthreadFacade) {
   }
 
   ngOnInit(): void {
     this.loading$ = this.facade.loading$;
+    this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
+      (error) => {
+        if (error) this.snackBar.open(error.message, "", {duration: 2000})
+      });
     if (this.email)
       this.emailForm.patchValue(
         {
@@ -82,7 +87,6 @@ export class EmailWriterComponent implements OnInit {
   send() {
     const email: Email = this.createEmail();
     this.facade.send(email);
-    console.log(email);
 
     const status: any = this.emailForm.get('status').value as string;
     this.facade.sentEmail$.pipe(takeUntil(this.ngUnsubscribe)).pipe(filter(value => !!value), take(1)).subscribe((sent: Email) => {

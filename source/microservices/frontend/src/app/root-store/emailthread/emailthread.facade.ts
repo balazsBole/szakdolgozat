@@ -27,7 +27,7 @@ export class EmailthreadFacade {
   error$: Observable<any>;
   loading$: Observable<boolean>;
   assignedThreads: Observable<Emailthread[]>;
-  patched$: Observable<Emailthread>;
+  patched$: Observable<boolean>;
   details$: Observable<Emailthread>;
 
   constructor(private readonly store: Store<EmailthreadStoreState>) {
