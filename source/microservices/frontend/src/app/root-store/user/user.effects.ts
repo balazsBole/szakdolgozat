@@ -6,6 +6,9 @@ import {
   autocompleteAction,
   autocompleteFailAction,
   autocompleteSuccessAction,
+  changeQueueAction,
+  changeQueueFailAction,
+  changeQueueSuccessAction,
   getDetailsAction,
   getDetailsFailAction,
   getDetailsSuccessAction
@@ -32,6 +35,16 @@ export class UserEffects {
       .pipe(
         map((userArray: User[]) => autocompleteSuccessAction({userArray})),
         catchError((error) => of(autocompleteFailAction({error})))
+      ))
+    )
+  );
+
+  changeQueue$ = createEffect(() => this.actions$.pipe(
+    ofType(changeQueueAction),
+    mergeMap((action) => this.service.changeQueue(action.body)
+      .pipe(
+        map((userArray: User[]) => changeQueueSuccessAction()),
+        catchError((error) => of(changeQueueFailAction({error})))
       ))
     )
   );

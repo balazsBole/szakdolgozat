@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Api(tags = "User")
@@ -54,4 +55,21 @@ public class UserRestController {
             @ApiParam(value = "Queue id", example = "06484c9f-6f59-4b9f-ad5e-aaaa0ec332cc") @RequestParam(name = "queueId") final UUID queueId) {
         return service.searchAutoComplete(queueId, username);
     }
+
+    @PatchMapping("/queue")
+    @ApiOperation(nickname = "changeQueue", value = "Change ths active user's queue'.")
+    @ApiResponses({
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "New queue of the user has been set"),
+            @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "Queue with the given ID does not exists."),
+            @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+    })
+    public ResponseEntity<Void> changeQueue(
+            @ApiParam(value = "New property", required = true) @RequestBody Map<String, UUID> update) {
+        UUID queueId = update.get("queueId");
+        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UUID userKeycloakUUID = UUID.fromString(keycloakUserId);
+        service.updateQueueFor(userKeycloakUUID, queueId);
+        return ResponseEntity.ok().build();
+    }
+
 }

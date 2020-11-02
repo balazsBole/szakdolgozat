@@ -4,8 +4,10 @@ package hu.gdf.balazsbole.backend.service.impl;
 import hu.gdf.balazsbole.backend.mapper.AuthenticationMapper;
 import hu.gdf.balazsbole.backend.service.UserService;
 import hu.gdf.balazsbole.domain.dto.User;
+import hu.gdf.balazsbole.domain.entity.QueueEntity;
 import hu.gdf.balazsbole.domain.entity.UserEntity;
 import hu.gdf.balazsbole.domain.mapper.UserMapper;
+import hu.gdf.balazsbole.domain.repository.QueueRepository;
 import hu.gdf.balazsbole.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -30,11 +32,13 @@ public class UserServiceImpl implements UserService {
     private final UserMapper mapper;
     private final AuthenticationMapper authenticationMapper;
     private final UserRepository repository;
+    private final QueueRepository queueRepository;
 
-    public UserServiceImpl(UserMapper mapper, AuthenticationMapper authenticationMapper, UserRepository repository) {
+    public UserServiceImpl(UserMapper mapper, AuthenticationMapper authenticationMapper, UserRepository repository, QueueRepository queueRepository) {
         this.mapper = mapper;
         this.authenticationMapper = authenticationMapper;
         this.repository = repository;
+        this.queueRepository = queueRepository;
     }
 
     @Override
@@ -57,5 +61,16 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Unprocessable Entity");
         }
         return mapper.mapList(repository.findAllByQueue_IdAndUsernameIgnoreCaseContaining(queueId, cleanedUpValue));
+    }
+
+    @Override
+    public void updateQueueFor(UUID userKeycloakUUID, UUID queueId) {
+        Optional<UserEntity> optionalUserEntity = repository.findByKeycloakID(userKeycloakUUID);
+        Optional<QueueEntity> optionalQueueEntity = queueRepository.findById(queueId);
+        if (optionalUserEntity.isEmpty() || optionalQueueEntity.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found");
+        UserEntity userEntity = optionalUserEntity.get();
+        userEntity.setQueue(optionalQueueEntity.get());
+        repository.save(userEntity);
     }
 }

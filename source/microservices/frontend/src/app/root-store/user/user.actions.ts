@@ -11,6 +11,10 @@ export enum ActionTypes {
   AUTOCOMPLETE_SUCCESS = '[USER] Autocomplete User search Succes',
   AUTOCOMPLETE_FAIL = '[USER] Autocomplete User search  Fail',
 
+  CHANGE_QUEUE = '[USER] change queue',
+  CHANGE_QUEUE_SUCCESS = '[USER]  change queue Succes',
+  CHANGE_QUEUE_FAIL = '[USER]  change queue Fail',
+
   RESET = '[USER] Reset User search',
 
 }
@@ -32,6 +36,15 @@ export const autocompleteSuccessAction = createAction(
   props<{ userArray: User[] }>());
 export const autocompleteFailAction = createAction(
   ActionTypes.AUTOCOMPLETE_FAIL,
+  props<{ error: any }>());
+
+export const changeQueueAction = createAction(
+  ActionTypes.CHANGE_QUEUE,
+  props<{ body: { [key: string]: string } }>());
+export const changeQueueSuccessAction = createAction(
+  ActionTypes.CHANGE_QUEUE_SUCCESS);
+export const changeQueueFailAction = createAction(
+  ActionTypes.CHANGE_QUEUE_FAIL,
   props<{ error: any }>());
 
 export const resetAction = createAction(

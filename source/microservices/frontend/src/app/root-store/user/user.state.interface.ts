@@ -4,6 +4,7 @@ export const USER_FEATURE_KEY = 'user';
 
 export interface UserStoreState {
   user?: User;
+  patched?: boolean;
   autocomplete?: User[];
   error?: any;
   loading: boolean;

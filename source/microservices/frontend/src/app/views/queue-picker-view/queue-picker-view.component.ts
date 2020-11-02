@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Queue} from "../../api/models/queue";
-import {filter, takeUntil} from "rxjs/operators";
+import {filter, take, takeUntil} from "rxjs/operators";
 import {Subject} from "rxjs";
 import {QueueFacade} from "../../root-store/queue/queue.facade";
 import {UserFacade} from "../../root-store/user/user.facade";
@@ -39,8 +39,11 @@ export class QueuePickerViewComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 
-
   select(id: string) {
-    this.selectedId = id;
+    this.userFacade.changeQueue(id);
+    this.userFacade.patched$.pipe(
+      filter((patched: boolean) => patched),
+      take(1)
+    ).subscribe(() => this.userFacade.details());
   }
 }

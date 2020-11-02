@@ -4,6 +4,9 @@ import {
   autocompleteAction,
   autocompleteFailAction,
   autocompleteSuccessAction,
+  changeQueueAction,
+  changeQueueFailAction,
+  changeQueueSuccessAction,
   getDetailsAction,
   getDetailsFailAction,
   getDetailsSuccessAction,
@@ -17,13 +20,14 @@ export const _userReducer = createReducer(
   on(resetAction, () => initialState
   ),
 
-  on(getDetailsAction, autocompleteAction, (state) => ({
+  on(getDetailsAction, autocompleteAction, changeQueueAction, (state) => ({
     ...state,
+    patched: false,
     loading: true,
     error: null
   })),
 
-  on(getDetailsFailAction, autocompleteFailAction, (state, {error}) => ({
+  on(getDetailsFailAction, autocompleteFailAction, changeQueueFailAction, (state, {error}) => ({
     ...state,
     error,
     loading: false
@@ -32,6 +36,13 @@ export const _userReducer = createReducer(
   on(autocompleteSuccessAction, (state, {userArray}) => ({
     ...state,
     autocomplete: userArray,
+    loading: false,
+    error: null
+  })),
+
+  on(changeQueueSuccessAction, (state) => ({
+    ...state,
+    patched: true,
     loading: false,
     error: null
   })),

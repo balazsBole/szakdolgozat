@@ -14,4 +14,6 @@ public interface UserService {
 
     @Transactional(readOnly = true)
     List<User> searchAutoComplete(UUID queueId, String username);
+
+    void updateQueueFor(UUID userKeycloakUUID, UUID queueId);
 }

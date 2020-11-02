@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {autocompleteAction, getDetailsAction, resetAction} from './user.actions';
-import {selectAutocomplete, selectError, selectIsLoading, selectUser} from './user.selectors';
+import {autocompleteAction, changeQueueAction, getDetailsAction, resetAction} from './user.actions';
+import {selectAutocomplete, selectError, selectIsLoading, selectIsPatched, selectUser} from './user.selectors';
 import {UserStoreState} from './user.state.interface';
 import {User} from "../../api/models";
 import {map} from "rxjs/operators";
@@ -10,6 +10,7 @@ import {map} from "rxjs/operators";
 @Injectable({providedIn: 'root'})
 export class UserFacade {
   user$: Observable<User>;
+  patched$: Observable<boolean>;
   autocomplete$: Observable<User[]>;
   error$: Observable<any>;
   loading$: Observable<boolean>;
@@ -20,6 +21,7 @@ export class UserFacade {
 
   initObservables() {
     this.user$ = this.store.select(selectUser);
+    this.patched$ = this.store.select(selectIsPatched);
     this.autocomplete$ = this.store.select(selectAutocomplete);
     this.error$ = this.store.select(selectIsLoading);
     this.loading$ = this.store.select(selectError);
@@ -39,5 +41,9 @@ export class UserFacade {
 
   reset() {
     this.store.dispatch(resetAction());
+  }
+
+  changeQueue(queueId: string) {
+    this.store.dispatch(changeQueueAction({body: {'queueId': queueId}}));
   }
 }
