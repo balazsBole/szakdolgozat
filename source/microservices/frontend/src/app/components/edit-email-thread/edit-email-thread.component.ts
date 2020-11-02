@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {User} from "../../api/models/user";
 import {Subject} from "rxjs";
@@ -17,7 +17,7 @@ import {KeycloakService} from "keycloak-angular";
   templateUrl: './edit-email-thread.component.html',
   styleUrls: ['./edit-email-thread.component.css']
 })
-export class EditEmailThreadComponent implements OnInit {
+export class EditEmailThreadComponent implements OnInit, OnDestroy {
 
   @Input() emailThread: EmailThread;
   availableUsers: User[];

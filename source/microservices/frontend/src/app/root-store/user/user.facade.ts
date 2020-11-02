@@ -5,6 +5,7 @@ import {autocompleteAction, getDetailsAction, resetAction} from './user.actions'
 import {selectAutocomplete, selectError, selectIsLoading, selectUser} from './user.selectors';
 import {UserStoreState} from './user.state.interface';
 import {User} from "../../api/models";
+import {map} from "rxjs/operators";
 
 @Injectable({providedIn: 'root'})
 export class UserFacade {
@@ -24,6 +25,10 @@ export class UserFacade {
     this.loading$ = this.store.select(selectError);
   }
 
+  hasQueue(): Observable<boolean> {
+    return this.user$.pipe(map(user => !!user?.queue || false));
+  }
+
   details() {
     this.store.dispatch(getDetailsAction());
   }
@@ -34,6 +39,5 @@ export class UserFacade {
 
   reset() {
     this.store.dispatch(resetAction());
-
   }
 }

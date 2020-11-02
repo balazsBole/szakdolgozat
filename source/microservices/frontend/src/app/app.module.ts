@@ -45,6 +45,7 @@ import {EditEmailThreadComponent} from './components/edit-email-thread/edit-emai
 import {SingleEmailThreadComponent} from './components/single-email-thread/single-email-thread.component';
 import {EmailThreadIdResolver} from "./resolvers/thread-id-resolver";
 import {ChangeQueueViewComponent} from './views/change-queue-view/change-queue-view.component';
+import {QueuePickerViewComponent} from './views/queue-picker-view/queue-picker-view.component';
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -81,7 +82,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     EditThreadViewComponent,
     EditEmailThreadComponent,
     SingleEmailThreadComponent,
-    ChangeQueueViewComponent
+    ChangeQueueViewComponent,
+    QueuePickerViewComponent
   ],
   imports: [
     BrowserModule,

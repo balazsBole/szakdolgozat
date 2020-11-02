@@ -25,7 +25,6 @@ export class EmailReplyViewComponent implements OnInit {
         this.parentEmail = email
         this.reply = createReplyEmail(email);
       });
-
   }
 
   exit() {
@@ -40,7 +39,7 @@ function createReplyEmail(email: Email): Email {
     direction: "OUT",
     emailThread: email.emailThread,
     header: {
-      from: email.header.to,
+      from: email.emailThread.queue.email,
       inReplyTo: email.header.messageId,
       references: email.header.references ? email.header.references + " " : "" + email.header.messageId,
       subject: email.header.subject,

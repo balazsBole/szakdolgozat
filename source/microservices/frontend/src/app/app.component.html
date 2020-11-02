@@ -13,10 +13,13 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav class="hide-on-small-screens" mode="side" opened>
       <mat-nav-list>
-        <a [routerLink]="'/email/reply'" mat-list-item> Reply </a>
-        <a [routerLink]="'/email-thread/edit'" mat-list-item> Edit threads </a>
-        <a *ngIf="admin" [routerLink]="'/email-thread/change-queue'" mat-list-item> Change queue </a>
-        <a *ngIf="admin" [routerLink]="'/email-thread/unassigned'" mat-list-item> Unassigned </a>
+        <ng-container *ngIf="hasQueue$ | async">
+          <a [routerLink]="'/email/reply'" mat-list-item> Reply </a>
+          <a [routerLink]="'/email-thread/edit'" mat-list-item> Edit threads </a>
+          <a *ngIf="admin" [routerLink]="'/email-thread/change-queue'" mat-list-item> Change queue </a>
+          <a *ngIf="admin" [routerLink]="'/email-thread/unassigned'" mat-list-item> Unassigned </a>
+        </ng-container>
+        <a *ngIf="admin || !(hasQueue$ | async)" [routerLink]="'/choose-queue'" mat-list-item> Choose queue </a>
       </mat-nav-list>
       <mat-nav-list class="bottom">
         <a href="http://localhost:8082/" mat-list-item> Login service </a>

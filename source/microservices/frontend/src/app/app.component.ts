@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 import {UserFacade} from "./root-store/user/user.facade";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,15 @@ import {UserFacade} from "./root-store/user/user.facade";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  private service: KeycloakService;
-  private facade: UserFacade;
   admin: boolean;
+  hasQueue$: Observable<boolean>;
 
-  constructor(service: KeycloakService, facade: UserFacade) {
-    this.service = service;
-    this.facade = facade;
+  constructor(private readonly service: KeycloakService, private readonly userFacade: UserFacade) {
   }
 
   ngOnInit(): void {
     this.admin = this.service.isUserInRole("admin_user");
+    this.hasQueue$ = this.userFacade.hasQueue();
   }
 
   logout() {

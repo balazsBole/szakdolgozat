@@ -10,8 +10,15 @@ import {EmailThreadIdResolver} from "./resolvers/thread-id-resolver";
 import {ReplyViewComponent} from "./views/reply-view/reply-view.component";
 import {EditThreadViewComponent} from "./views/edit-thread-view/edit-thread-view.component";
 import {ChangeQueueViewComponent} from "./views/change-queue-view/change-queue-view.component";
+import {QueuePickerViewComponent} from "./views/queue-picker-view/queue-picker-view.component";
 
 const routes: Routes = [
+  {
+    path: 'choose-queue',
+    component: QueuePickerViewComponent,
+    canActivate: [AuthenticationGuardService],
+    data: {roles: ['regular_user']}
+  },
   {
     path: 'email/reply',
     component: ReplyViewComponent,
