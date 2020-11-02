@@ -21,11 +21,18 @@ export class EditEmailThreadComponent implements OnInit {
 
   @Input() emailThread: EmailThread;
   availableUsers: User[];
-  assignForm: FormGroup = this.fb.group({
+
+  userAndQueue: FormGroup = this.fb.group({
     queueId: ["", Validators.required],
     user: ["", [userValidator()]],
+  });
+
+  assignForm: FormGroup = this.fb.group({
+    userAndQueue: this.userAndQueue,
     status: ["", Validators.required]
   })
+
+
   private readonly ngUnsubscribe = new Subject();
   allQueues: Queue[];
   admin: boolean;
@@ -41,36 +48,26 @@ export class EditEmailThreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.admin = this.keycloakService.isUserInRole("admin_user");
     this.queueFacade.getAll();
     this.queueFacade.queueArray$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (queueArray: Queue[]) => {
         this.allQueues = queueArray;
       });
-    if (!this.admin) this.assignForm.controls['user'].setValidators([Validators.required])
-    this.assignForm.patchValue(
-      {
-        queueId: this.emailThread.queue.id,
-        user: this.emailThread.user,
-        status: this.emailThread.status,
-        admin: this.admin
-      });
     this.userFacade.autocomplete$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (userArray: User[]) => {
         this.availableUsers = userArray;
       });
-    this.assignForm.valueChanges
-      .pipe(debounceTime(300), distinctUntilChanged())
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((value) => {
-        const searchExpression = value.user?.username || value.user || "";
-        if (searchExpression.trim().length > 2) {
-          this.userFacade.autocomplete(searchExpression.trim());
-        } else {
-          this.userFacade.reset();
-        }
-      });
+    this.initForms();
 
+  }
+
+  save() {
+    const emailThread = this.evaluateForm();
+    this.facade.patch(emailThread);
+    this.facade.patched$.pipe(
+      filter((success: boolean) => success),
+      take(1)
+    ).subscribe(() => this.exit())
   }
 
   ngOnDestroy(): void {
@@ -82,16 +79,36 @@ export class EditEmailThreadComponent implements OnInit {
     this.location.back();
   }
 
-  save() {
-    const user = this.assignForm.get('user').value as User;
-    const status = this.assignForm.get('status').value as any;
-    const queue = this.allQueues.find(q => q.id === this.assignForm.get('queueId').value as string);
-    const emailThread = {...this.emailThread, user: user, status: status, queue: queue};
-    this.facade.patch(emailThread);
-    this.facade.patched$.pipe(
-      filter((success: boolean) => success),
-      take(1)
-    ).subscribe(() => this.exit())
+  private initForms() {
+    this.admin = this.keycloakService.isUserInRole("admin_user");
+    if (!this.admin) this.userAndQueue.controls['user'].setValidators([Validators.required])
+    this.assignForm.patchValue(
+      {
+        userAndQueue: {
+          queueId: this.emailThread.queue.id,
+          user: this.emailThread.user
+        },
+        status: this.emailThread.status
+      });
+    this.userAndQueue.valueChanges
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((value) => {
+        const searchExpression = value.user?.username || value.user || "";
+        if (searchExpression.trim().length > 2) {
+          this.userFacade.autocomplete(searchExpression.trim());
+        } else {
+          this.userFacade.reset();
+        }
+      });
+  }
+
+  private evaluateForm() {
+    const user = this.userAndQueue.get('user').value as User;
+    const status = this.assignForm.get('status').value;
+    const queueId = this.userAndQueue.get('queueId').value as string;
+    const queue = this.allQueues.find(q => q.id === queueId);
+    return {...this.emailThread, user: user, status: status, queue: queue};
   }
 }
 

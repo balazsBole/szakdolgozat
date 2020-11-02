@@ -6,26 +6,28 @@
         <mat-icon>cancel</mat-icon>
       </button>
 
-      <mat-form-field>
-        <mat-label>Change queue</mat-label>
-        <mat-select [disabled]="!admin" formControlName="queueId">
-          <mat-option *ngFor="let queue of allQueues" [value]="queue.id">{{queue.name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <ng-container formGroupName="userAndQueue">
+        <mat-form-field>
+          <mat-label>Change queue</mat-label>
+          <mat-select [disabled]="!admin" formControlName="queueId">
+            <mat-option *ngFor="let queue of allQueues" [value]="queue.id">{{queue.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field>
-        <input [matAutocomplete]="auto"
-               aria-label="User input"
-               formControlName="user"
-               matInput
-               placeholder="Assign this thread to"
-               type="text">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="getUsername" autoActiveFirstOption>
-          <mat-option *ngFor="let user of availableUsers" [value]="user">
-            {{user.username}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+        <mat-form-field>
+          <input [matAutocomplete]="auto"
+                 aria-label="User input"
+                 formControlName="user"
+                 matInput
+                 placeholder="Assign this thread to"
+                 type="text">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="getUsername" autoActiveFirstOption>
+            <mat-option *ngFor="let user of availableUsers" [value]="user">
+              {{user.username}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </ng-container>
 
       <mat-form-field>
         <mat-label>Change status</mat-label>
