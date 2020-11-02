@@ -10,6 +10,9 @@ import {
   searchAssignedToMeByStatusAction,
   searchAssignedToMeFailAction,
   searchAssignedToMeSuccessAction,
+  searchByStatusInAssignedQueueAction,
+  searchByStatusInAssignedQueueFailAction,
+  searchByStatusInAssignedQueueSuccessAction,
   searchUnassignedAction,
   searchUnassignedFailAction,
   searchUnassignedSuccessAction
@@ -19,34 +22,42 @@ import {
 export const _emailThreadReducer = createReducer(
   initialState,
 
-  on(searchUnassignedAction, searchAssignedToMeByStatusAction, patchAction, getDetailsAction, (state) => ({
-    ...state,
-    patched: false,
-    error: null,
-    loading: true
-  })),
+    on(searchUnassignedAction, searchAssignedToMeByStatusAction, patchAction, getDetailsAction, searchByStatusInAssignedQueueAction, (state) => ({
+      ...state,
+      patched: false,
+      error: null,
+      loading: true
+    })),
 
-  on(searchUnassignedFailAction, searchAssignedToMeFailAction, patchFailAction, getDetailsFailAction, (state, {error}) => ({
-    ...state,
-    error,
-    loading: false
-  })),
+    on(searchUnassignedFailAction, searchAssignedToMeFailAction, patchFailAction, getDetailsFailAction, searchByStatusInAssignedQueueFailAction, (state, {error}) => ({
+      ...state,
+      error,
+      loading: false
+    })),
 
-  on(getDetailsSuccessAction, (state, {emailThread}) => ({
-    ...state,
-    details: emailThread,
-    error: null,
-    loading: false
-  })),
-  on(patchSuccessAction, (state) => ({
-    ...state,
-    patched: true,
-    error: null,
-    loading: false
-  })),
+    on(searchByStatusInAssignedQueueSuccessAction, (state, {searchResults}) => ({
+      ...state,
+      inAssignedQueueWithStatus: searchResults,
+      error: null,
+      loading: false
+    })),
 
-  on(searchUnassignedSuccessAction, (state, {searchResults}) => ({
-    ...state,
+    on(getDetailsSuccessAction, (state, {emailThread}) => ({
+      ...state,
+      details: emailThread,
+      error: null,
+      loading: false
+    })),
+
+    on(patchSuccessAction, (state) => ({
+      ...state,
+      patched: true,
+      error: null,
+      loading: false
+    })),
+
+    on(searchUnassignedSuccessAction, (state, {searchResults}) => ({
+      ...state,
     unassigned: searchResults,
     numberOfUnassigned: searchResults.length,
     error: null,

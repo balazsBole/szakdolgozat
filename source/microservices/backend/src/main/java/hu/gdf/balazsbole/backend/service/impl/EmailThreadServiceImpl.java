@@ -4,6 +4,7 @@ package hu.gdf.balazsbole.backend.service.impl;
 import hu.gdf.balazsbole.backend.service.EmailThreadService;
 import hu.gdf.balazsbole.domain.dto.EmailThread;
 import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
+import hu.gdf.balazsbole.domain.entity.QueueEntity;
 import hu.gdf.balazsbole.domain.entity.UserEntity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import hu.gdf.balazsbole.domain.mapper.EmailThreadMapper;
@@ -48,14 +49,18 @@ public class EmailThreadServiceImpl implements EmailThreadService {
     @Override
     @Transactional(readOnly = true)
     public List<EmailThread> getUnassignedEmailThreadsFor(UUID keycloakUUID) {
+        QueueEntity relevantQueue = findQueueOfUserKeycloakId(keycloakUUID);
+        UUID queueId = relevantQueue.getId();
+        List<EmailThreadEntity> userIsNull = repository.findAllByUserIsNullAndQueue_Id(queueId);
+        return mapper.mapList(userIsNull);
+    }
+
+    private QueueEntity findQueueOfUserKeycloakId(UUID keycloakUUID) {
         Optional<UserEntity> optional = userRepository.findByKeycloakID(keycloakUUID);
         if (optional.isEmpty() || null == optional.get().getQueue()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found");
         }
-
-        UUID queueId = optional.get().getQueue().getId();
-        List<EmailThreadEntity> userIsNull = repository.findAllByUserIsNullAndQueue_Id(queueId);
-        return mapper.mapList(userIsNull);
+        return optional.get().getQueue();
     }
 
     @Override
@@ -63,6 +68,15 @@ public class EmailThreadServiceImpl implements EmailThreadService {
     public List<EmailThread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status) {
         List<EmailThreadEntity> allByStatusAndUser = repository.findAllByStatusAndUser_KeycloakID(status, keycloakId);
         return mapper.mapList(allByStatusAndUser);
+    }
+
+    @Override
+    public List<EmailThread> findAllByStatusInTheQueueOf(Status status, UUID keycloakId) {
+        QueueEntity relevantQueue = findQueueOfUserKeycloakId(keycloakId);
+        UUID queueId = relevantQueue.getId();
+
+        List<EmailThreadEntity> allByStatusAndQueue = repository.findAllByQueue_IdAndStatus(queueId, status);
+        return mapper.mapList(allByStatusAndQueue);
     }
 
     @Override
@@ -79,15 +93,32 @@ public class EmailThreadServiceImpl implements EmailThreadService {
 
     @Override
     @Transactional
-    public void updateUser(UUID emailThreadId, UUID userId) {
+    public void updateUser(UUID emailThreadId, String userId) {
         EmailThreadEntity thread = repository.findById(emailThreadId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
 
-        UserEntity userEntity = userRepository.findById(userId).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
+        UserEntity userEntity = null;
+        if (userId != null)
+            userEntity = userRepository.findById(UUID.fromString(userId)).orElseThrow(
+                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
 
         if (userEntity != thread.getUser()) {
             thread.setUser(userEntity);
+            repository.save(thread);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateQueue(UUID emailThreadId, UUID queueId) {
+        EmailThreadEntity thread = repository.findById(emailThreadId).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
+
+        QueueEntity queueEntity = queueRepository.findById(queueId).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
+
+        if (queueEntity != thread.getQueue()) {
+            thread.setQueue(queueEntity);
             repository.save(thread);
         }
     }

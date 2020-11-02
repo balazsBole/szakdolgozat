@@ -19,6 +19,9 @@ public interface QueueRepository extends JpaRepository<QueueEntity, UUID> {
     Optional<QueueEntity> findByEmail(String email);
 
     @Transactional(readOnly = true)
+    Optional<QueueEntity> findById(UUID id);
+
+    @Transactional(readOnly = true)
     List<QueueEntity> findAll();
 
 }

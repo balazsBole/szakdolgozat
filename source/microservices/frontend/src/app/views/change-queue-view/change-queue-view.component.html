@@ -1,0 +1,10 @@
+<div>
+  <mat-card>
+    <button (click)="search()" aria-label="Refresh button" mat-icon-button
+            matTooltip="Refresh">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    Found {{waitingForQueueChange?.length || 0}} thread waiting for queue change.
+  </mat-card>
+</div>
+<multiple-email-thread [threads]="waitingForQueueChange" editable="true"></multiple-email-thread>

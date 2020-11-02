@@ -9,6 +9,7 @@ import {UnassignedViewComponent} from "./views/unassigned-view/unassigned-view.c
 import {EmailThreadIdResolver} from "./resolvers/thread-id-resolver";
 import {ReplyViewComponent} from "./views/reply-view/reply-view.component";
 import {EditThreadViewComponent} from "./views/edit-thread-view/edit-thread-view.component";
+import {ChangeQueueViewComponent} from "./views/change-queue-view/change-queue-view.component";
 
 const routes: Routes = [
   {
@@ -36,25 +37,31 @@ const routes: Routes = [
     path: 'email-thread/edit/:uuid',
     component: EditThreadViewComponent,
     canActivate: [AuthenticationGuardService],
-    data: {roles: ['regular_user']},
-    resolve: {
-      email: EmailThreadIdResolver
+      data: {roles: ['regular_user']},
+      resolve: {
+          email: EmailThreadIdResolver
+      }
+  },
+    {
+        path: 'email-thread/unassigned',
+        component: UnassignedViewComponent,
+        canActivate: [AuthenticationGuardService],
+        data: {roles: ['admin_user']}
+    },
+    {
+        path: 'email-thread/change-queue',
+        component: ChangeQueueViewComponent,
+        canActivate: [AuthenticationGuardService],
+        data: {roles: ['admin_user']}
+    },
+    {
+        path: 'landing-page',
+        component: LandingViewComponent,
+    },
+    {
+        path: '**',
+        redirectTo: 'landing-page'
     }
-  },
-  {
-    path: 'email-thread/unassigned',
-    component: UnassignedViewComponent,
-    canActivate: [AuthenticationGuardService],
-    data: {roles: ['admin_user']}
-  },
-  {
-    path: 'landing-page',
-    component: LandingViewComponent,
-  },
-  {
-    path: '**',
-    redirectTo: 'landing-page'
-  }
 
 
 ];

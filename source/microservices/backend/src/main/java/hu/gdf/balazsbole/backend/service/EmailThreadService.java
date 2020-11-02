@@ -20,10 +20,17 @@ public interface EmailThreadService {
     @Transactional(readOnly = true)
     List<EmailThread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status);
 
+    @Transactional(readOnly = true)
+    List<EmailThread> findAllByStatusInTheQueueOf(Status status, UUID keycloakId);
+
     @Transactional
     void updateStatus(UUID emailThreadId, Status status);
 
-    void updateUser(UUID emailThreadId, UUID userId);
+    @Transactional
+    void updateUser(UUID emailThreadId, String userId);
+
+    @Transactional
+    void updateQueue(UUID emailThreadId, UUID queueId);
 
     @Transactional(readOnly = true)
     Optional<EmailThread> findById(UUID emailThreadId);

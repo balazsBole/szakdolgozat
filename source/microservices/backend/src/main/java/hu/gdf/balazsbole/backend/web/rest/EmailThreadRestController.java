@@ -5,7 +5,6 @@ import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.EmailThread;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import io.swagger.annotations.*;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +58,7 @@ public class EmailThreadRestController {
             @ApiParam(value = "Pagination size", example = "1", allowableValues = "range[1, infinity]") @RequestParam(name = "size", defaultValue = "1") final int size
     ) {
         String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
-
+        //todo: check for admin rights for this request
         List<EmailThread> threads = service.getUnassignedEmailThreadsFor(UUID.fromString(keycloakUserId));
         return ResponseEntity.ok(threads);
     }
@@ -79,6 +78,22 @@ public class EmailThreadRestController {
         return ResponseEntity.ok(threads);
     }
 
+    @GetMapping("/status")
+    @ApiOperation(nickname = "searchByStatusInAssignedQueue", value = "Get the emailThreads of the authenticated user's queue with a specific status.")
+    @ApiResponses({
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return found emailThreads."),
+            @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+    })
+    public ResponseEntity<List<EmailThread>> searchByStatusInAssignedQueue(
+            @ApiParam(value = "EmailThread status") @RequestHeader(value = "status", defaultValue = "CHANGE_QUEUE") final String status
+    ) {
+        //todo: check for admin rights for this request
+
+        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<EmailThread> threads = service.findAllByStatusInTheQueueOf(Status.valueOf(status), UUID.fromString(keycloakUserId));
+        return ResponseEntity.ok(threads);
+    }
+
     @PatchMapping("/{emailThreadId}")
     @ApiOperation(nickname = "patch", value = "Change the owner, or the status of the emailThread.")
     @ApiResponses({
@@ -89,13 +104,15 @@ public class EmailThreadRestController {
     public ResponseEntity<Void> patch(
             @ApiParam(value = "Id of the emailThread") @PathVariable("emailThreadId") final UUID emailThreadId,
             @ApiParam(value = "New properties", required = true) @RequestBody Map<String, String> update) {
-        String status = update.get("status");
-        String userId = update.get("userId");
-        if (StringUtils.isNotBlank(status)) {
-            service.updateStatus(emailThreadId, Status.valueOf(status));
-        }
-        if (StringUtils.isNotBlank(userId))
-            service.updateUser(emailThreadId, UUID.fromString(userId));
+        if (update.containsKey("status"))
+            service.updateStatus(emailThreadId, Status.valueOf(update.get("status")));
+
+        if (update.containsKey("userId"))
+            service.updateUser(emailThreadId, update.get("userId"));
+
+        if (update.containsKey("queueId"))
+            service.updateQueue(emailThreadId, UUID.fromString(update.get("queueId")));
+        //todo: check for admin rights for queue change
 
         return ResponseEntity.ok().build();
     }

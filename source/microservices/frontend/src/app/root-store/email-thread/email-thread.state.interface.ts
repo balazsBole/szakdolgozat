@@ -6,6 +6,7 @@ export interface EmailThreadStoreState {
   details?: EmailThread;
   patched?: boolean;
   unassigned?: EmailThread[];
+  inAssignedQueueWithStatus?: EmailThread[];
   numberOfUnassigned?: number;
   assignedToMe?: EmailThread[];
   numberOfAssignedToMe?: number;

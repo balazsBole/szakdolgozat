@@ -19,4 +19,6 @@ public interface EmailThreadRepository extends JpaRepository<EmailThreadEntity, 
 
     List<EmailThreadEntity> findAllByStatusAndUser_KeycloakID(Status status, UUID keycloakId);
 
+    List<EmailThreadEntity> findAllByQueue_IdAndStatus(UUID queueId, Status status);
+
 }

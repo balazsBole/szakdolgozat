@@ -2,9 +2,9 @@
   <mat-form-field>
     <mat-label>Search</mat-label>
     <mat-select (selectionChange)="assignedToMeWith($event.value)" [(value)]="selectedStatus">
-      <mat-option value="OPEN">OPEN</mat-option>
-      <mat-option value="RESOLVED">RESOLVED</mat-option>
-      <mat-option value="CLARIFICATION">CLARIFICATION</mat-option>
+      <mat-option value="OPEN">open</mat-option>
+      <mat-option value="RESOLVED">resolved</mat-option>
+      <mat-option value="CLARIFICATION">clarification</mat-option>
     </mat-select>
   </mat-form-field>
   <button (click)="assignedToMeWith(selectedStatus)" aria-label="Refresh button" mat-icon-button

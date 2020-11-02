@@ -104,7 +104,7 @@ export class EditEmailThreadComponent implements OnInit {
   }
 
   private evaluateForm() {
-    const user = this.userAndQueue.get('user').value as User;
+    const user = this.userAndQueue.get('user').value as User || null;
     const status = this.assignForm.get('status').value;
     const queueId = this.userAndQueue.get('queueId').value as string;
     const queue = this.allQueues.find(q => q.id === queueId);

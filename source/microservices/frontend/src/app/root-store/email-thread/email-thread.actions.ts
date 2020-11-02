@@ -16,6 +16,10 @@ export enum ActionTypes {
   SEARCH_ASSIGNED_TO_ME_SUCCESS = '[EMAILTHREAD] Search assignedToMe Success',
   SEARCH_ASSIGNED_TO_ME_FAIL = '[EMAILTHREAD] Search assigned to me Fail',
 
+  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE = '[EMAILTHREAD] Search by status in assigned queue',
+  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_SUCCESS = '[EMAILTHREAD] Search by status in assigned queue Success',
+  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_FAIL = '[EMAILTHREAD] Search by status in assigned queue Fail',
+
   PATCH = '[EMAILTHREAD] Patch values',
   PATCH_SUCCESS = '[EMAILTHREAD] Patch values Success',
   PATCH_FAIL = '[EMAILTHREAD] Patch values Fail',
@@ -31,7 +35,6 @@ export const getDetailsFailAction = createAction(
   ActionTypes.GET_DETAILS_FAIL,
   props<{ error: any }>());
 
-
 export const searchUnassignedAction = createAction(
   ActionTypes.SEARCH_UNASSIGNED,
   props<{ params: EmailThreadService.UnassignedFromTheQueueParams }>());
@@ -40,6 +43,16 @@ export const searchUnassignedSuccessAction = createAction(
   props<{ searchResults: Array<EmailThread> }>());
 export const searchUnassignedFailAction = createAction(
   ActionTypes.SEARCH_UNASSIGNED_FAIL,
+  props<{ error: any }>());
+
+export const searchByStatusInAssignedQueueAction = createAction(
+  ActionTypes.SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE,
+  props<{ status?: string }>());
+export const searchByStatusInAssignedQueueSuccessAction = createAction(
+  ActionTypes.SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_SUCCESS,
+  props<{ searchResults: Array<EmailThread> }>());
+export const searchByStatusInAssignedQueueFailAction = createAction(
+  ActionTypes.SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_FAIL,
   props<{ error: any }>());
 
 export const searchAssignedToMeByStatusAction = createAction(

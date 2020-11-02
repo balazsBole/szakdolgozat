@@ -12,6 +12,9 @@ import {
   searchAssignedToMeByStatusAction,
   searchAssignedToMeFailAction,
   searchAssignedToMeSuccessAction,
+  searchByStatusInAssignedQueueAction,
+  searchByStatusInAssignedQueueFailAction,
+  searchByStatusInAssignedQueueSuccessAction,
   searchUnassignedAction,
   searchUnassignedFailAction,
   searchUnassignedSuccessAction
@@ -50,6 +53,16 @@ export class EmailThreadEffects {
       .pipe(
         map((searchResults: Array<EmailThread>) => searchAssignedToMeSuccessAction({searchResults})),
         catchError((error) => of(searchAssignedToMeFailAction({error})))
+      ))
+    )
+  );
+
+  searchInAssignedQueueByStatus$ = createEffect(() => this.actions$.pipe(
+    ofType(searchByStatusInAssignedQueueAction),
+    mergeMap((action) => this.service.searchByStatusInAssignedQueue(action.status)
+      .pipe(
+        map((searchResults: Array<EmailThread>) => searchByStatusInAssignedQueueSuccessAction({searchResults})),
+        catchError((error) => of(searchByStatusInAssignedQueueFailAction({error})))
       ))
     )
   );
