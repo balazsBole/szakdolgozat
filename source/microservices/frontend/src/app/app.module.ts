@@ -38,7 +38,6 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import {LandingViewComponent} from './views/landing-view/landing-view.component';
 import {UnassignedViewComponent} from './views/unassigned-view/unassigned-view.component';
 import {MultipleEmailThreadComponent} from './components/multiple-email-thread/multiple-email-thread.component';
-import {AssignThreadViewComponent} from './views/assign-thread-view/assign-thread-view.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {ReplyViewComponent} from './views/reply-view/reply-view.component';
 import {EditThreadViewComponent} from './views/edit-thread-view/edit-thread-view.component';
@@ -76,7 +75,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
     LandingViewComponent,
     UnassignedViewComponent,
     MultipleEmailThreadComponent,
-    AssignThreadViewComponent,
     ReplyViewComponent,
     EditThreadViewComponent,
     EditEmailThreadComponent,

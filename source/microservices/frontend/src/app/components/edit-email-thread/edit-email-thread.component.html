@@ -8,7 +8,7 @@
 
       <mat-form-field>
         <mat-label>Change queue</mat-label>
-        <mat-select formControlName="queueId">
+        <mat-select [disabled]="!admin" formControlName="queueId">
           <mat-option *ngFor="let queue of allQueues" [value]="queue.id">{{queue.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -27,13 +27,13 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-form-field *ngIf="statusEditable">
+      <mat-form-field>
         <mat-label>Change status</mat-label>
         <mat-select formControlName="status">
           <mat-option value="OPEN">OPEN</mat-option>
           <mat-option value="RESOLVED">RESOLVED</mat-option>
           <mat-option value="CLARIFICATION">CLARIFICATION</mat-option>
-          <mat-option value="CHANGE_QUEUE">CHANGE QUEUE</mat-option>
+          <mat-option *ngIf="!admin" value="CHANGE_QUEUE">CHANGE QUEUE</mat-option>
         </mat-select>
       </mat-form-field>
 

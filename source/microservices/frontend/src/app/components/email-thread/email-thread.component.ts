@@ -19,7 +19,6 @@ export class EmailThreadComponent implements OnInit {
   @Input() skipLocationChange: boolean = false;
   showMiniatures: boolean;
   @Input() readEmailsWhenClicked: boolean;
-  @Input() assignable: boolean;
   @Input() editable: boolean;
 
   lastMail: Date;
@@ -51,11 +50,6 @@ export class EmailThreadComponent implements OnInit {
       emailThreadId: this.showMiniatures ? null : this.emailThread.id
     };
     this.updateUrl(urlParameters);
-  }
-
-  assign($event: MouseEvent) {
-    $event.stopPropagation();
-    this.router.navigate(['/email-thread/assign/' + this.emailThread.id]);
   }
 
   private updateUrl(urlParameters: Params) {

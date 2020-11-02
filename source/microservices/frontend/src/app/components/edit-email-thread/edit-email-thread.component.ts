@@ -10,6 +10,7 @@ import {UserFacade} from "../../root-store/user/user.facade";
 import {debounceTime, distinctUntilChanged, filter, take, takeUntil} from "rxjs/operators";
 import {QueueFacade} from "../../root-store/queue/queue.facade";
 import {Queue} from "../../api/models/queue";
+import {KeycloakService} from "keycloak-angular";
 
 @Component({
   selector: 'edit-email-thread',
@@ -19,19 +20,20 @@ import {Queue} from "../../api/models/queue";
 export class EditEmailThreadComponent implements OnInit {
 
   @Input() emailThread: EmailThread;
-  @Input() statusEditable: boolean;
   availableUsers: User[];
   assignForm: FormGroup = this.fb.group({
     queueId: ["", Validators.required],
-    user: ["", [Validators.required, userValidator()]],
+    user: ["", [userValidator()]],
     status: ["", Validators.required]
   })
   private readonly ngUnsubscribe = new Subject();
-  private allQueues: Queue[];
+  allQueues: Queue[];
+  admin: boolean;
 
   constructor(private readonly facade: EmailThreadFacade, private readonly location: Location,
               private readonly route: ActivatedRoute, private readonly fb: FormBuilder,
-              private readonly userFacade: UserFacade, private readonly queueFacade: QueueFacade) {
+              private readonly userFacade: UserFacade, private readonly queueFacade: QueueFacade,
+              private readonly keycloakService: KeycloakService) {
   }
 
   getUsername(user: User): string {
@@ -39,16 +41,19 @@ export class EditEmailThreadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.admin = this.keycloakService.isUserInRole("admin_user");
     this.queueFacade.getAll();
     this.queueFacade.queueArray$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (queueArray: Queue[]) => {
         this.allQueues = queueArray;
       });
+    if (!this.admin) this.assignForm.controls['user'].setValidators([Validators.required])
     this.assignForm.patchValue(
       {
         queueId: this.emailThread.queue.id,
         user: this.emailThread.user,
-        status: this.emailThread.status
+        status: this.emailThread.status,
+        admin: this.admin
       });
     this.userFacade.autocomplete$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (userArray: User[]) => {
@@ -58,7 +63,7 @@ export class EditEmailThreadComponent implements OnInit {
       .pipe(debounceTime(300), distinctUntilChanged())
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((value) => {
-        const searchExpression = value.user?.username || value.user;
+        const searchExpression = value.user?.username || value.user || "";
         if (searchExpression.trim().length > 2) {
           this.userFacade.autocomplete(searchExpression.trim());
         } else {
@@ -92,7 +97,7 @@ export class EditEmailThreadComponent implements OnInit {
 
 export function userValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
-    const valid = control.value?.id || false;
+    const valid = control.value?.id || !control.value;
     return valid ? null : {notAUser: {value: control.value}};
   };
 }

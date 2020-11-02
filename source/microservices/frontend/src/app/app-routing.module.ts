@@ -6,7 +6,6 @@ import {EmailReplyViewComponent} from "./views/email-reply-view/email-reply-view
 import {EmailIdResolver} from "./resolvers/email-id-resolver";
 import {LandingViewComponent} from "./views/landing-view/landing-view.component";
 import {UnassignedViewComponent} from "./views/unassigned-view/unassigned-view.component";
-import {AssignThreadViewComponent} from "./views/assign-thread-view/assign-thread-view.component";
 import {EmailThreadIdResolver} from "./resolvers/thread-id-resolver";
 import {ReplyViewComponent} from "./views/reply-view/reply-view.component";
 import {EditThreadViewComponent} from "./views/edit-thread-view/edit-thread-view.component";
@@ -31,15 +30,6 @@ const routes: Routes = [
     data: {roles: ['regular_user']},
     resolve: {
       email: EmailIdResolver
-    }
-  },
-  {
-    path: 'email-thread/assign/:uuid',
-    component: AssignThreadViewComponent,
-    canActivate: [AuthenticationGuardService],
-    data: {roles: ['regular_user']},
-    resolve: {
-      email: EmailThreadIdResolver
     }
   },
   {
