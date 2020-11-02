@@ -28,7 +28,7 @@ export class UserEffects {
 
   autocomplete$ = createEffect(() => this.actions$.pipe(
     ofType(autocompleteAction),
-    mergeMap((action) => this.service.autocomplete(action.username)
+    mergeMap((action) => this.service.autocomplete(action.params)
       .pipe(
         map((userArray: User[]) => autocompleteSuccessAction({userArray})),
         catchError((error) => of(autocompleteFailAction({error})))

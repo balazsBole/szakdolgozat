@@ -15,7 +15,7 @@ public interface EmailThreadService {
     EmailThreadEntity createThreadFor(String email);
 
     @Transactional(readOnly = true)
-    List<EmailThread> getUnassignedEmailThreads();
+    List<EmailThread> getUnassignedEmailThreadsFor(UUID uuid);
 
     @Transactional(readOnly = true)
     List<EmailThread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status);

@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Api(tags = "User")
 @RestController
@@ -49,7 +50,8 @@ public class UserRestController {
             @ApiResponse(code = DomainConstants.HttpStatus.UNPROCESSABLE_ENTITY, message = "Operation not permitted."),
     })
     public List<User> searchAutoComplete(
-            @ApiParam(value = "Username, min length 3", example = "testUser") @RequestParam(name = "username", defaultValue = "") final String username) {
-        return service.searchAutoComplete(username);
+            @ApiParam(value = "Username, min length 1", example = "testUser") @RequestParam(name = "username", defaultValue = "") final String username,
+            @ApiParam(value = "Queue id", example = "06484c9f-6f59-4b9f-ad5e-aaaa0ec332cc") @RequestParam(name = "queueId") final UUID queueId) {
+        return service.searchAutoComplete(queueId, username);
     }
 }

@@ -43,6 +43,7 @@ import {ReplyViewComponent} from './views/reply-view/reply-view.component';
 import {EditThreadViewComponent} from './views/edit-thread-view/edit-thread-view.component';
 import {EditEmailThreadComponent} from './components/edit-email-thread/edit-email-thread.component';
 import {SingleEmailThreadComponent} from './components/single-email-thread/single-email-thread.component';
+import {EmailThreadIdResolver} from "./resolvers/thread-id-resolver";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -113,6 +114,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
   ],
   providers: [
     EmailIdResolver,
+    EmailThreadIdResolver,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,

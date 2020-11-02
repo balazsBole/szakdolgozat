@@ -38,6 +38,7 @@ class EmailThreadServiceImplTest implements RunsWithMappers {
 
     @Autowired
     private EmailThreadServiceImpl service;
+    private final UUID uuid = UUID.randomUUID();
 
     @Test
     void new_emailThread_should_be_store_queue() {
@@ -51,9 +52,9 @@ class EmailThreadServiceImplTest implements RunsWithMappers {
     void getUnassignedEmailThreads_should_sreturn_values_from_repository() {
         EmailThreadEntity emailThreadEntity = new EmailThreadEntity();
         emailThreadEntity.setStatus(Status.OPEN);
-        when(repository.findAllByUserIsNull()).thenReturn(Collections.singletonList(emailThreadEntity));
+        when(repository.findAllByUserIsNullAndQueue_Id(eq(uuid))).thenReturn(Collections.singletonList(emailThreadEntity));
 
-        List<EmailThread> result = service.getUnassignedEmailThreads();
+        List<EmailThread> result = service.getUnassignedEmailThreadsFor(uuid);
         assertEquals(1, result.size());
         assertEquals(Status.OPEN, result.get(0).getStatus());
     }
@@ -61,12 +62,11 @@ class EmailThreadServiceImplTest implements RunsWithMappers {
 
     @Test
     void findAllByStatusAndUser_should_sreturn_values_from_repository() {
-        final var id = UUID.randomUUID();
         EmailThreadEntity emailThreadEntity = new EmailThreadEntity();
         emailThreadEntity.setStatus(Status.OPEN);
-        when(repository.findAllByStatusAndUser_KeycloakID(eq(Status.OPEN), eq(id))).thenReturn(Collections.singletonList(emailThreadEntity));
+        when(repository.findAllByStatusAndUser_KeycloakID(eq(Status.OPEN), eq(uuid))).thenReturn(Collections.singletonList(emailThreadEntity));
 
-        List<EmailThread> result = service.findAllByStatusAndKeycloakUser(id, Status.OPEN);
+        List<EmailThread> result = service.findAllByStatusAndKeycloakUser(uuid, Status.OPEN);
         assertEquals(1, result.size());
         assertEquals(Status.OPEN, result.get(0).getStatus());
     }

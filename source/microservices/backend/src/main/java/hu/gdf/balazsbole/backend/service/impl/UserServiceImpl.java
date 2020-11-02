@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 /**
@@ -46,15 +47,15 @@ public class UserServiceImpl implements UserService {
             repository.save(fromAuthentication);
         }
         return mapper.map(optionalUserEntity.orElse(fromAuthentication));
-
     }
 
     @Override
-    public List<User> searchAutoComplete(String username) {
+    @Transactional(readOnly = true)
+    public List<User> searchAutoComplete(UUID queueId, String username) {
         String cleanedUpValue = StringUtils.trimToNull(username);
-        if (null == cleanedUpValue || cleanedUpValue.length() < 3) {
+        if (null == cleanedUpValue || cleanedUpValue.length() < 1) {
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Unprocessable Entity");
         }
-        return mapper.mapList(repository.findAllByUsernameIgnoreCaseContaining(cleanedUpValue));
+        return mapper.mapList(repository.findAllByQueue_IdAndUsernameIgnoreCaseContaining(queueId, cleanedUpValue));
     }
 }

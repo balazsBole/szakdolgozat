@@ -13,20 +13,24 @@
             <mat-option *ngFor="let queue of allQueues" [value]="queue.id">{{queue.name}}</mat-option>
           </mat-select>
         </mat-form-field>
-
-        <mat-form-field>
-          <input [matAutocomplete]="auto"
-                 aria-label="User input"
-                 formControlName="user"
-                 matInput
-                 placeholder="Assign this thread to"
-                 type="text">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="getUsername" autoActiveFirstOption>
-            <mat-option *ngFor="let user of availableUsers" [value]="user">
-              {{user.username}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
+        <div>
+          <mat-form-field>
+            <input [matAutocomplete]="auto"
+                   aria-label="User input"
+                   formControlName="user"
+                   matInput
+                   placeholder="Assign this thread to"
+                   type="text">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="getUsername" autoActiveFirstOption>
+              <mat-option *ngFor="let user of availableUsers" [value]="user">
+                {{user.username}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-error *ngIf="userAndQueue.errors?.userNotFromTheList && (userAndQueue.touched || userAndQueue.dirty)">
+            You can only select a user from the list
+          </mat-error>
+        </div>
       </ng-container>
 
       <mat-form-field>

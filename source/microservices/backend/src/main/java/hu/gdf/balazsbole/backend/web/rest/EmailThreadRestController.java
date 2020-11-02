@@ -49,7 +49,7 @@ public class EmailThreadRestController {
     }
 
     @GetMapping("/unassigned")
-    @ApiOperation(nickname = "unassigned", value = "Get all the unassigned emailThreads.")
+    @ApiOperation(nickname = "unassignedFromTheQueue", value = "Get all the unassigned emailThreads from the users queue.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return unassigned emailThreads."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
@@ -58,7 +58,9 @@ public class EmailThreadRestController {
             @ApiParam(value = "Pagination page", example = "1", allowableValues = "range[0, infinity]") @RequestParam(name = "page", defaultValue = "0") final int page,
             @ApiParam(value = "Pagination size", example = "1", allowableValues = "range[1, infinity]") @RequestParam(name = "size", defaultValue = "1") final int size
     ) {
-        List<EmailThread> threads = service.getUnassignedEmailThreads();
+        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        List<EmailThread> threads = service.getUnassignedEmailThreadsFor(UUID.fromString(keycloakUserId));
         return ResponseEntity.ok(threads);
     }
 
@@ -71,9 +73,9 @@ public class EmailThreadRestController {
     public ResponseEntity<List<EmailThread>> assignedToMeByStatus(
             @ApiParam(value = "EmailThread status") @RequestHeader(value = "status", defaultValue = "OPEN") final String status
     ) {
-        String keycloakUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        List<EmailThread> threads = service.findAllByStatusAndKeycloakUser(UUID.fromString(keycloakUsername), Status.valueOf(status));
+        List<EmailThread> threads = service.findAllByStatusAndKeycloakUser(UUID.fromString(keycloakUserId), Status.valueOf(status));
         return ResponseEntity.ok(threads);
     }
 

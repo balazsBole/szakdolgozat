@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
 
@@ -12,5 +13,5 @@ public interface UserService {
     User getUserFrom(Authentication authentication);
 
     @Transactional(readOnly = true)
-    List<User> searchAutoComplete(String username);
+    List<User> searchAutoComplete(UUID queueId, String username);
 }

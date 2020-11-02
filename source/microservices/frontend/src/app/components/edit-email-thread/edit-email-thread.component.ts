@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {User} from "../../api/models/user";
 import {Subject} from "rxjs";
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
 import {Location} from "@angular/common";
 import {ActivatedRoute} from "@angular/router";
@@ -24,8 +24,8 @@ export class EditEmailThreadComponent implements OnInit {
 
   userAndQueue: FormGroup = this.fb.group({
     queueId: ["", Validators.required],
-    user: ["", [userValidator()]],
-  });
+    user: [""],
+  }, {validators: userAndQueueValidator});
 
   assignForm: FormGroup = this.fb.group({
     userAndQueue: this.userAndQueue,
@@ -81,7 +81,7 @@ export class EditEmailThreadComponent implements OnInit {
 
   private initForms() {
     this.admin = this.keycloakService.isUserInRole("admin_user");
-    if (!this.admin) this.userAndQueue.controls['user'].setValidators([Validators.required])
+    if (!this.admin) this.userAndQueue.controls['user'].setValidators([Validators.required]);
     this.assignForm.patchValue(
       {
         userAndQueue: {
@@ -95,8 +95,8 @@ export class EditEmailThreadComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((value) => {
         const searchExpression = value.user?.username || value.user || "";
-        if (searchExpression.trim().length > 2) {
-          this.userFacade.autocomplete(searchExpression.trim());
+        if (searchExpression.trim().length > 0) {
+          this.userFacade.autocomplete(value.queueId, searchExpression.trim());
         } else {
           this.userFacade.reset();
         }
@@ -112,9 +112,15 @@ export class EditEmailThreadComponent implements OnInit {
   }
 }
 
-export function userValidator(): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    const valid = control.value?.id || !control.value;
-    return valid ? null : {notAUser: {value: control.value}};
-  };
-}
+export const userAndQueueValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  const userEmpty = !control.get('user').value;
+  if (userEmpty)
+    return null;
+
+  const pickedQueueId = control.get('user').value?.queue?.id || "";
+  const queueId = control.get('queueId').value;
+  if (pickedQueueId === queueId)
+    return null;
+
+  return {userNotFromTheList: true};
+};

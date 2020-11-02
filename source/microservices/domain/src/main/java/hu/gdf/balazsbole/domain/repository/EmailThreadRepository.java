@@ -15,7 +15,7 @@ import java.util.UUID;
 @Repository
 public interface EmailThreadRepository extends JpaRepository<EmailThreadEntity, UUID> {
 
-    List<EmailThreadEntity> findAllByUserIsNull();
+    List<EmailThreadEntity> findAllByUserIsNullAndQueue_Id(UUID queueId);
 
     List<EmailThreadEntity> findAllByStatusAndUser_KeycloakID(Status status, UUID keycloakId);
 

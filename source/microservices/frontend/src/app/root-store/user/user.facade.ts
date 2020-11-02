@@ -28,8 +28,8 @@ export class UserFacade {
     this.store.dispatch(getDetailsAction());
   }
 
-  autocomplete(username: string) {
-    this.store.dispatch(autocompleteAction({username}));
+  autocomplete(queueId: string, username: string) {
+    this.store.dispatch(autocompleteAction({params: {queueId, username}}));
   }
 
   reset() {

@@ -23,5 +23,5 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     Optional<UserEntity> findById(UUID userId);
 
     @Transactional(readOnly = true)
-    List<UserEntity> findAllByUsernameIgnoreCaseContaining(String username);
+    List<UserEntity> findAllByQueue_IdAndUsernameIgnoreCaseContaining(UUID queueId, String username);
 }

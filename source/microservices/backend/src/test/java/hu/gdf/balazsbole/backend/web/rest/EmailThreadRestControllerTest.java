@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -44,11 +45,12 @@ class EmailThreadRestControllerTest {
 
 
     @Test
+    @WithMockUser(username = "bf92cc37-fbc9-4774-ae9b-d818fcd66676")
     void unassigned_should_return_result_from_service() throws Exception {
         EmailThread emailThread = new EmailThread();
         emailThread.setUser(new User());
         emailThread.getUser().setUsername("test");
-        when(service.getUnassignedEmailThreads()).thenReturn(Collections.singletonList(emailThread));
+        when(service.getUnassignedEmailThreadsFor(any())).thenReturn(Collections.singletonList(emailThread));
 
         Assertions.assertDoesNotThrow(() ->
                 mvc.perform(get(REST_URL + "/unassigned"))

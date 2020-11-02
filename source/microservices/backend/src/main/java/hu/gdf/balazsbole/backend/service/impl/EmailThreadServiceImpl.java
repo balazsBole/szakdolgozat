@@ -47,11 +47,16 @@ public class EmailThreadServiceImpl implements EmailThreadService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EmailThread> getUnassignedEmailThreads() {
-        List<EmailThreadEntity> userIsNull = repository.findAllByUserIsNull();
+    public List<EmailThread> getUnassignedEmailThreadsFor(UUID keycloakUUID) {
+        Optional<UserEntity> optional = userRepository.findByKeycloakID(keycloakUUID);
+        if (optional.isEmpty() || null == optional.get().getQueue()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found");
+        }
+
+        UUID queueId = optional.get().getQueue().getId();
+        List<EmailThreadEntity> userIsNull = repository.findAllByUserIsNullAndQueue_Id(queueId);
         return mapper.mapList(userIsNull);
     }
-
 
     @Override
     @Transactional(readOnly = true)
