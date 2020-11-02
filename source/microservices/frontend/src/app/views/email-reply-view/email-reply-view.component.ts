@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
 import {takeUntil} from "rxjs/operators";
@@ -10,7 +10,7 @@ import {Location} from "@angular/common";
   templateUrl: './email-reply-view.component.html',
   styleUrls: ['./email-reply-view.component.css']
 })
-export class EmailReplyViewComponent implements OnInit {
+export class EmailReplyViewComponent implements OnInit, OnDestroy {
   reply: Email;
 
   parentEmail: Email;
@@ -25,6 +25,11 @@ export class EmailReplyViewComponent implements OnInit {
         this.parentEmail = email
         this.reply = createReplyEmail(email);
       });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   exit() {

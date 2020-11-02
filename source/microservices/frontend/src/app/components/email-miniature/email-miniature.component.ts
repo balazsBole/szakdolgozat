@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
 import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
@@ -11,7 +11,7 @@ import {Subject} from "rxjs";
   templateUrl: './email-miniature.component.html',
   styleUrls: ['./email-miniature.component.css']
 })
-export class EmailMiniatureComponent implements OnInit {
+export class EmailMiniatureComponent implements OnInit, OnDestroy {
 
   @Input() email: Email;
   picked: boolean;
@@ -30,6 +30,12 @@ export class EmailMiniatureComponent implements OnInit {
       }
     });
   }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
 
   markAsRead() {
     if (this.readEmailsWhenClicked && !this.email.read) {

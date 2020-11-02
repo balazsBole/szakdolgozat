@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Header} from "../../api/models/header";
@@ -15,7 +15,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './email-writer.component.html',
   styleUrls: ['./email-writer.component.css']
 })
-export class EmailWriterComponent implements OnInit {
+export class EmailWriterComponent implements OnInit, OnDestroy {
 
   @Input("initial") email: Email;
   @Output("emailCreated") sendEmitter = new EventEmitter<Email>();
@@ -83,6 +83,12 @@ export class EmailWriterComponent implements OnInit {
           }
         });
   }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
 
   send() {
     const email: Email = this.createEmail();

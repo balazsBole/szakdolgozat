@@ -4,7 +4,6 @@ import {UserFacade} from "../../root-store/user/user.facade";
 import {takeUntil} from "rxjs/operators";
 import {User} from "../../api/models/user";
 import {from, Subject} from "rxjs";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import * as url from "url";
 
 @Component({
@@ -18,7 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loggedIn: boolean = false;
   private readonly ngUnsubscribe = new Subject();
 
-  constructor(private readonly keycloakService: KeycloakService, private readonly userFacade: UserFacade, private readonly snackBar: MatSnackBar) {
+  constructor(private readonly keycloakService: KeycloakService, private readonly userFacade: UserFacade) {
   }
 
   logout() {
@@ -26,13 +25,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.userFacade.details();
     this.userFacade.user$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (result: User) => {
         if (result) this.username = result.username
       });
     from(this.keycloakService.isLoggedIn()).pipe(takeUntil(this.ngUnsubscribe)).subscribe(
-      (loggedIn: boolean) => this.loggedIn = loggedIn);
+      (loggedIn: boolean) => {
+        this.loggedIn = loggedIn
+        if (loggedIn) this.userFacade.details();
+      });
   }
 
   ngOnDestroy(): void {

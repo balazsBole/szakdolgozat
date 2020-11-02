@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {MatTreeNestedDataSource} from "@angular/material/tree";
@@ -12,7 +12,7 @@ import {takeUntil} from "rxjs/operators";
   templateUrl: './email-thread.component.html',
   styleUrls: ['./email-thread.component.css']
 })
-export class EmailThreadComponent implements OnInit {
+export class EmailThreadComponent implements OnInit, OnDestroy {
 
   @Input() emailThread: EmailThread;
   @Input('picked') picked: boolean = false;
@@ -43,6 +43,12 @@ export class EmailThreadComponent implements OnInit {
       this.showMiniatures = this.emailThread.id === paramMap.get('emailThreadId');
     });
   }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
 
   pick() {
     const urlParameters = {

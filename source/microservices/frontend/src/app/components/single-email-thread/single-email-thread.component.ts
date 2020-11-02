@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {Email} from "../../api/models/email";
 import {Subject} from "rxjs";
@@ -12,7 +12,7 @@ import {takeUntil} from "rxjs/operators";
   templateUrl: './single-email-thread.component.html',
   styleUrls: ['./single-email-thread.component.css']
 })
-export class SingleEmailThreadComponent implements OnInit {
+export class SingleEmailThreadComponent implements OnInit, OnDestroy {
 
   @Input() emailThread: EmailThread;
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {Subject} from "rxjs";
 import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
@@ -11,7 +11,7 @@ import {takeUntil} from "rxjs/operators";
   templateUrl: './edit-thread-view.component.html',
   styleUrls: ['./edit-thread-view.component.css']
 })
-export class EditThreadViewComponent implements OnInit {
+export class EditThreadViewComponent implements OnInit, OnDestroy {
 
   emailThread: EmailThread;
   private readonly ngUnsubscribe = new Subject();

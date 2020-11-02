@@ -19,3 +19,7 @@
   overflow-y: auto;
   height: calc(100vh - 9.8em);
 }
+
+mat-card {
+  padding-bottom: 5px;
+}
