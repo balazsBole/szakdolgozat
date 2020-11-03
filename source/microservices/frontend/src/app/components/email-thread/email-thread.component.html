@@ -7,11 +7,12 @@
                 mat-icon-button matTooltip="Assign this thread">
           <mat-icon>edit</mat-icon>
         </button>
+        {{unread}}/{{allEmail}}
       </div>
-      <mat-card-title>Unread: {{unread}}/{{allEmail}}</mat-card-title>
+      <mat-card-title *ngIf="emailThread.description">{{emailThread.description}}</mat-card-title>
       <mat-card-subtitle>
+        <div>{{emailThread.status}}</div>
         <div>User: {{emailThread.user?.username || "unassigned"}}</div>
-        <div>Status: {{emailThread.status}}</div>
         <div>Last email: {{lastMail | date:'medium'}}</div>
       </mat-card-subtitle>
     </mat-card-header>

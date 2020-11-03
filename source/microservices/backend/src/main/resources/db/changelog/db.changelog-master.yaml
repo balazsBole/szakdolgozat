@@ -24,3 +24,6 @@ databaseChangeLog:
   - include:
       file: changeset/00006_create_table_queue.yml
       relativeToChangelogFile: true
+  - include:
+      file: changeset/00007_add_description_to_thread.yml
+      relativeToChangelogFile: true

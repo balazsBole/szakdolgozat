@@ -86,7 +86,7 @@ class EmailServiceImplTest implements RunsWithMappers {
         email.setHeader(new Header());
 
         service.storeNew(email);
-        verify(threadService).createThreadFor(any());
+        verify(threadService).createThreadFor(any(), any());
     }
 
     @Test

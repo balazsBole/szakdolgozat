@@ -44,7 +44,7 @@ class EmailThreadServiceImplTest implements RunsWithMappers {
     void new_emailThread_should_be_store_queue() {
         QueueEntity valueFromRepository = new QueueEntity();
         when(queueRepository.findByEmail(eq("email"))).thenReturn(Optional.of(valueFromRepository));
-        service.createThreadFor("email");
+        service.createThreadFor("email", "");
         verify(repository, times(1)).save(argThat(entity -> valueFromRepository.equals(entity.getQueue())));
     }
 

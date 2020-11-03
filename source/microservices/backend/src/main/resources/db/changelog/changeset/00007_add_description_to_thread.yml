@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-add_description_to_thread
+      author: Balazs
+      changes:
+        - addColumn:
+            tableName: thread
+            columns:
+              - column:
+                  name: description
+                  type: TEXT

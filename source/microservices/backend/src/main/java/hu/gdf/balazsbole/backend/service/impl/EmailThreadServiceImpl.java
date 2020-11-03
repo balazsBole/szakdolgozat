@@ -39,9 +39,10 @@ public class EmailThreadServiceImpl implements EmailThreadService {
 
     @Override
     @Transactional
-    public EmailThreadEntity createThreadFor(String email) {
+    public EmailThreadEntity createThreadFor(String email, String description) {
         EmailThreadEntity entity = new EmailThreadEntity();
         entity.setStatus(Status.OPEN);
+        entity.setDescription(description);
         entity.setQueue(queueRepository.findByEmail(email).get());
         return repository.save(entity);
     }

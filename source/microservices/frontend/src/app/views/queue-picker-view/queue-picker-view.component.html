@@ -4,8 +4,7 @@
   </mat-card-header>
 </mat-card>
 
-<mat-grid-list cols="3" rowHeight="2:1">
-  <mat-grid-tile *ngFor="let queue of allQueues">
+  <ng-container *ngFor="let queue of allQueues">
     <mat-card (click)="select(queue.id)" [ngClass]="{picked: queue.id === selectedId}">
       <mat-card-header>
         <div mat-card-avatar>
@@ -20,7 +19,6 @@
       </mat-card-header>
       <mat-card-content>{{queue?.description}}</mat-card-content>
     </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  </ng-container>
 
 

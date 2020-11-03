@@ -87,7 +87,7 @@ public class EmailServiceImpl implements EmailService {
         } else {
             Optional<EmailEntity> relevantEmail = findRelevantEmail(emailEntity.getHeader().getReferences());
             EmailThreadEntity emailThreadEntity = relevantEmail.map(EmailEntity::getEmailThread)
-                    .orElseGet(() -> threadService.createThreadFor(getQueueEmail(emailEntity)));
+                    .orElseGet(() -> threadService.createThreadFor(getQueueEmail(emailEntity), email.getHeader().getSubject()));
             emailEntity.setEmailThread(emailThreadEntity);
         }
         if (Direction.IN.equals(emailEntity.getDirection()))
