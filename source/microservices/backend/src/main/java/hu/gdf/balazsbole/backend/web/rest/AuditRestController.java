@@ -3,6 +3,7 @@ package hu.gdf.balazsbole.backend.web.rest;
 import hu.gdf.balazsbole.backend.service.AuditService;
 import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.EmailThread;
+import hu.gdf.balazsbole.domain.dto.EmailThreadAudit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -41,7 +42,7 @@ public class AuditRestController {
     public ResponseEntity<List<EmailThread>> emailThreadsRelatedToUser() {
         String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return ResponseEntity.ok(service.currentStatusOfEmailThreadByPreviousOwner(UUID.fromString(keycloakUserId)));
+        return ResponseEntity.ok(service.emailThreadsRelatedToUser(UUID.fromString(keycloakUserId)));
     }
 
 
@@ -51,7 +52,7 @@ public class AuditRestController {
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns history of the email thread."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
-    public ResponseEntity<List<EmailThread>> emailThread(
+    public ResponseEntity<List<EmailThreadAudit>> emailThread(
             @PathVariable("emailThreadId") final UUID emailThreadId) {
         return ResponseEntity.ok(service.historyOfEmailThreadBy(emailThreadId));
     }
