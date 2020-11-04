@@ -1,5 +1,5 @@
 <div>
-  <mat-card (click)="pick()">
+  <mat-card (click)="pick()" [ngClass]="{'picked': showMiniatures}">
     <mat-card-header>
       <div mat-card-avatar>
         <button (click)="edit($event)" *ngIf="editable"
@@ -7,13 +7,15 @@
                 mat-icon-button matTooltip="Assign this thread">
           <mat-icon>edit</mat-icon>
         </button>
-        {{unread}}/{{allEmail}}
+        <ng-container *ngIf="emailThread.emails.length>0">
+          {{unread}}/{{allEmail}}
+        </ng-container>
       </div>
       <mat-card-title *ngIf="emailThread.description">{{emailThread.description}}</mat-card-title>
       <mat-card-subtitle>
         <div>{{emailThread.status}}</div>
         <div>User: {{emailThread.user?.username || "unassigned"}}</div>
-        <div>Last email: {{lastMail | date:'medium'}}</div>
+        <div *ngIf="lastMail">Last email: {{lastMail | date:'medium'}}</div>
       </mat-card-subtitle>
     </mat-card-header>
   </mat-card>

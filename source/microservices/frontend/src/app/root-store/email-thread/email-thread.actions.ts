@@ -4,25 +4,25 @@ import {EmailThread} from "../../api/models/email-thread";
 
 
 export enum ActionTypes {
-  GET_DETAILS = '[EMAILTHREAD] Get emailThread details',
-  GET_DETAILS_SUCCESS = '[EMAILTHREAD] Get emailThread details Succes',
-  GET_DETAILS_FAIL = '[EMAILTHREAD] Get emailThread details  Fail',
+  GET_DETAILS = '[EMAIL_THREAD] Get emailThread details',
+  GET_DETAILS_SUCCESS = '[EMAIL_THREAD] Get emailThread details Succes',
+  GET_DETAILS_FAIL = '[EMAIL_THREAD] Get emailThread details  Fail',
 
-  SEARCH_UNASSIGNED = '[EMAILTHREAD] Search unassigned',
-  SEARCH_UNASSIGNED_SUCCESS = '[EMAILTHREAD] Search unassigned Success',
-  SEARCH_UNASSIGNED_FAIL = '[EMAILTHREAD] Search unassigned Fail',
+  SEARCH_UNASSIGNED = '[EMAIL_THREAD] Search unassigned',
+  SEARCH_UNASSIGNED_SUCCESS = '[EMAIL_THREAD] Search unassigned Success',
+  SEARCH_UNASSIGNED_FAIL = '[EMAIL_THREAD] Search unassigned Fail',
 
-  SEARCH_ASSIGNED_TO_ME = '[EMAILTHREAD] Search assigned to me',
-  SEARCH_ASSIGNED_TO_ME_SUCCESS = '[EMAILTHREAD] Search assignedToMe Success',
-  SEARCH_ASSIGNED_TO_ME_FAIL = '[EMAILTHREAD] Search assigned to me Fail',
+  SEARCH_ASSIGNED_TO_ME = '[EMAIL_THREAD] Search assigned to me',
+  SEARCH_ASSIGNED_TO_ME_SUCCESS = '[EMAIL_THREAD] Search assignedToMe Success',
+  SEARCH_ASSIGNED_TO_ME_FAIL = '[EMAIL_THREAD] Search assigned to me Fail',
 
-  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE = '[EMAILTHREAD] Search by status in assigned queue',
-  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_SUCCESS = '[EMAILTHREAD] Search by status in assigned queue Success',
-  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_FAIL = '[EMAILTHREAD] Search by status in assigned queue Fail',
+  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE = '[EMAIL_THREAD] Search by status in assigned queue',
+  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_SUCCESS = '[EMAIL_THREAD] Search by status in assigned queue Success',
+  SEARCH_BY_STATUS_IN_ASSIGNED_QUEUE_FAIL = '[EMAIL_THREAD] Search by status in assigned queue Fail',
 
-  PATCH = '[EMAILTHREAD] Patch values',
-  PATCH_SUCCESS = '[EMAILTHREAD] Patch values Success',
-  PATCH_FAIL = '[EMAILTHREAD] Patch values Fail',
+  PATCH = '[EMAIL_THREAD] Patch values',
+  PATCH_SUCCESS = '[EMAIL_THREAD] Patch values Success',
+  PATCH_FAIL = '[EMAIL_THREAD] Patch values Fail',
 }
 
 export const getDetailsAction = createAction(

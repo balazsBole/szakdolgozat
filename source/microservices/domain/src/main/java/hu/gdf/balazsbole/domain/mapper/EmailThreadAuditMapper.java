@@ -20,9 +20,14 @@ public interface EmailThreadAuditMapper {
     @Mapping(target = "queue", source = "queue.name")
     EmailThreadAudit map(EmailThreadAuditEntity auditEntity);
 
-    List<EmailThreadAudit> mapList(List<EmailThreadAuditEntity> entity);
+
+    @Mapping(target = "user.queue", ignore = true)
+    @Mapping(target = "emails", ignore = true)
+    EmailThread mapToEmailThread(EmailThreadEntity threadEntity);
 
     List<EmailThread> mapListToEmailThread(List<EmailThreadEntity> entity);
+
+    List<EmailThreadAudit> mapList(List<EmailThreadAuditEntity> entity);
 
     default ChangeType map(byte value) {
         Stream<ChangeType> stream = Arrays.stream(ChangeType.values());

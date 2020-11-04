@@ -1,0 +1,24 @@
+<div>
+  <mat-card>
+    <button (click)="search()" aria-label="Refresh button" mat-icon-button matTooltip="Refresh">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    Found {{threads?.length || 0}} thread, you were involved with.
+  </mat-card>
+</div>
+
+<div id="flex-container">
+  <div [ngStyle]="{ height: flexContainerHeight }" class="threads scrollable">
+    <ng-container *ngIf="threads">
+      <div *ngFor="let thread of threads" class="emailThread">
+        <emailThread [emailThread]="thread"></emailThread>
+      </div>
+    </ng-container>
+  </div>
+
+  <div [ngStyle]="{ height: flexContainerHeight }" class="history scrollable">
+
+
+  </div>
+</div>
+

@@ -7,6 +7,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {UserStoreModule} from "./user/user-store.module";
 import {EmailStoreModule} from "./email/email-store.module";
 import {QueueStoreModule} from "./queue/queue-store.module";
+import {AuditStoreModule} from "./audit/audit-store.module";
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import {QueueStoreModule} from "./queue/queue-store.module";
     EmailThreadStoreModule,
     UserStoreModule,
     EmailStoreModule,
-    QueueStoreModule
+    QueueStoreModule,
+    AuditStoreModule
   ]
 })
 export class RootStoreModule {

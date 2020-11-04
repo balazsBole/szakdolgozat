@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {Subject} from "rxjs";
 import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
-import {Location} from "@angular/common";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {takeUntil} from "rxjs/operators";
 
@@ -17,7 +16,7 @@ export class EditThreadViewComponent implements OnInit, OnDestroy {
   private readonly ngUnsubscribe = new Subject();
 
 
-  constructor(private readonly facade: EmailThreadFacade, private readonly location: Location,
+  constructor(private readonly facade: EmailThreadFacade,
               private readonly snackBar: MatSnackBar) {
   }
 
@@ -31,7 +30,6 @@ export class EditThreadViewComponent implements OnInit, OnDestroy {
         if (error) this.snackBar.open(error.message, "", {duration: 2000})
       });
   }
-
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();

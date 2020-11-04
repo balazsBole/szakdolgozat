@@ -16,6 +16,7 @@
         <ng-container *ngIf="hasQueue">
           <a [routerLink]="'/email/reply'" mat-list-item> Reply </a>
           <a [routerLink]="'/email-thread/edit'" mat-list-item> Edit threads </a>
+          <a [routerLink]="'/email-thread/history'" mat-list-item> History </a>
           <a *ngIf="admin" [routerLink]="'/email-thread/change-queue'" mat-list-item> Change queue </a>
           <a *ngIf="admin" [routerLink]="'/email-thread/unassigned'" mat-list-item> Unassigned </a>
         </ng-container>

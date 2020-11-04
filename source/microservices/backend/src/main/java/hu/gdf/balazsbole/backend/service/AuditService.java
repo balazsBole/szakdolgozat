@@ -12,5 +12,6 @@ public interface AuditService {
     @Transactional(readOnly = true)
     List<EmailThreadAudit> historyOfEmailThreadBy(UUID emailThreadId);
 
+    @Transactional(readOnly = true)
     List<EmailThread> emailThreadsRelatedToUser(UUID userId);
 }

@@ -11,6 +11,7 @@ import {ReplyViewComponent} from "./views/reply-view/reply-view.component";
 import {EditThreadViewComponent} from "./views/edit-thread-view/edit-thread-view.component";
 import {ChangeQueueViewComponent} from "./views/change-queue-view/change-queue-view.component";
 import {QueuePickerViewComponent} from "./views/queue-picker-view/queue-picker-view.component";
+import {ThreadHistoryViewComponent} from "./views/thread-history-view/thread-history-view.component";
 
 const routes: Routes = [
   {
@@ -20,26 +21,32 @@ const routes: Routes = [
     data: {roles: ['regular_user']}
   },
   {
-    path: 'email/reply',
-    component: ReplyViewComponent,
-    canActivate: [AuthenticationGuardService],
-    data: {roles: ['regular_user']}
+      path: 'email/reply',
+      component: ReplyViewComponent,
+      canActivate: [AuthenticationGuardService],
+      data: {roles: ['regular_user']}
   },
-  {
-    path: 'email-thread/edit',
-    component: EmailThreadEditViewComponent,
-    canActivate: [AuthenticationGuardService],
-    data: {roles: ['regular_user']}
-  },
-  {
-    path: 'email/replyTo/:uuid',
-    component: EmailReplyViewComponent,
-    canActivate: [AuthenticationGuardService],
-    data: {roles: ['regular_user']},
-    resolve: {
-      email: EmailIdResolver
-    }
-  },
+    {
+        path: 'email-thread/edit',
+        component: EmailThreadEditViewComponent,
+        canActivate: [AuthenticationGuardService],
+        data: {roles: ['regular_user']}
+    },
+    {
+        path: 'email-thread/history',
+        component: ThreadHistoryViewComponent,
+        canActivate: [AuthenticationGuardService],
+        data: {roles: ['regular_user']}
+    },
+    {
+        path: 'email/replyTo/:uuid',
+        component: EmailReplyViewComponent,
+        canActivate: [AuthenticationGuardService],
+        data: {roles: ['regular_user']},
+        resolve: {
+            email: EmailIdResolver
+        }
+    },
   {
     path: 'email-thread/edit/:uuid',
     component: EditThreadViewComponent,
