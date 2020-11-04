@@ -4,6 +4,8 @@ import hu.gdf.balazsbole.domain.enumeration.Status;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Audited
 @Table(name = "thread")
 @DynamicUpdate
 public class EmailThreadEntity extends AbstractEntity implements Serializable {
@@ -32,6 +35,7 @@ public class EmailThreadEntity extends AbstractEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @NotAudited
     @OneToMany(mappedBy = "emailThread", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<EmailEntity> emails = new ArrayList<>();
 

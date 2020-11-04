@@ -3,6 +3,7 @@ package hu.gdf.balazsbole.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Audited
 @Table(name = "users")
 @DynamicUpdate
 public class UserEntity extends AbstractEntity implements Serializable {

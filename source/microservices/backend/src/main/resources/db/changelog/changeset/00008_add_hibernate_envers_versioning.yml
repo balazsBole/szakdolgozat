@@ -1,0 +1,207 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-add_hibernate_sequence
+      author: Balazs
+      dbms: postgresql
+      changes:
+        - sql:
+            sql: CREATE SEQUENCE hibernate_sequence  INCREMENT 1  MINVALUE 1 MAXVALUE 9223372036854775807 START 1 CACHE 1;
+        - sql:
+            sql: GRANT USAGE, SELECT ON hibernate_sequence TO HELPDESK_APP;
+  - changeSet:
+      id: 2-crate_thread_aud_table
+      author: Balazs
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: thread_aud_pk
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: thread_aud_pk
+                  name: rev
+                  type: INTEGER
+              - column:
+                  name: revtype
+                  type: SMALLINT
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: status
+                  type: TEXT
+              - column:
+                  name: queue_id
+                  type: UUID
+              - column:
+                  name: user_id
+                  type: UUID
+            tableName: thread_aud
+  - changeSet:
+      id: 3-crate_queue_aud_table
+      author: Balazs
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: queue_aud_pk
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: queue_aud_pk
+                  name: rev
+                  type: INTEGER
+              - column:
+                  name: revtype
+                  type: SMALLINT
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: email
+                  type: TEXT
+              - column:
+                  name: name
+                  type: TEXT
+            tableName: queue_aud
+  - changeSet:
+      id: 4-crate_users_aud_table
+      author: Balazs
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: users_aud_pk
+                  name: id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: users_aud_pk
+                  name: rev
+                  type: INTEGER
+              - column:
+                  name: revtype
+                  type: SMALLINT
+              - column:
+                  name: keycloak_id
+                  type: UUID
+              - column:
+                  name: username
+                  type: TEXT
+              - column:
+                  name: queue_id
+                  type: UUID
+            tableName: users_aud
+  - changeSet:
+      id: 5-create_revinfo_table
+      author: Balazs
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: revinfo_pk
+                  name: rev
+                  type: INTEGER
+              - column:
+                  name: revtstmp
+                  type: BIGINT
+            tableName: revinfo
+  - changeSet:
+      id: 6-create_thread_aud_rev_fk_foreign_key
+      author: Balazs
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: rev
+            baseTableName: thread_aud
+            constraintName: thread_aud_rev_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: rev
+            referencedTableName: revinfo
+            validate: true
+  - changeSet:
+      id: 7-create_queue_aud_rev_fk_foreign_key
+      author: Balazs
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: rev
+            baseTableName: queue_aud
+            constraintName: queue_aud_rev_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: rev
+            referencedTableName: revinfo
+            validate: true
+  - changeSet:
+      id: 8-create_users_aud_rev_fk_foreign_key
+      author: Balazs
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: rev
+            baseTableName: users_aud
+            constraintName: users_aud_rev_fk
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: rev
+            referencedTableName: revinfo
+            validate: true
+  - changeSet:
+      id: 9-grant_acces_on_new_tables_to_helpdesk_app
+      author: Balazs
+      dbms: postgresql
+      # Creating grant for for helpdesk_app
+      changes:
+        - sql:
+            sql: GRANT SELECT, INSERT ON revinfo TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT ON users_aud TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT ON queue_aud TO HELPDESK_APP;
+        - sql:
+            sql: GRANT SELECT, INSERT ON thread_aud TO HELPDESK_APP;
+  - changeSet:
+      id: 10-insert_init_queuse_into_audit_table
+      author: Balazs
+      dbms: postgresql
+      changes:
+        - sql:
+            sql: insert into revinfo(revtstmp, rev) values ('1604440588909', '1');
+        - sql:
+            sql: insert into queue_aud(rev, revtype, id, name, description, email) values ('1','0','d1e11e7a-cf13-4607-b237-f385a9d94afb','generic', 'generic email-queue for all the mails form helpdesk.gdf@yandex.com', 'helpdesk.gdf@yandex.com');
+        - sql:
+            sql: insert into revinfo(revtstmp, rev) values ('1604440588919', '2');
+        - sql:
+            sql: insert into queue_aud(rev, revtype, id, name, description, email) values ('2','0','b1d6ebc3-c624-4442-9170-67d62532fe8f', 'travel', 'queue for travel related emails', 'helpdesk.gdf.travel@yandex.com');
+        - sql:
+            sql: insert into revinfo(revtstmp, rev) values ('1604440588929', '3');
+        - sql:
+            sql: insert into queue_aud(rev, revtype, id, name, description, email) values ('2','0','03a10ed9-0b39-46c4-824a-28d441889586', 'theater', 'queue for theater related emails', 'h.gdf.theater@gmx.com');
+        - sql:
+            sql: select nextval ('hibernate_sequence'); select nextval ('hibernate_sequence'); select nextval ('hibernate_sequence');

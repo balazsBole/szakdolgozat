@@ -79,7 +79,7 @@ spring:
       specific.avro.reader: true
 
     consumer:
-      group-id: "helpdesk-backend-0001"
+      group-id: "helpdesk-backend-0005"
       key-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
       enable-auto-commit: true

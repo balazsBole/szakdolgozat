@@ -3,6 +3,7 @@ package hu.gdf.balazsbole.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
+@Audited
 @Table(name = "queue")
 @DynamicUpdate
 public class QueueEntity extends AbstractEntity implements Serializable {
