@@ -82,7 +82,7 @@
                             <schemes>
                                 <scheme>http</scheme>
                             </schemes>
-                            <host>localhost:8080</host>
+                            <host>172.17.0.1:8080</host>
                             <info>
                                 <title>${project.name}</title>
                                 <version>${project.version}</version>

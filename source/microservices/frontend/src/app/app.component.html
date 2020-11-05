@@ -23,7 +23,7 @@
         <a *ngIf="!hasQueue || admin" [routerLink]="'/choose-queue'" mat-list-item> Choose queue </a>
       </mat-nav-list>
       <mat-nav-list [ngClass]="{bottom: loggedIn}">
-        <a href="http://localhost:8082/" mat-list-item> Login service </a>
+        <a href="http://172.17.0.1:8082/" mat-list-item> Login service </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="content">

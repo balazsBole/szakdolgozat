@@ -23,8 +23,8 @@ export class UserFacade {
     this.user$ = this.store.select(selectUser);
     this.patched$ = this.store.select(selectIsPatched);
     this.autocomplete$ = this.store.select(selectAutocomplete);
-    this.error$ = this.store.select(selectIsLoading);
-    this.loading$ = this.store.select(selectError);
+    this.error$ = this.store.select(selectError);
+    this.loading$ = this.store.select(selectIsLoading);
   }
 
   hasQueue(): Observable<boolean> {

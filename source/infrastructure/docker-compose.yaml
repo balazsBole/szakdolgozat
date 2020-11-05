@@ -1,5 +1,28 @@
 version: '3.7'
 services:
+  helpdesk-backend:
+    ports:
+      - 8080:8080
+    image: helpdesk-backend
+    environment:
+      EUREKA_CLIENT_ENABLED: "true"
+      SPRING_MAIL_HOST: smtp.yandex.com
+      SPRING_MAIL_IMAP_HOST: imap.yandex.com
+      SPRING_MAIL_USERNAME: helpdesk.gdf
+      SPRING_MAIL_PASSWORD: Tha0xi7k
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/helpdesk
+      KEYCLOAK_AUTH_SERVER_URL: http://172.17.0.1:8082/auth/
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://172.17.0.1:8082/auth/realms/helpdesk
+      SPRING_KAFKA_CONSUMER_GROUPID: "helpdesk-backend-0005"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
+    depends_on:
+      - eureka
+      - db
+      - prometheus
+
+
   email-client-generic:
     image: email-client
     environment:
@@ -8,12 +31,12 @@ services:
       SPRING_MAIL_IMAP_HOST: imap.yandex.com
       SPRING_MAIL_USERNAME: helpdesk.gdf
       SPRING_MAIL_PASSWORD: Tha0xi7k
-      EUREKA_CLIENT_ENABLED: "false"
+      EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
-      SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://172.17.0.1:8081
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
     depends_on:
       - eureka
       - zookeeper
@@ -27,12 +50,12 @@ services:
       SPRING_MAIL_IMAP_HOST: imap.yandex.com
       SPRING_MAIL_USERNAME: helpdesk.gdf.travel
       SPRING_MAIL_PASSWORD: Xo8nua4o
-      EUREKA_CLIENT_ENABLED: "false"
+      EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
-      SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://172.17.0.1:8081
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
     depends_on:
       - eureka
       - zookeeper
@@ -48,12 +71,12 @@ services:
       SPRING_MAIL_IMAP_HOST: imap.gmx.com
       SPRING_MAIL_USERNAME: h.gdf.theater%40gmx.com
       SPRING_MAIL_PASSWORD: Thu9esejThu9esej
-      EUREKA_CLIENT_ENABLED: "false"
+      EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
-      SPRING_KAFKA_BOOTSTRAPSERVERS: 172.17.0.1:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://172.17.0.1:8081
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
     depends_on:
       - eureka
       - zookeeper
@@ -79,23 +102,6 @@ services:
       - 15432:8080
     environment:
       ADMINER_DESIGN: hever
-
-  sonarqube:
-    # http://localhost:9000/
-    # default: admin/admin
-    image: sonarqube
-    ports:
-      - 9000:9000
-    volumes:
-      - ./sonarqube/sonarqube_data:/opt/sonarqube/data
-      - ./sonarqube/sonarqube_extensions:/opt/sonarqube/extensions
-      - ./sonarqube/sonarqube_logs:/opt/sonarqube/logs
-    environment:
-      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
-      SONAR_JDBC_USERNAME: sonarqube
-      SONAR_JDBC_PASSWORD: sonarqube
-    depends_on:
-      - db
 
   keycloak:
     image: quay.io/keycloak/keycloak:11.0.2

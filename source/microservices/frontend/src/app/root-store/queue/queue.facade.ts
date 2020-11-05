@@ -18,8 +18,8 @@ export class QueueFacade {
 
   initObservables() {
     this.queueArray$ = this.store.select(selectQueueArray);
-    this.error$ = this.store.select(selectIsLoading);
-    this.loading$ = this.store.select(selectError);
+    this.error$ = this.store.select(selectError);
+    this.loading$ = this.store.select(selectIsLoading);
   }
 
   getAll() {
