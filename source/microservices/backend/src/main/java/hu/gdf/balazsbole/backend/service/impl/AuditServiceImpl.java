@@ -52,7 +52,6 @@ public class AuditServiceImpl implements AuditService {
         UserEntity userEntity = userRepository.findByKeycloakID(keycloakId).get();
         List<UUID> relatedIds = auditRepository.getThreadIdsRelatedToUser(userEntity.getId());
         List<EmailThreadEntity> entities = emailThreadRepository.findAllById(relatedIds);
-//        return entities.stream().map(auditMapper::mapToEmailThread).collect(Collectors.toList());
         return auditMapper.mapListToEmailThread(entities);
     }
 }

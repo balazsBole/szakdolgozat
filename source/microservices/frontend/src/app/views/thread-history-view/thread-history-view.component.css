@@ -19,3 +19,7 @@
 .scrollable {
   overflow-y: auto;
 }
+
+mat-card {
+  margin: 2px;
+}

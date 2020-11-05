@@ -1,16 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuditFacade} from "../../root-store/audit/audit.facade";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-thread-history-view',
   templateUrl: './thread-history-view.component.html',
   styleUrls: ['./thread-history-view.component.css']
 })
-export class ThreadHistoryViewComponent implements OnInit {
+export class ThreadHistoryViewComponent implements OnInit, OnDestroy {
   flexContainerHeight: string;
   threads: EmailThread[];
+  private readonly ngUnsubscribe = new Subject();
 
 
   constructor(private readonly snackBar: MatSnackBar, private readonly auditFacade: AuditFacade) {
@@ -19,13 +22,12 @@ export class ThreadHistoryViewComponent implements OnInit {
   ngOnInit(): void {
     this.search();
     this.calculateFlexContainerHeight();
-
-    this.auditFacade.emailThreadRelated$.subscribe(
+    this.auditFacade.emailThreadRelated$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (emailThreadRelated: EmailThread[]) => {
         this.threads = emailThreadRelated;
       });
 
-    this.auditFacade.error$.subscribe(
+    this.auditFacade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (error) => {
         if (error) this.snackBar.open(error.message, "", {duration: 2000})
       });
@@ -44,6 +46,11 @@ export class ThreadHistoryViewComponent implements OnInit {
       let top = document.getElementById('flex-container').getBoundingClientRect().top;
       return Math.ceil(top + 3);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }

@@ -47,6 +47,10 @@ import {EmailThreadIdResolver} from "./resolvers/thread-id-resolver";
 import {ChangeQueueViewComponent} from './views/change-queue-view/change-queue-view.component';
 import {QueuePickerViewComponent} from './views/queue-picker-view/queue-picker-view.component';
 import {ThreadHistoryViewComponent} from './views/thread-history-view/thread-history-view.component';
+import {EmailThreadAuditComponent} from './components/email-thread-audit/email-thread-audit.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -85,7 +89,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     SingleEmailThreadComponent,
     ChangeQueueViewComponent,
     QueuePickerViewComponent,
-    ThreadHistoryViewComponent
+    ThreadHistoryViewComponent,
+    EmailThreadAuditComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +121,10 @@ function initializeKeycloak(keycloak: KeycloakService) {
     QuillModule.forRoot(),
     FormsModule,
     ScrollingModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     EmailIdResolver,
