@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.mail.ImapIdleChannelAdapter;
 import org.springframework.integration.mail.ImapMailReceiver;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 @Configuration
@@ -36,6 +38,11 @@ public class ImapConfig {
     }
 
     private String imapUrl() {
+        try {
+            username = URLEncoder.encode(username, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return "imap://" + username + ":" + password + "@" + host + ":" + port + "/INBOX";
     }
 
