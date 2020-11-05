@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Email, EmailThread} from "../../api/models";
 import {filter, takeUntil} from "rxjs/operators";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -13,6 +13,7 @@ import {ActivatedRoute, ParamMap, Params, Router} from "@angular/router";
   styleUrls: ['./email-thread-edit-view.component.css']
 })
 export class EmailThreadEditViewComponent implements OnInit, OnDestroy {
+  loading$: Observable<boolean>;
 
   private readonly ngUnsubscribe = new Subject();
   assignedThreads: EmailThread[];
@@ -26,6 +27,8 @@ export class EmailThreadEditViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loading$ = this.facade.loading$;
+
     this.updateStatusFromUrl();
     this.assignedToMeWith(this.selectedStatus);
     this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(

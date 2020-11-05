@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Email} from "../../api/models/email";
 import {EmailFacade} from "../../root-store/email/email.facade";
 import {takeUntil} from "rxjs/operators";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {Location} from "@angular/common";
 
 @Component({
@@ -12,6 +12,8 @@ import {Location} from "@angular/common";
 })
 export class EmailReplyViewComponent implements OnInit, OnDestroy {
   reply: Email;
+  loading$: Observable<boolean>;
+
 
   parentEmail: Email;
   private readonly ngUnsubscribe = new Subject();
@@ -20,6 +22,7 @@ export class EmailReplyViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loading$ = this.facade.loading$;
     this.facade.email$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (email: Email) => {
         this.parentEmail = email

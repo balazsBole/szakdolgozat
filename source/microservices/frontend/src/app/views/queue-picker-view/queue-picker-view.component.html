@@ -1,24 +1,26 @@
+<mat-progress-bar *ngIf="loading$|async" mode="indeterminate"></mat-progress-bar>
+
 <mat-card>
   <mat-card-header>
     <mat-card-title>Please select a queue</mat-card-title>
   </mat-card-header>
 </mat-card>
 
-  <ng-container *ngFor="let queue of allQueues">
-    <mat-card (click)="select(queue.id)" [ngClass]="{picked: queue.id === selectedId}">
-      <mat-card-header>
-        <div mat-card-avatar>
-          <button *ngIf="queue.id===selectedId"
-                  color="primary" mat-icon-button
-                  matTooltip="Selected queue">
-            <mat-icon *ngIf="queue.id===selectedId">done</mat-icon>
-          </button>
-        </div>
-        <mat-card-title>{{queue.name}}</mat-card-title>
-        <mat-card-subtitle>{{queue.email}}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>{{queue?.description}}</mat-card-content>
-    </mat-card>
-  </ng-container>
+<ng-container *ngFor="let queue of allQueues">
+  <mat-card (click)="select(queue.id)" [ngClass]="{picked: queue.id === selectedId}">
+    <mat-card-header>
+      <div mat-card-avatar>
+        <button *ngIf="queue.id===selectedId"
+                color="primary" mat-icon-button
+                matTooltip="Selected queue">
+          <mat-icon *ngIf="queue.id===selectedId">done</mat-icon>
+        </button>
+      </div>
+      <mat-card-title>{{queue.name}}</mat-card-title>
+      <mat-card-subtitle>{{queue.email}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>{{queue?.description}}</mat-card-content>
+  </mat-card>
+</ng-container>
 
 

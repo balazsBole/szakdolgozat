@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Queue} from "../../api/models/queue";
 import {filter, take, takeUntil} from "rxjs/operators";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {QueueFacade} from "../../root-store/queue/queue.facade";
 import {UserFacade} from "../../root-store/user/user.facade";
 import {User} from "../../api/models/user";
@@ -12,6 +12,8 @@ import {User} from "../../api/models/user";
   styleUrls: ['./queue-picker-view.component.css']
 })
 export class QueuePickerViewComponent implements OnInit, OnDestroy {
+  loading$: Observable<boolean>;
+
   allQueues: Queue[];
   selectedId: string;
   private readonly ngUnsubscribe = new Subject();
@@ -20,6 +22,7 @@ export class QueuePickerViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loading$ = this.userFacade.loading$;
     this.userFacade.details();
     this.queueFacade.getAll();
 

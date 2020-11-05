@@ -52,7 +52,6 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {EnversRevtypePipe} from './pipes/envers-revtype.pipe';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
@@ -129,7 +128,6 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatProgressSpinnerModule,
     MatProgressBarModule
   ],
   providers: [

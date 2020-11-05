@@ -3,7 +3,7 @@ import {takeUntil} from "rxjs/operators";
 import {EmailThread} from "../../api/models/email-thread";
 import {EmailThreadFacade} from "../../root-store/email-thread/email-thread.facade";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 
 @Component({
   selector: 'app-unassigned-view',
@@ -12,6 +12,8 @@ import {Subject} from "rxjs";
 })
 export class UnassignedViewComponent implements OnInit, OnDestroy {
   threads: EmailThread[];
+  loading$: Observable<boolean>;
+
   private readonly ngUnsubscribe = new Subject();
   numberOfUnassigned: number;
 
@@ -19,6 +21,8 @@ export class UnassignedViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.loading$ = this.facade.loading$;
+
     this.search();
     this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (error) => {
