@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="loading$|async" mode="indeterminate"></mat-progress-bar>
 <div>
   <mat-card>
     <button (click)="search()" aria-label="Refresh button" mat-icon-button matTooltip="Refresh">
@@ -18,7 +19,7 @@
 
   <div [ngStyle]="{ height: flexContainerHeight }" class="history scrollable">
 
-    <app-email-thread-audit></app-email-thread-audit>
+    <email-thread-audit></email-thread-audit>
   </div>
 </div>
 

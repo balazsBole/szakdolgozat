@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {filter, takeUntil} from "rxjs/operators";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {AuditFacade} from "../../root-store/audit/audit.facade";
 import {EmailThreadAudit} from "../../api/models/email-thread-audit";
 import {MatPaginator} from "@angular/material/paginator";
@@ -9,7 +9,7 @@ import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
-  selector: 'app-email-thread-audit',
+  selector: 'email-thread-audit',
   templateUrl: './email-thread-audit.component.html',
   styleUrls: ['./email-thread-audit.component.css']
 })
@@ -21,11 +21,13 @@ export class EmailThreadAuditComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   private readonly ngUnsubscribe = new Subject();
+  loading$: Observable<boolean>;
 
   constructor(private readonly route: ActivatedRoute, private readonly auditFacade: AuditFacade) {
   }
 
   ngOnInit(): void {
+    this.loading$ = this.auditFacade.loading$;
     this.route.queryParamMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe((paramMap: ParamMap) => {
       let idFromParam = paramMap.get('emailThreadId');
       this.show = !!idFromParam;

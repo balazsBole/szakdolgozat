@@ -51,6 +51,9 @@ import {EmailThreadAuditComponent} from './components/email-thread-audit/email-t
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {EnversRevtypePipe} from './pipes/envers-revtype.pipe';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 
 function initializeKeycloak(keycloak: KeycloakService) {
@@ -90,7 +93,8 @@ function initializeKeycloak(keycloak: KeycloakService) {
     ChangeQueueViewComponent,
     QueuePickerViewComponent,
     ThreadHistoryViewComponent,
-    EmailThreadAuditComponent
+    EmailThreadAuditComponent,
+    EnversRevtypePipe
   ],
   imports: [
     BrowserModule,
@@ -124,7 +128,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatAutocompleteModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   providers: [
     EmailIdResolver,

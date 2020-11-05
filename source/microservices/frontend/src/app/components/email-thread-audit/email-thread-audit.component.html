@@ -1,12 +1,12 @@
-<mat-card *ngIf="show">
+<mat-card *ngIf="show && !(loading$ | async)">
   <mat-card-header>
     <mat-card-title>History of</mat-card-title>
-    <mat-card-subtitle>{{dataSource.data[0].description}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="dataSource">{{dataSource.data[0].description}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input #input (keyup)="applyFilter($event)" matInput placeholder="Ex. Mia">
+      <mat-label>Search</mat-label>
+      <input #input (keyup)="applyFilter($event)" matInput>
     </mat-form-field>
 
     <div class="mat-elevation-z8">
@@ -23,13 +23,13 @@
         </ng-container>
 
         <ng-container matColumnDef="user">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header> Username</th>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> User</th>
           <td *matCellDef="let row" mat-cell> {{row.user}} </td>
         </ng-container>
 
         <ng-container matColumnDef="type">
-          <th *matHeaderCellDef mat-header-cell mat-sort-header> type</th>
-          <td *matCellDef="let row" mat-cell> {{row.type}}</td>
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> State</th>
+          <td *matCellDef="let row" mat-cell> {{row.type | enversRevtype}}</td>
         </ng-container>
 
         <ng-container matColumnDef="status">

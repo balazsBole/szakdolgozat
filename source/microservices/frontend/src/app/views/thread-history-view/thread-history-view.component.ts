@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EmailThread} from "../../api/models/email-thread";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuditFacade} from "../../root-store/audit/audit.facade";
-import {Subject} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 
 @Component({
@@ -14,12 +14,14 @@ export class ThreadHistoryViewComponent implements OnInit, OnDestroy {
   flexContainerHeight: string;
   threads: EmailThread[];
   private readonly ngUnsubscribe = new Subject();
+  loading$: Observable<boolean>;
 
 
   constructor(private readonly snackBar: MatSnackBar, private readonly auditFacade: AuditFacade) {
   }
 
   ngOnInit(): void {
+    this.loading$ = this.auditFacade.loading$;
     this.search();
     this.calculateFlexContainerHeight();
     this.auditFacade.emailThreadRelated$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
