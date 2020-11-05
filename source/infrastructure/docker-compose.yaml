@@ -69,7 +69,7 @@ services:
       SPRING_MAIL_PORT: 587
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_SOCKETFACTORY_PORT: 587
       SPRING_MAIL_IMAP_HOST: imap.gmx.com
-      SPRING_MAIL_USERNAME: h.gdf.theater%40gmx.com
+      SPRING_MAIL_USERNAME: h.gdf.theater@gmx.com
       SPRING_MAIL_PASSWORD: Thu9esejThu9esej
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"

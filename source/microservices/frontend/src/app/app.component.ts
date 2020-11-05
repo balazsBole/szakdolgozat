@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {KeycloakService} from "keycloak-angular";
 import {UserFacade} from "./root-store/user/user.facade";
 import {from, Subject} from "rxjs";
-import {take, takeUntil} from "rxjs/operators";
+import {filter, takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (loggedIn)
           this.userFacade.details();
       });
-    this.userFacade.hasQueue().pipe(take(1)).subscribe(
+    this.userFacade.hasQueue().pipe(filter(b => b), takeUntil(this.ngUnsubscribe)).subscribe(
       (hasQueue: boolean) => {
         this.hasQueue = hasQueue;
       });
