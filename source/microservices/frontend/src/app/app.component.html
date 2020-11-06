@@ -24,10 +24,9 @@
       </mat-nav-list>
       <mat-nav-list [ngClass]="{bottom: loggedIn}">
         <a href="http://172.17.0.1:8082/" mat-list-item> Login service </a>
-        <a
-          href="http://172.17.0.1:3000/d/heG081hMk/jvm-micrometer?orgId=1&var-application=&var-instance=172.17.0.1:8080&var-jvm_memory_pool_heap=All&var-jvm_memory_pool_nonheap=All"
-          mat-list-item> Backend
-          metrics </a>
+        <a href="http://172.17.0.1:3000/d/4QAC2b2Mk/micrometer?orgId=1&refresh=30s" mat-list-item> Backend metrics </a>
+        <a href="http://172.17.0.1:9093/#/cluster/default/topic/n/email.in.v1.pub/data/topic" mat-list-item> Kafka
+          messages </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="content">

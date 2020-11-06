@@ -9,11 +9,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/helpdesk
       KEYCLOAK_AUTH_SERVER_URL: http://172.17.0.1:8082/auth/
       SPRING_KAFKA_CONSUMER_GROUPID: "helpdesk-backend-0005"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
       SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
     depends_on:
-      - eureka
+      - eureka-service
       - db
       - prometheus
 
@@ -27,11 +27,11 @@ services:
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
       SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
     depends_on:
-      - eureka
+      - eureka-service
       - zookeeper
       - kafka
 
@@ -44,11 +44,11 @@ services:
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
       SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
     depends_on:
-      - eureka
+      - eureka-service
       - zookeeper
       - kafka
 
@@ -64,18 +64,16 @@ services:
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
       SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
     depends_on:
-      - eureka
+      - eureka-service
       - zookeeper
       - kafka
 
-  eureka:
+  eureka-service:
     image: springcloud/eureka
-    ports:
-      - 8761:8761
 
   db:
     image: postgres
@@ -85,13 +83,6 @@ services:
       - ./postgres:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_PASSWORD: postgres
-
-  adminer:
-    image: adminer
-    ports:
-      - 15432:8080
-    environment:
-      ADMINER_DESIGN: hever
 
   keycloak:
     image: quay.io/keycloak/keycloak:11.0.2
@@ -115,6 +106,8 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - 9090:9090
+    depends_on:
+      - eureka-service
 
   grafana:
     image: grafana/grafana
@@ -142,16 +135,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  clusterManager:
-    image: vimagick/cmak
-    ports:
-      - 9093:9000
-    environment:
-      ZK_HOSTS: zookeeper:2181
-    depends_on:
-      - kafka
-      - zookeeper
-
   schema-registry:
     image: confluentinc/cp-schema-registry
     ports:
@@ -163,3 +146,34 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: zookeeper:2181
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka:9092
+
+  kafka-rest:
+    image: confluentinc/cp-kafka-rest
+    environment:
+      KAFKA_REST_SCHEMA_REGISTRY_URL: schema-registry
+      KAFKA_REST_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_REST_HOST_NAME: kafka-rest
+    depends_on:
+      - schema-registry
+      - zookeeper
+      - kafka
+
+  kafka-ui:
+    image: landoop/kafka-topics-ui
+    ports:
+      - 9093:8000
+    environment:
+      KAFKA_REST_PROXY_URL: http://kafka-rest:8082
+      PROXY: "true"
+    depends_on:
+      - kafka-rest
+
+#  kafdrop:
+#    image: obsidiandynamics/kafdrop
+#    ports:
+#      - 9093:9000
+#    environment:
+#      SCHEMAREGISTRY_CONNECT: schema-registry
+#      KAFKA_BROKERCONNECT: kafka:9092
+#    depends_on:
+#      - kafka
