@@ -6,13 +6,8 @@ services:
     image: helpdesk-backend
     environment:
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_HOST: smtp.yandex.com
-      SPRING_MAIL_IMAP_HOST: imap.yandex.com
-      SPRING_MAIL_USERNAME: helpdesk.gdf
-      SPRING_MAIL_PASSWORD: Tha0xi7k
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/helpdesk
       KEYCLOAK_AUTH_SERVER_URL: http://172.17.0.1:8082/auth/
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://172.17.0.1:8082/auth/realms/helpdesk
       SPRING_KAFKA_CONSUMER_GROUPID: "helpdesk-backend-0005"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://172.17.0.1:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -26,10 +21,8 @@ services:
   email-client-generic:
     image: email-client
     environment:
-      SPRING_KAFKA_TOPIC_EMAILOUT: "helpdesk.gdf_yandex.com.v1.pub"
-      SPRING_MAIL_HOST: smtp.yandex.com
-      SPRING_MAIL_IMAP_HOST: imap.yandex.com
-      SPRING_MAIL_USERNAME: helpdesk.gdf
+      LOCAL_PART: helpdesk.gdf
+      DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Tha0xi7k
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
@@ -45,10 +38,8 @@ services:
   email-client-travel:
     image: email-client
     environment:
-      SPRING_KAFKA_TOPIC_EMAILOUT: "helpdesk.gdf.travel_yandex.com.v1.pub"
-      SPRING_MAIL_HOST: smtp.yandex.com
-      SPRING_MAIL_IMAP_HOST: imap.yandex.com
-      SPRING_MAIL_USERNAME: helpdesk.gdf.travel
+      LOCAL_PART: helpdesk.gdf.travel
+      DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Xo8nua4o
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
@@ -64,13 +55,12 @@ services:
   email-client-theater:
     image: email-client
     environment:
-      SPRING_KAFKA_TOPIC_EMAILOUT: "h.gdf.theater_gmx.com.v1.pub"
-      SPRING_MAIL_HOST: mail.gmx.com
-      SPRING_MAIL_PORT: 587
-      SPRING_MAIL_PROPERTIES_MAIL_SMTP_SOCKETFACTORY_PORT: 587
-      SPRING_MAIL_IMAP_HOST: imap.gmx.com
+      LOCAL_PART: h.gdf.theater
+      DOMAIN: gmx.com
       SPRING_MAIL_USERNAME: h.gdf.theater@gmx.com
       SPRING_MAIL_PASSWORD: Thu9esejThu9esej
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_SOCKETFACTORY_PORT: 587
+      SPRING_MAIL_PORT: 587
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_MAIL_IMAP_USERFLAG: "client40"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
@@ -129,15 +119,11 @@ services:
   grafana:
     image: grafana/grafana
     volumes:
-      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/prometheus.yml
-      - ./grafana/dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
-      - ./grafana/mydashboard.json:/var/lib/grafana/dashboards/mydashboard.json
+      - ./grafana:/var/lib/grafana
     ports:
       - 3000:3000
     depends_on:
       - prometheus
-    environment:
-      GF_PATH_PROVISIONING: "/etc/grafana/provisioning"
 
 
   zookeeper:

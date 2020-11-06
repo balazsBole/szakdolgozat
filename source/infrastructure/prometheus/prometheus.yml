@@ -19,8 +19,8 @@ scrape_configs:
     static_configs:
       - targets: ['127.0.0.1:9090']
 
-  - job_name: helpdesk-backend
+  - job_name: eureka-services
     metrics_path: '/actuator/prometheus'
     scrape_interval: 5s
-    static_configs:
-      - targets: [ '172.17.0.1:8080' ]
+    eureka_sd_configs:
+      - server: 'http://172.17.0.1:8761/eureka'

@@ -21,7 +21,12 @@ management:
     web:
       exposure:
         include: "*"
-
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
 spring:
   datasource:
     url: 'jdbc:postgresql://localhost:5432/helpdesk'
@@ -64,7 +69,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://172.17.0.1:8082/auth/realms/helpdesk
+          issuer-uri: ${keycloak.auth-server-url}realms/helpdesk
 
   kafka:
     enable: true

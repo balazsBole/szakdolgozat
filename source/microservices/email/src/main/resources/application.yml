@@ -1,16 +1,18 @@
 debug: true
+local-part: helpdesk.gdf
+domain: yandex.com
 eureka:
   client:
     enabled: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
   instance:
-    appname: email-client
+    appname: email-client-${local-part}_${domain}
 
 spring:
   mail:
-    host: smtp.yandex.com
-    username: helpdesk.gdf
+    host: smtp.${domain}
+    username: ${local-part}
     password: Tha0xi7k
     port: 465
     properties:
@@ -23,7 +25,7 @@ spring:
           starttls:
             enable: true
     imap:
-      host: imap.yandex.com
+      host: imap.${domain}
       port: 993
       userFlag: client18
 
@@ -33,7 +35,8 @@ spring:
 
     topic:
       emailIn: "email.in.v1.pub"
-      emailOut: "helpdesk.gdf_yandex.com.v1.pub"
+      emailOutSuffix: ".v1.pub"
+      emailOut: ${local-part}_${domain}${spring.kafka.topic.emailOutSuffix}
 
     properties:
       schema.registry.url: "http://localhost:8081"
