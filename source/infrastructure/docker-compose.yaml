@@ -1,8 +1,6 @@
 version: '3.7'
 services:
   helpdesk-backend:
-    ports:
-      - 8080:8080
     image: helpdesk-backend
     environment:
       EUREKA_CLIENT_ENABLED: "true"
