@@ -34,6 +34,7 @@ services:
       - eureka-service
       - zookeeper
       - kafka
+      - schema-registry
 
   email-client-travel:
     image: email-client
@@ -51,6 +52,7 @@ services:
       - eureka-service
       - zookeeper
       - kafka
+      - schema-registry
 
   email-client-theater:
     image: email-client
@@ -71,6 +73,7 @@ services:
       - eureka-service
       - zookeeper
       - kafka
+      - schema-registry
 
   eureka-service:
     image: springcloud/eureka
@@ -95,7 +98,6 @@ services:
       KEYCLOAK_PASSWORD: admin
       KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json
 
-
   prometheus:
     image: prom/prometheus
     volumes:
@@ -117,7 +119,6 @@ services:
       - 3000:3000
     depends_on:
       - prometheus
-
 
   zookeeper:
     image: wurstmeister/zookeeper
@@ -167,13 +168,3 @@ services:
       PROXY: "true"
     depends_on:
       - kafka-rest
-
-#  kafdrop:
-#    image: obsidiandynamics/kafdrop
-#    ports:
-#      - 9093:9000
-#    environment:
-#      SCHEMAREGISTRY_CONNECT: schema-registry
-#      KAFKA_BROKERCONNECT: kafka:9092
-#    depends_on:
-#      - kafka

@@ -25,7 +25,7 @@ import java.util.UUID;
 @CrossOrigin
 public class EmailThreadRestController {
 
-    public static final String ROOT_PATH = "/email-thread";
+    public static final String ROOT_PATH = "/api/email-thread";
 
     private final EmailThreadService service;
 

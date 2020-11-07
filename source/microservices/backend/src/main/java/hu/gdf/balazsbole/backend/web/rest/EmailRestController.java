@@ -23,7 +23,7 @@ import java.util.UUID;
 @CrossOrigin
 public class EmailRestController {
 
-    public static final String ROOT_PATH = "/email";
+    public static final String ROOT_PATH = "/api/email";
 
     private final EmailService service;
     private final EmailKafkaProducer kafkaProducer;

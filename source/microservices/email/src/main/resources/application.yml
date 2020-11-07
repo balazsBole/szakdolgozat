@@ -3,11 +3,17 @@ local-part: helpdesk.gdf
 domain: yandex.com
 eureka:
   client:
-    enabled: true
+    enabled: false
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
   instance:
     appname: email-client-${local-part}_${domain}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "prometheus,health"
 
 spring:
   mail:

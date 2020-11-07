@@ -22,7 +22,7 @@ import java.util.UUID;
 @CrossOrigin
 public class UserRestController {
 
-    public static final String ROOT_PATH = "/user";
+    public static final String ROOT_PATH = "/api/user";
 
     private final UserService service;
 

@@ -24,7 +24,7 @@ import java.util.List;
 @CrossOrigin
 public class QueueRestController {
 
-    public static final String ROOT_PATH = "/queue";
+    public static final String ROOT_PATH = "/api/queue";
 
     private final QueueService service;
 

@@ -24,7 +24,7 @@ import java.util.UUID;
 @CrossOrigin
 public class AuditRestController {
 
-    public static final String ROOT_PATH = "/audit";
+    public static final String ROOT_PATH = "/api/audit";
 
     private final AuditService service;
 
