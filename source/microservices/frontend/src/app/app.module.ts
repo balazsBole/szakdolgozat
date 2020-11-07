@@ -59,7 +59,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
-        url: 'http://172.17.0.1:8082/auth',
+        url: window.location.origin + '/auth',
         realm: 'helpdesk',
         clientId: 'helpdesk-frontend',
       },

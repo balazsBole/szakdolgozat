@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   admin: boolean;
   loggedIn: boolean;
   private readonly ngUnsubscribe = new Subject();
+  basePath: string = window.location.origin;
 
   constructor(private readonly service: KeycloakService, private readonly userFacade: UserFacade) {
   }

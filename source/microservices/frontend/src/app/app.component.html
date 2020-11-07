@@ -23,7 +23,7 @@
         <a *ngIf="!hasQueue || admin" [routerLink]="'/choose-queue'" mat-list-item> Choose queue </a>
       </mat-nav-list>
       <mat-nav-list [ngClass]="{bottom: loggedIn}">
-        <a href="http://172.17.0.1:8082/" mat-list-item> Login service </a>
+        <a href="{{basePath}}/auth" mat-list-item> Login service </a>
         <a
           href="http://172.17.0.1:3000/d/spring_boot_21/spring-boot-2-1-statistics?orgId=1&var-application=HELPDESK-BACKEND&var-instance=18b5b77178fd:8080&var-hikaricp=HikariPool-2&var-memory_pool_heap=All&var-memory_pool_nonheap=All&from=now-15m&to=now"
           mat-list-item> Spring metrics </a>
