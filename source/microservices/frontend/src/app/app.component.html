@@ -24,9 +24,8 @@
       </mat-nav-list>
       <mat-nav-list [ngClass]="{bottom: loggedIn}">
         <a href="{{basePath}}/auth" mat-list-item> Login service </a>
-        <a
-          href="http://172.17.0.1:3000/d/spring_boot_21/spring-boot-2-1-statistics?orgId=1&var-application=HELPDESK-BACKEND&var-instance=18b5b77178fd:8080&var-hikaricp=HikariPool-2&var-memory_pool_heap=All&var-memory_pool_nonheap=All&from=now-15m&to=now"
-          mat-list-item> Spring metrics </a>
+        <a href="http://172.17.0.1:3000/d/spring_boot_21/spring-boot-metrics-per-instance" mat-list-item>
+          Spring metrics </a>
         <a href="http://172.17.0.1:3000/d/8uiiVf2Gz/micrometer?orgId=1&refresh=30s&from=now-15m&to=now" mat-list-item>
           Backend metrics </a>
         <a href="http://172.17.0.1:8761" mat-list-item>

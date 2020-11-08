@@ -3,6 +3,7 @@ services:
   helpdesk-backend:
     image: helpdesk-backend
     environment:
+      DEBUG: "false"
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/helpdesk
       KEYCLOAK_AUTH_SERVER_URL: http://helpdesk/auth/
@@ -19,11 +20,12 @@ services:
   email-client-generic:
     image: email-client
     environment:
+      DEBUG: "false"
       LOCAL_PART: helpdesk.gdf
       DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Tha0xi7k
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client50"
+      SPRING_MAIL_IMAP_USERFLAG: "client51"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -37,11 +39,12 @@ services:
   email-client-travel:
     image: email-client
     environment:
+      DEBUG: "false"
       LOCAL_PART: helpdesk.gdf.travel
       DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Xo8nua4o
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client50"
+      SPRING_MAIL_IMAP_USERFLAG: "client51"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -55,6 +58,7 @@ services:
   email-client-theater:
     image: email-client
     environment:
+      DEBUG: "false"
       LOCAL_PART: h.gdf.theater
       DOMAIN: gmx.com
       SPRING_MAIL_USERNAME: h.gdf.theater@gmx.com
@@ -62,7 +66,7 @@ services:
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_SOCKETFACTORY_PORT: 587
       SPRING_MAIL_PORT: 587
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client50"
+      SPRING_MAIL_IMAP_USERFLAG: "client51"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -133,7 +137,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
-      KAFKA_CREATE_TOPICS: "email.in.v1.pub:2:3,helpdesk.gdf_yandex.com.v1.pub:2:3,helpdesk.gdf.travel_yandex.com.v1.pub:2:3,h.gdf.theater_gmx.com.v1.pub:2:3"
+      KAFKA_CREATE_TOPICS: "email.in.v1.pub:3:2,helpdesk.gdf_yandex.com.v1.pub:3:2,helpdesk.gdf.travel_yandex.com.v1.pub:3:2,h.gdf.theater_gmx.com.v1.pub:3:2"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
