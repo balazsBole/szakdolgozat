@@ -5,11 +5,11 @@ services:
     environment:
       EUREKA_CLIENT_ENABLED: "true"
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/helpdesk
-      KEYCLOAK_AUTH_SERVER_URL: http://172.17.0.1/auth/
-      SPRING_KAFKA_CONSUMER_GROUPID: "helpdesk-backend-0005"
+      KEYCLOAK_AUTH_SERVER_URL: http://helpdesk/auth/
+      SPRING_KAFKA_CONSUMER_GROUPID: "helpdesk-backend-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://schema-registry:8081
     depends_on:
       - eureka-service
       - db
@@ -23,11 +23,11 @@ services:
       DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Tha0xi7k
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client40"
-      SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
+      SPRING_MAIL_IMAP_USERFLAG: "client50"
+      SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://schema-registry:8081
     depends_on:
       - eureka-service
       - zookeeper
@@ -41,11 +41,11 @@ services:
       DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Xo8nua4o
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client40"
-      SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
+      SPRING_MAIL_IMAP_USERFLAG: "client50"
+      SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://schema-registry:8081
     depends_on:
       - eureka-service
       - zookeeper
@@ -62,11 +62,11 @@ services:
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_SOCKETFACTORY_PORT: 587
       SPRING_MAIL_PORT: 587
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client40"
-      SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0012"
+      SPRING_MAIL_IMAP_USERFLAG: "client50"
+      SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
-      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: schema-registry:8081
+      SPRING_KAFKA_PROPERTIES_SCHEMA_REGISTRY_URL: http://schema-registry:8081
     depends_on:
       - eureka-service
       - zookeeper
@@ -128,7 +128,7 @@ services:
   kafka:
     image: wurstmeister/kafka
     ports:
-      - 9092:9092
+      - 9092
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -170,7 +170,7 @@ services:
     depends_on:
       - kafka-rest
 
-  nginx:
+  helpdesk:
     image: nginx
     ports:
       - 80:80
