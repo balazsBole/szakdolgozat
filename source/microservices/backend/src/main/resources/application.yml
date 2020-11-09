@@ -12,7 +12,7 @@ keycloak:
   auth-server-url: http://172.17.0.1:8082/auth/
   resource: helpdesk-backend
   realm: helpdesk
-  .public-client: false
+  public-client: false
   credentials:
     secret: a19c684e-3cd7-461d-8da9-78fd53136710
 

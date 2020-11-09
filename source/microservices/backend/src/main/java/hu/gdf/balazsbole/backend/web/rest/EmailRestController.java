@@ -35,7 +35,7 @@ public class EmailRestController {
     }
 
     @GetMapping("/{emailId}")
-    @ApiOperation(nickname = "details", value = "Get Email by UUID.")
+    @ApiOperation(nickname = "emailDetails", value = "Get Email by UUID.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns email."),
             @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "Email with the given ID does not exists."),

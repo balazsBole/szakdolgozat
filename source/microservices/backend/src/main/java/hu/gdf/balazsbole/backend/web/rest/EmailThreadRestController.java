@@ -34,7 +34,7 @@ public class EmailThreadRestController {
     }
 
     @GetMapping("/{emailThreadId}")
-    @ApiOperation(nickname = "details", value = "Get EmailThread by UUID.")
+    @ApiOperation(nickname = "emailThreadDetails", value = "Get EmailThread by UUID.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns email."),
             @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "EmailThread with the given ID does not exists."),
