@@ -1,0 +1,63 @@
+% !TeX spellcheck = hu_HU
+% Preamble 
+\input{preamble.tex}
+
+% Doc Values
+
+\title{Helpdesk rendszer megvalósítása Microservices alapú elosztott alkalmazással}
+\author{Bőle Balázs}
+\date{\today}
+\graphicspath{{Figs/}}  % automatic graphics folder
+
+%%%%%%%% DOCUMENT %%%%%%%%
+\begin{document}
+\sloppy
+\pagenumbering{roman}
+%%%% Title Page
+%\pagestyle{empty}
+\makeatletter  % referring to the values of title, etc.
+\input{titlepage.tex}
+\makeatother
+
+\clearpage
+\input{abstract.tex}
+
+\pagestyle{front}
+\tableofcontents
+
+\begingroup
+\let\clearpage\relax
+\listoffigures
+\endgroup
+
+
+\clearpage
+\pagenumbering{arabic}
+\chapter*{Bevezetés}\label{ch:bevezetes}
+	\addcontentsline{toc}{chapter}{\nameref{ch:bevezetes}}
+\input{Chapters/0.tex}
+\lipsum
+
+
+\chapter{Üzleti igények}\label{ch:uzleti_igenyek}
+\pagestyle{main}
+\input{Chapters/uzleti_igenyek.tex}
+\lipsum
+
+
+\chapter*{Diszkusszió}\label{ch:diszkusszió}
+\pagestyle{plain}
+\input{Chapters/diszkusszio.tex}
+
+
+
+\newpage
+
+
+
+\bibliographystyle{unsrturl}
+\bibliography{references.bib}
+
+
+
+\end{document}
