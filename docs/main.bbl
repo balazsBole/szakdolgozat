@@ -1,3 +1,9 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{OReally}
+Mike~Loukides és Steve~Swoyer.
+\newblock Microservices adoption in 2020, Júl. 15 2020.
+\newblock URL:
+  \url{https://www.oreilly.com/radar/microservices-adoption-in-2020/}.
 
 \end{thebibliography}

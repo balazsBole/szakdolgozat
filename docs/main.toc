@@ -1,5 +1,7 @@
 \select@language {magyar} \contentsline {chapter}{Tartalomjegyz\'ek}{iii}{chapter*.1}% 
 \select@language {magyar} \contentsline {chapter}{\'Abr\'ak jegyz\'eke}{iii}{chapter*.2}% 
 \select@language {magyar} \contentsline {chapter}{\nameref {ch:bevezetes}}{1}{chapter*.3}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {1}\IeC {\"U}zleti ig\IeC {\'e}nyek}{3}{chapter.1}% 
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{6}{chapter*.5}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {1}\IeC {\"U}zleti ig\IeC {\'e}nyek}{2}{chapter.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {1.1}Funkcion\IeC {\'a}lis ig\IeC {\'e}nyek}{2}{section.1.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {1.2}Nem funkcion\IeC {\'a}lis ig\IeC {\'e}nyek}{2}{section.1.2}% 
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{5}{chapter*.5}% 
