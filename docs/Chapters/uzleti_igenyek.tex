@@ -1,8 +1,56 @@
-Ebben a fejezetben szeretném bemutatni a \foreignlanguage{british}{Helpdesk}
+Ebben a fejezetben szeretném bemutatni a \foreignlanguage{british}{Helpdesk} alkalmazás felé megfogalmazott üzleti igényeket.
+
 
 
 \section{Funkcionális igények}
 
+\subsection{E-mail fogadása és küldése}\label{sec:email_fogadas_kuldes}
+Az ügyfelektől érkező e-maileket az alkalmazás képes fogadni, hosszú távra megőrizni. Számukra formázott válasz e-mail küldhető.
+
+A rendszernek képesnek kell lennie több e-mail cím kezelésére. A beérkező új üzeneteket a címzettnek megfelelő előre definiált sorhoz kell hozzárendelni.
+
+
+
+\subsection{E-mail szálak kezelése}
+A rendszer által kezelt üzenetek szálakba rendezve érhetőek el. Egy szál az ügyfél és a felhasználó közötti üzenetváltásokból épül fel.
+
+Az üzenetszálakra vonatkozó összes adat historikusan lekérdezhető, státuszuk \aref{fig:statusz_diagram} ábrán definiált útvonalaknak megfelelően változtatható.  
+
+\begin{figure}[hbt] 
+	\caption{Az e-mailszálak státuszváltozásai}
+	\centering
+	\includegraphics[width=0.75\textwidth]{statusz_diagram_drawio.pdf}\label{fig:statusz_diagram}
+\end{figure}
+
+
+
+\subsection{Több felhasználó}
+A rendszert egyszerre több felhasználó használhatja. Minden felhasználó csak a saját emailszálait kezelheti, csak azokra válaszolhat.
+
+	
+Minden felhasználó pontosan egy \aref{sec:email_fogadas_kuldes} fejezetben említett sorhoz tartozik. Csak az ugyanabba a sorba tartozó e-mail szál rendelhető hozzá.
+A számára kijelölt szálakat képes --a saját során belül-- más felhasználóhoz rendelni. 
+
+A felhasználók eltérő jogkörökkel rendelkezhetnek. Az adminisztratív jogkörrel rendelkező felhasználó végzi az új emailszál felhasználóhoz rendelését, valamint a \foreignlanguage{british}{\textit{change queue}} státuszban (\ref{fig:statusz_diagram} ábra) lévő üzenetszálak új sorba irányítását.
+
+A konfigurációs jogkörrel rendelkező felhasználó feladata más felhasználók regisztrálása, valamint az alakalmazásban használt jogkörök (\foreignlanguage{british}{\textit{role}}-ok) kezelése. Lehetősége van továbbá authentikációs logok megtekintésére, jelszó visszaállítására és más felhasználók megszemélyesítésére (\foreignlanguage{british}{\textit{impersonate}}).
+
+A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} ábra foglalja össze.
+
+\begin{figure}[hbt] 
+	\caption{Elérhető funkciók jogosultság szerint csoportosítva}
+	\centering
+	\includegraphics[width=0.75\textwidth]{funkcio_diagram_drawio.pdf}\label{fig:funkcio_diagram}
+\end{figure}
+
+
+
+\subsection{I18N}
+A felhasználói, adminisztratív és karbantartói felületek angol nyelven érhetőek el. Több nyelv kezelése nem szükséges.
 
 
 \section{Nem funkcionális igények}	
+\lipsum
+
+
+angol nyelven elérhető
