@@ -17,9 +17,9 @@ A rendszer által kezelt üzenetek szálakba rendezve érhetőek el. Egy szál a
 Az üzenetszálakra vonatkozó összes adat historikusan lekérdezhető, státuszuk \aref{fig:statusz_diagram} ábrán definiált útvonalaknak megfelelően változtatható.  
 
 \begin{figure}[hbt] 
-	\caption{Az e-mailszálak státuszváltozásai}
 	\centering
-	\includegraphics[width=0.75\textwidth]{statusz_diagram_drawio.pdf}\label{fig:statusz_diagram}
+	\includegraphics[width=0.85\textwidth]{statusz_diagram_drawio.pdf}
+	\caption{Az e-mailszálak státuszváltozásai}\label{fig:statusz_diagram}
 \end{figure}
 
 
@@ -38,19 +38,30 @@ A konfigurációs jogkörrel rendelkező felhasználó feladata más felhasznál
 A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} ábra foglalja össze.
 
 \begin{figure}[hbt] 
-	\caption{Elérhető funkciók jogosultság szerint csoportosítva}
 	\centering
-	\includegraphics[width=0.75\textwidth]{funkcio_diagram_drawio.pdf}\label{fig:funkcio_diagram}
+	\includegraphics[width=0.85\textwidth]{funkcio_diagram_drawio.pdf}
+	\caption{Elérhető funkciók jogosultság szerint csoportosítva}\label{fig:funkcio_diagram}
 \end{figure}
 
+
+\section{Nem funkcionális igények}	
+
+
+\subsection[Skálázhatóság]{Horizontális skálázhatóság}
+A kiszolgálandó kliensek száma napi és havi szinten is eltérő. Az év egyes időszakaiban nagyobb volumenű ügyfél-interakció prognosztizálható. A hibatűrés javítása, és a megnövekedett forgalom érdekében --ezekben az előre meghatározott időszakokban-- horizontális skálázódás szükséges.
+
+
+\subsection{Granuláris felosztottság}
+A \foreignlanguage{british}{helpdesk} alkalmazást használó ügyfélszolgálat munkaórákban a legaktívabb, míg az e-maileket küldő ügyfelek hétvégente és hétköznap munkaórákon kívül a legaktívabbak.
+
+A hosszútávú tervekben szerepel a \foreignlanguage{british}{helpdesk} alkalmazás és a belső céges levelezés integrálása.
+
+A fenti két szempont miatt célszerű a megvalósítandó funkciók minél nagyobb mértékű szeparálására törekedni.
+
+
+\subsection{Mérhető indikátorok}
+A rendszernek átlagosan $100$ felhasználót kell kiszolgálnia másodpercenként. A várható csúcsteljesítmény $10~000$ lekérdezés másodpercenként. A tolerálható legnagyobb válaszidő 1 másodperc/lekérés.
 
 
 \subsection{I18N}
 A felhasználói, adminisztratív és karbantartói felületek angol nyelven érhetőek el. Több nyelv kezelése nem szükséges.
-
-
-\section{Nem funkcionális igények}	
-\lipsum
-
-
-angol nyelven elérhető
