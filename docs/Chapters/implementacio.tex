@@ -1,0 +1,72 @@
+\section{Mikroszerviz infrastruktúra}
+\subsection{nginx}
+static html-t szolgál ki a frontendnek -- lightweit application server
+
+routingot valósul meg, rajta keresztül lehet elérni az auth*-ot és a helpdesk backendet
+
+cache-t valósít meg a backen és a frontend között
+
+\subsection{docker konténerizáció}
+round-robin dns, docker compose, scale, images
+
+\subsection{metrikák}
+prometheus scraper, graphana, eurekát is itt használom leginkább
+
+
+
+
+
+
+\section{E-mail kliens}
+kafka producer, imap és smtp kliens
+
+\subsection{E-mail szabvány}
+	rfc5322: 
+	messageId
+	replyTo
+	refereneces
+
+
+
+
+
+
+
+\section{helpdesk backend}
+Class Diagram
+
+\subsection{springBoot}
+default behavior, DI
+security, 	
+
+\subsection{data persistance layer}
+hibernate, liquibase, Hibernate envers (Auditlog)
+
+\subsection{egyéb eszközök}
+openApi dokumnetáció, mapstruct, hibernate, lombok
+
+
+
+
+
+
+\section{helpdesk frontend}
+MVC szerint van szeparálva a kód 	
+
+\subsection{RxJs store}
+
+\subsection{Komponensek}
+material, quill
+
+\subsection{deploymnet}
+static html-lé fordul a kliens oldalán fut a frontend
+
+
+
+
+
+
+\section{keycloak}	
+\subsection{JWT-token}
+\subsection{role-ok}
+\subsection{admin felületről valami?}

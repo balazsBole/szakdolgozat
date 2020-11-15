@@ -1,11 +1,5 @@
 \begin{thebibliography}{1}
 
-\bibitem{Alistair_Cockburn}
-Dr.~Alistair Cockburn.
-\newblock Hexagonal architecture, Ápr. 1 2005.
-\newblock URL:
-  \url{https://web.archive.org/web/20180822100852/http://alistair.cockburn.us/Hexagonal+architecture}.
-
 \bibitem{OReally}
 Mike~Loukides és Steve~Swoyer.
 \newblock Microservices adoption in 2020, Júl. 15 2020.
@@ -23,6 +17,12 @@ Matt McLarty Mike~Amundsen Irakli~Nadareishvili, Ronnie~Mitra.
 \newblock {\em Microservice Architecture: Aligning Principles, Practices, and
   Culture}, chapter 1, The Microservices Way.
 \newblock O’Reilly, 1 edition, 2016.
+
+\bibitem{Alistair_Cockburn}
+Dr.~Alistair Cockburn.
+\newblock Hexagonal architecture, Ápr. 1 2005.
+\newblock URL:
+  \url{https://web.archive.org/web/20180822100852/http://alistair.cockburn.us/Hexagonal+architecture}.
 
 \bibitem{The_Clean_Architecture}
 Robert~C. Martin.
