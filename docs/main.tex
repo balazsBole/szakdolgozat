@@ -34,13 +34,18 @@
 \pagenumbering{arabic}
 \chapter*{Bevezetés}\label{ch:bevezetes}
 	\addcontentsline{toc}{chapter}{\nameref{ch:bevezetes}}
-\input{Chapters/0.tex}
+\input{Chapters/bevezetes.tex}
 
 
 \chapter{Üzleti igények}\label{ch:uzleti_igenyek}
 \pagestyle{main}
 \input{Chapters/uzleti_igenyek.tex}
 
+
+
+\chapter[Technológiai áttekintés]{Felhasznált technológiák}\label{ch:felhasznalt_technologiak}
+\pagestyle{main}
+\input{Chapters/felhasznalt_technologiak.tex}
 
 
 \chapter*{Diszkusszió}\label{ch:diszkusszió}
@@ -53,7 +58,7 @@
 
 
 % References
-	\bibliographystyle{unsrturl}
+\bibliographystyle{unsrturl}
 \bibliography{references.bib}
 
 

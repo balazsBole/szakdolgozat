@@ -1,5 +1,11 @@
 \begin{thebibliography}{1}
 
+\bibitem{Alistair_Cockburn}
+Dr.~Alistair Cockburn.
+\newblock Hexagonal architecture, Ápr. 1 2005.
+\newblock URL:
+  \url{https://web.archive.org/web/20180822100852/http://alistair.cockburn.us/Hexagonal+architecture}.
+
 \bibitem{OReally}
 Mike~Loukides és Steve~Swoyer.
 \newblock Microservices adoption in 2020, Júl. 15 2020.
@@ -11,5 +17,17 @@ Andzhela Angelova.
 \newblock 10reasons why microservices are the future, Jún. 20 2020.
 \newblock URL:
   \url{https://wiredelta.com/10-reasons-why-microservices-are-the-future/}.
+
+\bibitem{OReally_Microservice_Architecture}
+Matt McLarty Mike~Amundsen Irakli~Nadareishvili, Ronnie~Mitra.
+\newblock {\em Microservice Architecture: Aligning Principles, Practices, and
+  Culture}, chapter 1, The Microservices Way.
+\newblock O’Reilly, 1 edition, 2016.
+
+\bibitem{The_Clean_Architecture}
+Robert~C. Martin.
+\newblock The clean architecture, Aug. 13 2012.
+\newblock URL:
+  \url{https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html}.
 
 \end{thebibliography}

@@ -1,5 +1,5 @@
 \select@language {magyar} \contentsline {chapter}{Tartalomjegyz\'ek}{iii}{chapter*.1}% 
-\select@language {magyar} \contentsline {chapter}{\'Abr\'ak jegyz\'eke}{iii}{chapter*.2}% 
+\select@language {magyar} \contentsline {chapter}{\'Abr\'ak jegyz\'eke}{iv}{chapter*.2}% 
 \select@language {magyar} \contentsline {chapter}{\nameref {ch:bevezetes}}{1}{chapter*.3}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {1}\IeC {\"U}zleti ig\IeC {\'e}nyek}{2}{chapter.1}% 
 \select@language {magyar} \contentsline {section}{\numberline {1.1}Funkcion\IeC {\'a}lis ig\IeC {\'e}nyek}{2}{section.1.1}% 
@@ -11,4 +11,9 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {1.2.2}Granul\IeC {\'a}ris felosztotts\IeC {\'a}g}{4}{subsection.1.2.2}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {1.2.3}M\IeC {\'e}rhet\IeC {\H o} indik\IeC {\'a}torok}{4}{subsection.1.2.3}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {1.2.4}I18N}{5}{subsection.1.2.4}% 
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{8}{chapter*.7}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Technol\IeC {\'o}giai \IeC {\'a}ttekint\IeC {\'e}s}{6}{chapter.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Mikroszerviz architekt\IeC {\'u}ra}{6}{section.2.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Hexagon\IeC {\'a}lis architekt\IeC {\'u}ra}{7}{section.2.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.3}Event stream processing}{8}{section.2.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.4}R\IeC {\'e}tegek szepar\IeC {\'a}l\IeC {\'a}sa}{8}{section.2.4}% 
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{11}{chapter*.8}% 
