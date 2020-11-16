@@ -16,8 +16,8 @@
 \BOOKMARK [1][-]{section.2.2}{Hexagon\341lis architekt\372ra}{chapter.2}% 16
 \BOOKMARK [1][-]{section.2.3}{Event stream processing}{chapter.2}% 17
 \BOOKMARK [1][-]{section.2.4}{R\351tegek szepar\341l\341sa}{chapter.2}% 18
-\BOOKMARK [1][-]{section.2.5}{Spring Boot?}{chapter.2}% 19
-\BOOKMARK [1][-]{section.2.6}{Angular?}{chapter.2}% 20
+\BOOKMARK [1][-]{section.2.5}{Angular}{chapter.2}% 19
+\BOOKMARK [1][-]{section.2.6}{Spring Boot?}{chapter.2}% 20
 \BOOKMARK [0][-]{chapter.3}{Architektur\341lis \341ttekint\351s}{}% 21
 \BOOKMARK [1][-]{section.3.1}{Component Diagram}{chapter.3}% 22
 \BOOKMARK [1][-]{section.3.2}{Sequence UML Diagram}{chapter.3}% 23
@@ -25,8 +25,8 @@
 \BOOKMARK [1][-]{section.3.4}{\301tfog\363 \341ttekint\351s az implement\341l\341s bemutat\341sa elott}{chapter.3}% 25
 \BOOKMARK [0][-]{chapter.4}{Implement\341ci\363}{}% 26
 \BOOKMARK [1][-]{section.4.1}{Mikroszerviz infrastrukt\372ra}{chapter.4}% 27
-\BOOKMARK [2][-]{subsection.4.1.1}{nginx}{section.4.1}% 28
-\BOOKMARK [2][-]{subsection.4.1.2}{docker kont\351neriz\341ci\363}{section.4.1}% 29
+\BOOKMARK [2][-]{subsection.4.1.1}{Nginx}{section.4.1}% 28
+\BOOKMARK [2][-]{subsection.4.1.2}{Docker kont\351neriz\341ci\363}{section.4.1}% 29
 \BOOKMARK [2][-]{subsection.4.1.3}{metrik\341k}{section.4.1}% 30
 \BOOKMARK [1][-]{section.4.2}{E-mail kliens}{chapter.4}% 31
 \BOOKMARK [2][-]{subsection.4.2.1}{E-mail szabv\341ny}{section.4.2}% 32
@@ -46,6 +46,7 @@
 \BOOKMARK [1][-]{section.5.1}{Load test}{chapter.5}% 46
 \BOOKMARK [1][-]{section.5.2}{Multiple instance}{chapter.5}% 47
 \BOOKMARK [1][-]{section.5.3}{Egy e-mail \372tja}{chapter.5}% 48
-\BOOKMARK [1][-]{section.5.4}{Kafka topicok?}{chapter.5}% 49
-\BOOKMARK [0][-]{chapter.6}{Tov\341bbfejleszt\351si lehetos\351gek}{}% 50
-\BOOKMARK [0][-]{chapter*.8}{Irodalomjegyz\351k}{}% 51
+\BOOKMARK [1][-]{section.5.4}{Felhaszn\341l\363i fel\374let funkci\363i}{chapter.5}% 49
+\BOOKMARK [1][-]{section.5.5}{Kafka topicok?}{chapter.5}% 50
+\BOOKMARK [0][-]{chapter.6}{Tov\341bbfejleszt\351si lehetos\351gek}{}% 51
+\BOOKMARK [0][-]{chapter*.10}{Irodalomjegyz\351k}{}% 52

@@ -30,4 +30,9 @@ Robert~C. Martin.
 \newblock URL:
   \url{https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html}.
 
+\bibitem{angular_docs}
+Introduction to angular concepts.
+\newblock Letöltve: 2020. Nov. 16.
+\newblock URL: \url{https://angular.io/guide/architecture}.
+
 \end{thebibliography}

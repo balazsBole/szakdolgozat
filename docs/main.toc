@@ -16,36 +16,37 @@
 \select@language {magyar} \contentsline {section}{\numberline {2.2}Hexagon\IeC {\'a}lis architekt\IeC {\'u}ra}{7}{section.2.2}% 
 \select@language {magyar} \contentsline {section}{\numberline {2.3}Event stream processing}{8}{section.2.3}% 
 \select@language {magyar} \contentsline {section}{\numberline {2.4}R\IeC {\'e}tegek szepar\IeC {\'a}l\IeC {\'a}sa}{8}{section.2.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.5}Spring Boot?}{8}{section.2.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.6}Angular?}{8}{section.2.6}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Architektur\IeC {\'a}lis \IeC {\'a}ttekint\IeC {\'e}s}{9}{chapter.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {3.1}Component Diagram}{9}{section.3.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {3.2}Sequence UML Diagram}{9}{section.3.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {3.3}Adatb\IeC {\'a}zis UML \IeC {\'a}bra}{9}{section.3.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {3.4}\IeC {\'A}tfog\IeC {\'o} \IeC {\'a}ttekint\IeC {\'e}s az implement\IeC {\'a}l\IeC {\'a}s bemutat\IeC {\'a}sa el\IeC {\H o}tt}{9}{section.3.4}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {4}Implement\IeC {\'a}ci\IeC {\'o}}{10}{chapter.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.1}Mikroszerviz infrastrukt\IeC {\'u}ra}{10}{section.4.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}nginx}{10}{subsection.4.1.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}docker kont\IeC {\'e}neriz\IeC {\'a}ci\IeC {\'o}}{10}{subsection.4.1.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.1.3}metrik\IeC {\'a}k}{10}{subsection.4.1.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.2}E-mail kliens}{10}{section.4.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}E-mail szabv\IeC {\'a}ny}{10}{subsection.4.2.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.3}helpdesk backend}{10}{section.4.3}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}springBoot}{11}{subsection.4.3.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.2}data persistance layer}{11}{subsection.4.3.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.3.3}egy\IeC {\'e}b eszk\IeC {\"o}z\IeC {\"o}k}{11}{subsection.4.3.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.4}helpdesk frontend}{11}{section.4.4}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.4.1}RxJs store}{11}{subsection.4.4.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.4.2}Komponensek}{11}{subsection.4.4.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.4.3}deploymnet}{11}{subsection.4.4.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.5}keycloak}{11}{section.4.5}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.5.1}JWT-token}{11}{subsection.4.5.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.5.2}role-ok}{11}{subsection.4.5.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.5.3}admin fel\IeC {\"u}letr\IeC {\H o}l valami?}{11}{subsection.4.5.3}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Alkalmaz\IeC {\'a}s bemutat\IeC {\'a}sa}{12}{chapter.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Load test}{12}{section.5.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.2}Multiple instance}{12}{section.5.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.3}Egy e-mail \IeC {\'u}tja}{12}{section.5.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.4}Kafka topicok?}{12}{section.5.4}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Tov\IeC {\'a}bbfejleszt\IeC {\'e}si lehet\IeC {\H o}s\IeC {\'e}gek}{13}{chapter.6}% 
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{16}{chapter*.8}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.5}Angular}{8}{section.2.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.6}Spring Boot?}{9}{section.2.6}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Architektur\IeC {\'a}lis \IeC {\'a}ttekint\IeC {\'e}s}{10}{chapter.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Component Diagram}{10}{section.3.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Sequence UML Diagram}{11}{section.3.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.3}Adatb\IeC {\'a}zis UML \IeC {\'a}bra}{11}{section.3.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.4}\IeC {\'A}tfog\IeC {\'o} \IeC {\'a}ttekint\IeC {\'e}s az implement\IeC {\'a}l\IeC {\'a}s bemutat\IeC {\'a}sa el\IeC {\H o}tt}{11}{section.3.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Implement\IeC {\'a}ci\IeC {\'o}}{12}{chapter.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Mikroszerviz infrastrukt\IeC {\'u}ra}{12}{section.4.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.1}Nginx}{12}{subsection.4.1.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.2}Docker kont\IeC {\'e}neriz\IeC {\'a}ci\IeC {\'o}}{12}{subsection.4.1.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.1.3}metrik\IeC {\'a}k}{12}{subsection.4.1.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.2}E-mail kliens}{13}{section.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}E-mail szabv\IeC {\'a}ny}{13}{subsection.4.2.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.3}helpdesk backend}{13}{section.4.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.1}springBoot}{13}{subsection.4.3.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.2}data persistance layer}{13}{subsection.4.3.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.3.3}egy\IeC {\'e}b eszk\IeC {\"o}z\IeC {\"o}k}{14}{subsection.4.3.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.4}helpdesk frontend}{14}{section.4.4}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.4.1}RxJs store}{14}{subsection.4.4.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.4.2}Komponensek}{14}{subsection.4.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.4.3}deploymnet}{14}{subsection.4.4.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.5}keycloak}{14}{section.4.5}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.1}JWT-token}{14}{subsection.4.5.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.2}role-ok}{14}{subsection.4.5.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.3}admin fel\IeC {\"u}letr\IeC {\H o}l valami?}{14}{subsection.4.5.3}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Alkalmaz\IeC {\'a}s bemutat\IeC {\'a}sa}{15}{chapter.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Load test}{16}{section.5.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.2}Multiple instance}{16}{section.5.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Egy e-mail \IeC {\'u}tja}{16}{section.5.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Felhaszn\IeC {\'a}l\IeC {\'o}i fel\IeC {\"u}let funkci\IeC {\'o}i}{16}{section.5.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.5}Kafka topicok?}{16}{section.5.5}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Tov\IeC {\'a}bbfejleszt\IeC {\'e}si lehet\IeC {\H o}s\IeC {\'e}gek}{17}{chapter.6}% 
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{20}{chapter*.10}% 

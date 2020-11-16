@@ -1,16 +1,32 @@
 \section{Mikroszerviz infrastruktúra}
-\subsection{nginx}
-static html-t szolgál ki a frontendnek -- lightweit application server
 
-routingot valósul meg, rajta keresztül lehet elérni az auth*-ot és a helpdesk backendet
+\subsection{Nginx}
+Az nginxnek három elkülönülő szerepe van:
 
-cache-t valósít meg a backen és a frontend között
+\begin{itemize}
+	\item{A \foreignlanguage{british}{helpdesk frontend} alkalmazásszervereként működik (lásd \ref{sec:angular} pont)}
+	
+	\item{\foreignlanguage{british}{Routing}ot valósít meg, rajta kerestül érhető el a \foreignlanguage{british}{helpdesk backend} és a \foreignlanguage{british}{keycloak} szerviz}
+	
+	\item{\foreignlanguage{british}{HTTP cahce}-ként működik a frontend és a backend között, illetve a frontend és a keycloak között}
+\end{itemize}
 
-\subsection{docker konténerizáció}
-round-robin dns, docker compose, scale, images
+A loadbalancer funkcionalitás a \foreignlanguage{british}{docker round-robin DNS}-én (\ref{sec:docker}) keresztül valósul meg.
+
+
+\subsection{Docker konténerizáció}\label{sec:docker}
+Az alakalmazás összes szervize saját docker konténerben fut. A docker konfigurációs leírása a \textit{docker-compose.yml} állományban van. A \textit{docker-compose} parancs ez alapján indítja el az alkalmazást, hozza létre a saját alhálózatát, valósítja meg a hálózaton belüli DNS-funkciót.
+
+A konténerek skálázása  is a dockeren keresztül (\textit{docker-compose --scale}) valósul meg.
+
+
 
 \subsection{metrikák}
-prometheus scraper, graphana, eurekát is itt használom leginkább
+A springes alkamazásaim egy-egy HTTP endpointon keresztül érhetőek el a prometheus számára (\textit{\mbox{/actuator/proemtheus}}) és induláskor beregisztrálják magukat az eureka szerverbe\footnote{Az Eureka a Netflix által fejlesztett \textit{discovery server}. Feladata az összes kliens port és ip adatának nyilkvántartása.}.
+
+A prometheus\footnote{A Prometheus egy open source monitorozó eszköz. 15 másodpercenként lekérdezi a szervizek állapotát.} az eurekán keresztül találja meg az instanceokat, és gyűjti össze a metrikákat. Az alkalmazások információt küldenek a Kafka konnektorukról, REST interfészükről és az adatbázis kapcsolatukról\footnote{HikariCP-t használok JDBC kapcsolathoz}.
+
+A Prometheus által összegyűjtött adatokat grafanában\footnote{A Grafana egy open source elemző és megjelenítő web alkalmazés} ábrázolom.
 
 
 
@@ -18,9 +34,16 @@ prometheus scraper, graphana, eurekát is itt használom leginkább
 
 
 \section{E-mail kliens}
-kafka producer, imap és smtp kliens
+Az e-mail kliens szerepe az üzenetek küldése és fogadása egy meghatározott e-mail címről. Feladata a külső protokollok leválasztása az alkalmazástól. Irányítja és karbantartja az IMAP és SMTP szerverrel való kapcsolatot.
+
+A két irányú kömmunikáció megvalósulása:
+\begin{enumerate}
+	\item az IMAP-on keresztül fogadott e-mailt az \textit{email.in.v1.pub} kafka topicba írja
+	\item a saját --e-mail cím specifikus-- topic-jából kiolvassa az üzenetet és továbbítja  az SMTP szerver felé
+\end{enumerate}
 
 \subsection{E-mail szabvány}
+
 	rfc5322: 
 	messageId
 	replyTo
