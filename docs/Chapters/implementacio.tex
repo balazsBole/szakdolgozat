@@ -36,20 +36,23 @@ A Prometheus által összegyűjtött adatokat grafanában\footnote{A Grafana egy
 \section{E-mail kliens}
 Az e-mail kliens szerepe az üzenetek küldése és fogadása egy meghatározott e-mail címről. Feladata a külső protokollok leválasztása az alkalmazástól. Irányítja és karbantartja az IMAP és SMTP szerverrel való kapcsolatot.
 
-A két irányú kömmunikáció megvalósulása:
-\begin{enumerate}
-	\item az IMAP-on keresztül fogadott e-mailt az \textit{email.in.v1.pub} kafka topicba írja
-	\item a saját --e-mail cím specifikus-- topic-jából kiolvassa az üzenetet és továbbítja  az SMTP szerver felé
-\end{enumerate}
+A két irányú kommunikáció megvalósulása:
+\begin{itemize}
+	\item az IMAP-on keresztül fogadott e-mailt az \textit{email.in.v1.pub} kafka topicba írja,
+	\item a saját --e-mail cím specifikus-- topic-jából kiolvassa az üzenetet és továbbítja  az SMTP szerver felé.
+\end{itemize}
+
 
 \subsection{E-mail szabvány}
+Az elküldött üzenetek megfelelnek az \textit{rfc5322} szabványnak, különös tekintettel a 3.6.4. pontban~\cite{rfc5322_Identification_Fields} meghatározott mezőkre:
 
-	rfc5322: 
-	messageId
-	replyTo
-	refereneces
-
-
+\begin{description}
+	\item[Message-ID] egy globálisan egyedi azonosító ami egyértelműen azonosítja az üzenetet,
+	
+	\item[In-Reply-To] válasz esetén értéke eredeti üzenet \textit{Message-ID}-ja,
+	
+	\item[References] azonosítja az üzenet szálat, értéke az eredeti üzenetek \textit{Message-ID}-jai vesszővel elválasztva.
+\end{description}
 
 
 
