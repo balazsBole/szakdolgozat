@@ -1,7 +1,7 @@
-Az alkalmazás rendszer szinten mikroszerviz, a modulok szintjén hexagonális architektúrába rendezve készült el. A kód szervezése során felhasznált technológiák \aref{sec:retegek_szeparalasa} pontba vannak összeszedve.
+Az alkalmazás rendszer szinten mikroszerviz (\ref{sec:mikroszerviz}), a modulok szintjén hexagonális architektúrába (\ref{sec:hexagonalis_architektura}) rendezve készült el. A frontend Angulart (\ref{sec:angular}), a backend és az e-mail kliens Spring Boot-ot (\ref{sec:spring_boot}) használ.
 
 
-\section{Mikroszerviz architektúra}	
+\section{Mikroszerviz architektúra}\label{sec:mikroszerviz}
 Bár a kifejezés már régóta ismert, nincs egy központilag elfogadott, egységes definíció arra nézve, miket nevezünk mikroszervizeknek. A legtöbb szerző jobb híján a visszatérő karakterisztikus tulajdonságuk alapján sorolja be az alkalmazásokat ebbe a kategóriába~\cite{OReally_Microservice_Architecture}. Egy tipikus mikroszerviz a következő tulajdonságoknak felel meg:
 
 \begin{itemize}
@@ -28,7 +28,7 @@ A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --nem k
 \end{description}
 
 
-\section{Hexagonális architektúra}
+\section{Hexagonális architektúra}\label{sec:hexagonalis_architektura}
 A hexagonális architektúra --vagy más néven portok és adapterek architektúrája-- egy \foreignlanguage{british}{Alistair Cockburn} által létrehozott \cite{Alistair_Cockburn} szoftverterezési minta. Nevét a cikkben felrajzolt hatszögletű rendszerábrázolásról kapta (\ref{fig:Alistair_Cockburn_hexagonal_architecture} ábra), ami szembemegy a korábban elterjedt réteges elrendezéssel.
 
 Az eredeti szándék mögötte az alkalmazás függetlenítése mindennemű külső függőségtől\footnote{például adatbázis, felhasználók, automatizált tesztek}, így lehetővé téve az üzleti és a technikai igények nagy mértékű szeparálását.
@@ -53,17 +53,18 @@ Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\t
 	
 
 \section{Event stream processing}
+adatvezérelt, event based, szeparálás miatt 
 publish subscribe
  schema
- kafka
+ kafka\\
 event processiing általánosan?
 
 
 \section{Rétegek szeparálása}\label{sec:retegek_szeparalasa}
-	DI, SOLID,
-based springboot  javában 	Mapstruct, 	Lombok,  JPA
-angular mvc		
+A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a hasonló \textit{clean code} \cite{clean_code_chapter_systems} elvek sokszor a különböző szoftver rétegek elkülönítésén alapszanak.
 
+
+Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű a visszatérő, üzleti funkciót nem hordozó sorokat generálni. Ilyen --a fordítási időben-- kódot generáló eszközök a Mapstruct és a Lombok.
 
 
 \section{Angular}\label{sec:angular}
@@ -72,6 +73,14 @@ Az \foreignlanguage{british}{Angular} egy a \foreignlanguage{british}{Google} á
 A segítségével készített honlap teljes mértében a kliens oldalon fut, így a szerver oldalon elegendő egy egyszerű, statikus HTML-oldalt visszaadó alkalmazásszerver használata.
 
 
-\section{Spring Boot?}
+\section{Spring Boot}\label{sec:spring_boot}
+A \foreignlanguage{british}{Spring Boot} egy a Springre épülő keretrendszer. Mindkét rendszer alapja a függőség befecskendezése\footnote{Angolul \foreignlanguage{british}{\textit{Dependency Injection}}}, ami egy \aref{sec:retegek_szeparalasa} pontban említett tiszta kód \cite{clean_code_chapter_systems} eszköze.
+
+A Spring Boot \cite{introducing_spring_boot} célja hogy gyorsan és egyszerűen lehessen önálló, magas minőségű alkalmazásokat fejleszteni:
+\begin{itemize}
+	\item az alapbeállítástól való eltérést kell meghatározni ezzel lecsökkentve a konfigurációval töltött időt,
+	\item valamint sok gyakran visszatérő problémára\footnote{Például: metrikák, biztonság, adattárolás} nyújt könnyen elérhető megoldást.
+\end{itemize}
+
 
 
