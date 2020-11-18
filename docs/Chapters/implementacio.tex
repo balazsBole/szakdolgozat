@@ -57,41 +57,58 @@ Az elküldött üzenetek megfelelnek az \textit{rfc5322} szabványnak, különö
 
 
 
-\section{helpdesk backend}
-Class Diagram
+\section{Helpdesk backend}
+A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátásáért:
+\begin{itemize}
+	\item kiszolgálja a frontendet REST protokollon keresztül,
+	\item tárolja az e-mail szálakkal kapcsolatos adatokat,
+	\item  fogadja az \textit{email.in.v1.pub} kafka topic-ból érkező e-maileket, és a megfelelő kafka topic-ba írja az elküldendő üzeneteket.
+\end{itemize}
 
 
-kiszolgálja a frontendet resten keresztül
-
-adatbázissal van kapcsolatban
-
-olvassa és írja a kafka topicot.
+\subsection{Spring Boot}
+A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a prometheus-t és az actuatort a metrikák elkészítéséhez használtam.	
 
 
-\subsection{springBoot}
-default behavior, DI
-security, 	
+\subsection{Adatbázis}
+PostgreSQL adatbázishoz kapcsolódást a HikariCP-n keresztül a Spring kezeli.
+Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, ami objektum relációs leképzést valósít meg}-en keresztül, az adatbázis verziókövetését Liquibase-en keresztül valósítom meg. 
 
-\subsection{data persistance layer}
-hibernate, liquibase, Hibernate envers (Auditlog)
+Az e-mail szálak audit információinak és verzióinak követésére a Hibernate Envers eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi a megjelölt Hibernate objektumok állapotát.
 
-\subsection{egyéb eszközök}
-openApi dokumnetáció, mapstruct, hibernate, lombok
+\subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
+A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumnetációt készít.
 
 
 
 
+\section{Helpdesk frontend}
+A frontend az e-mailek és e-mail szálakkal összefüggő üzelti feladatok megjelenítéséért felelős. A felhasználók jogosultság ellenőrzését végzi el, a bejelentkeztetésüket átirányítja a Keycloak szervernek. 
 
 
-\section{helpdesk frontend}
-MVC szerint van szeparálva a kód 	
+\subsection{Kommunikáció a backenddel}
+A backenddel való kommunikáció REST protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumnetációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
 
-\subsection{RxJs store}
+Az aszinkron HTTP hívásokat az NgRx könyvtár alakítja adatfolyamokká. 
+Az így \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, könnyen filterezhetőek és nagyban megkönnyítik az egységes hibakezelést. 
+
+Az NgRx használatával továbbá, elkerülhetőek az aszinkron hívások mellékhatásai, és egy globális, alkalmazás szintű állapot hozható létre.
 
 \subsection{Komponensek}
-material, quill
+Az egységes 
+	
+
+material 
+egységes look and feel, legtöbb amire szükségem van készen van,
+sok felhasználónak ismerős felület
+
+
+ quill
+jól integrálható angularba, sok funkciója van, open source
+
 
 \subsection{deploymnet}
+\ref{sec:angular}
 static html-lé fordul a kliens oldalán fut a frontend
 
 
