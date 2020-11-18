@@ -1,6 +1,6 @@
 \section{Mikroszerviz infrastruktúra}
 
-\subsection{Nginx}
+\subsection{Nginx}\label{sec:nginx}
 Az nginxnek három elkülönülő szerepe van:
 
 \begin{itemize}
@@ -81,7 +81,6 @@ A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\re
 
 
 
-
 \section{Helpdesk frontend}
 A frontend az e-mailek és e-mail szálakkal összefüggő üzelti feladatok megjelenítéséért felelős. A felhasználók jogosultság ellenőrzését végzi el, a bejelentkeztetésüket átirányítja a Keycloak szervernek. 
 
@@ -90,33 +89,40 @@ A frontend az e-mailek és e-mail szálakkal összefüggő üzelti feladatok meg
 A backenddel való kommunikáció REST protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumnetációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
 
 Az aszinkron HTTP hívásokat az NgRx könyvtár alakítja adatfolyamokká. 
-Az így \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, könnyen filterezhetőek és nagyban megkönnyítik az egységes hibakezelést. 
+Az így, \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, megkönnyítik a filterezhetőséget és az egységes hibakezelést. 
 
-Az NgRx használatával továbbá, elkerülhetőek az aszinkron hívások mellékhatásai, és egy globális, alkalmazás szintű állapot hozható létre.
+Az NgRx használatával továbbá, elkerülhetőek az aszinkron hívások mellékhatásai, és egy globális, alkalmazás szintű belső állapot hozható létre.
 
 \subsection{Komponensek}
-Az egységes 
-	
+Az egységes megjelenés és az ismerős kinézet miatt, a komponenseim alapjának az Angular Material UI könyvtárat választottam. A könyvtár	népszerű az Angular fejlesztők körében, mert a leggyakrabban előforduló felhasználói igényekre elérhető benne kész, könnyen használható megoldás.
 
-material 
-egységes look and feel, legtöbb amire szükségem van készen van,
-sok felhasználónak ismerős felület
+A válasz e-mail lérehozására az open source Quill szövegszerkesztőt használtam.
+Egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
 
 
- quill
-jól integrálható angularba, sok funkciója van, open source
-
-
-\subsection{deploymnet}
-\ref{sec:angular}
-static html-lé fordul a kliens oldalán fut a frontend
+\subsection{Futtatási környezet}
+A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A körülbelül $1,5$~MB-nyi forráskódot elegendő a böngészőbe egyszer letölteni, onnantól a program a kliens oldalon fut. A backend felé induló REST kéréseket a loadbalancer (\ref{sec:nginx}) osztja szét a rendelkezésre álló példányok között.
 
 
 
+\section{Keycloak}
 
 
 
-\section{keycloak}	
+jogosultásg roleok
+felhasználók adatainak nyilvántartása
+
+Open Source Identity and Access Management
+	azonosítása hozzáférés vezérlő
+
+jogkörök
+
 \subsection{JWT-token}
+	JSON Web Token
+	
+\ref{rfc7519_JSON_Web_Token}
+	rfc7519
+
 \subsection{role-ok}
+
 \subsection{admin felületről valami?}
