@@ -65,7 +65,6 @@ A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátás�
 	\item  fogadja az \textit{email.in.v1.pub} kafka topic-ból érkező e-maileket, és a megfelelő kafka topic-ba írja az elküldendő üzeneteket.
 \end{itemize}
 
-
 \subsection{Spring Boot}
 A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a prometheus-t és az actuatort a metrikák elkészítéséhez használtam.	
 
@@ -78,6 +77,8 @@ Az e-mail szálak audit információinak és verzióinak követésére a Hiberna
 
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
 A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumnetációt készít.
+
+
 
 
 
@@ -106,23 +107,24 @@ A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A k
 
 
 \section{Keycloak}
+A Keycloak egy open source jogosultság- és hozzáférés-kezelő. Támogatja az LDAP-ot, SSO-t és a kétlépcsős azonosítást~\cite{Keycloak_website}. 
+
+A helpdesk alkalmazásban feladata a felhasználók azonosítása, és adataiknak nyilvántartása. Különálló mikroszervizként, saját adatbázissal rendelkezik.
+
+Adminisztrátor felülete segítségével nyomon követhető a különböző autentikációhoz köthető események, szerkeszthetőek az aktuálisan érvényes szerepkörök, és --hibakezelési céllal-- megszemélyesíthetőek a felhasználók.
 
 
+\subsection{Jogosultságkezelés}
+A jogosultságokat két eltérő területre osztottam fel. A \textit{master realm} a regisztrációért és a jogkörök kiosztásáért, míg a \textit{helpdesk realm} az alakalmazás funkcionális (\ref{sec:tobb_felhasznalo}) feladatiért felelős.
 
-jogosultásg roleok
-felhasználók adatainak nyilvántartása
+A \textit{helpdesk realm}on belül további két jogkört külöböztetek meg. Az \textit{admin\textunderscore user} szerepbe tartozó felhasználók képesek más e-mail szálait is kezelni, míg a csupán \textit{regular\textunderscore user} jogkörbe tartozóak csak a saját e-mail szálaikhoz férhetnek hozzá.
 
-Open Source Identity and Access Management
-	azonosítása hozzáférés vezérlő
 
-jogkörök
+\subsection{JSON Web Token}
+A jogosultságkezelés technikai alapját az \textit{rfc7519}-es szabványban \cite{rfc7519_JSON_Web_Token} leírt JSON Web Token (JWT) adja. 
 
-\subsection{JWT-token}
-	JSON Web Token
-	
-\ref{rfc7519_JSON_Web_Token}
-	rfc7519
+A keycloak szervere által digitálisan aláírt token tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja a keycloaktól kapott azonosítót. A backend hitelesíti a tokent a keycloak publikus kulcsával, és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
 
-\subsection{role-ok}
 
-\subsection{admin felületről valami?}
+\section{Kafka}
+vissza kéne utalni az előző részre ahol sz event stream processingről írtam
