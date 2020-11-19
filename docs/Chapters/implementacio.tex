@@ -1,5 +1,6 @@
-\section{Mikroszerviz infrastruktúra}
+Ez a miért és hogy csináltam rész
 
+\section{Mikroszerviz infrastruktúra}
 \subsection{Nginx}\label{sec:nginx}
 Az nginxnek három elkülönülő szerepe van:
 
@@ -81,7 +82,6 @@ A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\re
 
 
 
-
 \section{Helpdesk frontend}
 A frontend az e-mailek és e-mail szálakkal összefüggő üzelti feladatok megjelenítéséért felelős. A felhasználók jogosultság ellenőrzését végzi el, a bejelentkeztetésüket átirányítja a Keycloak szervernek. 
 
@@ -127,4 +127,4 @@ A keycloak szervere által digitálisan aláírt token tartalmazza a felhasznál
 
 
 \section{Kafka}
-vissza kéne utalni az előző részre ahol sz event stream processingről írtam
+Hogy teljesen elválasszam egymástól az e-mail klienst és a helpdesk backendet, a bejövő és kimenő e-mailek Kafka \textit{topic}-okon (\ref{sec:apache_kafka} pont) mennek keresztül. A szeparációval függetlenné teszem egymástól a két rendszer működését, ami lehetővé teszi az eltérő igénybevételnek (\ref{sec:granularitas} pont) megfelelő skálázhatóságot.

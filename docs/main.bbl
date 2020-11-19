@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{OReally}
 Mike~Loukides és Steve~Swoyer.
@@ -8,7 +8,7 @@ Mike~Loukides és Steve~Swoyer.
 
 \bibitem{wiredelta}
 Andzhela Angelova.
-\newblock 10reasons why microservices are the future, Jún. 20 2020.
+\newblock 10 reasons why microservices are the future, Jún. 20 2020.
 \newblock URL:
   \url{https://wiredelta.com/10-reasons-why-microservices-are-the-future/}.
 
@@ -30,9 +30,48 @@ Robert~C. Martin.
 \newblock URL:
   \url{https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html}.
 
+\bibitem{OReally_Kafka}
+Todd~Palino Neha~Narkhede, Gwen~Shapira.
+\newblock {\em Kafka: The Definitive Guide: Real-Time Data and Stream
+  Processing at Scale, and Culture}, chapter 1, Meet Kafka.
+\newblock O’Reilly, 1 edition, 2016.
+
+\bibitem{OReally_Kafka_Internals}
+Todd~Palino Neha~Narkhede, Gwen~Shapira.
+\newblock {\em Kafka: The Definitive Guide: Real-Time Data and Stream
+  Processing at Scale, and Culture}, chapter 5, Kafka Internals.
+\newblock O’Reilly, 1 edition, 2016.
+
+\bibitem{clean_code_chapter_systems}
+Robert~C. Martin.
+\newblock {\em Clean Code: A Handbook of Agile Software Craftsmanship}, chapter
+  11, Systems.
+\newblock Prentice Hall, 1 edition, 2008.
+
 \bibitem{angular_docs}
 Introduction to angular concepts.
 \newblock Letöltve: 2020. Nov. 16.
 \newblock URL: \url{https://angular.io/guide/architecture}.
+
+\bibitem{introducing_spring_boot}
+Introducing spring boot.
+\newblock Letöltve: 2020. Nov. 16.
+\newblock URL:
+  \url{https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-introducing-spring-boot}.
+
+\bibitem{rfc5322_Identification_Fields}
+Identification fields.
+\newblock Letöltve: 2020. Nov. 16.
+\newblock URL: \url{https://tools.ietf.org/html/rfc5322#section-3.6.4}.
+
+\bibitem{Keycloak_website}
+Keycloak.
+\newblock Letöltve: 2020. Nov. 18.
+\newblock URL: \url{https://www.keycloak.org/}.
+
+\bibitem{rfc7519_JSON_Web_Token}
+Json web token (jwt).
+\newblock Letöltve: 2020. Nov. 18.
+\newblock URL: \url{https://tools.ietf.org/html/rfc7519}.
 
 \end{thebibliography}

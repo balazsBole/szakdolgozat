@@ -19,7 +19,9 @@ Az üzenetszálakra vonatkozó összes adat historikusan lekérdezhető, státus
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.85\textwidth]{statusz_diagram_drawio.pdf}
-	\caption{Az e-mailszálak státuszváltozásai}\label{fig:statusz_diagram}
+	\caption{Az e-mailszálak státuszváltozásai}
+	\label{fig:statusz_diagram}
+	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
 
@@ -40,7 +42,9 @@ A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} á
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.85\textwidth]{funkcio_diagram_drawio.pdf}
-	\caption{Elérhető funkciók jogosultság szerint csoportosítva}\label{fig:funkcio_diagram}
+	\caption[Elérhető funkciók]{Elérhető funkciók jogosultság szerint csoportosítva}
+	\label{fig:funkcio_diagram}
+	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
 
@@ -51,7 +55,7 @@ A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} á
 A kiszolgálandó kliensek száma napi és havi szinten is eltérő. Az év egyes időszakaiban nagyobb volumenű ügyfél-interakció prognosztizálható. A hibatűrés javítása, és a megnövekedett forgalom érdekében --ezekben az előre meghatározott időszakokban-- horizontális skálázódás szükséges.
 
 
-\subsection{Granuláris felosztottság}
+\subsection{Granuláris felosztottság}\label{sec:granularitas}
 A \foreignlanguage{british}{helpdesk} alkalmazást használó ügyfélszolgálat munkaórákban a legaktívabb, míg az e-maileket küldő ügyfelek hétvégente és hétköznap munkaórákon kívül a legaktívabbak.
 
 A hosszútávú tervekben szerepel a \foreignlanguage{british}{helpdesk} alkalmazás és a belső céges levelezés integrálása.

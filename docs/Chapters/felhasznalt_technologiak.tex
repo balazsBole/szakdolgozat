@@ -1,4 +1,4 @@
-Az alkalmazás rendszer szinten mikroszerviz (\ref{sec:mikroszerviz}), a modulok szintjén hexagonális architektúrába (\ref{sec:hexagonalis_architektura}) rendezve készült el. A frontend Angulart (\ref{sec:angular}), a backend és az e-mail kliens Spring Boot-ot (\ref{sec:spring_boot}) használ.
+Az alkalmazás rendszer szinten mikroszerviz (\ref{sec:mikroszerviz}), a modulok szintjén hexagonális architektúrába (\ref{sec:hexagonalis_architektura}) rendezve készült el. A frontend Angulart (\ref{sec:angular}), a backend és az e-mail kliens Spring Boot-ot (\ref{sec:spring_boot}) használ. A alkalmazáson belüli események kezelésére és tárolására Apache Kafkát (\ref{sec:apache_kafka}) használok.
 
 
 \section{Mikroszerviz architektúra}\label{sec:mikroszerviz}
@@ -36,10 +36,14 @@ Egy absztrakt port feladata kell legyen a külvilággal való kapcsolat, így az
 
 \begin{figure}[hbt] 
 	\centering
-		\includegraphics[width=0.85\textwidth]{Alistair_Cockburn_hexagonal_architecture.png}
-	\caption[Hexagonális alkalmazások felépítése]{\foreignlanguage{british}{Alistair Cockburn} által \cite{Alistair_Cockburn} felrajzolt ábra a hexagonális alkalmazásról. Cockburn célja a külső függőségek elszeparálásának bemutatása.
-}\label{fig:Alistair_Cockburn_hexagonal_architecture}
+	\includegraphics[width=0.85\textwidth]{Alistair_Cockburn_hexagonal_architecture.png}
+	\caption[Hexagonális alkalmazások felépítése]{
+		A hexagonális alkalmazás külső függőségeinek elszeparálása}
+	\label{fig:Alistair_Cockburn_hexagonal_architecture}
+	\floatfoot{Forrás: Alistair Cockburn~\cite{Alistair_Cockburn}}
 \end{figure}
+
+
 
 Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\textit{The Clean Architecture}} cikkében \cite{The_Clean_Architecture} összeszedte, a port-adapter és a hasonló architektúrával készülő alkalmazások mind:	
 \begin{itemize}
@@ -50,27 +54,33 @@ Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\t
 	\item Keretrendszertől függetlenül is megvalósíthatóak. A megvalósítás nem függ semmilyen könyvtártól vagy egyéb tulajdonságtól.
 \end{itemize}
 	
-	
-
-\section{Event stream processing}
-adatvezérelt, event based, szeparálás miatt 
-publish subscribe
- schema
- kafka\\
-event processiing általánosan?
 
 
 \section{Rétegek szeparálása}\label{sec:retegek_szeparalasa}
 A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a hasonló \textit{clean code} \cite{clean_code_chapter_systems} elvek sokszor a különböző szoftver rétegek elkülönítésén alapszanak.
 
 
-Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű a visszatérő, üzleti funkciót nem hordozó sorokat generálni. Ilyen --a fordítási időben-- kódot generáló eszközök a Mapstruct és a Lombok.
+Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --a fordítási időben-- kódot generáló eszköz a Mapstruct és a Lombok.
+
+
+
+\section{Apache Kafka}\label{sec:apache_kafka}
+Az apache kafka egy üzenet tárolásra és továbbításra kifejlesztett hibatűrő, magas áteresztő képességű, open source alkalmazás~\cite{OReally_Kafka}.
+
+A feladó az üzenetet nem közvetlenül a fogadónak küldi, hanem egy üzenetbrókeren keresztül egy (\textit{topic})-ba teszi közzé. A fogadó fél hogy megkaphassa az üzenetet, feliratkozik az adott témára. 
+
+Redundancia és skálázhatóság miatt egy \textit{topic} több particióra van elosztva, és ezen felül minden partició replikálva is van~\cite{OReally_Kafka_Internals}. A pratíciók eltérő szerveren lehetnek, ezáltal egy \textit{topic} horizontálisan skálázható. Egy \textit{node} esetleges kiesése esetén a többi \textit{node} át tudja venni a kiesett \textit{node} szerepét.
+
+A üzenetbórkerek összehaangolását a Zookeper szerviz végzi. MIvel minden kafka bróker beregisztálja magát a szervízbe, a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
+
+Az üzeneteket Apache Avroval szerializálom. Az Avro lehetővé teszi a kompakt bináris tárolást, de natívan támogatja a JSON reprezentációt is. Az Avrohoz szükséges séma nyilvántartásért és az eltérő verziók kezelésért a Schemaregistry szerver felelős. A kafka kliensek a Schemaregistry szerveren keresztül tudják az üzeneteket olvasni és írni. 
+
 
 
 \section{Angular}\label{sec:angular}
 Az \foreignlanguage{british}{Angular} egy a \foreignlanguage{british}{Google} által fejlesztett \foreignlanguage{british}{TypeScript} alapú platform és		 keretrendszer~\cite{angular_docs}. A segítségével létrehozott kód erősen modularizált, így könnyű vele újra felhasználható és az MVC-elveit követő alkalmazást létrehozni.
 
-A segítségével készített honlap teljes mértében a kliens oldalon fut, így a szerver oldalon elegendő egy egyszerű, statikus HTML-oldalt visszaadó alkalmazásszerver használata.
+Az Angularral készített honlap teljes mértében a kliens oldalon fut, így a szerver oldalon elegendő egy egyszerű, statikus HTML-oldalt visszaadó alkalmazásszerver használata.
 
 
 \section{Spring Boot}\label{sec:spring_boot}
