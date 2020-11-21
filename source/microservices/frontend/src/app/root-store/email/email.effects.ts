@@ -21,7 +21,7 @@ export class EmailEffects {
 
   getDetails$ = createEffect(() => this.actions$.pipe(
     ofType(getDetailsAction),
-    mergeMap((action) => this.service.details(action.id)
+    mergeMap((action) => this.service.emailDetails(action.id)
       .pipe(
         map((email: Email) => getDetailsSuccessAction({email})),
         catchError((error) => of(getDetailsFailAction({error})))

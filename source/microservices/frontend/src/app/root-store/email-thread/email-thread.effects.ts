@@ -28,7 +28,7 @@ export class EmailThreadEffects {
 
   getDetails$ = createEffect(() => this.actions$.pipe(
     ofType(getDetailsAction),
-    mergeMap((action) => this.service.details(action.id)
+    mergeMap((action) => this.service.emailThreadDetails(action.id)
       .pipe(
         map((emailThread: EmailThread) => getDetailsSuccessAction({emailThread})),
         catchError((error) => of(getDetailsFailAction({error})))

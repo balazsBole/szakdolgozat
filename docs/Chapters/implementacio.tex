@@ -22,7 +22,7 @@ A konténerek skálázása  is a dockeren keresztül (\textit{docker-compose --s
 
 
 
-\subsection{Metrikák}
+\subsection{Metrikák}\label{sec:metrikak}
 A springes alkamazásaim egy-egy HTTP endpointon keresztül érhetőek el a prometheus számára (\textit{\mbox{/actuator/proemtheus}}) és induláskor beregisztrálják magukat az eureka\footnote{Az Eureka a Netflix által fejlesztett \textit{discovery server}. Feladata az összes kliens port és ip adatának nyilkvántartása.} szerverbe.
 
 A prometheus\footnote{A Prometheus egy open source monitorozó eszköz. 15 másodpercenként lekérdezi a szervizek állapotát.} az eurekán keresztül találja meg az instanceokat, és gyűjti össze a metrikákat. Az alkalmazások információt küldenek a Kafka konnektorukról, REST interfészükről és az adatbázis kapcsolatukról\footnote{HikariCP-t használok JDBC kapcsolathoz}.

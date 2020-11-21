@@ -18,7 +18,7 @@
 \select@language {magyar} \contentsline {section}{\numberline {2.4}Apache Kafka}{8}{section.2.4}% 
 \select@language {magyar} \contentsline {section}{\numberline {2.5}Angular}{9}{section.2.5}% 
 \select@language {magyar} \contentsline {section}{\numberline {2.6}Spring Boot}{9}{section.2.6}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Architektur\IeC {\'a}lis \IeC {\'a}ttekint\IeC {\'e}s}{10}{chapter.3}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Az alkalmaz\IeC {\'a}s fel\IeC {\'e}p\IeC {\'\i }t\IeC {\'e}se}{10}{chapter.3}% 
 \select@language {magyar} \contentsline {section}{\numberline {3.1}Component Diagram}{10}{section.3.1}% 
 \select@language {magyar} \contentsline {section}{\numberline {3.2}Sequence UML Diagram}{11}{section.3.2}% 
 \select@language {magyar} \contentsline {section}{\numberline {3.3}Adatb\IeC {\'a}zis UML \IeC {\'a}bra}{11}{section.3.3}% 
@@ -43,11 +43,12 @@
 \select@language {magyar} \contentsline {subsection}{\numberline {4.5.2}JSON Web Token}{16}{subsection.4.5.2}% 
 \select@language {magyar} \contentsline {section}{\numberline {4.6}Kafka}{16}{section.4.6}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {5}Alkalmaz\IeC {\'a}s bemutat\IeC {\'a}sa}{17}{chapter.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Deployment}{17}{section.5.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.2}Load test}{17}{section.5.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.3}Multiple instance}{17}{section.5.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.4}Egy e-mail \IeC {\'u}tja}{17}{section.5.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.5}Felhaszn\IeC {\'a}l\IeC {\'o}i fel\IeC {\"u}let funkci\IeC {\'o}i}{17}{section.5.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.6}Kafka topicok?}{17}{section.5.6}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Tov\IeC {\'a}bbfejleszt\IeC {\'e}si lehet\IeC {\H o}s\IeC {\'e}gek}{19}{chapter.6}% 
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{21}{chapter*.10}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Alkalmaz\IeC {\'a}s elind\IeC {\'\i }t\IeC {\'a}sa}{17}{section.5.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.2}T\IeC {\"o}bb p\IeC {\'e}ld\IeC {\'a}ny}{17}{section.5.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Deployment}{18}{section.5.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Load test}{18}{section.5.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.5}Egy e-mail \IeC {\'u}tja}{18}{section.5.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.6}Felhaszn\IeC {\'a}l\IeC {\'o}i fel\IeC {\"u}let funkci\IeC {\'o}i}{18}{section.5.6}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.7}Kafka topicok?}{18}{section.5.7}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Tov\IeC {\'a}bbfejleszt\IeC {\'e}si lehet\IeC {\H o}s\IeC {\'e}gek}{20}{chapter.6}% 
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{22}{chapter*.10}% 

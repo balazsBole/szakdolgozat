@@ -18,7 +18,7 @@
 \BOOKMARK [1][-]{section.2.4}{Apache Kafka}{chapter.2}% 18
 \BOOKMARK [1][-]{section.2.5}{Angular}{chapter.2}% 19
 \BOOKMARK [1][-]{section.2.6}{Spring Boot}{chapter.2}% 20
-\BOOKMARK [0][-]{chapter.3}{Architektur\341lis \341ttekint\351s}{}% 21
+\BOOKMARK [0][-]{chapter.3}{Az alkalmaz\341s fel\351p\355t\351se}{}% 21
 \BOOKMARK [1][-]{section.3.1}{Component Diagram}{chapter.3}% 22
 \BOOKMARK [1][-]{section.3.2}{Sequence UML Diagram}{chapter.3}% 23
 \BOOKMARK [1][-]{section.3.3}{Adatb\341zis UML \341bra}{chapter.3}% 24
@@ -43,11 +43,12 @@
 \BOOKMARK [2][-]{subsection.4.5.2}{JSON Web Token}{section.4.5}% 43
 \BOOKMARK [1][-]{section.4.6}{Kafka}{chapter.4}% 44
 \BOOKMARK [0][-]{chapter.5}{Alkalmaz\341s bemutat\341sa}{}% 45
-\BOOKMARK [1][-]{section.5.1}{Deployment}{chapter.5}% 46
-\BOOKMARK [1][-]{section.5.2}{Load test}{chapter.5}% 47
-\BOOKMARK [1][-]{section.5.3}{Multiple instance}{chapter.5}% 48
-\BOOKMARK [1][-]{section.5.4}{Egy e-mail \372tja}{chapter.5}% 49
-\BOOKMARK [1][-]{section.5.5}{Felhaszn\341l\363i fel\374let funkci\363i}{chapter.5}% 50
-\BOOKMARK [1][-]{section.5.6}{Kafka topicok?}{chapter.5}% 51
-\BOOKMARK [0][-]{chapter.6}{Tov\341bbfejleszt\351si lehetos\351gek}{}% 52
-\BOOKMARK [0][-]{chapter*.10}{Irodalomjegyz\351k}{}% 53
+\BOOKMARK [1][-]{section.5.1}{Alkalmaz\341s elind\355t\341sa}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.2}{T\366bb p\351ld\341ny}{chapter.5}% 47
+\BOOKMARK [1][-]{section.5.3}{Deployment}{chapter.5}% 48
+\BOOKMARK [1][-]{section.5.4}{Load test}{chapter.5}% 49
+\BOOKMARK [1][-]{section.5.5}{Egy e-mail \372tja}{chapter.5}% 50
+\BOOKMARK [1][-]{section.5.6}{Felhaszn\341l\363i fel\374let funkci\363i}{chapter.5}% 51
+\BOOKMARK [1][-]{section.5.7}{Kafka topicok?}{chapter.5}% 52
+\BOOKMARK [0][-]{chapter.6}{Tov\341bbfejleszt\351si lehetos\351gek}{}% 53
+\BOOKMARK [0][-]{chapter*.10}{Irodalomjegyz\351k}{}% 54
