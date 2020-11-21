@@ -37,11 +37,22 @@ A Prometheus által összegyűjtött adatokat grafanában\footnote{A Grafana egy
 \section{E-mail kliens}
 Az e-mail kliens szerepe az üzenetek küldése és fogadása egy meghatározott e-mail címről. Feladata a külső protokollok leválasztása az alkalmazástól. Irányítja és karbantartja az IMAP és SMTP szerverrel való kapcsolatot.
 
-A két irányú kommunikáció megvalósulása:
+\Aref{fig:email-client_sequence_diagram}. ábrán látható a két irányú kommunikáció megvalósulása:
 \begin{itemize}
 	\item az IMAP-on keresztül fogadott e-mailt az \textit{email.in.v1.pub} kafka topicba írja,
 	\item a saját --e-mail cím specifikus-- topic-jából kiolvassa az üzenetet és továbbítja  az SMTP szerver felé.
 \end{itemize}
+
+
+\begin{figure}[hbt] 
+	\centering
+	\includegraphics[width=0.85\textwidth]{email-client_sequence_diagram_drawio.pdf}
+	\caption{E-mail kliens szekvencia diagramja}
+	\label{fig:email-client_sequence_diagram}
+	\floatfoot{Forrás: saját ábra}
+\end{figure}
+
+
 
 
 \subsection{E-mail szabvány}
@@ -59,12 +70,23 @@ Az elküldött üzenetek megfelelnek az \textit{rfc5322} szabványnak, különö
 
 
 \section{Helpdesk backend}
-A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátásáért:
+A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátásáért. \Aref{fig:backend_sequence_diagram}. ábrán láthatóak a helpdesk backend funkciói:
 \begin{itemize}
-	\item kiszolgálja a frontendet REST protokollon keresztül,
-	\item tárolja az e-mail szálakkal kapcsolatos adatokat,
-	\item  fogadja az \textit{email.in.v1.pub} kafka topic-ból érkező e-maileket, és a megfelelő kafka topic-ba írja az elküldendő üzeneteket.
+	\item fogadja az \textit{email.in.v1.pub} kafka topic-ból érkező e-maileket, 
+	\item kiszolgálja a frontend Nginx-en keresztül érkező kéréseit,
+	\item a megfelelő kafka topic-ba írja az elküldendő üzeneteket,
+	\item tárolja az e-mail szálakkal kapcsolatos adatokat.
 \end{itemize}
+
+
+\begin{figure}[hbt] 
+	\centering
+	\includegraphics[width=0.85\textwidth]{backend_sequence_diagram_drawio.pdf}
+	\caption{Helpdesk backend szekvencia diagramja}
+	\label{fig:backend_sequence_diagram}
+	\floatfoot{Forrás: saját ábra}
+\end{figure}
+
 
 \subsection{Spring Boot}
 A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a prometheus-t és az actuatort a metrikák elkészítéséhez használtam.	
@@ -83,7 +105,7 @@ A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\re
 
 
 \section{Helpdesk frontend}
-A frontend az e-mailek és e-mail szálakkal összefüggő üzelti feladatok megjelenítéséért felelős. A felhasználók jogosultság ellenőrzését végzi el, a bejelentkeztetésüket átirányítja a Keycloak szervernek. 
+A frontend az e-mailek és e-mail szálakkal összefüggő üzleti feladatok megjelenítéséért felelős. A felhasználók jogosultság ellenőrzését végzi el, a bejelentkeztetésüket átirányítja a Keycloak szervernek. 
 
 
 \subsection{Kommunikáció a backenddel}
@@ -102,8 +124,17 @@ Egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számár
 
 
 \subsection{Futtatási környezet}
-A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A körülbelül $1,5$~MB-nyi forráskódot elegendő a böngészőbe egyszer letölteni, onnantól a program a kliens oldalon fut. A backend felé induló REST kéréseket a loadbalancer (\ref{sec:nginx}) osztja szét a rendelkezésre álló példányok között.
+A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A körülbelül $1,5$~MB-nyi forráskódot elegendő a böngészőbe egyszer letölteni, onnantól a program a kliens oldalon fut (lásd \ref{fig:frontend_sequence_diagram} ábra). A backend felé induló REST kéréseket a loadbalancer (\ref{sec:nginx}) osztja szét a rendelkezésre álló példányok között.
 
+A frontend függőségeit \aref{fig:frontend_sequence_diagram}. ábra tartalmazza.
+
+\begin{figure}[hbt] 
+	\centering
+	\includegraphics[width=0.85\textwidth]{frontend_sequence_diagram_drawio.pdf}
+	\caption{Helpdesk frontend szekvencia diagramja}
+	\label{fig:frontend_sequence_diagram}
+	\floatfoot{Forrás: saját ábra}
+\end{figure}
 
 
 \section{Keycloak}
@@ -123,7 +154,7 @@ A \textit{helpdesk realm}on belül további két jogkört külöböztetek meg. A
 \subsection{JSON Web Token}
 A jogosultságkezelés technikai alapját az \textit{rfc7519}-es szabványban \cite{rfc7519_JSON_Web_Token} leírt JSON Web Token (JWT) adja. 
 
-A keycloak szervere által digitálisan aláírt token tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja a keycloaktól kapott azonosítót. A backend hitelesíti a tokent a keycloak publikus kulcsával, és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
+A keycloak szervere által digitálisan aláírt token tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja a keycloaktól kapott azonosítót. A backend hitelesíti a tokent a keycloak publikus kulcsával (lásd \ref{fig:frontend_sequence_diagram} ábra), és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
 
 
 \section{Kafka}

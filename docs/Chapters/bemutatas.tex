@@ -12,7 +12,7 @@ A helpdesk alkalmazás \aref{ch:uzleti_igenyek}. fejezetben leírtaknak megfelel
 Az alakalmazás a \textit{start.sh} bash \textit{script}tel indítható el. A \textit{script} két dolgot csinál:
 \begin{enumerate}
 	\item a \textit{docker-compose} parancssal elindítja a docker \textit{container}eket~(\ref{sec:docker} pont),
-	\item  ``helpdesk'' domain névvel hozzáadja a loadbalancer (\ref{sec:nginx} pont) IP címét a \mbox{\textit{/etc/hosts}} állományhoz.
+	\item  ``helpdesk'' domain névvel hozzáadja az Nginx (\ref{sec:nginx} pont) IP címét a \mbox{\textit{/etc/hosts}} állományhoz.
 \end{enumerate}
 
 A \textit{script} indítása után a helpdesk alkalmazás elérhető a  \href{http://helpdesk}{http://helpdesk} domain alatt.
@@ -60,7 +60,7 @@ A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{conta
 Jmeter load test
 
 \section{Egy e-mail útja}
-message flow diagram
+message flow diagram vagy valami hasonló a lényeg hogy vertikális legyen
 
 \section{Felhasználói felület funkciói}
  képenyőképek? valami how to dokumentáció	

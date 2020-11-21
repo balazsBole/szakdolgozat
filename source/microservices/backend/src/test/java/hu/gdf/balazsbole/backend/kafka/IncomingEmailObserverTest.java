@@ -29,7 +29,7 @@ class IncomingEmailObserverTest implements RunsWithMappers {
 
     @Test
     void should_store_incoming_direction() {
-        observer.receiveOutgoingEmails(new ConsumerRecord<>("topic", 1, 0, new EmailProtocolKey(), new EmailProtocolValue()));
+        observer.receiveIncomingEmails(new ConsumerRecord<>("topic", 1, 0, new EmailProtocolKey(), new EmailProtocolValue()));
         verify(service).storeNew(argThat(entity -> Direction.IN.equals(entity.getDirection())));
     }
 }

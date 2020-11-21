@@ -24,7 +24,7 @@ public class IncomingEmailObserver {
     }
 
     @KafkaListener(topics = "${spring.kafka.topic.emailIn}", groupId = "${spring.kafka.consumer.group-id}", autoStartup = "${spring.kafka.enable:}")
-    public void receiveOutgoingEmails(final ConsumerRecord<EmailProtocolKey, EmailProtocolValue> record) {
+    public void receiveIncomingEmails(final ConsumerRecord<EmailProtocolKey, EmailProtocolValue> record) {
         log.info("New kafka message received. Partition: {}, Offset: {}, TS: {}", record.partition(), record.offset(), record.timestamp());
 
         Email email = mapper.map(record.value());
