@@ -31,13 +31,13 @@ A különböző szervizekből a terhelésnek megfelelően eltérő számú péld
 
 A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (todo ábra). Az oldal elérhető a  \textit{Spring metrics} menüpont alatt.
 
-Az todo ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámok:
+Az todo ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
 
 \begin{itemize}
 	\item a legfelső sorban a Java Virtual Machine, által akutálisan felhasznált Heap space,	
 	\item alatta az aktuális REST lekérések száma,
-	\item a harmadik sorban a feldolgozott Kafka üzenetk száma,
-	\item míg az utolsó sorban a Trace logüzenetek száma látható.
+	\item a harmadik sorban a feldolgozott Kafka üzenetek száma,
+	\item míg az utolsó sorban a Trace log bejegyzések száma látható.
 \end{itemize}
 
 
@@ -59,12 +59,98 @@ A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{conta
 \section{Load test}
 Jmeter load test
 
-\section{Egy e-mail útja}
-message flow diagram vagy valami hasonló a lényeg hogy vertikális legyen
+\section{E-mail fogadásának és küldésének folyamata}
+\Aref{ch:felepites}. fejezetben \aref{fig:path_of_an_email}. ábrán bemutattam egy e-mail fogadásának elméleti útját. Most \aref{fig:email_send_receive_visible}. ábrán szeretném bemutatni hogyan követhető végig a rendszerben egy e-mail valódi útja.
+
+E-mail fogadása:
+\begin{enumerate}
+	\item Egy teszt üzenet érkezik a \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre
+	\textit{E-mail fogadásának és küldésének folyamata} tárggyal
+	\item Az e-mail kliens kafka üzenetként publikálja az üzenetet az \textit{email.in.v1.pub} topicba (\ref{fig:email_client_send_kafka}. ábra).
+	\item A backend megkapja a kafka üzenetet (\ref{fig:backend_receive_kafka}. ábra)
+	\item A backend elmenti az új üzenet az adatbázisba (\ref{fig:datbase_received_email}. ábra)
+	\item A felhasználói felületen (\ref{fig:frontend_read_email}. ábra) elérhető az új üzenet.
+\end{enumerate}
+
+\bigskip
+
+E-mail küldése:
+\begin{enumerate}
+	\item A felhasználó elküldi a válaszát a felhasználói felületen (\ref{fig:frontend_send_answer}. ábra).
+	\item A backend megkapja az üzenetet és eltárolja az adatbázisba (\ref{fig:database_answer}. ábra).
+	\item A \textit{h.gdf.theater\textunderscore gmx.com.v1.pub} topicban megjelenik  (\ref{fig:kafka_topic_send_email}. ábra) a backend által publikált kafka üzenet
+	\item A topicra feliratkozott e-mail kliens fogadja és továbbítja az üzenetet (\ref{fig:email_client_receives_kafka}. ábra).
+\end{enumerate}
+ 
+
+\begin{figure}
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{email_client_sending_kafka_message.png}  
+		\caption{Az egyes instance kafka üzenet küld}
+		\label{fig:email_client_send_kafka}
+	\end{subfigure}
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{helpdesk_frontend_send_email.png}  
+		\caption{A felületen válasz e-mailt küld a felhasználó}
+		\label{fig:frontend_send_answer}
+	\end{subfigure}
+	
+	\quad
+	
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{backend_receiving_email_from_kafka.png}  
+		\caption{Az egyes instance kafka üzenet fogad}
+		\label{fig:backend_receive_kafka}
+	\end{subfigure}
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{database_with_the_answer.png}  
+		\caption{A válasz e-mail az adatbázisban}
+		\label{fig:database_answer}
+	\end{subfigure}
+
+	\quad
+
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[width=.9\linewidth]{databse_incoming_email.png}  
+	\caption{Az új e-mail az adatbázisban}
+	\label{fig:datbase_received_email}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+	\centering
+	\includegraphics[width=.9\linewidth]{kafka_topic_with_the_sent_email.png}  
+	\caption{A \textit{h.gdf.theater\textunderscore gmx.com.v1.pub} topic új üzenete}
+	\label{fig:kafka_topic_send_email}
+\end{subfigure}
+
+	\quad
+
+\begin{subfigure}{.45\textwidth}
+	\centering
+	\includegraphics[width=.9\linewidth]{helpdesk_frontend_receive_incoming_email.png}  
+	\caption{A felületen elérhető az új e-mail}
+	\label{fig:frontend_read_email}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+	\centering
+	\includegraphics[width=.9\linewidth]{email_client_sending_email.png}  
+	\caption{Az egyes instance kafka üzenet fogad}
+	\label{fig:email_client_receives_kafka}
+\end{subfigure}
+
+	\caption{E-mail fogadásának és küldésének folyamata során követhető lépések}
+	\label{fig:email_send_receive_visible}
+\end{figure}
+
+
+\section{Kafka topicok}
+a replication factorról meg a három brókerről
+topicok meg egyebek
+
 
 \section{Felhasználói felület funkciói}
  képenyőképek? valami how to dokumentáció	
-
-\section{Kafka topicok?}
-a replication factorról meg a három brókerről
-topicok meg egyebek
