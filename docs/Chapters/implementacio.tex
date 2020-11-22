@@ -1,4 +1,4 @@
-Ez a miért és hogy csináltam rész
+Szeretném külön-külön bemutatni az egyes komponenseket. A komponensek által megvalósított funkciókat, és kiemelni a megvalósítás szempontjából fontos részleteket. 
 
 \section{Mikroszerviz infrastruktúra}
 \subsection{Nginx}\label{sec:nginx}
@@ -92,7 +92,7 @@ A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátás�
 A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a prometheus-t és az actuatort a metrikák elkészítéséhez használtam.	
 
 
-\subsection{Adatbázis}
+\subsection{Adatbázis}\label{sec:adatbazis}
 PostgreSQL adatbázishoz kapcsolódást a HikariCP-n keresztül a Spring kezeli.
 Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, ami objektum relációs leképzést valósít meg}-en keresztül, az adatbázis verziókövetését Liquibase-en keresztül valósítom meg. 
 
@@ -126,9 +126,9 @@ Egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számár
 \subsection{Futtatási környezet}
 A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A körülbelül $1,5$~MB-nyi forráskódot elegendő a böngészőbe egyszer letölteni, onnantól a program a kliens oldalon fut (lásd \ref{fig:frontend_sequence_diagram} ábra). A backend felé induló REST kéréseket a loadbalancer (\ref{sec:nginx}) osztja szét a rendelkezésre álló példányok között.
 
-A frontend függőségeit \aref{fig:frontend_sequence_diagram}. ábra tartalmazza.
+A frontend működését, és függőségeit \aref{fig:frontend_sequence_diagram}. ábra tartalmazza.
 
-\begin{figure}[hbt] 
+\begin{figure}[hbp] 
 	\centering
 	\includegraphics[width=0.85\textwidth]{frontend_sequence_diagram_drawio.pdf}
 	\caption{Helpdesk frontend szekvencia diagramja}
