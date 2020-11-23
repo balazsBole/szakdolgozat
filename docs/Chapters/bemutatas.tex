@@ -26,7 +26,7 @@ A különböző szervizekből a terhelésnek megfelelően eltérő számú péld
 	\item a \textit{theater} sort kezelő email-kliensből egy,
 	\item a \textit{travel} sort kezelő email-kliensből kettő,
 	\item a \textit{generic} sort kezelő email-kliensből három,
-	\item és a Kafka brókerből szintén három darab.
+	\item és a Kafka brókerből (\ref{sec:kafka_topics}) szintén három darab.
 \end{itemize}
 
 A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (todo ábra). Az oldal elérhető a  \textit{Spring metrics} menüpont alatt.
@@ -55,9 +55,6 @@ A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{conta
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
-
-\section{Load test}
-Jmeter load test
 
 \section{E-mail fogadásának és küldésének folyamata}
 \Aref{ch:felepites}. fejezetben \aref{fig:path_of_an_email}. ábrán bemutattam egy e-mail fogadásának elméleti útját. Most \aref{fig:email_send_receive_visible}. ábrán szeretném bemutatni hogyan követhető végig a rendszerben egy e-mail valódi útja.
@@ -147,9 +144,49 @@ E-mail küldése:
 \end{figure}
 
 
-\section{Kafka topicok}
-a replication factorról meg a három brókerről
-topicok meg egyebek
-
 
 \section{Adatbázis táblák}
+
+
+
+
+\section{Apache Kafka}\label{sec:kafka_topics}
+A kafka \textit{topic}ok és üzenetek elérhetőek és követhetőek a \textit{Kafka messages} menü pontja alatti Kafka Topics UI (\ref{fig:Kafka_Topics_UI}. ábra) eszközzel.
+
+\begin{figure}[hbt] 
+	\centering
+	\includegraphics[width=0.9\textwidth]{Kafka_topic_ui.png}
+	\caption{A Kafka Topics UI eszközzel követhetőek a kafka \textit{topic}ok üzenetei, partíciói és beállításai}
+	\label{fig:Kafka_Topics_UI}
+	\floatfoot{Forrás: saját ábra}
+\end{figure}
+
+
+A helpdesk alakalmazás összesen öt \textit{topic}-ot használ:
+\begin{description}
+	\item[email.in.v1.pub] Az összes beérkező  e-mailt tartalmazza.
+	
+	\item[helpdesk.gdf\textunderscore yandex.com.v1.pub] A  \href{mailto:helpdesk.gdf@yandex.com}{\nolinkurl{helpdesk.gdf@yandex.com}} címre küldött e-maileket tartalmazza.
+	
+	\item[helpdesk.gdf.travel\textunderscore yandex.com.v1.pub] A  \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre küldött e-maileket tartalmazza.
+	
+	
+	\item[h.gdf.theater\textunderscore gmx.com.v1.pub] A \href{mailto:h.gdf.theater@gmx.com}{\nolinkurl{h.gdf.theater@gmx.com}} címre küldött e-maileket tartalmazza.
+	
+	\item[\textunderscore schemas] A Schemaregistry ebben a \textit{topic}ban tárolja az alkalmazásban használt Avro schemákat.
+\end{description}
+
+
+Az alkalmazás három kafka brókert futat egy clusterben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --a \textunderscore schemas-on kívül mindegyik-- három particíóval és kettes replikációs faktorral lett létrehozva.
+Így a kafka cluster egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
+
+
+\section{frontend}
+egy-egy érdekesebb problémásabb felület
+ képenyőképek? valami how to dokumentáció	
+ gondolok itt az urlben állapottárolásra
+ meg a user keresés leütöm vallback meg 
+
+
+\section{eureka meg grafana}
+

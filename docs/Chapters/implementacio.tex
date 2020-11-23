@@ -69,7 +69,7 @@ Az elküldött üzenetek megfelelnek az \textit{rfc5322} szabványnak, különö
 
 
 
-\section{Helpdesk backend}
+\section{Helpdesk backend}\label{sec:backend}
 A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátásáért. \Aref{fig:backend_sequence_diagram}. ábrán láthatóak a helpdesk backend funkciói:
 \begin{itemize}
 	\item fogadja az \textit{email.in.v1.pub} kafka topic-ból érkező e-maileket, 
@@ -137,7 +137,7 @@ A frontend működését, és függőségeit \aref{fig:frontend_sequence_diagram
 \end{figure}
 
 
-\section{Keycloak}
+\section{Keycloak}\label{sec:keycloak}
 A Keycloak egy open source jogosultság- és hozzáférés-kezelő. Támogatja az LDAP-ot, SSO-t és a kétlépcsős azonosítást~\cite{Keycloak_website}. 
 
 A helpdesk alkalmazásban feladata a felhasználók azonosítása, és adataiknak nyilvántartása. Különálló mikroszervizként, saját adatbázissal rendelkezik.
@@ -151,7 +151,7 @@ A jogosultságokat két eltérő területre osztottam fel. A \textit{master real
 A \textit{helpdesk realm}on belül további két jogkört külöböztetek meg. Az \textit{admin\textunderscore user} szerepbe tartozó felhasználók képesek más e-mail szálait is kezelni, míg a csupán \textit{regular\textunderscore user} jogkörbe tartozóak csak a saját e-mail szálaikhoz férhetnek hozzá.
 
 
-\subsection{JSON Web Token}
+\subsection{JSON Web Token}\label{sec:JWT}
 A jogosultságkezelés technikai alapját az \textit{rfc7519}-es szabványban \cite{rfc7519_JSON_Web_Token} leírt JSON Web Token (JWT) adja. 
 
 A keycloak szervere által digitálisan aláírt token tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja a keycloaktól kapott azonosítót. A backend hitelesíti a tokent a keycloak publikus kulcsával (lásd \ref{fig:frontend_sequence_diagram} ábra), és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
@@ -159,3 +159,17 @@ A keycloak szervere által digitálisan aláírt token tartalmazza a felhasznál
 
 \section{Kafka}
 Hogy teljesen elválasszam egymástól az e-mail klienst és a helpdesk backendet, a bejövő és kimenő e-mailek Kafka \textit{topic}-okon (\ref{sec:apache_kafka} pont) mennek keresztül. A szeparációval függetlenné teszem egymástól a két rendszer működését, ami lehetővé teszi az eltérő igénybevételnek (\ref{sec:granularitas} pont) megfelelő skálázhatóságot.
+
+
+
+
+\section{Helpdesk backend és a Keycloak elkülönítése}
+A felhasználók adataiért a Keycloak (\ref{sec:keycloak}), az e-mail szálakért pedig a backend (\ref{sec:backend}) felelős. Az üzleti igény megköveteli hogy a felhasználók e-mail sorokhoz, és az e-mail szálak felhasználókhoz legyenek rendelve. A helpdesk backendnek éppen ezért tárolnia kell a fennálló kapcsolatot.
+
+A felhasználó Keycloaktól kapott egyedi azonosítóját tárolom a backenden. Ez alapján azonosítom a JSON Web Tokenben (\ref{sec:JWT}) érkező felhasználót.
+
+A felhasználók bejelentkezésről értesül a backend és eltárolja az új felhasználók egyedi adatait. Ez a megoldás addig használható, míg a felhasználókról tárolt mezők nem változnak meg, és a felhasználók nem törölhetőek. Amint ezek a feltételek megváltoznak, vagy  más, felhasználókkal kapcsolatos igények jelennek meg, akkor \aref{sec:alkalmazasok_szeparalasa} pontban megismertetett CQRS utat kell megvalósítani.
+	
+
+A Keycloakban regisztrálni kell egy Kafka event providert, és a kafka \textit{topic}on  keresztül kell követni a felhasználók adatait. Ezzel is elválasztva egymástól a két mikroszerviz működését.
+

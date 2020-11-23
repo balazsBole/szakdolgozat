@@ -7,7 +7,7 @@ Bár a kifejezés már régóta ismert, nincs egy központilag elfogadott, egys�
 \begin{itemize}
 	\item	pontosan egy üzleti funkció köré szerveződik 
 	\item   más	szervizekkel laza, általában hálózaton keresztül megvalósuló kapcsolatban áll
-	\item   ha szüksége van adatbázisra, akkor sajáttal rendelkezik
+	\item   ha szüksége van adatbázisra, akkor sajáttal rendelkezik, más rendszer ezt az adatbázist nem éri el
 	\item	önmagában is működőképes	
 	\item	decentralizált, tehát nincs egy a munkáját befolyásoló központi irányítórendszer
 \end{itemize}
@@ -62,6 +62,26 @@ A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a has
 
 Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --a fordítási időben-- kódot generáló eszköz a Mapstruct és a Lombok.
 
+
+\section{Alkalmazások szeparálása}\label{sec:alkalmazasok_szeparalasa}
+Ahogy azt \aref{sec:mikroszerviz}. pontban is írtam, hogy megvalósítható legyen a szervizek laza kapcsolata, és egymástól független működése, a mikroszerviz csak a saját adatbázisához férhet hozzá. Ez lehetővé teszi a feladatnak megfelelő adatbázis választását is.
+
+A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megoldás is létezik:
+\begin{description}
+	\item[API kompozíció] A legegyszerűbben megvalósítható az API kompozíció. Ebben az esetben az applikáció maga végzi el, saját memóriájában az adatok egymáshoz rendelését. 
+	
+	Kis számú adatnál használható, és célszerű elkerülni hogy az adat kettő vagy annál több számú mikroszervizen keresztül érkezzen meg.
+	
+	\item[CQRS] A CQRS\footnote{Command Query Responsibility Segregation} az  olvasás és írás műveletének elszeparálásán alapuló megoldás~\cite{OReally_Microservice_Architecture_CQRS}. Lényege hogy a CRUD műveletekről minden esetben egy esemény keletkezik. Ezekre az eseményekre bármelyik mikroszerviz feliratkozhat.
+	
+	Ha más rendszernek szüksége van az aktuális állapotra, az az események újrajátszásával bármikor megkapható.	
+	 
+	Az Apache Kafkát (\ref{sec:apache_kafka}) gyakran használják az események kezelésére, mert natívan támogatja az események csoportosítását egyedi azonosító alapján . Beállítható hogy UUID alapján mindig csak a legfrissebb állapot legyen elérhető, ezzel lecsökkentve a kezdeti olvasáshoz szükséges időt.
+		
+	\item[Elosztott tranzakciók és Saga] Ha nem csak más szervizek adatainak olvasásáról van szó, hanem több szervizen átívelő, visszagörgethető tranzakciót kell megvalósítani, arra az esetre találták ki a \textit{Saga}-t.
+	
+	A \textit{Saga} egy hosszú életű elosztott tranzakció~\cite{OReally_Microservice_Architecture_Saga}. A folyamat lépései sorban hajtódnak végre, minden lépés tartalmaz egy utasítást arra az esetre ha vissza kellene görgetni a teljes folyamatot. Ha a folyamat bármelyik lépésnél meghiúsul, onnantól fogva visszafelé minden rendszer egyesével visszaáll a tranzakció előtti állapotra.
+\end{description}
 
 
 \section{Apache Kafka}\label{sec:apache_kafka}
