@@ -6,14 +6,14 @@ databaseChangeLog:
       # Creating grant for for helpdesk_app
       changes:
         - sql:
-            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON content TO HELPDESK_APP;
+            sql: GRANT SELECT, INSERT ON content TO HELPDESK_APP;
         - sql:
-            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON header TO HELPDESK_APP;
+            sql: GRANT SELECT, INSERT ON header TO HELPDESK_APP;
         - sql:
-            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON attachment TO HELPDESK_APP;
+            sql: GRANT SELECT, INSERT ON attachment TO HELPDESK_APP;
         - sql:
-            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON thread TO HELPDESK_APP;
+            sql: GRANT SELECT, INSERT, UPDATE ON thread TO HELPDESK_APP;
         - sql:
-            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON users TO HELPDESK_APP;
+            sql: GRANT SELECT, INSERT, UPDATE ON users TO HELPDESK_APP;
         - sql:
-            sql: GRANT SELECT, INSERT, UPDATE, DELETE ON email TO HELPDESK_APP;
+            sql: GRANT SELECT, INSERT, UPDATE ON email TO HELPDESK_APP;
