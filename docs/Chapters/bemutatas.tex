@@ -29,9 +29,9 @@ A különböző szervizekből a terhelésnek megfelelően eltérő számú péld
 	\item és a Kafka brókerből (\ref{sec:kafka_topics}) szintén három darab.
 \end{itemize}
 
-A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (todo ábra). Az oldal elérhető a  \textit{Spring metrics} menüpont alatt.
+A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (\ref{todo} ábra). Az oldal elérhető a  \textit{Spring metrics} menüpont alatt.
 
-Az todo ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
+\Aref{todo} ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
 
 \begin{itemize}
 	\item a legfelső sorban a Java Virtual Machine, által akutálisan felhasznált Heap space,	
@@ -146,7 +146,15 @@ E-mail küldése:
 
 
 \section{Adatbázis táblák}
+A helpdesk backend 
 
+\begin{figure}[hbt] 
+	\centering
+	\includegraphics[width=0.85\textwidth]{extended_database_uml.png}
+	\caption{A backend összes adatbázistáblája}
+	\label{fig:extended_database_uml}
+	\floatfoot{Forrás: saját ábra}
+\end{figure}
 
 
 
@@ -188,5 +196,5 @@ egy-egy érdekesebb problémásabb felület
  meg a user keresés leütöm vallback meg 
 
 
-\section{eureka meg grafana}
+\section{eureka}
 

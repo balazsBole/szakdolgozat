@@ -67,8 +67,6 @@ Az elküldött üzenetek megfelelnek az \textit{rfc5322} szabványnak, különö
 \end{description}
 
 
-
-
 \section{Helpdesk backend}\label{sec:backend}
 A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátásáért. \Aref{fig:backend_sequence_diagram}. ábrán láthatóak a helpdesk backend funkciói:
 \begin{itemize}
@@ -99,7 +97,7 @@ Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, am
 Az e-mail szálak audit információinak és verzióinak követésére a Hibernate Envers eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi a megjelölt Hibernate objektumok állapotát.
 
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
-A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumnetációt készít.
+A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumnetációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
 
 
 

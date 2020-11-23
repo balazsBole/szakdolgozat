@@ -30,6 +30,24 @@ Robert~C. Martin.
 \newblock URL:
   \url{https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html}.
 
+\bibitem{clean_code_chapter_systems}
+Robert~C. Martin.
+\newblock {\em Clean Code: A Handbook of Agile Software Craftsmanship}, chapter
+  11, Systems.
+\newblock Prentice Hall, 1 edition, 2008.
+
+\bibitem{OReally_Microservice_Architecture_CQRS}
+Matt McLarty Mike~Amundsen Irakli~Nadareishvili, Ronnie~Mitra.
+\newblock {\em Microservice Architecture: Aligning Principles, Practices, and
+  Culture}, chapter 5, CQRS.
+\newblock O’Reilly, 1 edition, 2016.
+
+\bibitem{OReally_Microservice_Architecture_Saga}
+Matt McLarty Mike~Amundsen Irakli~Nadareishvili, Ronnie~Mitra.
+\newblock {\em Microservice Architecture: Aligning Principles, Practices, and
+  Culture}, chapter 5, Distributed Transactions and Sagas.
+\newblock O’Reilly, 1 edition, 2016.
+
 \bibitem{OReally_Kafka}
 Todd~Palino Neha~Narkhede, Gwen~Shapira.
 \newblock {\em Kafka: The Definitive Guide: Real-Time Data and Stream
@@ -41,12 +59,6 @@ Todd~Palino Neha~Narkhede, Gwen~Shapira.
 \newblock {\em Kafka: The Definitive Guide: Real-Time Data and Stream
   Processing at Scale, and Culture}, chapter 5, Kafka Internals.
 \newblock O’Reilly, 1 edition, 2016.
-
-\bibitem{clean_code_chapter_systems}
-Robert~C. Martin.
-\newblock {\em Clean Code: A Handbook of Agile Software Craftsmanship}, chapter
-  11, Systems.
-\newblock Prentice Hall, 1 edition, 2008.
 
 \bibitem{angular_docs}
 Introduction to angular concepts.
@@ -73,5 +85,10 @@ Keycloak.
 Json web token (jwt).
 \newblock Letöltve: 2020. Nov. 18.
 \newblock URL: \url{https://tools.ietf.org/html/rfc7519}.
+
+\bibitem{docker_website_deploy_ECS}
+Deploying docker containers on ecs.
+\newblock Letöltve: 2020. Nov. 22.
+\newblock URL: \url{https://docs.docker.com/engine/context/ecs-integration/}.
 
 \end{thebibliography}
