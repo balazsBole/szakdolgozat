@@ -139,7 +139,7 @@ E-mail küldése:
 	\label{fig:email_client_receives_kafka}
 \end{subfigure}
 
-	\caption{E-mail fogadásának és küldésének folyamata során követhető lépések}
+	\caption[E-mail fogadásának és küldésének folyamata]{E-mail fogadásának és küldésének folyamata során követhető lépések}
 	\label{fig:email_send_receive_visible}
 \end{figure}
 
@@ -195,7 +195,7 @@ A kafka \textit{topic}ok és üzenetek elérhetőek és követhetőek a \textit{
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.9\textwidth]{Kafka_topic_ui.png}
-	\caption{A Kafka Topics UI eszközzel követhetőek a kafka \textit{topic}ok üzenetei, partíciói és beállításai}
+	\caption[A Kafka Topics UI felülete]{A Kafka Topics UI eszközzel követhetőek a kafka \textit{topic}ok üzenetei, partíciói és beállításai}
 	\label{fig:Kafka_Topics_UI}
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
@@ -220,12 +220,24 @@ Az alkalmazás három kafka brókert futat egy clusterben. Továbbá minden üzl
 Így a kafka cluster egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
 
 
-\section{frontend}
+\section{Frontend}
 egy-egy érdekesebb problémásabb felület
  képenyőképek? valami how to dokumentáció	
  gondolok itt az urlben állapottárolásra
- meg a user keresés leütöm vallback meg 
+ meg a user keresés leütöm callback meg  - ez jó lehet még
 
 
-\section{eureka}
+\section{Eureka}
+\Aref{sec:metrikak}. pontban megemlített szerviz felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens induláskor beregisztálják magukat az Eureka szervizbe.
+
+Az Eureka szerveren keresztül megtekinthető, és más szervizek számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \textit{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
+
+
+\begin{figure}[hbt] 
+	\centering
+	\includegraphics[width=0.85\textwidth]{eureka.png}
+	\caption[Az Eureka service discovery felülete]{Az Eureka service discovery-n látható a mikroszerviz példányainak állapota és egyedi azonosítója}
+	\label{fig:eureka}
+	\floatfoot{Forrás: saját ábra}
+\end{figure}
 

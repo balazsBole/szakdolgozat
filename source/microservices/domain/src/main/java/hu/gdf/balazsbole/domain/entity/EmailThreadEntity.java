@@ -3,6 +3,7 @@ package hu.gdf.balazsbole.domain.entity;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -18,6 +19,7 @@ import java.util.List;
 @Entity
 @Audited
 @Table(name = "thread")
+@BatchSize(size = 512)
 @DynamicUpdate
 public class EmailThreadEntity extends AbstractEntity implements Serializable {
 
