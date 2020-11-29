@@ -1,0 +1,20 @@
+/**
+
+* User representation for kafka
+
+*/
+
+@namespace("hu.gdf.balazsbole.kafka.user")
+protocol UserProtocol {
+
+  record UserProtocolKey {
+    string id;
+  }
+
+  record UserProtocolValue {
+    string id;
+    union {null, string} username;
+    string email;
+  }
+
+}

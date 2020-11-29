@@ -6,7 +6,6 @@ import hu.gdf.balazsbole.domain.dto.EmailThread;
 import hu.gdf.balazsbole.domain.dto.EmailThreadAudit;
 import hu.gdf.balazsbole.domain.entity.EmailThreadAuditEntity;
 import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
-import hu.gdf.balazsbole.domain.entity.UserEntity;
 import hu.gdf.balazsbole.domain.mapper.EmailThreadAuditMapper;
 import hu.gdf.balazsbole.domain.mapper.EmailThreadMapper;
 import hu.gdf.balazsbole.domain.repository.EmailThreadAuditRepository;
@@ -49,8 +48,7 @@ public class AuditServiceImpl implements AuditService {
     @Override
     @Transactional(readOnly = true)
     public List<EmailThread> emailThreadsRelatedToUser(UUID keycloakId) {
-        UserEntity userEntity = userRepository.findByKeycloakID(keycloakId).get();
-        List<UUID> relatedIds = auditRepository.getThreadIdsRelatedToUser(userEntity.getId());
+        List<UUID> relatedIds = auditRepository.getThreadIdsRelatedToUser(keycloakId);
         List<EmailThreadEntity> entities = emailThreadRepository.findAllById(relatedIds);
         return auditMapper.mapListToEmailThread(entities);
     }

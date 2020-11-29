@@ -4,12 +4,13 @@ import hu.gdf.balazsbole.backend.service.UserService;
 import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.User;
 import io.swagger.annotations.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -30,18 +31,20 @@ public class UserRestController {
         this.service = service;
     }
 
-
     @GetMapping("/details")
     @ApiOperation(nickname = "authenticatedUserDetails", value = "Get details of the authenticated user.")
     @ApiResponses({
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return authenticated user details."),
+            @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "User with the given ID does not exists."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
     public ResponseEntity<User> authenticatedUserDetails() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = service.getUserFrom(authentication);
-        return ResponseEntity.ok(user);
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UUID userUUID = UUID.fromString(userId);
+        return ResponseEntity.ok(service.getUser(userUUID).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found")));
     }
+
 
     @GetMapping(value = "/search/autocomplete")
     @ApiOperation(nickname = "autocomplete", value = "AutoComplete search for User. Searches for username with like.")
@@ -66,9 +69,9 @@ public class UserRestController {
     public ResponseEntity<Void> changeQueue(
             @ApiParam(value = "New property", required = true) @RequestBody Map<String, UUID> update) {
         UUID queueId = update.get("queueId");
-        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
-        UUID userKeycloakUUID = UUID.fromString(keycloakUserId);
-        service.updateQueueFor(userKeycloakUUID, queueId);
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        UUID userUUID = UUID.fromString(userId);
+        service.updateQueueFor(userUUID, queueId);
         return ResponseEntity.ok().build();
     }
 

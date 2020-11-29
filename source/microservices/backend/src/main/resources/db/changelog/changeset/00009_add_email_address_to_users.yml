@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-drop_uniquness_of_username
+      author: Balazs
+      changes:
+        - dropIndex:
+            tableName: users
+            indexName: users_keycloak_id_uindex
+  - changeSet:
+      id: 2-drop_column_keycloak_id
+      author: Balazs
+      changes:
+        - dropColumn:
+            columnName: keycloak_id
+            tableName: users
+  - changeSet:
+      id: 3-drop_column_keycloak_id_from_aud
+      author: Balazs
+      changes:
+        - dropColumn:
+            columnName: keycloak_id
+            tableName: users_aud
+  - changeSet:
+      id: 4-add_email_to_users
+      author: Balazs
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  type: TEXT
+  - changeSet:
+      id: 5-add_email_to_users_aud
+      author: Balazs
+      changes:
+        - addColumn:
+            tableName: users_aud
+            columns:
+              - column:
+                  name: email
+                  type: TEXT

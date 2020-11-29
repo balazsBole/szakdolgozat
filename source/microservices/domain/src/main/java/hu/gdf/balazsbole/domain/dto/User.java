@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -19,12 +20,14 @@ public class User {
     @NotNull
     private String username;
 
-    @ApiModelProperty(value = "Unique keycloak id.")
+    @ApiModelProperty(value = "The email address of the user.")
     @NotNull
-    private UUID keycloakID;
+    @Email
+    private String email;
 
     @ApiModelProperty(value = "The user can operate on this queue.")
     @NotNull
     @Valid
     private Queue queue;
+
 }

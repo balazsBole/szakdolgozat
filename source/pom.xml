@@ -11,6 +11,16 @@
 
   <modules>
     <module>microservices</module>
+    <module>keycloak-plugin</module>
   </modules>
+
+  <repositories>
+    <repository>
+      <id>confluent</id>
+      <name>maven confluent repository</name>
+      <url>https://packages.confluent.io/maven/</url>
+    </repository>
+  </repositories>
+
 
 </project>

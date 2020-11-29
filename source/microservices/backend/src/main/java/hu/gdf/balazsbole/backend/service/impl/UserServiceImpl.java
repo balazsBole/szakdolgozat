@@ -1,7 +1,6 @@
 package hu.gdf.balazsbole.backend.service.impl;
 
 
-import hu.gdf.balazsbole.backend.mapper.AuthenticationMapper;
 import hu.gdf.balazsbole.backend.service.UserService;
 import hu.gdf.balazsbole.domain.dto.User;
 import hu.gdf.balazsbole.domain.entity.QueueEntity;
@@ -12,7 +11,6 @@ import hu.gdf.balazsbole.domain.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,27 +28,21 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper mapper;
-    private final AuthenticationMapper authenticationMapper;
     private final UserRepository repository;
     private final QueueRepository queueRepository;
 
-    public UserServiceImpl(UserMapper mapper, AuthenticationMapper authenticationMapper, UserRepository repository, QueueRepository queueRepository) {
+    public UserServiceImpl(UserMapper mapper, UserRepository repository, QueueRepository queueRepository) {
         this.mapper = mapper;
-        this.authenticationMapper = authenticationMapper;
         this.repository = repository;
         this.queueRepository = queueRepository;
     }
 
     @Override
     @Transactional
-    public User getUserFrom(Authentication authentication) {
-        UserEntity fromAuthentication = authenticationMapper.map(authentication);
-
-        Optional<UserEntity> optionalUserEntity = repository.findByKeycloakID(fromAuthentication.getKeycloakID());
-        if (optionalUserEntity.isEmpty()) {
-            repository.save(fromAuthentication);
-        }
-        return mapper.map(optionalUserEntity.orElse(fromAuthentication));
+    public void storeUser(User user) {
+        Optional<UserEntity> optionalUserEntity = repository.findById(user.getId());
+        UserEntity userEntity = optionalUserEntity.orElse(new UserEntity());
+        repository.save(mapper.update(userEntity, user));
     }
 
     @Override
@@ -64,13 +56,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateQueueFor(UUID userKeycloakUUID, UUID queueId) {
-        Optional<UserEntity> optionalUserEntity = repository.findByKeycloakID(userKeycloakUUID);
+    @Transactional
+    public void updateQueueFor(UUID userId, UUID queueId) {
+        Optional<UserEntity> optionalUserEntity = repository.findById(userId);
         Optional<QueueEntity> optionalQueueEntity = queueRepository.findById(queueId);
         if (optionalUserEntity.isEmpty() || optionalQueueEntity.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found");
         UserEntity userEntity = optionalUserEntity.get();
         userEntity.setQueue(optionalQueueEntity.get());
         repository.save(userEntity);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<User> getUser(UUID userId) {
+        return repository.findById(userId).map(mapper::map);
     }
 }

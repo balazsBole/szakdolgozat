@@ -8,7 +8,6 @@ import org.hibernate.envers.Audited;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -24,9 +23,9 @@ public class UserEntity extends AbstractEntity implements Serializable {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "keycloak_id", nullable = false, unique = true, updatable = false)
     @NotNull
-    private UUID keycloakID;
+    @Column(name = "email", nullable = false, updatable = true)
+    private String email;
 
     @JoinColumn(name = "queue_id", nullable = true)
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, optional = true)

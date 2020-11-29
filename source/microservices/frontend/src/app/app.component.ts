@@ -24,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
       (loggedIn: boolean) => {
         this.loggedIn = loggedIn;
         this.admin = this.service.isUserInRole("admin_user");
+        this.service.getUsername()
         if (loggedIn)
           this.userFacade.details();
       });

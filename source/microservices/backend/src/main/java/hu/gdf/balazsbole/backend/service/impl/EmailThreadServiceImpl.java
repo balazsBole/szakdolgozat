@@ -56,8 +56,8 @@ public class EmailThreadServiceImpl implements EmailThreadService {
         return mapper.mapList(userIsNull);
     }
 
-    private QueueEntity findQueueOfUserKeycloakId(UUID keycloakUUID) {
-        Optional<UserEntity> optional = userRepository.findByKeycloakID(keycloakUUID);
+    private QueueEntity findQueueOfUserKeycloakId(UUID userID) {
+        Optional<UserEntity> optional = userRepository.findById(userID);
         if (optional.isEmpty() || null == optional.get().getQueue()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found");
         }
@@ -66,8 +66,8 @@ public class EmailThreadServiceImpl implements EmailThreadService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EmailThread> findAllByStatusAndKeycloakUser(UUID keycloakId, Status status) {
-        List<EmailThreadEntity> allByStatusAndUser = repository.findAllByStatusAndUser_KeycloakID(status, keycloakId);
+    public List<EmailThread> findAllByStatusAndUserId(UUID userId, Status status) {
+        List<EmailThreadEntity> allByStatusAndUser = repository.findAllByStatusAndUser_Id(status, userId);
         return mapper.mapList(allByStatusAndUser);
     }
 

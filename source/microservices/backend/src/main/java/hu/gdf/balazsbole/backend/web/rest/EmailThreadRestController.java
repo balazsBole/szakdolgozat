@@ -57,9 +57,9 @@ public class EmailThreadRestController {
             @ApiParam(value = "Pagination page", example = "1", allowableValues = "range[0, infinity]") @RequestParam(name = "page", defaultValue = "0") final int page,
             @ApiParam(value = "Pagination size", example = "1", allowableValues = "range[1, infinity]") @RequestParam(name = "size", defaultValue = "1") final int size
     ) {
-        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         //todo: check for admin rights for this request
-        List<EmailThread> threads = service.getUnassignedEmailThreadsFor(UUID.fromString(keycloakUserId));
+        List<EmailThread> threads = service.getUnassignedEmailThreadsFor(UUID.fromString(userId));
         return ResponseEntity.ok(threads);
     }
 
@@ -72,9 +72,9 @@ public class EmailThreadRestController {
     public ResponseEntity<List<EmailThread>> assignedToMeByStatus(
             @ApiParam(value = "EmailThread status") @RequestHeader(value = "status", defaultValue = "OPEN") final String status
     ) {
-        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        List<EmailThread> threads = service.findAllByStatusAndKeycloakUser(UUID.fromString(keycloakUserId), Status.valueOf(status));
+        List<EmailThread> threads = service.findAllByStatusAndUserId(UUID.fromString(userId), Status.valueOf(status));
         return ResponseEntity.ok(threads);
     }
 
@@ -89,8 +89,8 @@ public class EmailThreadRestController {
     ) {
         //todo: check for admin rights for this request
 
-        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<EmailThread> threads = service.findAllByStatusInTheQueueOf(Status.valueOf(status), UUID.fromString(keycloakUserId));
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<EmailThread> threads = service.findAllByStatusInTheQueueOf(Status.valueOf(status), UUID.fromString(userId));
         return ResponseEntity.ok(threads);
     }
 

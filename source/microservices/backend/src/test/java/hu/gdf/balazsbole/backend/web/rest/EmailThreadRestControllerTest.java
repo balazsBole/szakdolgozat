@@ -67,7 +67,7 @@ class EmailThreadRestControllerTest {
         EmailThread emailThread = new EmailThread();
         emailThread.setUser(new User());
         emailThread.getUser().setUsername("test");
-        when(service.findAllByStatusAndKeycloakUser(eq(uuid), eq(Status.OPEN))).thenReturn(Collections.singletonList(emailThread));
+        when(service.findAllByStatusAndUserId(eq(uuid), eq(Status.OPEN))).thenReturn(Collections.singletonList(emailThread));
 
         Assertions.assertDoesNotThrow(() ->
                 mvc.perform(get(REST_URL + "/assigned-to-me"))

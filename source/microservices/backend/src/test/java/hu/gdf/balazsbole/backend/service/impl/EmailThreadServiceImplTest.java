@@ -64,9 +64,9 @@ class EmailThreadServiceImplTest implements RunsWithMappers {
     void findAllByStatusAndUser_should_sreturn_values_from_repository() {
         EmailThreadEntity emailThreadEntity = new EmailThreadEntity();
         emailThreadEntity.setStatus(Status.OPEN);
-        when(repository.findAllByStatusAndUser_KeycloakID(eq(Status.OPEN), eq(uuid))).thenReturn(Collections.singletonList(emailThreadEntity));
+        when(repository.findAllByStatusAndUser_Id(eq(Status.OPEN), eq(uuid))).thenReturn(Collections.singletonList(emailThreadEntity));
 
-        List<EmailThread> result = service.findAllByStatusAndKeycloakUser(uuid, Status.OPEN);
+        List<EmailThread> result = service.findAllByStatusAndUserId(uuid, Status.OPEN);
         assertEquals(1, result.size());
         assertEquals(Status.OPEN, result.get(0).getStatus());
     }

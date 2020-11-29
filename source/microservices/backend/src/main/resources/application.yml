@@ -78,6 +78,7 @@ spring:
     topic:
       emailIn: "email.in.v1.pub"
       emailOutSuffix: ".v1.pub"
+      user: "user.v1.pub"
 
     properties:
       schema.registry.url: "http://localhost:8081"

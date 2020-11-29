@@ -40,9 +40,9 @@ public class AuditRestController {
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
     public ResponseEntity<List<EmailThread>> emailThreadsRelatedToUser() {
-        String keycloakUserId = SecurityContextHolder.getContext().getAuthentication().getName();
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        return ResponseEntity.ok(service.emailThreadsRelatedToUser(UUID.fromString(keycloakUserId)));
+        return ResponseEntity.ok(service.emailThreadsRelatedToUser(UUID.fromString(userId)));
     }
 
 

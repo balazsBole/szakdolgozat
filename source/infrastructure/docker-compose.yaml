@@ -95,6 +95,7 @@ services:
     image: quay.io/keycloak/keycloak:11.0.2
     volumes:
       - ./keycloak:/opt/jboss/keycloak/imports
+      - ./keycloak/plugins:/opt/jboss/keycloak/standalone/deployments
     environment:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
@@ -137,7 +138,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       KAFKA_ADVERTISED_HOST_NAME: 172.17.0.1
-      KAFKA_CREATE_TOPICS: "email.in.v1.pub:3:2,helpdesk.gdf_yandex.com.v1.pub:3:2,helpdesk.gdf.travel_yandex.com.v1.pub:3:2,h.gdf.theater_gmx.com.v1.pub:3:2"
+      KAFKA_CREATE_TOPICS: "user.v1.pub:3:2,email.in.v1.pub:3:2,helpdesk.gdf_yandex.com.v1.pub:3:2,helpdesk.gdf.travel_yandex.com.v1.pub:3:2,h.gdf.theater_gmx.com.v1.pub:3:2"
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
