@@ -26,7 +26,7 @@ export class EmailReplyViewComponent implements OnInit, OnDestroy {
     this.facade.email$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (email: Email) => {
         this.parentEmail = email
-        this.reply = createReplyEmail(email);
+        this.reply = this.facade.createReplyEmail(email);
       });
   }
 
@@ -39,21 +39,4 @@ export class EmailReplyViewComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-}
-
-function createReplyEmail(email: Email): Email {
-  return {
-    content: {body: "", html: true, attachments: []},
-    direction: "OUT",
-    emailThread: email.emailThread,
-    header: {
-      from: email.emailThread.queue.email,
-      inReplyTo: email.header.messageId,
-      references: email.header.references ? email.header.references + " " : "" + email.header.messageId,
-      subject: email.header.subject,
-      to: email.header.from
-    },
-    parentId: email.id,
-    read: true
-  };
 }

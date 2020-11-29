@@ -37,4 +37,22 @@ export class EmailFacade {
     const params: EmailService.ChangeReadParams = {body: {"read": read}, emailId: email.id}
     this.store.dispatch(changeReadAction({params}));
   }
+
+  createReplyEmail(email: Email): Email {
+    return {
+      content: {body: "", html: true, attachments: []},
+      direction: "OUT",
+      emailThread: email.emailThread,
+      header: {
+        from: email.emailThread.queue.email,
+        inReplyTo: email.header.messageId,
+        references: email.header.references ? email.header.references + " " : "" + email.header.messageId,
+        subject: email.header.subject,
+        to: email.header.from
+      },
+      parentId: email.id,
+      read: true
+    };
+  }
+
 }
