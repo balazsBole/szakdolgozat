@@ -39,7 +39,7 @@ export class EmailThreadEffects {
 
   searchUnassigned$ = createEffect(() => this.actions$.pipe(
     ofType(searchUnassignedAction),
-    mergeMap((action) => this.service.unassignedFromTheQueue(action.params)
+    mergeMap((action) => this.service.unassignedFromTheQueue()
       .pipe(
         map((searchResults: Array<EmailThread>) => searchUnassignedSuccessAction({searchResults})),
         catchError((error) => of(searchUnassignedFailAction({error})))

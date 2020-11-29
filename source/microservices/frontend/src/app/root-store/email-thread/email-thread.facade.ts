@@ -52,8 +52,8 @@ export class EmailThreadFacade {
     this.loading$ = this.store.select(selectIsLoading);
   }
 
-  unassigned(params: EmailThreadService.UnassignedFromTheQueueParams) {
-    this.store.dispatch(searchUnassignedAction({params}));
+  unassigned() {
+    this.store.dispatch(searchUnassignedAction());
   }
 
   assignedToMeWith(status: string) {

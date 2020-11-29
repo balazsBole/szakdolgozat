@@ -36,8 +36,7 @@ export const getDetailsFailAction = createAction(
   props<{ error: any }>());
 
 export const searchUnassignedAction = createAction(
-  ActionTypes.SEARCH_UNASSIGNED,
-  props<{ params: EmailThreadService.UnassignedFromTheQueueParams }>());
+  ActionTypes.SEARCH_UNASSIGNED);
 export const searchUnassignedSuccessAction = createAction(
   ActionTypes.SEARCH_UNASSIGNED_SUCCESS,
   props<{ searchResults: Array<EmailThread> }>());

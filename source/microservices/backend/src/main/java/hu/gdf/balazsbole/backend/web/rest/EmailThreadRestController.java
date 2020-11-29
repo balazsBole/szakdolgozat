@@ -53,10 +53,7 @@ public class EmailThreadRestController {
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Return unassigned emailThreads."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
-    public ResponseEntity<List<EmailThread>> unassigned(
-            @ApiParam(value = "Pagination page", example = "1", allowableValues = "range[0, infinity]") @RequestParam(name = "page", defaultValue = "0") final int page,
-            @ApiParam(value = "Pagination size", example = "1", allowableValues = "range[1, infinity]") @RequestParam(name = "size", defaultValue = "1") final int size
-    ) {
+    public ResponseEntity<List<EmailThread>> unassigned() {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         //todo: check for admin rights for this request
         List<EmailThread> threads = service.getUnassignedEmailThreadsFor(UUID.fromString(userId));

@@ -44,6 +44,6 @@ export class UnassignedViewComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    this.facade.unassigned({});
+    this.facade.unassigned();
   }
 }

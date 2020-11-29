@@ -19,11 +19,11 @@
           <a [routerLink]="'/email-thread/history'" mat-list-item> History </a>
           <a *ngIf="admin" [routerLink]="'/email-thread/change-queue'" mat-list-item> Change queue </a>
           <a *ngIf="admin" [routerLink]="'/email-thread/unassigned'" mat-list-item> Unassigned </a>
+          <a href="{{basePath}}/auth/realms/helpdesk/account/" mat-list-item> User account </a>
         </ng-container>
         <a *ngIf="!hasQueue || admin" [routerLink]="'/choose-queue'" mat-list-item> Choose queue </a>
       </mat-nav-list>
       <mat-nav-list [ngClass]="{bottom: loggedIn}">
-        <a href="{{basePath}}/auth/realms/helpdesk/account/" mat-list-item> User account </a>
         <a href="{{basePath}}/auth" mat-list-item> Login service </a>
         <a href="http://172.17.0.1:3000/d/spring_boot_21/spring-boot-metrics-per-instance" mat-list-item>
           Spring metrics </a>
