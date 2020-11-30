@@ -201,8 +201,10 @@ A kafka \textit{topic}ok és üzenetek elérhetőek és követhetőek a \textit{
 \end{figure}
 
 
-A helpdesk alakalmazás összesen öt \textit{topic}-ot használ:
+A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
 \begin{description}
+	\item[user.v1.pub] A Keycloak-ban regisztrált és karbantarott felhasználókat tartalmazza.
+	
 	\item[email.in.v1.pub] Az összes beérkező  e-mailt tartalmazza.
 	
 	\item[helpdesk.gdf\textunderscore yandex.com.v1.pub] A  \href{mailto:helpdesk.gdf@yandex.com}{\nolinkurl{helpdesk.gdf@yandex.com}} címre küldött e-maileket tartalmazza.
@@ -218,13 +220,6 @@ A helpdesk alakalmazás összesen öt \textit{topic}-ot használ:
 
 Az alkalmazás három kafka brókert futat egy clusterben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --a \textunderscore schemas-on kívül mindegyik-- három particíóval és kettes replikációs faktorral lett létrehozva.
 Így a kafka cluster egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
-
-
-\section{Frontend}
-egy-egy érdekesebb problémásabb felület
- képenyőképek? valami how to dokumentáció	
- gondolok itt az urlben állapottárolásra
- meg a user keresés leütöm callback meg  - ez jó lehet még
 
 
 \section{Eureka}

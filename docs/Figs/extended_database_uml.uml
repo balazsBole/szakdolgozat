@@ -4,17 +4,17 @@
   <OriginalElement>ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment</OriginalElement>
   <nodes>
     <node x="888.5" y="456.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread_aud</node>
-    <node x="403.0" y="961.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment</node>
-    <node x="-31.0" y="696.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.header</node>
-    <node x="890.5" y="278.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.revinfo</node>
+    <node x="-37.0" y="921.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment</node>
+    <node x="-21.700775945683517" y="21.13385063045581">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.databasechangelog</node>
+    <node x="191.0" y="683.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email</node>
     <node x="888.5" y="-11.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue_aud</node>
     <node x="690.5" y="493.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue</node>
-    <node x="191.0" y="683.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email</node>
-    <node x="222.36702967171726" y="-15.791833263187527">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.databasechangeloglock</node>
-    <node x="-24.67075704966362" y="-17.58700722502806">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.databasechangelog</node>
-    <node x="686.5" y="228.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users_aud</node>
-    <node x="686.5" y="733.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users</node>
-    <node x="217.5" y="986.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content</node>
+    <node x="890.5" y="278.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.revinfo</node>
+    <node x="226.70736500906156" y="20.877187170735098">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.databasechangeloglock</node>
+    <node x="688.5" y="228.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users_aud</node>
+    <node x="695.5" y="733.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users</node>
+    <node x="-22.5" y="746.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content</node>
+    <node x="209.0" y="976.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.header</node>
     <node x="490.5" y="721.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread</node>
   </nodes>
   <notes />
@@ -26,7 +26,7 @@
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users">
       <point x="69.5" y="-0.0" />
-      <point x="-73.5" y="-0.0" />
+      <point x="-64.5" y="-0.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread">
       <point x="89.0" y="-0.0" />
@@ -37,25 +37,25 @@
       <point x="0.0" y="-66.5" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content">
-      <point x="-77.0" y="-0.0" />
-      <point x="62.5" y="-0.0" />
+      <point x="0.0" y="-79.0" />
+      <point x="0.0" y="54.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue">
       <point x="0.0" y="-66.5" />
       <point x="0.0" y="66.5" />
     </edge>
-    <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content">
-      <point x="0.0" y="116.5" />
-      <point x="0.0" y="-54.0" />
-    </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread_aud" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users">
       <point x="0.0" y="104.0" />
       <point x="960.0" y="800.0" />
-      <point x="73.5" y="-0.0" />
+      <point x="64.5" y="-0.0" />
+    </edge>
+    <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content">
+      <point x="-89.0" y="-0.0" />
+      <point x="62.5" y="-0.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.header">
-      <point x="-89.0" y="-0.0" />
-      <point x="71.0" y="-0.0" />
+      <point x="0.0" y="116.5" />
+      <point x="0.0" y="-104.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread_aud" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue">
       <point x="-71.5" y="-0.0" />
@@ -73,7 +73,7 @@
       <point x="0.0" y="41.5" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users_aud" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.revinfo">
-      <point x="73.5" y="-0.0" />
+      <point x="71.5" y="-0.0" />
       <point x="-69.5" y="-0.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue_aud" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.revinfo">
@@ -81,10 +81,8 @@
       <point x="0.0" y="-41.5" />
     </edge>
   </edges>
-  <settings layout="Directed Orthogonal" zoom="0.6144186046511627" x="830.247187416602" y="577.5338351045484" />
-  <SelectedNodes>
-    <node>ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.databasechangeloglock</node>
-  </SelectedNodes>
+  <settings layout="Directed Orthogonal" zoom="0.47953488372093056" x="646.5958836434031" y="467.028808226175" />
+  <SelectedNodes />
   <Categories>
     <Category>Key columns</Category>
     <Category>Columns</Category>

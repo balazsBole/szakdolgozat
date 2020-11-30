@@ -3,60 +3,59 @@
   <ID>DATABASE</ID>
   <OriginalElement>ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment</OriginalElement>
   <nodes>
-    <node x="203.0" y="-39.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment</node>
-    <node x="689.0" y="176.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.header</node>
-    <node x="-29.5" y="413.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue</node>
-    <node x="391.0" y="163.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email</node>
-    <node x="-33.5" y="213.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users</node>
-    <node x="417.5" y="-14.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content</node>
-    <node x="170.5" y="201.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread</node>
+    <node x="683.0" y="81.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment</node>
+    <node x="409.0" y="-24.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.header</node>
+    <node x="-29.5" y="493.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue</node>
+    <node x="391.0" y="243.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email</node>
+    <node x="-24.5" y="293.5">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users</node>
+    <node x="697.5" y="306.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content</node>
+    <node x="170.5" y="281.0">ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread</node>
   </nodes>
   <notes />
   <edges>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue">
       <point x="0.0" y="79.0" />
-      <point x="240.0" y="480.0" />
+      <point x="240.0" y="560.0" />
       <point x="69.5" y="-0.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users">
       <point x="-69.5" y="-0.0" />
-      <point x="73.5" y="-0.0" />
+      <point x="64.5" y="-0.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.thread">
       <point x="-89.0" y="-0.0" />
       <point x="69.5" y="-0.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content">
-      <point x="77.0" y="-0.0" />
-      <point x="-62.5" y="-0.0" />
+      <point x="0.0" y="79.0" />
+      <point x="0.0" y="-54.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.users" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.queue">
       <point x="0.0" y="66.5" />
       <point x="0.0" y="-66.5" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.content">
-      <point x="0.0" y="-116.5" />
-      <point x="0.0" y="54.0" />
+      <point x="89.0" y="-0.0" />
+      <point x="-62.5" y="-0.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.header">
-      <point x="89.0" y="-0.0" />
-      <point x="-71.0" y="-0.0" />
+      <point x="0.0" y="-116.5" />
+      <point x="0.0" y="104.0" />
     </edge>
     <edge source="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email" target="ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.email">
       <point x="0.0" y="116.5" />
-      <point x="480.0" y="480.0" />
-      <point x="640.0" y="480.0" />
-      <point x="640.0" y="320.0" />
+      <point x="480.0" y="560.0" />
+      <point x="640.0" y="560.0" />
+      <point x="640.0" y="400.0" />
       <point x="89.0" y="40.0" />
     </edge>
   </edges>
-  <settings layout="Directed Orthogonal" zoom="1.0" x="398.5" y="254.0" />
-  <SelectedNodes>
-    <node>ca3793da-082d-4933-a51b-17689a5a2cbc.TABLE:helpdesk.public.attachment</node>
-  </SelectedNodes>
+  <settings layout="Directed Orthogonal" zoom="0.7795348837209304" x="687.5253112445687" y="418.87654046009766" />
+  <SelectedNodes />
   <Categories>
-    <Category>Columns</Category>
     <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
   </Categories>
 </Diagram>
 
