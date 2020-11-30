@@ -1,9 +1,11 @@
 import {EmailThread} from "../../api/models/email-thread";
+import {EmailThreadVersion} from "../../api/models";
 
 export const EMAILTHREAD_FEATURE_KEY = 'emailThread';
 
 export interface EmailThreadStoreState {
-  details?: EmailThread;
+  details?: EmailThreadVersion;
+  ETag?: string;
   patched?: boolean;
   unassigned?: EmailThread[];
   inAssignedQueueWithStatus?: EmailThread[];

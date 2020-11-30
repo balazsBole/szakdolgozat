@@ -3,6 +3,8 @@ package hu.gdf.balazsbole.backend.service.impl;
 
 import hu.gdf.balazsbole.backend.service.EmailThreadService;
 import hu.gdf.balazsbole.domain.dto.EmailThread;
+import hu.gdf.balazsbole.domain.dto.Queue;
+import hu.gdf.balazsbole.domain.dto.User;
 import hu.gdf.balazsbole.domain.entity.EmailThreadEntity;
 import hu.gdf.balazsbole.domain.entity.QueueEntity;
 import hu.gdf.balazsbole.domain.entity.UserEntity;
@@ -82,46 +84,31 @@ public class EmailThreadServiceImpl implements EmailThreadService {
 
     @Override
     @Transactional
-    public void updateStatus(UUID emailThreadId, Status status) {
-        Optional<EmailThreadEntity> emailThreadEntity = repository.findById(emailThreadId);
-        EmailThreadEntity thread = emailThreadEntity.orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
-        if (status != thread.getStatus()) {
-            thread.setStatus(status);
-            repository.save(thread);
-        }
+    public void update(UUID threadId, EmailThread newFields) {
+        EmailThreadEntity emailThreadEntity = repository.findById(threadId).get();
+
+        emailThreadEntity.setStatus(newFields.getStatus());
+        updateQueue(emailThreadEntity, newFields.getQueue());
+        updateUser(emailThreadEntity, newFields.getUser());
+
+        repository.save(emailThreadEntity);
     }
 
-    @Override
-    @Transactional
-    public void updateUser(UUID emailThreadId, String userId) {
-        EmailThreadEntity thread = repository.findById(emailThreadId).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
-
-        UserEntity userEntity = null;
-        if (userId != null)
-            userEntity = userRepository.findById(UUID.fromString(userId)).orElseThrow(
-                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
-
-        if (userEntity != thread.getUser()) {
-            thread.setUser(userEntity);
-            repository.save(thread);
+    private void updateUser(EmailThreadEntity emailThread, User user) {
+        if (user == null) {
+            emailThread.setUser(null);
+            return;
         }
+
+        UserEntity userEntity = userRepository.findById(user.getId()).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
+        emailThread.setUser(userEntity);
     }
 
-    @Override
-    @Transactional
-    public void updateQueue(UUID emailThreadId, UUID queueId) {
-        EmailThreadEntity thread = repository.findById(emailThreadId).orElseThrow(
+    private void updateQueue(EmailThreadEntity emailThread, Queue queue) {
+        QueueEntity queueEntity = queueRepository.findById(queue.getId()).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
-
-        QueueEntity queueEntity = queueRepository.findById(queueId).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found"));
-
-        if (queueEntity != thread.getQueue()) {
-            thread.setQueue(queueEntity);
-            repository.save(thread);
-        }
+        emailThread.setQueue(queueEntity);
     }
 
     @Override

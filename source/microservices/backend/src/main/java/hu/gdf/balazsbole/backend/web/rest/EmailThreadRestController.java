@@ -1,8 +1,10 @@
 package hu.gdf.balazsbole.backend.web.rest;
 
+import hu.gdf.balazsbole.backend.service.AuditService;
 import hu.gdf.balazsbole.backend.service.EmailThreadService;
 import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.EmailThread;
+import hu.gdf.balazsbole.domain.dto.EmailThreadVersion;
 import hu.gdf.balazsbole.domain.enumeration.Status;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.ws.rs.HeaderParam;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @Api(tags = "EmailThread")
@@ -28,23 +29,27 @@ public class EmailThreadRestController {
     public static final String ROOT_PATH = "/api/email-thread";
 
     private final EmailThreadService service;
+    private final AuditService auditService;
 
-    public EmailThreadRestController(EmailThreadService service) {
+    public EmailThreadRestController(EmailThreadService service, AuditService auditService) {
         this.service = service;
+        this.auditService = auditService;
     }
 
     @GetMapping("/{emailThreadId}")
     @ApiOperation(nickname = "emailThreadDetails", value = "Get EmailThread by UUID.")
     @ApiResponses({
-            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns email."),
+            @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "Returns email.",
+                    responseHeaders = {@ResponseHeader(name = "ETag", response = String.class, description = "The version of the EmailThread")}),
             @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "EmailThread with the given ID does not exists."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
     })
-    public ResponseEntity<EmailThread> details(
-            @PathVariable("emailThreadId") final UUID emailThreadId) {
-        Optional<EmailThread> emailThreadOptional = service.findById(emailThreadId);
-        return ResponseEntity.ok(emailThreadOptional.orElseThrow(
+    public ResponseEntity<EmailThreadVersion> details(@PathVariable("emailThreadId") final UUID emailThreadId) {
+        EmailThreadVersion threadVersion = new EmailThreadVersion();
+        threadVersion.setEmailThread(service.findById(emailThreadId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found")));
+        threadVersion.setVersion(auditService.getLatestVersionFromEmailThread(emailThreadId));
+        return ResponseEntity.ok().eTag(String.valueOf(threadVersion.getVersion())).body(threadVersion);
     }
 
     @GetMapping("/unassigned")
@@ -97,19 +102,18 @@ public class EmailThreadRestController {
             @ApiResponse(code = DomainConstants.HttpStatus.OK, message = "New fileds of the emailThread has been set"),
             @ApiResponse(code = DomainConstants.HttpStatus.NOT_FOUND, message = "EmailThread with the given ID does not exists."),
             @ApiResponse(code = DomainConstants.HttpStatus.FORBIDDEN, message = "User not authorized."),
+            @ApiResponse(code = DomainConstants.HttpStatus.CONFLICT, message = "EmailThread concurrently changed"),
     })
     public ResponseEntity<Void> patch(
             @ApiParam(value = "Id of the emailThread") @PathVariable("emailThreadId") final UUID emailThreadId,
-            @ApiParam(value = "New properties", required = true) @RequestBody Map<String, String> update) {
-        if (update.containsKey("status"))
-            service.updateStatus(emailThreadId, Status.valueOf(update.get("status")));
+            @ApiParam(value = "EmailThread containing the new properties", required = true) @RequestBody EmailThread emailThread,
+            @ApiParam(value = "If-Match header", required = true) @HeaderParam("If-Match") String ifMatch) {
 
-        if (update.containsKey("userId"))
-            service.updateUser(emailThreadId, update.get("userId"));
+        String latestVersion = String.valueOf(auditService.getLatestVersionFromEmailThread(emailThreadId));
+        if (!latestVersion.equals(ifMatch))
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "resource concurrently changed");
 
-        if (update.containsKey("queueId"))
-            service.updateQueue(emailThreadId, UUID.fromString(update.get("queueId")));
-        //todo: check for admin rights for queue change
+        service.update(emailThreadId, emailThread);
 
         return ResponseEntity.ok().build();
     }

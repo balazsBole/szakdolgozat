@@ -53,7 +53,7 @@ const routes: Routes = [
     canActivate: [AuthenticationGuardService],
       data: {roles: ['regular_user']},
       resolve: {
-          email: EmailThreadIdResolver
+          emailThread: EmailThreadIdResolver
       }
   },
     {

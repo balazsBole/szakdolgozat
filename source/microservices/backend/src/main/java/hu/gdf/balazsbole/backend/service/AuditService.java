@@ -14,4 +14,7 @@ public interface AuditService {
 
     @Transactional(readOnly = true)
     List<EmailThread> emailThreadsRelatedToUser(UUID userId);
+
+    @Transactional(readOnly = true)
+    int getLatestVersionFromEmailThread(UUID emailThreadId);
 }

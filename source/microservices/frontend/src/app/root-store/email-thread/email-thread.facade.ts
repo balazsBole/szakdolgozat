@@ -21,6 +21,7 @@ import {
 import {EmailThreadStoreState} from './email-thread.state.interface';
 import {EmailThreadService} from "../../api/services/email-thread.service";
 import {EmailThread} from "../../api/models";
+import {filter, map} from "rxjs/operators";
 
 @Injectable({providedIn: 'root'})
 export class EmailThreadFacade {
@@ -32,6 +33,7 @@ export class EmailThreadFacade {
   inAssignedQueueWithStatus: Observable<EmailThread[]>;
   patched$: Observable<boolean>;
   details$: Observable<EmailThread>;
+  private ETag: string;
 
   constructor(private readonly store: Store<EmailThreadStoreState>) {
     this.initObservables();
@@ -47,9 +49,13 @@ export class EmailThreadFacade {
     this.assignedThreads = this.store.select(selectAssigned);
     this.inAssignedQueueWithStatus = this.store.select(selectInAssignedQueueWithStatus);
     this.patched$ = this.store.select(selectPatched);
-    this.details$ = this.store.select(selectDetails);
+    this.details$ = this.store.select(selectDetails).pipe(filter(emailThreadVersion => !!emailThreadVersion?.emailThread), map(emailThreadVersion => emailThreadVersion.emailThread));
     this.error$ = this.store.select(selectError);
     this.loading$ = this.store.select(selectIsLoading);
+    this.store.select(selectDetails).pipe(filter(emailThreadVersion => !!emailThreadVersion)).subscribe(emailThreadVersion => {
+      console.log(emailThreadVersion.version)
+      this.ETag = "" + emailThreadVersion.version
+    });
   }
 
   unassigned() {
@@ -64,19 +70,20 @@ export class EmailThreadFacade {
     this.store.dispatch(searchByStatusInAssignedQueueAction({status: "CHANGE_QUEUE"}));
   }
 
-  patch(emalthread: EmailThread) {
+  patch(emailThread: EmailThread) {
     const params: EmailThreadService.PatchParams = {
-      body: {"status": emalthread.status, "userId": emalthread?.user?.id || null, "queueId": emalthread.queue.id},
-      emailThreadId: emalthread.id
+      body: emailThread,
+      emailThreadId: emailThread.id,
+      ifMatch: this.ETag
     }
     this.store.dispatch(patchAction({params}))
   }
 
-  patchStatus(status: any, id: string) {
-    const params: EmailThreadService.PatchParams = {
-      body: {"status": status}, emailThreadId: id
+  patchStatus(status: any, original: EmailThread) {
+    if (status !== original.status) {
+      let newStatus = {...original, status: status};
+      this.patch(newStatus);
     }
-    this.store.dispatch(patchAction({params}))
   }
 
 

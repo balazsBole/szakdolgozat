@@ -5,12 +5,10 @@ import hu.gdf.balazsbole.backend.service.EmailService;
 import hu.gdf.balazsbole.domain.DomainConstants;
 import hu.gdf.balazsbole.domain.dto.Email;
 import io.swagger.annotations.*;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 import java.util.Optional;
@@ -45,8 +43,7 @@ public class EmailRestController {
             @PathVariable("emailId") final UUID emailId
     ) {
         Optional<Email> emailOptional = service.findById(emailId);
-        return ResponseEntity.ok(emailOptional.orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "resource not found")));
+        return ResponseEntity.of(emailOptional);
     }
 
     @PostMapping("/send")

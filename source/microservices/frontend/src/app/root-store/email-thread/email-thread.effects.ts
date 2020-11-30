@@ -19,23 +19,23 @@ import {
   searchUnassignedFailAction,
   searchUnassignedSuccessAction
 } from './email-thread.actions';
-import {EmailThreadService} from "../../api/services/email-thread.service";
 import {EmailThread} from "../../api/models/email-thread";
+import {EmailThreadService} from "../../api/services/email-thread.service";
+import {EmailThreadVersion} from "../../api/models/email-thread-version";
 
 @Injectable()
 export class EmailThreadEffects {
-
 
   getDetails$ = createEffect(() => this.actions$.pipe(
     ofType(getDetailsAction),
     mergeMap((action) => this.service.emailThreadDetails(action.id)
       .pipe(
-        map((emailThread: EmailThread) => getDetailsSuccessAction({emailThread})),
+        map((version: EmailThreadVersion) => getDetailsSuccessAction({emailThreadVersion: version})
+        ),
         catchError((error) => of(getDetailsFailAction({error})))
       ))
     )
   );
-
 
   searchUnassigned$ = createEffect(() => this.actions$.pipe(
     ofType(searchUnassignedAction),

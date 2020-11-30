@@ -42,9 +42,9 @@ export const _emailThreadReducer = createReducer(
       loading: false
     })),
 
-    on(getDetailsSuccessAction, (state, {emailThread}) => ({
+    on(getDetailsSuccessAction, (state, {emailThreadVersion}) => ({
       ...state,
-      details: emailThread,
+      details: emailThreadVersion,
       error: null,
       loading: false
     })),

@@ -66,6 +66,7 @@ export class EmailWriterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loading$ = this.facade.loading$;
+    this.emailThreadFacade.details(this.email.emailThread.id);
     this.facade.error$.pipe(takeUntil(this.ngUnsubscribe)).subscribe(
       (error) => {
         if (error) this.snackBar.open(error.message, "", {duration: 2000})
@@ -96,8 +97,7 @@ export class EmailWriterComponent implements OnInit, OnDestroy {
 
     const status: any = this.emailForm.get('status').value as string;
     this.facade.sentEmail$.pipe(takeUntil(this.ngUnsubscribe)).pipe(filter(value => !!value), take(1)).subscribe((sent: Email) => {
-      if (status !== sent.emailThread.status)
-        this.emailThreadFacade.patchStatus(status, sent.emailThread.id);
+      this.emailThreadFacade.patchStatus(status, sent.emailThread);
       this.sendEmitter.emit(sent);
     });
   }

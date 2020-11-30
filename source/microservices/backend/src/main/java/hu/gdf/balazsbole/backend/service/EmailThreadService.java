@@ -24,13 +24,7 @@ public interface EmailThreadService {
     List<EmailThread> findAllByStatusInTheQueueOf(Status status, UUID keycloakId);
 
     @Transactional
-    void updateStatus(UUID emailThreadId, Status status);
-
-    @Transactional
-    void updateUser(UUID emailThreadId, String userId);
-
-    @Transactional
-    void updateQueue(UUID emailThreadId, UUID queueId);
+    void update(UUID threadId, EmailThread emailThread);
 
     @Transactional(readOnly = true)
     Optional<EmailThread> findById(UUID emailThreadId);

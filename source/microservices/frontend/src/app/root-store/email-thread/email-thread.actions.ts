@@ -1,6 +1,7 @@
 import {createAction, props} from '@ngrx/store';
 import {EmailThreadService} from "../../api/services/email-thread.service";
 import {EmailThread} from "../../api/models/email-thread";
+import {EmailThreadVersion} from "../../api/models/email-thread-version";
 
 
 export enum ActionTypes {
@@ -30,7 +31,7 @@ export const getDetailsAction = createAction(
   props<{ id: string }>());
 export const getDetailsSuccessAction = createAction(
   ActionTypes.GET_DETAILS_SUCCESS,
-  props<{ emailThread: EmailThread }>());
+  props<{ emailThreadVersion: EmailThreadVersion }>());
 export const getDetailsFailAction = createAction(
   ActionTypes.GET_DETAILS_FAIL,
   props<{ error: any }>());
