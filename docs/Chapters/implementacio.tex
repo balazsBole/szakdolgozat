@@ -92,14 +92,29 @@ A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készül
 
 \subsection{Adatbázis}\label{sec:adatbazis}
 PostgreSQL adatbázishoz kapcsolódást a HikariCP-n keresztül a Spring kezeli.
-Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, ami objektum relációs leképzést valósít meg}-en keresztül, az adatbázis verziókövetését Liquibase-en keresztül valósítom meg. 
+Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, ami objektum relációs leképzést valósít meg}-en keresztül, az adatbázis verziókövetését Liquibase-en (\ref{sec:liquibase} pont) keresztül valósítom meg. 
 
-Az e-mail szálak audit információinak és verzióinak követésére a Hibernate Envers eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi a megjelölt Hibernate objektumok állapotát.
+Az e-mail szálak audit információinak és verzióinak követésére a Hibernate Envers (\ref{sec:hubernate_envers} pont) eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi a megjelölt Hibernate objektumok állapotát.
+
+\subsection{Pesszimista konkurenciakezelés}
+Pesszimista konkurenciakezelésre jó példával szolgál a Liquibase (\ref{sec:liquibase} pont) működése. 
+
+Minden indítás során a Liquibase --az adatbázis módosításának befejezéséig-- zárolja a \textit{databasechangeloglock} táblát. Így --a várakozás miatt-- egyszerre mindig maximum egy Liquibase példány tud elindulni, és módosításokat végrehajtani.
+
+
+\subsection{Optimista konkurenciakezelés}
+A \ref{sec:konkurencia_kezekese} pontban ismertetett optimista konkurenciakezelést az e-mail szálak módosítása során valósítja meg a backend.
+
+A frontend kérésére egy verziószámmal ellátott e-mail szálat küld a backend. Ezt a HTTP-protokollnak megfelelő \textit{eTag}-et a frontend megőrzi, majd a módosítások elvégzését követően --mint \textit{if-match} paraméter-- visszaküldi a módosítási kérésével együtt.
+
+A backend összehasonlítja a módosítani kívánt erőforrás verziószámát a kérésben érkezett \textit{if-match} verziószámmal. Ha a két szám egyezik, akkor végrehajtja a változásokat, és az erőforrás új állapota új verziószámot kap.
+
+Ha a két verzió nem egyezik --ami csak úgy történhet meg, ha valaki más időközben módosította a kérdéses adatot-- akkor a tranzakció nem hajtódik végre, és a kliens egy HTTP \textit{Conflict} hibaüzenettel értesül a történtekről. A felhasználó ilyenkor az oldal frissítése után, megvizsgálja az aktuális állapotot, és --amennyiben a módosításaira még mindig szükség van-- újból kezdi a folyamatot.
 
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
 A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumnetációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
 
-
+\bigskip
 
 
 \section{Helpdesk frontend}

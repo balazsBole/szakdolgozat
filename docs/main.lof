@@ -4,29 +4,29 @@
 \select@language {magyar} \addvspace {10\p@ }
 \select@language {magyar} \contentsline {figure}{\numberline {2.1.}{\ignorespaces Hexagon\IeC {\'a}lis alkalmaz\IeC {\'a}sok fel\IeC {\'e}p\IeC {\'\i }t\IeC {\'e}se}}{8}{figure.caption.6}% 
 \select@language {magyar} \addvspace {10\p@ }
-\select@language {magyar} \contentsline {figure}{\numberline {3.1.}{\ignorespaces A legfontosabb komponensek\relax }}{11}{figure.caption.7}% 
-\select@language {magyar} \contentsline {figure}{\numberline {3.2.}{\ignorespaces A backend legfontosabb adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}i\relax }}{12}{figure.caption.8}% 
-\select@language {magyar} \contentsline {figure}{\numberline {3.3.}{\ignorespaces A bej\IeC {\"o}v\IeC {\H o} \IeC {\'e}s kimen\IeC {\H o} e-mail \IeC {\'u}tja\relax }}{14}{figure.caption.9}% 
+\select@language {magyar} \contentsline {figure}{\numberline {3.1.}{\ignorespaces A legfontosabb komponensek\relax }}{12}{figure.caption.7}% 
+\select@language {magyar} \contentsline {figure}{\numberline {3.2.}{\ignorespaces A backend legfontosabb adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}i\relax }}{13}{figure.caption.8}% 
+\select@language {magyar} \contentsline {figure}{\numberline {3.3.}{\ignorespaces A bej\IeC {\"o}v\IeC {\H o} \IeC {\'e}s kimen\IeC {\H o} e-mail \IeC {\'u}tja\relax }}{15}{figure.caption.9}% 
 \select@language {magyar} \addvspace {10\p@ }
-\select@language {magyar} \contentsline {figure}{\numberline {4.1.}{\ignorespaces E-mail kliens szekvencia diagramja\relax }}{17}{figure.caption.10}% 
-\select@language {magyar} \contentsline {figure}{\numberline {4.2.}{\ignorespaces Helpdesk backend szekvencia diagramja\relax }}{18}{figure.caption.11}% 
-\select@language {magyar} \contentsline {figure}{\numberline {4.3.}{\ignorespaces Helpdesk frontend szekvencia diagramja\relax }}{20}{figure.caption.12}% 
+\select@language {magyar} \contentsline {figure}{\numberline {4.1.}{\ignorespaces E-mail kliens szekvencia diagramja\relax }}{18}{figure.caption.10}% 
+\select@language {magyar} \contentsline {figure}{\numberline {4.2.}{\ignorespaces Helpdesk backend szekvencia diagramja\relax }}{19}{figure.caption.11}% 
+\select@language {magyar} \contentsline {figure}{\numberline {4.3.}{\ignorespaces Helpdesk frontend szekvencia diagramja\relax }}{22}{figure.caption.12}% 
 \select@language {magyar} \addvspace {10\p@ }
-\select@language {magyar} \contentsline {figure}{\numberline {5.1.}{\ignorespaces Deployment diagram}}{25}{figure.caption.13}% 
-\select@language {magyar} \contentsline {figure}{\numberline {5.2.}{\ignorespaces E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}}{26}{figure.caption.14}% 
-\select@language {magyar} \contentsline {figure}{\numberline {5.3.}{\ignorespaces A backend \IeC {\"o}sszes adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}ja\relax }}{27}{figure.caption.15}% 
-\select@language {magyar} \contentsline {figure}{\numberline {5.4.}{\ignorespaces A Kafka Topics UI fel\IeC {\"u}lete}}{29}{figure.caption.16}% 
-\select@language {magyar} \contentsline {figure}{\numberline {5.5.}{\ignorespaces Az Eureka service discovery fel\IeC {\"u}lete}}{30}{figure.caption.17}% 
+\select@language {magyar} \contentsline {figure}{\numberline {5.1.}{\ignorespaces Deployment diagram}}{27}{figure.caption.13}% 
+\select@language {magyar} \contentsline {figure}{\numberline {5.2.}{\ignorespaces E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}}{28}{figure.caption.14}% 
+\select@language {magyar} \contentsline {figure}{\numberline {5.3.}{\ignorespaces A backend \IeC {\"o}sszes adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}ja\relax }}{29}{figure.caption.15}% 
+\select@language {magyar} \contentsline {figure}{\numberline {5.4.}{\ignorespaces A Kafka Topics UI fel\IeC {\"u}lete}}{31}{figure.caption.16}% 
+\select@language {magyar} \contentsline {figure}{\numberline {5.5.}{\ignorespaces Az Eureka service discovery fel\IeC {\"u}lete}}{32}{figure.caption.17}% 
 \select@language {magyar} \addvspace {10\p@ }
-\select@language {magyar} \contentsline {figure}{\numberline {6.1.}{\ignorespaces A JMeter --tesztel\IeC {\'e}s sor\IeC {\'a}n haszn\IeC {\'a}lt-- sz\IeC {\'a}lai}}{32}{figure.caption.18}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.2.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt 100 felhaszn\IeC {\'a}l\IeC {\'o}val}}{33}{figure.caption.20}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.3.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt egy p\IeC {\'e}ld\IeC {\'a}nnyal}}{34}{figure.caption.22}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.4.}{\ignorespaces A terhel\IeC {\'e}ses tesztben r\IeC {\'e}sztvev\IeC {\H o} alkalmaz\IeC {\'a}sok\relax }}{35}{figure.caption.23}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.5.}{\ignorespaces A cs\IeC {\'u}csteljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata sor\IeC {\'a}n vizsg\IeC {\'a}lt legfontosabb metrik\IeC {\'a}k\relax }}{36}{figure.caption.24}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.6.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt Nginx n\IeC {\'e}lk\IeC {\"u}l}}{37}{figure.caption.26}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.7.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt m\IeC {\'o}dos\IeC {\'\i }tott HikariCp be\IeC {\'a}ll\IeC {\'\i }t\IeC {\'a}sokkal}}{38}{figure.caption.28}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.8.}{\ignorespaces HikariCP adatb\IeC {\'a}zis-kapcsolatai\relax }}{38}{figure.caption.29}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.9.}{\ignorespaces A backend egy p\IeC {\'e}ld\IeC {\'a}ny\IeC {\'a}nak a processzor haszn\IeC {\'a}lata\relax }}{39}{figure.caption.31}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.10.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt h\IeC {\'a}rom p\IeC {\'e}ld\IeC {\'a}nnyal}}{40}{figure.caption.32}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.1.}{\ignorespaces A JMeter --tesztel\IeC {\'e}s sor\IeC {\'a}n haszn\IeC {\'a}lt-- sz\IeC {\'a}lai}}{34}{figure.caption.18}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.2.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt 100 felhaszn\IeC {\'a}l\IeC {\'o}val}}{35}{figure.caption.20}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.3.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt egy p\IeC {\'e}ld\IeC {\'a}nnyal}}{36}{figure.caption.22}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.4.}{\ignorespaces A terhel\IeC {\'e}ses tesztben r\IeC {\'e}sztvev\IeC {\H o} alkalmaz\IeC {\'a}sok\relax }}{37}{figure.caption.23}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.5.}{\ignorespaces A cs\IeC {\'u}csteljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata sor\IeC {\'a}n vizsg\IeC {\'a}lt legfontosabb metrik\IeC {\'a}k\relax }}{38}{figure.caption.24}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.6.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt Nginx n\IeC {\'e}lk\IeC {\"u}l}}{39}{figure.caption.26}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.7.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt m\IeC {\'o}dos\IeC {\'\i }tott HikariCp be\IeC {\'a}ll\IeC {\'\i }t\IeC {\'a}sokkal}}{40}{figure.caption.28}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.8.}{\ignorespaces HikariCP adatb\IeC {\'a}zis-kapcsolatai\relax }}{40}{figure.caption.29}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.9.}{\ignorespaces A backend egy p\IeC {\'e}ld\IeC {\'a}ny\IeC {\'a}nak a processzor haszn\IeC {\'a}lata\relax }}{41}{figure.caption.31}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.10.}{\ignorespaces Helpdesk backend terhel\IeC {\'e}ses teszt h\IeC {\'a}rom p\IeC {\'e}ld\IeC {\'a}nnyal}}{42}{figure.caption.32}% 
 \select@language {magyar} \addvspace {10\p@ }
 \select@language {magyar} \addvspace {10\p@ }

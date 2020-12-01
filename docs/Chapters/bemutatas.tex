@@ -157,12 +157,12 @@ A helpdesk backend adatbázistábláit \aref{fig:extended_database_uml}. ábra t
 \end{figure}
 
 
-\subsection{Liquibase}
+\subsection{Liquibase}\label{sec:liquibase}
 A \textit{databasechangelog} és \textit{databasechangeloglock} táblákat a Liquibase (\ref{sec:adatbazis}. pont) az adatbázis séma verziójának karbantarására használja:
 \begin{description}
 	\item[databasechangelog] tábla tartalmazza a \mbox{\textit{resources/db.changelog}} könyvtárban található,  \mbox{\textit{db.changelog-master.yaml}} állományban tárolt utasítások futási eredményeit.
 	
-	\item[databasechangeloglockot] minden végrehajtásnál a Liquibase példánya  zárolja, ezzel biztosítva hogy mindig maximum egy példány hajtson végre módosításokat az adatbázison.
+	\item[databasechangeloglockot] minden végrehajtásnál a Liquibase példánya  zárolja, ezzel biztosítva hogy mindig maximum egy példány hajtson végre módosításokat az adatbázison (lásd \ref{sec:konkurencia_kezekese} pont, pesszimista konkurenciakezelési stratégia).
 \end{description}
 
 A helpdesk backend szerviz minden induláskor elindítja a Liquibase-t. A Liquibase csatlakozik az adatbázishoz a \textit{helpdesk} felhasználóval, és lefuttatja a \mbox{\textit{db.changelog-master.yaml}} állományban tárolt utasításokat.
@@ -174,7 +174,7 @@ A helpdesk backend alkalmazás rendes működése során --a Liquibase futása u
 Így biztosítható, hogy a helpdesk alkalmazás csak a feladatinak ellátásához szükséges szinten férjen hozzá az alkalmazáshoz, és hogy futása során ne módosíthassa a táblákat. 
 
 
-\subsection{Hibernate Envers}
+\subsection{Hibernate Envers}\label{sec:hubernate_envers}
 A \textit{revinfo} és az összes \textit{\textunderscore aud} végződésú táblát --\textit{\mbox{users\textunderscore aud}, \mbox{queue\textunderscore aud} és \mbox{thread\textunderscore aud}}-- a Hibernate Envers használja az e-mail szál és a kapcsolódó entitások állapotának követésére.
 
 \begin{description}

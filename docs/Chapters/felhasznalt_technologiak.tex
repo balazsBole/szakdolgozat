@@ -63,6 +63,20 @@ A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a has
 Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --a fordítási időben-- kódot generáló eszköz a Mapstruct és a Lombok.
 
 
+\section{Konkurencia kezelése}\label{sec:konkurencia_kezekese}
+Ha az alkalmazásnak egyszerre több felhasználót kell kiszolgálnia, vagy bármilyen oknál fogva ugyanazt az adatot egy időben több program módosítaná, akkor az inkonzisztens állapot elkerülése érdekében célszerű valamilyen konkurenciakezelési stratégiát alkalmazni. Alapvetően két fajta konkurenciakezelő megoldás létezik:
+
+\begin{description}
+	\item[optimista] konkurenciakezelést akkor érdemes használni, mikor számíthatunk arra, hogy az esetek többségében nincs párhuzamos módosítás. Ütközés esetén --ha egyszerre kellene ugyanazt az adatot módosítani-- a tranzakciót elvetjük és értesítjük a módosítást kezdeményező felet, hogy időközben  az adat megváltozott.
+	
+	Ez a megoldás tehát nagy mennyiségű adat, és hozzá képest relatív kis számú felhasználó esetén ideális.
+	
+	\item[pesszimista] konkurenciakezelés esetén, a módosítani kívánt adatot olvasáskor zároljuk, az csak a módosítás befejezése után lesz újra hozzáférhető a többi fél számára.
+	
+	Az adatok a teljes tranzakció ideje alatt zárolva vannak, ezért ez a megoldás gyakran jár együtt teljesítménycsökkenéssel. A kölcsönös zárolás pedig, --mikor két vagy több tranzakció egymás befejezésére vár-- könnyen vezethet \textit{deadlock}hoz.
+\end{description}
+
+
 \section{Alkalmazások szeparálása}\label{sec:alkalmazasok_szeparalasa}
 Ahogy azt \aref{sec:mikroszerviz}. pontban is írtam, hogy megvalósítható legyen a szervizek laza kapcsolata, és egymástól független működése, a mikroszerviz csak a saját adatbázisához férhet hozzá. Ez lehetővé teszi a feladatnak megfelelő adatbázis választását is.
 
