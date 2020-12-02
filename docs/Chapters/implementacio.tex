@@ -2,17 +2,30 @@ Szeretném külön-külön bemutatni az egyes komponenseket. Kiemelni a komponen
 
 \section{Mikroszerviz infrastruktúra}
 \subsection{Nginx}\label{sec:nginx}
-Az nginxnek három elkülönülő szerepe van:
-
+A megfelelő webszerver kiválasztása során a három legelterjedtebb webszerveret --Apache, Nginx és az Internet Information Services-- vettem számításba. A főbb szempontjaim a következők voltak:
 \begin{itemize}
-	\item{A \foreignlanguage{british}{helpdesk frontend} alkalmazásszervereként működik (lásd \ref{sec:angular}~pont)}
-	
-	\item{\foreignlanguage{british}{Routing}ot valósít meg, rajta kerestül érhető el a \foreignlanguage{british}{helpdesk backend} és a \foreignlanguage{british}{keycloak} szerviz}
-	
-	\item{\foreignlanguage{british}{HTTP cahce}-ként működik a frontend és a backend között, illetve a frontend és a keycloak között}
+	\item legyen open source, ezzel minimalizálva a költségeket,
+	\item lehetőleg minél kevesebb erőforrást használjon fel,
+	\item elegendő csak statikus tartalmat kiszolgálnia.
 \end{itemize}
 
-A loadbalancer funkcionalitás a \foreignlanguage{british}{docker round-robin DNS}-én (\ref{sec:docker}) keresztül valósul meg.
+Az IIS\footnote{Internet Information Services} --a többi open source alternatívál ellentétben-- nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
+
+Az Nginx alapvetően jobb az Apache-nál a statikus oldalak, a párhuzamos lekérések kiszolgálásában~\cite{nginx_performance}, emiatt szívesen használják a két alkalmazást együtt. Ilyenkor az Nginx egy fordított proxyként kezeli az ügyfeleket és a statikus tartalmak kiszolgálását, a dinamikus tartalmakat pedig továbbítja az Apache szerver felé.
+
+Mivel nekünk elegendő statikus tartalmat kiszolgálni --hiszen a helpdesk frontend egy egyszerű statikus HTML-oldallá fordul (lásd \ref{sec:angular}~pont)-- így adja magát, hogy webszerverként az Nginx-et használjam.
+
+Az Nginx-nek tehát három különböző szerepe van:
+
+\begin{itemize}
+	\item A \foreignlanguage{british}{helpdesk frontend} alkalmazásszervereként működik (\ref{sec:angular}~pont),
+	
+	\item \foreignlanguage{british}{Routing}ot valósít meg, rajta kerestül érhető el a \foreignlanguage{british}{helpdesk backend} és a \foreignlanguage{british}{keycloak} szerviz,
+	
+	\item \foreignlanguage{british}{HTTP cache}-ként működik a frontend és a backend között.
+\end{itemize}
+
+A loadbalancer funkcionalitás --mivel a docker azt natívan támogatja, így-- a \foreignlanguage{british}{docker round-robin DNS}-én (\ref{sec:docker}) keresztül valósul meg.
 
 
 \subsection{Docker konténerizáció}\label{sec:docker}
@@ -122,7 +135,7 @@ A frontend az e-mailek és e-mail szálakkal összefüggő üzleti feladatok meg
 
 
 \subsection{Kommunikáció a backenddel}
-A backenddel való kommunikáció REST protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumnetációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
+A backenddel való kommunikáció HTTP protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumnetációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
 
 Az aszinkron HTTP hívásokat az NgRx könyvtár alakítja adatfolyamokká. 
 Az így, \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, megkönnyítik a filterezhetőséget és az egységes hibakezelést. 
