@@ -1,22 +1,9 @@
 Szeretném külön-külön bemutatni az egyes komponenseket. Kiemelni a komponensek által megvalósított funkciókat, és a megvalósítás szempontjából fontos részleteket. 
 
 \section{Mikroszerviz infrastruktúra}
-\subsection{Nginx}\label{sec:nginx}
-A megfelelő webszerver kiválasztása során a három legelterjedtebb\cite{W3Techs_Usage_statistics_of_webservers} webszerveret --Apache, Nginx és a Cloudflare-- vettem számításba. A főbb szempontjaim a következők voltak:
-\begin{itemize}
-	\item legyen open source, vagy ingyenesen használható, ezzel minimalizálva a költségeket,
-	\item lehetőleg minél kevesebb erőforrást használjon fel,
-	\item úgy hogy közben elegendő csak statikus tartalmat kiszolgálnia.
-\end{itemize}
 
-Az IIS\footnote{Internet Information Services} --a többi open source alternatívál ellentétben-- nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
-
-Az Nginx alapvetően jobb az Apache-nál a statikus oldalak, a párhuzamos lekérések kiszolgálásában~\cite{nginx_performance}, emiatt szívesen használják a két alkalmazást együtt. Ilyenkor az Nginx egy fordított proxyként kezeli az ügyfeleket és a statikus tartalmak kiszolgálását, a dinamikus tartalmakat pedig továbbítja az Apache szerver felé.
-
-Mivel nekünk elegendő statikus tartalmat kiszolgálni --hiszen a helpdesk frontend egy egyszerű statikus HTML-oldallá fordul (lásd \ref{sec:angular}~pont)-- így adja magát, hogy webszerverként az Nginx-et használjam.
-
-\bigskip
-Az Nginx-nek tehát három különböző szerepe van:
+\section{Nginx}\label{sec:nginx}
+Az Nginx-nek három különböző szerepe van:
 
 \begin{itemize}
 	\item A \foreignlanguage{british}{helpdesk frontend} alkalmazásszervereként működik (\ref{sec:angular}~pont),
@@ -35,42 +22,8 @@ Az alakalmazás összes szervize saját docker konténerben fut. A docker konfig
 A konténerek skálázása  is a dockeren keresztül (\textit{docker-compose --scale}) valósul meg.
 
 
-
 \subsection{Metrikák}\label{sec:metrikak}
-Hogy megtaláljam a legmegfelelőbb monitorozó eszközt, összevetettem a három leginkább használt alternatívát, a prometheust, grafanát és a graphite-ot.
-
-\subsubsection{Prometheus}
-Prometheus egy open source monitorozó eszköz. Kifejezetten alkalmas a metrikák idősoros tárolására, gyűjtésére, és megjelenítésére.
-
-A Prometheus által létrehozott és használt PromQL\footnote{Prometheus Query Language} lekérdező nyelv segítségével könnyen lehet az adatokból táblázatot vagy grafikont készíteni. A PromQL-ben létrehozott kifejezések alkalmasak riasztások létrehozására is, ilyenkor a hibásnak tekintett eseményről --a Prometheus \textit{Alertmanager}-én keresztül-- képes a riasztást kiváltó helyzet elhárításában érintetteket értesíteni.
-
-A megjelenítésre használt \textit{Console template} meglehetősen sok és szerteágazó funkcióval rendelkezik. A rendelkezésre álló átfogó dokumentáció ellenére is jelentős időt vesz igénybe a legalapvetőbb grafikonok elkészítése.
-
-A Prometheus HTTP-n keresztül tudja a megfigyelt rendszerek állapotát szabályos időintervallumokban lekérdezni. Az integrációt nagyban segíti, hogy összeköthető \textit{service discovery} szerverekkel.
-
-\subsubsection{Grafana}
-Grafana egy open source adatelemző, megjelenítő és monitorozó eszköz.
-
-Nem tárol vagy gyűjt adatot, de támogat többféle --Graphite, Prometheus, Influx DB, ElasticSearch, MySQL, PostgreSQL-- adatforrással való kapcsolatot. \textit{Pluginok}on keresztül továbbá támogatja a felhő alapú AWS Cloudwatch és OpenStack Gnocchi adatforrást is.
-
-
-A Grafana legnagyobb előnye a \textit{dashboard}-jaiban rejlik. A felületen --mint egy műszerfalon-- egymás mellett rendszerezve helyezkednek el a különböző paneleken ábrázolt metrikák. Számtalan előre elkészített típusú panelből lehet válogatni, többek között elérhetőek hisztogramok, grafikonok, hőtérképek, táblázatok, riasztások, RSS- és naplóbejegyzés-olvasó felületek.
-
-A grafana oldalán ezen kívül számos előre elkészített és szabadon felhasználható \textit{dashboard} érhető el. A leggyakrabban használt alkalmazások metrikái újra használhatóan és szerkeszthetően hozzáférhetőek. Így a fejlesztést jelentősen leegyszerűsítve, elegendő csupán az alkalmazás specifikus paneleket letölteni és testre szabni.
-
-\subsubsection{Graphite}
-A Graphite idősoros tárolására és megjelenítésére alkalmas open source moniorozó eszköz. Összesen két feladatot lát el, a Whisper könyvtárral tárolja a neki küldött adatokat, valamint megjeleníti a tárolt adatot a webes felületén.
-
-Az adatok tárolása nem olyan kifinomult mint a Prometheuson; passzívan képes csak fogadni az adatokat és nem rendelkezik a PromQL-hez hasonló lekérdező nyelvvel sem.
-
-A beépített felülete --körülbelül a Prometheus-éhoz hasonlóan-- messze nem olyan részletes mint a Grafanáé. Egyszerű grafikonok és táblázatok ugyanúgy elkészíthetőek vele, de ezen kívül támogatja még \textit{dashboard}ok létrehozását.
-
-
-\subsubsection{Megvalósítás}
-A fenti ismeretek fényében egy hibrid megoldást választottam. A Grafana könnyen integrálható a Prometheussal, így egyszerre tudom kihasználni a Grafana kifinomult megjelenítését és szerkeszthető \textit{dashboard}jait, valamint a Prometheus PromSQL-jét, kiforrott adatgyűjtési és tárolási módszereit.
-
-\bigskip
-Így tehát a springes alkamazásaim egy-egy HTTP endpointon keresztül érhetőek el a prometheus számára (\textit{\mbox{/actuator/proemtheus}}) és induláskor beregisztrálják magukat az eureka\footnote{Az Eureka a Netflix által fejlesztett \textit{discovery server}. Feladata az összes kliens port és ip adatának nyilkvántartása.} szerverbe.
+\Aref{sec:metrikak_tervezes} pontnak megfelelően a springes alkamazásaim egy-egy HTTP endpointon keresztül érhetőek el a prometheus számára (\textit{\mbox{/actuator/proemtheus}}) és induláskor beregisztrálják magukat az eureka\footnote{Az Eureka a Netflix által fejlesztett \textit{discovery server}. Feladata az összes kliens port és ip adatának nyilkvántartása.} szerverbe.
 
 A prometheus az eurekán keresztül találja meg az instanceokat, és 15 másodpercenként összegyűjti a metrikákat. Az alkalmazások információt küldenek a Kafka konnektoraikról, REST interfészeikről és az adatbázis kapcsolataikról\footnote{HikariCP-t használok JDBC kapcsolathoz}.
 
@@ -134,56 +87,7 @@ A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készül
 
 
 \subsection{Adatbázis}\label{sec:adatbazis}
-Az alábbi hármom relációs adatbázist vettem számításba:
-\begin{itemize}
-	\item Oracle DBMS,
-	\item MySQL,
-	\item és PostgreSQL.
-\end{itemize}
-
-Az Oracle adatbázist a drága licence miatt nem tartom jó választásnak, helyette inkább egy open source megoldást választanék.
-
-Az alkalmazás működése szempontjából lényeges funkciók a MySQL és a PostgreSQL adatbázisban is elérhetőek.
-
-A backend alkalmazásban az adatokat JPA-n keresztül kezelem, így --a megfelelő adatbázis kiválasztásában-- a legfontosabb szempontnak a két adatbázis Hibernaten keresztül elért teljesítményét tartom.
-
-\subsubsection{Teljesítményvizsgálat}
-Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a saját --memóriában futtatott-- adatbázisuk teljesítményéhez hasonlítja többi alkalmazás teljesítményét (\ref{eq:normalizalt} egyenlet). Így a normalizált mérőszámok egymással összevethetőek.
-
-\begin{equation}
-\textrm{vizsgált rendszer mérőszáma} = 100 \cdot
-\frac{\textrm{vizsgált rendszer teljesítménye}}{\textrm{ObjectDB teljesítménye}}
-\frac{[\textrm{művelet}/s]}{[\textrm{művelet}/s]}
-\label{eq:normalizalt}
-\end{equation}
-
-\Aref{tabl:teljesitmenyvizsgalat} táblázatban --a dokumentált eredményekből\cite{JPA_benchmark}-- összegyűjtöttem a vizsgálat szempontjából mérvadó adatokat. Mindegyik mérés külön példányon, egyesével, egyenként $100~000$ véletlenszerű entitás létrehozásával készült. \Aref{eq:normalizalt} egyenletből következik, hogy egy mérőszám minél magasabb értékű, a rendszer annál jobb teljesítményűnek számít.
-
-\begin{table}[hbt]
-	
-	\begin{tabular}{lc|c}
-		Tesztesetek & MySQL adatbázis & PostgreSQL adatbázis \\\hline 
-
-		Új adat létrehozás & 2,8 & 7,7\\ \hline
-		Keresés elsődleges kulcs alapján  & 5,2 & 7,0\\ \hline
-		Keresés szóeleji egyezés alapján & 2,9 & 20,7\\ \hline
-		Meglévő adat módosítása & 1,2 & 5,4\\ \hline
-		Meglévő törlése & 1,2 & 6,6 \\ \hline
-		Tesztesetek átlaga & 2,7 & 9,1
-	\end{tabular} 
-	
-	\caption{JPA teljesítményvizsgálata Hibernate implemetációval és  MySQL illetve PostgreSQL adatbázissal }
-	\label{tabl:teljesitmenyvizsgalat}
-\end{table}
-
-
-
-\Aref{tabl:teljesitmenyvizsgalat} táblázatban látszódik, hogy a PostgreSQL adatbázis a Hibernate implmentációval átlagosan háromszor olyan jól teljesít, mint a MySQL adatbázis. Ám ha figyelembe vesszük, hogy a két leggyakrabban előforduló funkció az elsődleges kulcs valamint szóeleji egyezés alapján keresés, akkor egyértelmű hogy a PostgreSQL adatbázist érdemes választani.
-
-
-\bigskip
-\subsubsection{Megvalósítás részletei}
-A Spring HikariCP-n keresztül kezeli PostgreSQL adatbázishoz kapcsolódást.
+A Spring kezeli --HikariCP-n keresztül-- a PostgreSQL adatbázishoz való kapcsolódást.
 Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, ami objektum relációs leképzést valósít meg}-en keresztül, az adatbázis verziókövetését Liquibase-en (\ref{sec:liquibase} pont) keresztül valósítom meg. 
 
 Az e-mail szálak audit információinak és verzióinak követésére a Hibernate saját -- Envers (\ref{sec:hubernate_envers} pont) eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi az annotációval megjelölt entitások állapotát.
@@ -206,7 +110,6 @@ Ha a két verzió nem egyezik --ami csak úgy történhet meg, ha valaki más id
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
 A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumnetációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
 
-\bigskip
 
 
 \section{Helpdesk frontend}
@@ -229,7 +132,7 @@ Egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számár
 
 
 \subsection{Futtatási környezet}
-A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A körülbelül $1,5$~MB-nyi forráskódot elegendő a böngészőbe egyszer letölteni, onnantól a program a kliens oldalon fut (lásd \ref{fig:frontend_sequence_diagram} ábra). A backend felé induló REST kéréseket a loadbalancer (\ref{sec:nginx}) osztja szét a rendelkezésre álló példányok között.
+A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A körülbelül $1,5$~MB-nyi forráskódot elegendő a böngészőbe egyszer letölteni, onnantól a program a kliens oldalon fut (lásd \ref{fig:frontend_sequence_diagram} ábra). A backend felé induló REST kéréseket a webszerver (\ref{sec:nginx}) osztja szét a rendelkezésre álló példányok között.
 
 A frontend működését, és függőségeit \aref{fig:frontend_sequence_diagram}. ábra tartalmazza.
 
