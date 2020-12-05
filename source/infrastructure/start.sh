@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo chmod -R 777 grafana/
+sudo chown -R 472:472 grafana/
 
 docker-compose -f docker-compose.yaml up -d \
   --scale helpdesk-backend=3 \
