@@ -71,10 +71,28 @@ Introducing spring boot.
 \newblock URL:
   \url{https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-introducing-spring-boot}.
 
+\bibitem{W3Techs_Usage_statistics_of_webservers}
+Usage statistics of web servers.
+\newblock Letöltve: 2020. Dec. 2.
+\newblock URL: \url{https://w3techs.com/technologies/overview/web_server}.
+
+\bibitem{nginx_performance}
+Amir Rawdat.
+\newblock Testing the performance of nginx and nginx plus web servers, Aug. 24
+  2017.
+\newblock URL:
+  \url{https://www.nginx.com/blog/testing-the-performance-of-nginx-and-nginx-plus-web-servers/}.
+
 \bibitem{rfc5322_Identification_Fields}
 Identification fields.
 \newblock Letöltve: 2020. Nov. 16.
 \newblock URL: \url{https://tools.ietf.org/html/rfc5322#section-3.6.4}.
+
+\bibitem{JPA_benchmark}
+Comparison of hibernate with mysql server vs hibernate with postgresql server.
+\newblock Letöltve: 2020. Dec. 3.
+\newblock URL:
+  \url{https://www.jpab.org/Hibernate/MySQL/server/Hibernate/PostgreSQL/server.html}.
 
 \bibitem{Keycloak_website}
 Keycloak.

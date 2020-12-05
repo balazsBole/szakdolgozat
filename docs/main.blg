@@ -28,51 +28,57 @@ Warning--entry type for "Keycloak_website" isn't style-file defined
 --line 91 of file references.bib
 Warning--entry type for "docker_website_deploy_ECS" isn't style-file defined
 --line 119 of file references.bib
+Warning--entry type for "nginx_performance" isn't style-file defined
+--line 146 of file references.bib
+Warning--entry type for "W3Techs_Usage_statistics_of_webservers" isn't style-file defined
+--line 156 of file references.bib
+Warning--entry type for "JPA_benchmark" isn't style-file defined
+--line 164 of file references.bib
 Too many commas in name 1 of "Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, Mike Amundsen" for entry OReally_Microservice_Architecture
 while executing---line 1311 of file unsrturl.bst
 Too many commas in name 1 of "Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, Mike Amundsen" for entry OReally_Microservice_Architecture_CQRS
 while executing---line 1311 of file unsrturl.bst
 Too many commas in name 1 of "Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, Mike Amundsen" for entry OReally_Microservice_Architecture_Saga
 while executing---line 1311 of file unsrturl.bst
-You've used 16 entries,
+You've used 19 entries,
             2555 wiz_defined-function locations,
-            656 strings with 6839 characters,
-and the built_in function-call counts, 4154 in all, are:
-= -- 402
-> -- 62
+            675 strings with 7489 characters,
+and the built_in function-call counts, 4848 in all, are:
+= -- 468
+> -- 71
 < -- 6
-+ -- 26
-- -- 10
-* -- 108
-:= -- 453
-add.period$ -- 48
-call.type$ -- 16
-change.case$ -- 16
++ -- 30
+- -- 11
+* -- 123
+:= -- 514
+add.period$ -- 57
+call.type$ -- 19
+change.case$ -- 19
 chr.to.int$ -- 0
-cite$ -- 16
-duplicate$ -- 142
-empty$ -- 605
-format.name$ -- 10
-if$ -- 1307
+cite$ -- 19
+duplicate$ -- 163
+empty$ -- 714
+format.name$ -- 11
+if$ -- 1534
 int.to.chr$ -- 0
-int.to.str$ -- 16
+int.to.str$ -- 19
 missing$ -- 12
-newline$ -- 83
-num.names$ -- 10
-pop$ -- 198
+newline$ -- 98
+num.names$ -- 11
+pop$ -- 238
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 383
+skip$ -- 451
 stack$ -- 0
 substring$ -- 0
-swap$ -- 22
+swap$ -- 25
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 10
-width$ -- 18
-write$ -- 168
+while$ -- 11
+width$ -- 21
+write$ -- 196
 (There were 3 error messages)
