@@ -59,15 +59,15 @@ A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre
 
 
 \section{E-mail fogadásának és küldésének folyamata}
-\Aref{ch:felepites}. fejezetben \aref{fig:path_of_an_email}. ábrán bemutattam egy e-mail fogadásának elméleti útját. Most \aref{fig:email_send_receive_visible}. ábrán szeretném bemutatni hogyan követhető végig a rendszerben egy e-mail valódi útja.
+\Aref{ch:felepites}. fejezetben \aref{fig:path_of_an_email}. ábrán bemutattam egy e-mail fogadásának elméleti útját. Most \aref{fig:email_send_receive_visible}. ábrán bemutatom hogyan követhető végig a rendszerben egy e-mail valódi útja.
 
 E-mail fogadása:
 \begin{enumerate}
 	\item Egy teszt üzenet érkezik a \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre
-	\textit{E-mail fogadásának és küldésének folyamata} tárggyal
+	\textit{E-mail fogadásának és küldésének folyamata} tárggyal.
 	\item Az e-mail kliens kafka üzenetként publikálja az üzenetet az \textit{email.in.v1.pub} topicba (\ref{fig:email_client_send_kafka}. ábra).
-	\item A backend megkapja a kafka üzenetet (\ref{fig:backend_receive_kafka}. ábra)
-	\item A backend elmenti az új üzenet az adatbázisba (\ref{fig:datbase_received_email}. ábra)
+	\item A backend megkapja a kafka üzenetet (\ref{fig:backend_receive_kafka}. ábra).
+	\item A backend elmenti az új üzenet az adatbázisba (\ref{fig:datbase_received_email}. ábra).
 	\item A felhasználói felületen (\ref{fig:frontend_read_email}. ábra) elérhető az új üzenet.
 \end{enumerate}
 
@@ -77,8 +77,8 @@ E-mail küldése:
 \begin{enumerate}
 	\item A felhasználó elküldi a válaszát a felhasználói felületen (\ref{fig:frontend_send_answer}. ábra).
 	\item A backend megkapja az üzenetet és eltárolja az adatbázisba (\ref{fig:database_answer}. ábra).
-	\item A \textit{h.gdf.theater\textunderscore gmx.com.v1.pub} topicban megjelenik  (\ref{fig:kafka_topic_send_email}. ábra) a backend által publikált kafka üzenet
-	\item A topicra feliratkozott e-mail kliens fogadja és továbbítja az üzenetet (\ref{fig:email_client_receives_kafka}. ábra).
+	\item A \textit{h.gdf.theater\textunderscore gmx.com.v1.pub} topicban megjelenik. (\ref{fig:kafka_topic_send_email}. ábra) a backend által publikált kafka üzenet.
+	\item A topicra feliratkozott e-mail kliens fogadja és továbbítja az üzenetet. (\ref{fig:email_client_receives_kafka}. ábra).
 \end{enumerate}
  
 
@@ -180,9 +180,9 @@ A helpdesk backend alkalmazás rendes működése során --a Liquibase futása u
 A \textit{revinfo} és az összes \textit{\textunderscore aud} végződésú táblát --\textit{\mbox{users\textunderscore aud}, \mbox{queue\textunderscore aud} és \mbox{thread\textunderscore aud}}-- a Hibernate Envers használja az e-mail szál és a kapcsolódó entitások állapotának követésére.
 
 \begin{description}
-	\item[revinfo] tábla tartalmazza a módosítás időpontját, és sorszámát
+	\item[revinfo] tábla tartalmazza a módosítás időpontját és sorszámát.
 	
-	\item[\textunderscore aud] tábla tartalmazza a módosítás típusát, sorszámát és az entitás új értékeit
+	\item[\textunderscore aud] tábla tartalmazza a módosítás típusát, sorszámát és az entitás új értékeit.
 \end{description}
 
 Az Envers --a \textit{Hibernate Event system}en keresztül-- figyeli, és feltartóztatja az e-mail szál állapotváltozásait. Hozzáadja a saját verziókövetéshez szükséges kódját, és csak akkor engedi sikeresen lezárni a tranzakciót, ha az \textunderscore aud tábla is sikeresen módosul.
@@ -205,18 +205,18 @@ A kafka \textit{topic}ok és üzenetek elérhetőek és követhetőek a \textit{
 
 A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
 \begin{description}
-	\item[user.v1.pub] A Keycloak-ban regisztrált és karbantartott felhasználókat tartalmazza.
+	\item[user.v1.pub] a Keycloak-ban regisztrált és karbantartott felhasználókat tartalmazza,
 	
-	\item[email.in.v1.pub] Az összes beérkező  e-mailt tartalmazza.
+	\item[email.in.v1.pub] az összes beérkező  e-mailt tartalmazza,
 	
-	\item[helpdesk.gdf\textunderscore yandex.com.v1.pub] A  \href{mailto:helpdesk.gdf@yandex.com}{\nolinkurl{helpdesk.gdf@yandex.com}} címre küldött e-maileket tartalmazza.
+	\item[helpdesk.gdf\textunderscore yandex.com.v1.pub] a  \href{mailto:helpdesk.gdf@yandex.com}{\nolinkurl{helpdesk.gdf@yandex.com}} címre küldött e-maileket tartalmazza,
 	
-	\item[helpdesk.gdf.travel\textunderscore yandex.com.v1.pub] A  \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre küldött e-maileket tartalmazza.
+	\item[helpdesk.gdf.travel\textunderscore yandex.com.v1.pub] a \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre küldött e-maileket tartalmazza,
 	
 	
-	\item[h.gdf.theater\textunderscore gmx.com.v1.pub] A \href{mailto:h.gdf.theater@gmx.com}{\nolinkurl{h.gdf.theater@gmx.com}} címre küldött e-maileket tartalmazza.
+	\item[h.gdf.theater\textunderscore gmx.com.v1.pub] a \href{mailto:h.gdf.theater@gmx.com}{\nolinkurl{h.gdf.theater@gmx.com}} címre küldött e-maileket tartalmazza,
 	
-	\item[\textunderscore schemas] A Schemaregistry ebben a \textit{topic}ban tárolja az alkalmazásban használt Avro schemákat.
+	\item[\textunderscore schemas] a Schemaregistry ebben a \textit{topic}ban tárolja az alkalmazásban használt Avro schemákat.
 \end{description}
 
 
@@ -227,7 +227,7 @@ Az alkalmazás három kafka brókert futtat egy clusterben. Továbbá minden üz
 \section{Eureka}
 \Aref{sec:metrikak}. pontban említett szerviz felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens az elindításuk után közvetlenül beregisztrálják magukat az Eureka szervizbe.
 
-Az Eureka szerveren keresztül megtekinthető, és más szervizek számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \textit{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
+Az Eureka szerveren keresztül megtekinthető és más szervizek számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \textit{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
 
 
 \begin{figure}[hbt] 

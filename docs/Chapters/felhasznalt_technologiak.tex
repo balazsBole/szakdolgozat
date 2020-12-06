@@ -5,11 +5,11 @@ Az alkalmazás rendszer szinten mikroszerviz (\ref{sec:mikroszerviz}), a modulok
 Bár a kifejezés már régóta ismert, nincs egy központilag elfogadott, egységes definíció arra nézve, miket nevezünk mikroszervizeknek. A legtöbb szerző jobb híján a visszatérő karakterisztikus tulajdonságuk alapján sorolja be az alkalmazásokat ebbe a kategóriába~\cite{OReally_Microservice_Architecture}. Egy tipikus mikroszerviz a következő tulajdonságoknak felel meg:
 
 \begin{itemize}
-	\item	pontosan egy üzleti funkció köré szerveződik 
-	\item   más	szervizekkel laza, általában hálózaton keresztül megvalósuló kapcsolatban áll
-	\item   ha szüksége van adatbázisra, akkor sajáttal rendelkezik, más rendszer ezt az adatbázist nem éri el
-	\item	önmagában is működőképes	
-	\item	decentralizált, tehát nincs egy a munkáját befolyásoló központi irányítórendszer
+	\item	pontosan egy üzleti funkció köré szerveződik,
+	\item   más	szervizekkel laza, általában hálózaton keresztül megvalósuló kapcsolatban áll,
+	\item   ha szüksége van adatbázisra, akkor sajáttal rendelkezik, más rendszer ezt az adatbázist nem éri el,
+	\item	önmagában is működőképes,
+	\item	decentralizált, tehát nincs egy a munkáját befolyásoló központi irányítórendszer.
 \end{itemize}
 
 A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --nem kötelezően, de legtöbbször-- együtt fordul elő a mikroszerviz architektúrával. A legfontosabb ilyen fogalmak a:
@@ -45,7 +45,7 @@ Egy absztrakt port feladata kell legyen a külvilággal való kapcsolat, így az
 
 
 
-Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\textit{The Clean Architecture}} cikkében \cite{The_Clean_Architecture} összeszedte, a port-adapter és a hasonló architektúrával készülő alkalmazások mind:	
+Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\textit{The Clean Architecture}} című cikkében \cite{The_Clean_Architecture} összeszedte, a port-adapter és a hasonló architektúrával készülő alkalmazások mind:	
 \begin{itemize}
 	\item Könnyen, és önmagukban is tesztelhetőek, mivel az üzleti szabályoknak nincs külső függőségük.
 	
@@ -78,7 +78,7 @@ Ha az alkalmazásnak egyszerre több felhasználót kell kiszolgálnia, vagy bá
 
 
 \section{Alkalmazások szeparálása}\label{sec:alkalmazasok_szeparalasa}
-Ahogy azt \aref{sec:mikroszerviz}. pontban is írtam, hogy megvalósítható legyen a szervizek laza kapcsolata, és egymástól független működése, a mikroszerviz csak a saját adatbázisához férhet hozzá. Ez lehetővé teszi a feladatnak megfelelő adatbázis választását is.
+Ahogy azt \aref{sec:mikroszerviz}. pontban is írtam, hogy megvalósítható legyen a szervizek laza kapcsolata és egymástól független működése, a mikroszerviz csak a saját adatbázisához férhet hozzá. Ez lehetővé teszi a feladatnak megfelelő adatbázis választását is.
 
 A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megoldás is létezik:
 \begin{description}
@@ -90,7 +90,7 @@ A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megold
 	
 	Ha más rendszernek szüksége van az aktuális állapotra, az az események újrajátszásával bármikor megkapható.	
 	 
-	Az Apache Kafkát (\ref{sec:apache_kafka}) gyakran használják az események kezelésére, mert natívan támogatja az események csoportosítását egyedi azonosító alapján. Beállítható hogy UUID alapján mindig csak a legfrissebb állapot legyen elérhető, ezzel lecsökkentve a kezdeti olvasáshoz szükséges időt.
+	Az Apache Kafkát (\ref{sec:apache_kafka}) gyakran használják az események kezelésére, mert natívan támogatja az események csoportosítását egyedi azonosító alapján. Beállítható, hogy UUID alapján mindig csak a legfrissebb állapot legyen elérhető, ezzel lecsökkentve a kezdeti olvasáshoz szükséges időt.
 		
 	\item[Elosztott tranzakciók és Saga] Ha nem csak más szervizek adatainak olvasásáról van szó, hanem több szervizen átívelő, visszagörgethető tranzakciót kell megvalósítani, arra az esetre találták ki a \textit{Saga}-t.
 	
@@ -99,13 +99,13 @@ A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megold
 
 
 \section{Apache Kafka}\label{sec:apache_kafka}
-Az apache kafka egy üzenet tárolásra és továbbításra kifejlesztett hibatűrő, magas áteresztő képességű, open source alkalmazás~\cite{OReally_Kafka}.
+Az Apache Kafka egy üzenet tárolásra és továbbításra kifejlesztett hibatűrő, magas áteresztő képességű, open source alkalmazás~\cite{OReally_Kafka}.
 
 A feladó az üzenetet nem közvetlenül a fogadónak küldi, hanem egy üzenetbrókeren keresztül egy (\textit{topic})-ba teszi közzé. A fogadó fél hogy megkaphassa az üzenetet, feliratkozik az adott témára. 
 
 Redundancia és skálázhatóság miatt egy \textit{topic} több partícióra van elosztva, és ezen felül minden partíció replikálva is van~\cite{OReally_Kafka_Internals}. A partíciók eltérő szerveren lehetnek, ezáltal egy \textit{topic} horizontálisan skálázható. Egy szerver esetleges kiesése esetén a többi szerver át tudja venni a kiesett szerver szerepét.
 
-Az üzenetbórkerek összehangolását a Zookeper szerviz végzi. Mivel minden kafka bróker beregisztrálja magát a szervizbe, a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
+Az üzenetbrókerek összehangolását a Zookeper szerviz végzi. Mivel minden kafka bróker beregisztrálja magát a szervizbe, a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
 
 Az üzeneteket Apache Avroval szerializálom. Az Avro lehetővé teszi a kompakt bináris tárolást, de natívan támogatja a JSON reprezentációt is. Az Avrohoz szükséges séma nyilvántartásért és az eltérő verziók kezelésért a Schemaregistry szerver felelős. A kafka kliensek a Schemaregistry szerveren keresztül tudják az üzeneteket olvasni és írni. 
 

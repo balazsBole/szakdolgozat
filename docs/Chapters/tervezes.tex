@@ -27,7 +27,7 @@ A megfelelő relációs adatbázis kiválasztása során, a következő három a
 	\item és PostgreSQL.
 \end{itemize}
 
-Az Oracle adatbázist a drága licence miatt nem tartom jó választásnak, helyette inkább egy open source megoldást választanék.
+Az Oracle adatbázist a drága licenc miatt nem tartom jó választásnak, helyette inkább egy open source megoldást választanék.
 
 Az alkalmazás működése szempontjából lényeges funkciók a MySQL és a PostgreSQL adatbázisban is elérhetőek.
 
@@ -69,19 +69,19 @@ Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a sa
 A helpdesk backend által használt adatok kezelésére objektum-relációs leképzést használok, mert az ORM nagy mértékben leegyszerűsíti az adatbázis és az entitások egymásnak való megfeleltetését.
 
 
-A számtalan --EclipseLink, Hibernate, Spring Data JPA, etc.-- ORM-et megvalósító JPA implementációk közül a Hibernate mellett döntöttem, mert
+A számtalan --EclipseLink, Hibernate, Spring Data JPA, \dots-- ORM-et megvalósító JPA implementációk közül a Hibernate mellett döntöttem, mert
 \begin{itemize}
 	\item PostgreSQL adatbázissal hatékonyan működik együtt,
 	\item és a JPA implementáción felül, az adatok auditálására szeretném használni a projekten.
 \end{itemize}
 
-Így a Hibernate használatával jelentős mennyiségű forráskód elkészítését és karbantartását lehet kiváltani, hiszen az adatok tárolásáráért, módosításáért, verziókezeléséé	rt mind a Hibernate a felelős.
+Így a Hibernate használatával jelentős mennyiségű forráskód elkészítését és karbantartását lehet kiváltani, hiszen az adatok tárolásáráért, módosításáért, verziókezeléséért mind a Hibernate a felelős.
 
 A használatával kiváltott munka mennyisége bőven meghaladja a megismerésével és beállításával eltöltött időt.
 
 
 \section{Adatbázis migrációs eszköz}
-Az eszköz célja az adatbázis verziókövetésének javítása. A megvalósítás alapja, hogy ha az adatbázis változásait egy szöveges dokumentumban tároljuk az alkalmazás forráskódjával együtt, akkor a verziókövető rendszerrel nyomon lehet követni a kód aktuális állapotához tartozó adatbázis-struktúrát is. Összesen két eszközt találtam és vizsgáltam meg, a Liquibase-t és a Flyway-t.
+Az eszköz célja az adatbázis verziókövetésének javítása. A megvalósítás alapja, hogy ha az adatbázis változásait egy szöveges dokumentumban tároljuk az alkalmazás forráskódjával együtt, akkor a verziókövető rendszerrel nyomon lehet követni a kód aktuális állapotához tartozó adatbázis-struktúrát is. Összesen két eszközt találtam és vizsgáltam meg: a Liquibase-t és a Flywayt.
 
 \subsection{Liquibase}
 A Liquibase egy --adatbázis sémaváltozások nyilvántartására és alkalmazására létrehozott-- nyílt forráskódú adatbázis-független könyvtár.
@@ -104,10 +104,10 @@ A Liquibase --a Flyway funkcióinak megvalósítása mellett-- sokkal több, sz�
 
 
 \section{Monitorozás}\label{sec:metrikak_tervezes}
-Hogy megtaláljam a legmegfelelőbb monitorozó eszközt, összevetettem a három leginkább használt alternatívát, a prometheust, grafanát és a graphite-ot.
+Hogy megtaláljam a legmegfelelőbb monitorozó eszközt, összevetettem a három leginkább használt alternatívát, a Prometheust, Grafanát és a Graphite-ot.
 
 \subsection{Prometheus}
-Prometheus egy open source monitorozó eszköz. Kifejezetten alkalmas a metrikák idősoros tárolására, gyűjtésére, és megjelenítésére.
+Prometheus egy open source monitorozó eszköz. Kifejezetten alkalmas a metrikák idősoros tárolására, gyűjtésére és megjelenítésére.
 
 A Prometheus által létrehozott és használt PromQL\footnote{Prometheus Query Language} lekérdező nyelv segítségével könnyen lehet az adatokból táblázatot vagy grafikont készíteni. A PromQL-ben létrehozott kifejezések alkalmasak riasztások létrehozására is, ilyenkor a hibásnak tekintett eseményről --a Prometheus \textit{Alertmanager}-én keresztül-- képes a riasztást kiváltó helyzet elhárításában érintetteket értesíteni.
 
@@ -123,12 +123,12 @@ Nem tárol vagy gyűjt adatot, de támogat többféle --Graphite, Prometheus, In
 
 A Grafana legnagyobb előnye a \textit{dashboard}-jaiban rejlik. A felületen --mint egy műszerfalon-- egymás mellett rendszerezve helyezkednek el a különböző paneleken ábrázolt metrikák. Számtalan előre elkészített típusú panelből lehet válogatni, többek között elérhetőek hisztogramok, grafikonok, hőtérképek, táblázatok, riasztások, RSS- és naplóbejegyzés-olvasó felületek.
 
-A grafana oldalán ezen kívül számos előre elkészített és szabadon felhasználható \textit{dashboard} érhető el. A leggyakrabban használt alkalmazások metrikái újra használhatóan és szerkeszthetően hozzáférhetőek. Így a fejlesztést jelentősen leegyszerűsítve, elegendő csupán az alkalmazás specifikus paneleket letölteni és testre szabni.
+A Grafana oldalán ezen kívül számos előre elkészített és szabadon felhasználható \textit{dashboard} érhető el. A leggyakrabban használt alkalmazások metrikái újra használhatóan és szerkeszthetően hozzáférhetőek. Így a fejlesztést jelentősen leegyszerűsítve, elegendő csupán az alkalmazás specifikus paneleket letölteni és testre szabni.
 
 \subsection{Graphite}
 A Graphite idősoros tárolására és megjelenítésére alkalmas open source monitorozó eszköz. Összesen két feladatot lát el, a Whisper könyvtárral tárolja a neki küldött adatokat, valamint megjeleníti a tárolt adatot a webes felületén.
 
-Az adatok tárolása nem olyan kifinomult mint a Prometheuson; passzívan képes csak fogadni az adatokat és nem rendelkezik a PromQL-hez hasonló lekérdező nyelvvel sem.
+Az adatok tárolása nem olyan kifinomult mint a Prometheuson: passzívan képes csak fogadni az adatokat és nem rendelkezik a PromQL-hez hasonló lekérdező nyelvvel sem.
 
 A beépített felülete --körülbelül a Prometheus-éhoz hasonlóan-- messze nem olyan részletes mint a Grafanáé. Egyszerű grafikonok és táblázatok ugyanúgy elkészíthetőek vele, de ezen kívül támogatja még \textit{dashboard}ok létrehozását.
 

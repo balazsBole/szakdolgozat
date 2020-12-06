@@ -2,7 +2,7 @@
 
 A helpdesk alkalmazás szervizei úgy lettek kialakítva, hogy képesek legyenek egymástól függetlenül, akár több példányban is működni. Ezáltal költséghatékonnyá téve a működést, leegyszerűsítve a hibatűrést, és lehetővé téve a változó terhelés miatti skálázhatóságot.
 
-Ám amíg a docker konténerek egy host gépen futnak, és egy erőforráson osztoznak, soha nem lehet gazdaságosan megoldani a skálázást, és nem tud a rendszer felkészülni a számítógép kiesésére.
+Azonban amíg a docker konténerek egy host gépen futnak és egy erőforráson osztoznak, soha nem lehet gazdaságosan megoldani a skálázást, és nem tud a rendszer felkészülni a számítógép kiesésére.
 
 A következő logikus lépés tehát az alkalmazás \textit{cluster}re migrálása. A docker natívan támogatja a Microsoft Azure és az Amazon \cite{docker_website_deploy_ECS} szolgáltatókat. Így tehát a kód és a beállítások módosítása nélkül lehetséges az alkalmazás \textit{cluster}esítése docker swarmmal.
 
@@ -14,12 +14,9 @@ Mivel az összes technikai megkötés csupán a protokollok megvalósítása, ny
 
 Ha az új funkciónak szüksége lenne az alkalmazás más rendszeréhez tartozó adatára, akkor a kérdéses rendszer --ahogy a Keycloak plugin példáján megmutattam-- ugyanúgy bővíthető, a komponensek közötti laza kapcsolat megőrizhető.
 
-Ugyanígy, a laza kapcsolatok és jól definiált határok miatt, egyszerű egy-egy modult teljesen lecserélni, vagy más nyelven, más technológiával újraírni.
+Hasonlóképpen, a laza kapcsolatok és jól definiált határok miatt, egyszerű egy-egy modult teljesen lecserélni, vagy más nyelven, más technológiával újraírni.
 
-Mivel egy szerviz egy feladattal foglalkozik, ha például le kell cserélni a frontendet, akkor az új felhasználói felületen csak a megjelenítéssel kell foglalkozni, az üzleti funkciók megvalósítása a backend feladta, így azok továbbra is változatlanok maradnak.
+Mivel egy szerviz egy feladattal foglalkozik, ha például le	 kell cserélni a frontendet, akkor az új felhasználói felületen csak a megjelenítéssel kell foglalkozni, az üzleti funkciók megvalósítása a backend feladata, így azok továbbra is változatlanok maradnak.
 
 Ugyanez nem csak a szervizek, hanem a kód szintjén is igaz. A hexagonális architektúra miatt, az adatbázis --mint külső függőség-- könnyen cserélhető. 
-
-
-
 

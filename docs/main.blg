@@ -23,34 +23,28 @@ Warning--entry type for "rfc5322_Identification_Fields" isn't style-file defined
 Warning--entry type for "introducing_spring_boot" isn't style-file defined
 --line 74 of file references.bib
 Warning--entry type for "rfc7519_JSON_Web_Token" isn't style-file defined
---line 83 of file references.bib
+--line 82 of file references.bib
 Warning--entry type for "Keycloak_website" isn't style-file defined
---line 91 of file references.bib
+--line 90 of file references.bib
 Warning--entry type for "docker_website_deploy_ECS" isn't style-file defined
---line 119 of file references.bib
+--line 118 of file references.bib
 Warning--entry type for "nginx_performance" isn't style-file defined
---line 146 of file references.bib
+--line 145 of file references.bib
 Warning--entry type for "W3Techs_Usage_statistics_of_webservers" isn't style-file defined
---line 156 of file references.bib
+--line 155 of file references.bib
 Warning--entry type for "JPA_benchmark" isn't style-file defined
---line 164 of file references.bib
-Too many commas in name 1 of "Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, Mike Amundsen" for entry OReally_Microservice_Architecture
-while executing---line 1311 of file unsrturl.bst
-Too many commas in name 1 of "Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, Mike Amundsen" for entry OReally_Microservice_Architecture_CQRS
-while executing---line 1311 of file unsrturl.bst
-Too many commas in name 1 of "Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, Mike Amundsen" for entry OReally_Microservice_Architecture_Saga
-while executing---line 1311 of file unsrturl.bst
+--line 163 of file references.bib
 You've used 19 entries,
             2555 wiz_defined-function locations,
-            675 strings with 7489 characters,
-and the built_in function-call counts, 4848 in all, are:
-= -- 468
-> -- 71
+            676 strings with 7525 characters,
+and the built_in function-call counts, 5060 in all, are:
+= -- 474
+> -- 119
 < -- 6
-+ -- 30
-- -- 11
-* -- 123
-:= -- 514
++ -- 44
+- -- 25
+* -- 156
+:= -- 556
 add.period$ -- 57
 call.type$ -- 19
 change.case$ -- 19
@@ -58,8 +52,8 @@ chr.to.int$ -- 0
 cite$ -- 19
 duplicate$ -- 163
 empty$ -- 714
-format.name$ -- 11
-if$ -- 1534
+format.name$ -- 25
+if$ -- 1574
 int.to.chr$ -- 0
 int.to.str$ -- 19
 missing$ -- 12
@@ -69,7 +63,7 @@ pop$ -- 238
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 451
+skip$ -- 452
 stack$ -- 0
 substring$ -- 0
 swap$ -- 25
@@ -81,4 +75,4 @@ warning$ -- 0
 while$ -- 11
 width$ -- 21
 write$ -- 196
-(There were 3 error messages)
+(There were 13 warnings)

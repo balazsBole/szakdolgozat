@@ -1,4 +1,4 @@
-Ebben  fejezetben külön-külön bemutatom a helpdesk alkalmazást felépítő komponenseket. Kiemelem a komponensek által megvalósított funkciókat, és a megvalósítás szempontjából fontos részleteket. 
+Ebben  fejezetben külön-külön bemutatom a helpdesk alkalmazást felépítő komponenseket. Kiemelem a komponensek által megvalósított funkciókat és a megvalósítás szempontjából fontos részleteket. 
 
 
 \section{Mikroszerviz infrastruktúra}
@@ -7,9 +7,9 @@ Ebben  fejezetben külön-külön bemutatom a helpdesk alkalmazást felépítő 
 Az Nginx-nek három különböző szerepe van:
 
 \begin{itemize}
-	\item A \foreignlanguage{british}{helpdesk frontend} alkalmazásszervereként működik (\ref{sec:angular}~pont),
+	\item a \foreignlanguage{british}{helpdesk frontend} alkalmazásszervereként működik (\ref{sec:angular}~pont),
 	
-	\item \foreignlanguage{british}{Routing}ot valósít meg, rajta keresztül érhető el a \foreignlanguage{british}{helpdesk backend} és a \foreignlanguage{british}{Keycloak} szerviz,
+	\item \foreignlanguage{british}{routing}ot valósít meg, rajta keresztül érhető el a \foreignlanguage{british}{helpdesk backend} és a \foreignlanguage{british}{Keycloak} szerviz,
 	
 	\item \foreignlanguage{british}{HTTP cache}-ként működik a frontend és a backend között.
 \end{itemize}
@@ -26,7 +26,7 @@ A konténerek skálázása is a dockeren keresztül (\textit{docker-compose --sc
 \subsection{Metrikák}\label{sec:metrikak}
 \Aref{sec:metrikak_tervezes} pontnak megfelelően a springes alkalmazásaim egy-egy HTTP endpointon keresztül érhetőek el a Prometheus számára (\textit{\mbox{/actuator/proemtheus}}) és induláskor beregisztrálják magukat az Eureka\footnote{Az Eureka a Netflix által fejlesztett \textit{discovery server}. Feladata az összes kliens port és ip adatának nyilkvántartása.} szerverbe.
 
-A Prometheus az Eurekán keresztül találja meg az instanceokat, és 15 másodpercenként összegyűjti a metrikákat. Az alkalmazások információt küldenek a Kafka konnektoraikról, REST interfészeikről és az adatbázis kapcsolataikról\footnote{HikariCP-t használok JDBC kapcsolathoz}.
+A Prometheus az Eurekán keresztül találja meg az instance-eket, és 15 másodpercenként összegyűjti a metrikákat. Az alkalmazások információt küldenek a Kafka konnektoraikról, REST interfészeikről és az adatbázis kapcsolataikról\footnote{HikariCP-t használok JDBC kapcsolathoz}.
 
 A Prometheus által összegyűjtött adatokat Grafanában létrehozott --Spring Boot és JVM metrikákat tartalmazó-- \textit{dashboard}okon ábrázolom.
 
@@ -84,7 +84,7 @@ A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátás�
 
 
 \subsection{Spring Boot}
-A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a micrometer-t és az actuatort a metrikák elkészítéséhez használtam.	
+A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a micrometert és az actuatort a metrikák elkészítéséhez használtam.	
 
 
 \subsection{Adatbázis}\label{sec:adatbazis}
@@ -96,7 +96,7 @@ Az e-mail szálak audit információinak és verzióinak követésére a Hiberna
 \subsection{Pesszimista konkurenciakezelés}
 Pesszimista konkurenciakezelésre jó példával szolgál a Liquibase (\ref{sec:liquibase} pont) működése. 
 
-Minden indítás során a Liquibase --az adatbázis módosításának befejezéséig-- zárolja a \textit{databasechangeloglock} táblát. Így --a várakozás miatt-- egyszerre mindig maximum egy Liquibase példány tud elindulni, és módosításokat végrehajtani.
+Minden indítás során a Liquibase --az adatbázis módosításának befejezéséig-- zárolja a \textit{databasechangeloglock} táblát. Így --a várakozás miatt-- egyszerre mindig maximum egy Liquibase példány tud elindulni és módosításokat végrehajtani.
 
 
 \subsection{Optimista konkurenciakezelés}
@@ -106,7 +106,7 @@ A frontend kérésére egy verziószámmal ellátott e-mail szálat küld a back
 
 A backend összehasonlítja a módosítani kívánt erőforrás verziószámát a kérésben érkezett \textit{if-match} verziószámmal. Ha a két szám egyezik, akkor végrehajtja a változásokat, és az erőforrás új állapota új verziószámot kap.
 
-Ha a két verzió nem egyezik --ami csak úgy történhet meg, ha valaki más időközben módosította a kérdéses adatot-- akkor a tranzakció nem hajtódik végre, és a kliens egy HTTP \textit{Conflict} hibaüzenettel értesül a történtekről. A felhasználó ilyenkor az oldal frissítése után, megvizsgálja az aktuális állapotot, és --amennyiben a módosításaira még mindig szükség van-- újból kezdi a folyamatot.
+Ha a két verzió nem egyezik --ami csak úgy történhet meg, ha valaki más időközben módosította a kérdéses adatot-- akkor a tranzakció nem hajtódik végre, és a kliens egy HTTP \textit{Conflict} hibaüzenettel értesül a történtekről. A felhasználó ilyenkor az oldal frissítése után megvizsgálja az aktuális állapotot és --amennyiben a módosításaira még mindig szükség van-- újból kezdi a folyamatot.
 
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
 A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumentációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
@@ -121,12 +121,12 @@ A frontend az e-mailek és e-mail szálakkal összefüggő üzleti feladatok meg
 A backenddel való kommunikáció HTTP protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumentációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
 
 Az aszinkron HTTP hívásokat az NgRx könyvtár alakítja adatfolyamokká. 
-Az így, \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, megkönnyítik a filterezhetőséget és az egységes hibakezelést. 
+Az így \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, megkönnyítik a filterezhetőséget és az egységes hibakezelést. 
 
-Az NgRx használatával továbbá, elkerülhetőek az aszinkron hívások mellékhatásai, és egy globális, alkalmazás szintű belső állapot hozható létre.
+Az NgRx használatával továbbá elkerülhetőek az aszinkron hívások mellékhatásai, és egy globális, alkalmazás szintű belső állapot hozható létre.
 
 \subsection{Komponensek}
-Az egységes megjelenés és az ismerős kinézet miatt, a komponenseim alapjának az Angular Material UI könyvtárat választottam. A könyvtár népszerű az Angular fejlesztők körében, mert a leggyakrabban előforduló felhasználói igényekre elérhető benne kész, könnyen használható megoldás.
+Az egységes megjelenés és az ismerős kinézet miatt a komponenseim alapjának az Angular Material UI könyvtárat választottam. A könyvtár népszerű az Angular fejlesztők körében, mert a leggyakrabban előforduló felhasználói igényekre elérhető benne kész, könnyen használható megoldás.
 
 A válasz e-mail létrehozására az open source Quill szövegszerkesztőt használtam, mert egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
 
@@ -177,7 +177,7 @@ A felhasználók adataiért a Keycloak (\ref{sec:keycloak}), az e-mail szálaké
 
 A felhasználók a Keycloak felületén keresztül tudnak regisztrálni, és a személyes adataikat kezelni. A Keycloak által generált JSON Web Token (\ref{sec:JWT}) tartalmazza a felhasználók egyedi azonosítóját, a backendnek ezen az azonosítón keresztül kell a felhasználókat nyilvántartania és kiszolgálnia.
 
-A felhasználók regisztrációja, és adatainak változása --\aref{sec:alkalmazasok_szeparalasa} pontban megismert CQRS útnak megfelelően,-- a \textit{user.v1.pub} kafka (\ref{sec:implementacio_kafka}) topicban követhetőek nyomon.
+A felhasználók regisztrációja és adatainak változása --\aref{sec:alkalmazasok_szeparalasa} pontban megismert CQRS útnak megfelelően,-- a \textit{user.v1.pub} kafka (\ref{sec:implementacio_kafka}) topicban követhetőek nyomon.
 
 A Keycloak Kafka integrációjának céljából hoztam létre a \textit{keycloak-plugin} (\ref{fig:deployment_diagram} ábra) maven modult. A Keycloak esemény figyelőként működő plugin, a megfigyelt eseményekről kafka üzenetet küld a kijelölt topicba. A helpdesk backend --a topic üzeneteit olvasva-- tartja karban a \textit{users} táblát (\ref{fig:basic_database_uml}, \ref{fig:extended_database_uml} ábra). Így a helpdesk backend a felhasználókról mindig aktuális információval rendelkezik.
 

@@ -1,26 +1,26 @@
 \begin{thebibliography}{10}
 
 \bibitem{OReally}
-Mike~Loukides és Steve~Swoyer.
-\newblock Microservices adoption in 2020, Júl. 15 2020.
+Mike Loukides and Steve Swoyer.
+\newblock Microservices adoption in 2020, Jul. 15 2020.
 \newblock URL:
   \url{https://www.oreilly.com/radar/microservices-adoption-in-2020/}.
 
 \bibitem{wiredelta}
 Andzhela Angelova.
-\newblock 10 reasons why microservices are the future, Jún. 20 2020.
+\newblock 10 reasons why microservices are the future, Jun. 20 2020.
 \newblock URL:
   \url{https://wiredelta.com/10-reasons-why-microservices-are-the-future/}.
 
 \bibitem{OReally_Microservice_Architecture}
-Matt McLarty Mike~Amundsen Irakli~Nadareishvili, Ronnie~Mitra.
+Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, and Mike Amundsen.
 \newblock {\em Microservice Architecture: Aligning Principles, Practices, and
-  Culture}, chapter 1, The Microservices Way.
-\newblock O’Reilly, 1 edition, 2016.
+  Culture}, chapter 1st, The Microservices Way.
+\newblock O’Reilly, 1st edition, 2016.
 
 \bibitem{Alistair_Cockburn}
-Dr.~Alistair Cockburn.
-\newblock Hexagonal architecture, Ápr. 1 2005.
+Alistair Cockburn.
+\newblock Hexagonal architecture, Apr. 1 2005.
 \newblock URL:
   \url{https://web.archive.org/web/20180822100852/http://alistair.cockburn.us/Hexagonal+architecture}.
 
@@ -33,32 +33,32 @@ Robert~C. Martin.
 \bibitem{clean_code_chapter_systems}
 Robert~C. Martin.
 \newblock {\em Clean Code: A Handbook of Agile Software Craftsmanship}, chapter
-  11, Systems.
-\newblock Prentice Hall, 1 edition, 2008.
+  11th, Systems.
+\newblock Prentice Hall, 1st edition, 2008.
 
 \bibitem{OReally_Microservice_Architecture_CQRS}
-Matt McLarty Mike~Amundsen Irakli~Nadareishvili, Ronnie~Mitra.
+Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, and Mike Amundsen.
 \newblock {\em Microservice Architecture: Aligning Principles, Practices, and
-  Culture}, chapter 5, CQRS.
-\newblock O’Reilly, 1 edition, 2016.
+  Culture}, chapter 5th, CQRS.
+\newblock O’Reilly, 1st edition, 2016.
 
 \bibitem{OReally_Microservice_Architecture_Saga}
-Matt McLarty Mike~Amundsen Irakli~Nadareishvili, Ronnie~Mitra.
+Irakli Nadareishvili, Ronnie Mitra, Matt McLarty, and Mike Amundsen.
 \newblock {\em Microservice Architecture: Aligning Principles, Practices, and
-  Culture}, chapter 5, Distributed Transactions and Sagas.
-\newblock O’Reilly, 1 edition, 2016.
+  Culture}, chapter 5th, Distributed Transactions and Sagas.
+\newblock O’Reilly, 1st edition, 2016.
 
 \bibitem{OReally_Kafka}
-Todd~Palino Neha~Narkhede, Gwen~Shapira.
+Neha Narkhede, Gwen Shapira, and Todd Palino.
 \newblock {\em Kafka: The Definitive Guide: Real-Time Data and Stream
-  Processing at Scale, and Culture}, chapter 1, Meet Kafka.
-\newblock O’Reilly, 1 edition, 2016.
+  Processing at Scale, and Culture}, chapter 1st, Meet Kafka.
+\newblock O’Reilly, 1st edition, 2016.
 
 \bibitem{OReally_Kafka_Internals}
-Todd~Palino Neha~Narkhede, Gwen~Shapira.
+Neha Narkhede, Gwen Shapira, and Todd Palino.
 \newblock {\em Kafka: The Definitive Guide: Real-Time Data and Stream
-  Processing at Scale, and Culture}, chapter 5, Kafka Internals.
-\newblock O’Reilly, 1 edition, 2016.
+  Processing at Scale, and Culture}, chapter 5th, Kafka Internals.
+\newblock O’Reilly, 1st edition, 2016.
 
 \bibitem{angular_docs}
 Introduction to angular concepts.
@@ -83,16 +83,16 @@ Amir Rawdat.
 \newblock URL:
   \url{https://www.nginx.com/blog/testing-the-performance-of-nginx-and-nginx-plus-web-servers/}.
 
-\bibitem{rfc5322_Identification_Fields}
-Identification fields.
-\newblock Letöltve: 2020. Nov. 16.
-\newblock URL: \url{https://tools.ietf.org/html/rfc5322#section-3.6.4}.
-
 \bibitem{JPA_benchmark}
 Comparison of hibernate with mysql server vs hibernate with postgresql server.
 \newblock Letöltve: 2020. Dec. 3.
 \newblock URL:
   \url{https://www.jpab.org/Hibernate/MySQL/server/Hibernate/PostgreSQL/server.html}.
+
+\bibitem{rfc5322_Identification_Fields}
+Identification fields.
+\newblock Letöltve: 2020. Nov. 16.
+\newblock URL: \url{https://tools.ietf.org/html/rfc5322#section-3.6.4}.
 
 \bibitem{Keycloak_website}
 Keycloak.

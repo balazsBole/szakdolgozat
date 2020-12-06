@@ -87,4 +87,4 @@
 \select@language {magyar} \contentsline {section}{\numberline {8.1}A deploymentr\IeC {\H o}l}{49}{section.8.1}% 
 \select@language {magyar} \contentsline {section}{\numberline {8.2}A k\IeC {\'o}dr\IeC {\'o}l}{49}{section.8.2}% 
 \select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{53}{chapter*.35}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {A}OpenApi dokumnet\IeC {\'a}ci\IeC {\'o}}{55}{appendix.A}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {A}OpenApi dokument\IeC {\'a}ci\IeC {\'o}}{55}{appendix.A}% 

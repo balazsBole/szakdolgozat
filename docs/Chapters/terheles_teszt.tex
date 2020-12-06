@@ -167,7 +167,7 @@ A JMeter által indított kérés az alábbi rendszereken megy keresztül (\ref{
 		\label{fig:10_hikari}
 	\end{subfigure}
 	
-	\caption{A csúcsteljesítmény vizsgálata során vizsgált legfontosabb metrikák}
+	\caption{A csúcsteljesítmény vizsgálata során vizsgált legfontosabb metrikák a Grafana monitorozó eszköz felületén}
 	\label{fig:peak_metrics}
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
@@ -175,7 +175,7 @@ A JMeter által indított kérés az alábbi rendszereken megy keresztül (\ref{
 \pagebreak
 
 \subsection{Nginx}
-Hogy az Nginx párhuzamosan kiszolgáljon legalább $6~000$ felhasználót\footnote{Az alapbeállítás $1~024$ kapcsolat}, a beállításaiban felül kell írni a \mbox{\textit{worker\textunderscore connections}} paramétert.
+Ahhoz hogy az Nginx párhuzamosan kiszolgáljon legalább $6~000$ felhasználót\footnote{Az alapbeállítás $1~024$ kapcsolat}, a beállításaiban felül kell írni a \mbox{\textit{worker\textunderscore connections}} paramétert.
 
 Ha az alapbeállításoktól való eltérés okozza a kérések --még backend előtti-- feltorlódását, vagy a megnövekedett processzorigényt, akkor az Nginx kihagyásával jelentős javulás lenne elérhető.
 
@@ -202,7 +202,7 @@ Ezért a megismételt a JMeter tesztben a backendet közvetlenül az IP-címén 
 
 
 
-Ugyanez jelenik meg \aref{fig:without_nginx_min_median_max_over_time} ábrán is, a teszt első háromnegyedében a backend néhány kérésre azonnal válaszol, míg a többségre --medián-- csak sokkal később.
+Ugyanez jelenik meg \aref{fig:without_nginx_min_median_max_over_time} ábrán is, a teszt első háromnegyedében a backend néhány kérésre azonnal válaszol, míg a többségre --lásd medián-- csak sokkal később.
 
 \begin{figure}[hbt]
 	\begin{subfigure}{.49\textwidth}
@@ -241,7 +241,7 @@ akkor arra a következtetésre juthatunk, hogy az Nginx használata nem hogy ron
 
 
 \subsection{HikariCP}\label{sec:hikari}
-\Aref{fig:10_hikari} ábrán látszódik hogy a HikariCP-ben beállított 10 kapcsolat hamar elfogy, már mérés elején 189-re nő, és tartósan ott is marad a pool-ra várakozók száma.
+\Aref{fig:10_hikari} ábrán látszódik hogy a HikariCP-ben beállított 10 kapcsolat hamar elfogy, már mérés elején 189-re nő, és tartósan ott is marad a poolra várakozók száma.
 
 Ha az adatbázissal való kapcsolat a szűk keresztmetszet, akkor a HikariCP pooljának megnövelésével jelentős javulás lenne elérhető.
 
@@ -283,7 +283,7 @@ Ezért a megismételt a JMeter tesztben a backendben megháromszoroztam a Hikari
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.8\textwidth]{hikari_30.png}
-	\caption{HikariCP adatbázis-kapcsolatai}
+	\caption{HikariCP adatbázis-kapcsolatai a Grafana felületén}
 	\label{fig:hikari_30}
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
@@ -294,7 +294,7 @@ Mivel a teszteredményekben nincs jelentős változás, nem a HikariCp a szűk k
 \subsection{Megnövekedett processzorigény}
 \Aref{fig:cpu_1_instance} ábrán látszódik hogy még van szabad processzoridő. Ha a helpdesk backend  képes lenne magának még processzoridőt allokálni, azzal javulhatna a rendszer áteresztőképessége. 
 
-Ha a processzoridő a szűk keresztmetszet, akkor új backend példányok indításával, és így újabb erőforrások bevonásával jelentős javulást lehetne elérni.
+Ha a processzoridő a szűk keresztmetszet, akkor új backend példányok indításával --és így újabb erőforrások bevonásával-- jelentős javulást lehetne elérni.
 
 Ezért a megismételt JMeter tesztben a backendből három példányt indítottam el. Az eredmények így összemérhetőek maradtak \aref{sec:hikari}. ponttal, hiszen összességében ugyanannyi kapcsolat van a backend és az adatbázis között.
 
@@ -328,7 +328,7 @@ Ezért a megismételt JMeter tesztben a backendből három példányt indította
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.6\textwidth]{CPU_3_instance.png}
-	\caption{A backend egy példányának a processzor használata}
+	\caption{A backend egy példányának a processzor használata a Grafana felületén}
 	\label{fig:3_instance_CPU}
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
@@ -373,7 +373,7 @@ Az alkalmazás minden probléma nélkül teljesíti az átlagos terhelés eseté
 \subsection{Csúcsteljesítmény vizsgálata}
 A rendszerrel szembeni elvárások teljesíthetőségére nem lehet egyértelmű választ adni. A tesztelt számítógépen --erőforráshiány miatt (\ref{sec:szuk_keresztmetszet})-- az alkalmazás nem teljesíti a három másodperces válaszidőre vonatkozó megkötést.
 
-A mérésekből azonban arra lehet következtetni, hogy a valós rendszer --akár több különálló számítógépen-- bírni fogja a terhelést, nem jelent majd gondot neki a csúcsterhelés során sem feladatinak ellátása.
+A mérésekből azonban arra lehet következtetni, hogy a valós rendszer --akár több különálló számítógépen-- bírni fogja a terhelést, nem jelent majd gondot neki a csúcsterhelés során sem feladatainak ellátása.
 
 
 
