@@ -1,4 +1,4 @@
-Ebben a fejezetben szeretném bemutatni a \foreignlanguage{british}{Helpdesk} alkalmazás felé megfogalmazott üzleti igényeket.
+Ebben a fejezetben bemutatom a \foreignlanguage{british}{Helpdesk} alkalmazás felé megfogalmazott üzleti igényeket.
 
 
 
@@ -35,7 +35,7 @@ A számára kijelölt szálakat képes --a saját során belül-- más felhaszn�
 
 A felhasználók eltérő jogkörökkel rendelkezhetnek. Az adminisztratív jogkörrel rendelkező felhasználó végzi az új emailszál felhasználóhoz rendelését, valamint a \foreignlanguage{british}{\textit{change queue}} státuszban (\ref{fig:statusz_diagram} ábra) lévő üzenetszálak új sorba irányítását.
 
-A konfigurációs jogkörrel rendelkező felhasználó feladata más felhasználók regisztrálása, valamint az alakalmazásban használt jogkörök (\foreignlanguage{british}{\textit{role}}-ok) kezelése. Lehetősége van továbbá authentikációs logok megtekintésére, jelszó visszaállítására és más felhasználók megszemélyesítésére (\foreignlanguage{british}{\textit{impersonate}}).
+A konfigurációs jogkörrel rendelkező felhasználó feladata más felhasználók regisztrálása, valamint az alkalmazásban használt jogkörök (\foreignlanguage{british}{\textit{role}}-ok) kezelése. Lehetősége van továbbá autentikációs események megtekintésére, jelszó visszaállítására és más felhasználók megszemélyesítésére (\foreignlanguage{british}{\textit{impersonate}}).
 
 A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} ábra foglalja össze.
 
@@ -47,7 +47,7 @@ A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} á
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
-
+\pagebreak
 \section{Nem funkcionális igények}	
 
 
@@ -67,5 +67,5 @@ A fenti két szempont miatt célszerű a megvalósítandó funkciók minél nagy
 A rendszernek átlagosan $100$ felhasználót kell kiszolgálnia másodpercenként. A várható csúcsteljesítmény $5~000$--$10~000$ lekérdezés másodpercenként. A felhasználók száméra elfogadható legnagyobb válaszidő 3 másodperc/lekérés.
 
 
-\subsection{I18N}
+\subsection[L10N]{L10N\footnote{A nyelvi lokalizációt, vagy kulturális beágyazást szokás L10N-ként rövidíteni.}}
 A felhasználói, adminisztratív és karbantartói felületek angol nyelven érhetőek el. Több nyelv kezelése nem szükséges.

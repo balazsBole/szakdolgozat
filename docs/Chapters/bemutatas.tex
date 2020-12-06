@@ -9,13 +9,29 @@ A helpdesk alkalmazás \aref{ch:uzleti_igenyek}. fejezetben leírtaknak megfelel
 
 
 \section{Alkalmazás elindítása}\label{sec:elinditas}
-Az alakalmazás a \textit{start.sh} bash \textit{script}tel indítható el. A \textit{script} két dolgot csinál:
+Az alkalmazás a \textit{start.sh} bash \textit{script}tel indítható el. A \textit{script} két dolgot csinál:
 \begin{enumerate}
 	\item a \textit{docker-compose} parancssal elindítja a docker \textit{container}eket~(\ref{sec:docker} pont),
 	\item  ``helpdesk'' domain névvel hozzáadja az Nginx (\ref{sec:nginx} pont) IP címét a \mbox{\textit{/etc/hosts}} állományhoz.
 \end{enumerate}
 
 A \textit{script} indítása után a helpdesk alkalmazás elérhető a  \href{http://helpdesk}{http://helpdesk} domain alatt.
+
+
+\section{Deployment}
+A könyebb bemutathatóság érdekében a szemléletesebb szervizeket --hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni-- a docker hálózaton kívül is elérhetővé tettem. 
+
+A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \textit{container}t a \textit{localhost} melyik portján lehet elérni.
+
+
+\begin{figure}[hbt] 
+	\centering
+	\includegraphics[width=0.95\textwidth]{deployment_diagram_drawio.pdf}
+	\caption[Deployment diagram]{Deployment diagram}
+	\label{fig:deployment_diagram}
+	\floatfoot{Forrás: saját ábra}
+\end{figure}
+
 
 
 \section{Több példány}
@@ -29,31 +45,17 @@ A különböző szervizekből a terhelésnek megfelelően eltérő számú péld
 	\item és a Kafka brókerből (\ref{sec:kafka_topics}) szintén három darab.
 \end{itemize}
 
-A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (\ref{todo} ábra). Az oldal elérhető a  \textit{Spring metrics} menüpont alatt.
+A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (\ref{fig:backend_receive_kafka} ábra). Az oldal elérhető a  \textit{Spring metrics} menüpont alatt.
 
-\Aref{todo} ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
+\Aref{fig:backend_receive_kafka} ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
 
 \begin{itemize}
-	\item a legfelső sorban a Java Virtual Machine, által akutálisan felhasznált Heap space,	
-	\item alatta az aktuális REST lekérések száma,
-	\item a harmadik sorban a feldolgozott Kafka üzenetek száma,
-	\item míg az utolsó sorban a Trace log bejegyzések száma látható.
+	\item a legfelső sorban a Java Virtual Machine, által aktuálisan felhasznált Heap space,	
+	\item alatta a feldolgozott Kafka üzenetek száma,
+	\item a harmadik sorban a Trace log bejegyzések száma,
+	\item míg az utolsó sorban az aktuális REST lekérések száma látható.
 \end{itemize}
 
-
-\section{Deployment}
-A könyebb bemutathatóság érdekében a szemléletesebb szervizeket --hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni-- a docker hálózaton kívül is elérhetővé tettem. 
-
-A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \textit{container}t a \textit{localhost} melyik portján lehet elérni.
-
-
-\begin{figure}[hbt] 
-	\centering
-	\includegraphics[width=0.85\textwidth]{deployment_diagram_drawio.pdf}
-	\caption[Deployment diagram]{Deployment diagram}
-	\label{fig:deployment_diagram}
-	\floatfoot{Forrás: saját ábra}
-\end{figure}
 
 
 \section{E-mail fogadásának és küldésének folyamata}
@@ -158,7 +160,7 @@ A helpdesk backend adatbázistábláit \aref{fig:extended_database_uml}. ábra t
 
 
 \subsection{Liquibase}\label{sec:liquibase}
-A \textit{databasechangelog} és \textit{databasechangeloglock} táblákat a Liquibase (\ref{sec:adatbazis}. pont) az adatbázis séma verziójának karbantarására használja:
+A \textit{databasechangelog} és \textit{databasechangeloglock} táblákat a Liquibase (\ref{sec:adatbazis}. pont) az adatbázis séma verziójának karbantartására használja:
 \begin{description}
 	\item[databasechangelog] tábla tartalmazza a \mbox{\textit{resources/db.changelog}} könyvtárban található,  \mbox{\textit{db.changelog-master.yaml}} állományban tárolt utasítások futási eredményeit.
 	
@@ -169,7 +171,7 @@ A helpdesk backend szerviz minden induláskor elindítja a Liquibase-t. A Liquib
 
 A \mbox{\textit{db.changelog-master.yaml}} állományba fel van véve az összes olyan DDL-utasítás és más SQL-parancs, ami az adatbázis kezdő állapotának létrehozásához szükséges. Mivel a Liquibase ezeket a parancsokat a \textit{helpdesk} felhasználóval hajtja végre, a létrejött táblák is \textit{helpdesk} felhasználóhoz fognak tartozni. 
 
-A helpdesk backend alkalmazás rendes működése során --a Liquibase futása után-- a \textit{helpdesk\textunderscore app} felhasználón keresztül kapcsolódik az adatbázishoz, így csak a Liqubase utasításokban meghatározott táblákhoz fér hozzá, és csak olyan típusú --CRUD-- utasítást tud végrehajtani, ami külön engedélyezve van neki.
+A helpdesk backend alkalmazás rendes működése során --a Liquibase futása után-- a \textit{helpdesk\textunderscore app} felhasználón keresztül kapcsolódik az adatbázishoz, így csak a Liquibase utasításokban meghatározott táblákhoz fér hozzá, és csak olyan típusú --CRUD-- utasítást tud végrehajtani, ami külön engedélyezve van neki.
 
 Így biztosítható, hogy a helpdesk alkalmazás csak a feladatinak ellátásához szükséges szinten férjen hozzá az alkalmazáshoz, és hogy futása során ne módosíthassa a táblákat. 
 
@@ -203,7 +205,7 @@ A kafka \textit{topic}ok és üzenetek elérhetőek és követhetőek a \textit{
 
 A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
 \begin{description}
-	\item[user.v1.pub] A Keycloak-ban regisztrált és karbantarott felhasználókat tartalmazza.
+	\item[user.v1.pub] A Keycloak-ban regisztrált és karbantartott felhasználókat tartalmazza.
 	
 	\item[email.in.v1.pub] Az összes beérkező  e-mailt tartalmazza.
 	
@@ -218,12 +220,12 @@ A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
 \end{description}
 
 
-Az alkalmazás három kafka brókert futat egy clusterben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --a \textunderscore schemas-on kívül mindegyik-- három particíóval és kettes replikációs faktorral lett létrehozva.
+Az alkalmazás három kafka brókert futtat egy clusterben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --a \textunderscore schemas-on kívül mindegyik-- három partícióval és kettes replikációs faktorral lett létrehozva.
 Így a kafka cluster egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
 
 
 \section{Eureka}
-\Aref{sec:metrikak}. pontban megemlített szerviz felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens induláskor beregisztálják magukat az Eureka szervizbe.
+\Aref{sec:metrikak}. pontban említett szerviz felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens az elindításuk után közvetlenül beregisztrálják magukat az Eureka szervizbe.
 
 Az Eureka szerveren keresztül megtekinthető, és más szervizek számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \textit{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
 

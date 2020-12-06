@@ -1,12 +1,21 @@
-Sikerült egy mikroszerviz alapú elosztott alkalmazás létrehozása. Bemutattam a megvalósítás során felmerült problémákat és azok megoldását, felhasznált technológiákat és módszertanokat.
+Dolgozatom célja egy több e-mail címet és szálat kezelő teljes értékű elosztott alkalmazás létrehozása volt.
+
+\bigskip
+Az alkalmazás teljes funkcionalitását több, egymástól függetlenül működő, pontosan egy körülhatárolt részfeladatért felelős mikroszerviz látja el. A szervizek egymáshoz lazán, HTTP-n és kafkán keresztül kapcsolódnak.
+
+A moduláris felépítés, és a szervizek laza kapcsolata nagy mértékben leegyszerűsíti a helpdesk alkalmazás akár mások által fejlesztett programokkal való együttműködését is. A rendelkezésre álló számtalan, szabadon használható, nyílt forrású program használata pedig nagy mértékben megkönnyíti az új alkalmazás fejlesztését.
+
+Jó példa erre a Keycloak szerviz esete, ahol egy biztonságos, és megannyi funkcióval rendelkező jogosultság- és hozzáférés-kezelőt sikerült a helpdesk alkalmazásba integrálni. Így a jelszókezelésnél vagy más hozzáféréssel és jogosultsággal kapcsolatos részletnél hagyatkozhattam a Keycloak funkcionalitására. És nekem elegendő volt a felhasználók üzletileg is releváns, e-mailekhez köthető kapcsolatával foglalkoznom.
+
+\bigskip
+Három fő részfeladatra osztottam fel az alkalmazás működését. Az e-mail szerverekkel való kapcsolattartásért az \textit{e-mail kliens}, az e-mailek, e-mail szálak logikai rendszerezésért, tárolásáért a \textit{helpdesk backend}, és az e-mail szálak megjelenítéséért, a felhasználókkal való interakcióért a \textit{helpdesk frontend} lett a felelős.
+
+A közöttük fennálló laza kapcsolat miatt az adott feladatnak megfelelően választhattam meg a programnyelvet és technológiát. Így az \textit{e-mail kliens}t és a \textit{helpdesk backend}et Java alapon Spring Boottal, a \textit{helpdesk frontend}et pedig TypeScript alapon Angularral készítettem.
 
 
-Számtalan gyakran visszatérő problémára létezik már szabadon használható open source megoldás. Az új alkalmazások fejlesztését nagyban megkönnyíti, ha nem kell minden problémát újból megoldani. Éppen ezért kiemelten fontos, hogy a létrejött helpdesk alkalmazás modularitása miatt könnyen integrálható más alkalmazásokkal.
-
-
-Egyik felhasznált program sem licenc köteles. És mivel a létrejött funkciók a modulok között erősen szeparálva helyezkednek el, könnyű egy-egy modul lecserélése. Így  létrejött szoftver fenntartási költsége alacsony. Amennyiben megszűnik egy-egy technológia támogatása, vagy bármilyen más okból le kell cserélni egy modult, akkor sem szükséges a teljes kódbázis cseréje, így értékes emberórákat spórolva meg a fejlesztőknek.
+\bigskip
+Terheléses tesztel megvizsgáltam a helpdesk alkalmazás komoly igénybevétel során mérhető teljesítményét. Az alkalmazás monitorozásához használt eszközök segítségével elemeztem vizsgálat eredményét. És az alkalmazás horizontális skálázásával sikerült jelentős teljesítményjavulást elérni.
 
 \bigskip
 \bigskip
-
-Bízom benne hogy sikerült egy modern, időtálló, és az ügyfél igényeit maradéktalanul kielégítő szoftvert létrehoznom.
+Sikerült egy modern, időtálló, mikroszerviz alapú elosztott alkalmazást létrehoznom. Bemutattam a megvalósítás során felmerült problémákat, azok megoldását, a felhasznált technológiákat és módszertanokat.

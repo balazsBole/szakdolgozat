@@ -60,7 +60,6 @@ public class EmailThreadRestController {
     })
     public ResponseEntity<List<EmailThread>> unassigned() {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        //todo: check for admin rights for this request
         List<EmailThread> threads = service.getUnassignedEmailThreadsFor(UUID.fromString(userId));
         return ResponseEntity.ok(threads);
     }
@@ -89,8 +88,6 @@ public class EmailThreadRestController {
     public ResponseEntity<List<EmailThread>> searchByStatusInAssignedQueue(
             @ApiParam(value = "EmailThread status") @RequestHeader(value = "status", defaultValue = "CHANGE_QUEUE") final String status
     ) {
-        //todo: check for admin rights for this request
-
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         List<EmailThread> threads = service.findAllByStatusInTheQueueOf(Status.valueOf(status), UUID.fromString(userId));
         return ResponseEntity.ok(threads);

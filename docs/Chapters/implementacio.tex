@@ -1,4 +1,5 @@
-Szeretném külön-külön bemutatni az egyes komponenseket. Kiemelni a komponensek által megvalósított funkciókat, és a megvalósítás szempontjából fontos részleteket. 
+Ebben  fejezetben külön-külön bemutatom a helpdesk alkalmazást felépítő komponenseket. Kiemelem a komponensek által megvalósított funkciókat, és a megvalósítás szempontjából fontos részleteket. 
+
 
 \section{Mikroszerviz infrastruktúra}
 
@@ -8,7 +9,7 @@ Az Nginx-nek három különböző szerepe van:
 \begin{itemize}
 	\item A \foreignlanguage{british}{helpdesk frontend} alkalmazásszervereként működik (\ref{sec:angular}~pont),
 	
-	\item \foreignlanguage{british}{Routing}ot valósít meg, rajta kerestül érhető el a \foreignlanguage{british}{helpdesk backend} és a \foreignlanguage{british}{keycloak} szerviz,
+	\item \foreignlanguage{british}{Routing}ot valósít meg, rajta keresztül érhető el a \foreignlanguage{british}{helpdesk backend} és a \foreignlanguage{british}{Keycloak} szerviz,
 	
 	\item \foreignlanguage{british}{HTTP cache}-ként működik a frontend és a backend között.
 \end{itemize}
@@ -19,19 +20,19 @@ A loadbalancer funkcionalitás --mivel a docker azt natívan támogatja, így-- 
 \subsection{Docker konténerizáció}\label{sec:docker}
 Az alakalmazás összes szervize saját docker konténerben fut. A docker konfigurációs leírása a \textit{docker-compose.yml} állományban van. A \textit{docker-compose} parancs ez alapján indítja el az alkalmazást, hozza létre a saját alhálózatát, valósítja meg a hálózaton belüli DNS-funkciót.
 
-A konténerek skálázása  is a dockeren keresztül (\textit{docker-compose --scale}) valósul meg.
+A konténerek skálázása is a dockeren keresztül (\textit{docker-compose --scale}) valósul meg.
 
 
 \subsection{Metrikák}\label{sec:metrikak}
-\Aref{sec:metrikak_tervezes} pontnak megfelelően a springes alkamazásaim egy-egy HTTP endpointon keresztül érhetőek el a prometheus számára (\textit{\mbox{/actuator/proemtheus}}) és induláskor beregisztrálják magukat az eureka\footnote{Az Eureka a Netflix által fejlesztett \textit{discovery server}. Feladata az összes kliens port és ip adatának nyilkvántartása.} szerverbe.
+\Aref{sec:metrikak_tervezes} pontnak megfelelően a springes alkalmazásaim egy-egy HTTP endpointon keresztül érhetőek el a Prometheus számára (\textit{\mbox{/actuator/proemtheus}}) és induláskor beregisztrálják magukat az Eureka\footnote{Az Eureka a Netflix által fejlesztett \textit{discovery server}. Feladata az összes kliens port és ip adatának nyilkvántartása.} szerverbe.
 
-A prometheus az eurekán keresztül találja meg az instanceokat, és 15 másodpercenként összegyűjti a metrikákat. Az alkalmazások információt küldenek a Kafka konnektoraikról, REST interfészeikről és az adatbázis kapcsolataikról\footnote{HikariCP-t használok JDBC kapcsolathoz}.
+A Prometheus az Eurekán keresztül találja meg az instanceokat, és 15 másodpercenként összegyűjti a metrikákat. Az alkalmazások információt küldenek a Kafka konnektoraikról, REST interfészeikről és az adatbázis kapcsolataikról\footnote{HikariCP-t használok JDBC kapcsolathoz}.
 
-A Prometheus által összegyűjtött adatokat grafanában létrehozott --Spring Boot és JVM metrikákat tartalmazó-- \textit{dashboard}okon ábrázolom.
+A Prometheus által összegyűjtött adatokat Grafanában létrehozott --Spring Boot és JVM metrikákat tartalmazó-- \textit{dashboard}okon ábrázolom.
 
 
 \section{E-mail kliens}
-Az e-mail kliens szerepe az üzenetek küldése és fogadása egy meghatározotst e-mail címről. Feladata a külső protokollok leválasztása az alkalmazástól. Irányítja és karbantartja az IMAP és SMTP szerverrel való kapcsolatot.
+Az e-mail kliens szerepe az üzenetek küldése és fogadása egy meghatározott e-mail címről. Feladata a külső protokollok leválasztása az alkalmazásról. Irányítja és karbantartja az IMAP és SMTP szerverrel való kapcsolatot.
 
 \Aref{fig:email-client_sequence_diagram}. ábrán látható a két irányú kommunikáció megvalósulása:
 \begin{itemize}
@@ -83,7 +84,7 @@ A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátás�
 
 
 \subsection{Spring Boot}
-A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a prometheus-t és az actuatort a metrikák elkészítéséhez használtam.	
+A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \textit{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \textit{rest controller}ekhez, a micrometer-t és az actuatort a metrikák elkészítéséhez használtam.	
 
 
 \subsection{Adatbázis}\label{sec:adatbazis}
@@ -108,7 +109,7 @@ A backend összehasonlítja a módosítani kívánt erőforrás verziószámát 
 Ha a két verzió nem egyezik --ami csak úgy történhet meg, ha valaki más időközben módosította a kérdéses adatot-- akkor a tranzakció nem hajtódik végre, és a kliens egy HTTP \textit{Conflict} hibaüzenettel értesül a történtekről. A felhasználó ilyenkor az oldal frissítése után, megvizsgálja az aktuális állapotot, és --amennyiben a módosításaira még mindig szükség van-- újból kezdi a folyamatot.
 
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
-A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumnetációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
+A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumentációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
 
 
 
@@ -117,7 +118,7 @@ A frontend az e-mailek és e-mail szálakkal összefüggő üzleti feladatok meg
 
 
 \subsection{Kommunikáció a backenddel}
-A backenddel való kommunikáció HTTP protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumnetációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
+A backenddel való kommunikáció HTTP protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumentációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
 
 Az aszinkron HTTP hívásokat az NgRx könyvtár alakítja adatfolyamokká. 
 Az így, \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, megkönnyítik a filterezhetőséget és az egységes hibakezelést. 
@@ -125,10 +126,9 @@ Az így, \textit{Observable}-ként kezelt események már támogatják a stream 
 Az NgRx használatával továbbá, elkerülhetőek az aszinkron hívások mellékhatásai, és egy globális, alkalmazás szintű belső állapot hozható létre.
 
 \subsection{Komponensek}
-Az egységes megjelenés és az ismerős kinézet miatt, a komponenseim alapjának az Angular Material UI könyvtárat választottam. A könyvtár	népszerű az Angular fejlesztők körében, mert a leggyakrabban előforduló felhasználói igényekre elérhető benne kész, könnyen használható megoldás.
+Az egységes megjelenés és az ismerős kinézet miatt, a komponenseim alapjának az Angular Material UI könyvtárat választottam. A könyvtár népszerű az Angular fejlesztők körében, mert a leggyakrabban előforduló felhasználói igényekre elérhető benne kész, könnyen használható megoldás.
 
-A válasz e-mail lérehozására az open source Quill szövegszerkesztőt használtam.
-Egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
+A válasz e-mail létrehozására az open source Quill szövegszerkesztőt használtam, mert egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
 
 
 \subsection{Futtatási környezet}
@@ -154,21 +154,21 @@ Adminisztrátor felülete segítségével nyomon követhető a különböző aut
 
 
 \subsection{Jogosultságkezelés}
-A jogosultságokat két eltérő területre osztottam fel. A \textit{master realm} a regisztrációért és a jogkörök kiosztásáért, míg a \textit{helpdesk realm} az alakalmazás funkcionális (\ref{sec:tobb_felhasznalo}) feladatiért felelős.
+A jogosultságokat két eltérő területre osztottam fel. A \textit{master realm} a regisztrációért és a jogkörök kiosztásáért, míg a \textit{helpdesk realm} az alkalmazás funkcionális (\ref{sec:tobb_felhasznalo}) feladatiért felelős.
 
-A \textit{helpdesk realm}on belül további két jogkört külöböztetek meg. Az \textit{admin\textunderscore user} szerepbe tartozó felhasználók képesek más e-mail szálait is kezelni, míg a csupán \textit{regular\textunderscore user} jogkörbe tartozóak csak a saját e-mail szálaikhoz férhetnek hozzá.
+A \textit{helpdesk realm}on belül további két jogkört különböztetek meg. Az \textit{admin\textunderscore user} szerepbe tartozó felhasználók képesek más e-mail szálait is kezelni, míg a csupán \textit{regular\textunderscore user} jogkörbe tartozóak csak a saját e-mail szálaikhoz férhetnek hozzá.
 
 
 \subsection{JSON Web Token}\label{sec:JWT}
 A jogosultságkezelés technikai alapját az \textit{rfc7519}-es szabványban \cite{rfc7519_JSON_Web_Token} leírt JSON Web Token (JWT) adja. 
 
-A keycloak szervere által digitálisan aláírt token tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja a keycloaktól kapott azonosítót. A backend hitelesíti a tokent a keycloak publikus kulcsával (lásd \ref{fig:frontend_sequence_diagram} ábra), és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
+A Keycloak szervere által digitálisan aláírt token tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja a Keycloaktól kapott azonosítót. A backend hitelesíti a tokent a Keycloak publikus kulcsával (lásd \ref{fig:frontend_sequence_diagram} ábra), és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
 
 
 \section{Kafka}\label{sec:implementacio_kafka}
 Hogy teljesen elválasszam egymástól az e-mail klienst és a helpdesk backendet, a bejövő és kimenő e-mailek Kafka \textit{topic}-okon (\ref{sec:apache_kafka} pont) mennek keresztül. A szeparációval függetlenné teszem egymástól a két rendszer működését, ami lehetővé teszi az eltérő igénybevételnek (\ref{sec:granularitas} pont) megfelelő skálázhatóságot.
 
-Ugyanígy, a funkciók szeparálása (\ref{sec:backend_keycloak_separation}) miatt a felhasználók adatai egy külön kafka topicban érhetőek el. Bármelyik mikroszerviznek szüksége lenne valamilyen felhasználóval kapcsolatos információra, azokat a topic vévigolvasásával megkaphatja.
+Ugyanígy, a funkciók szeparálása (\ref{sec:backend_keycloak_separation}) miatt a felhasználók adatai egy külön kafka topicban érhetőek el. Bármelyik mikroszerviznek szüksége lenne valamilyen felhasználóval kapcsolatos információra, azokat a topic végigolvasásával megkaphatja.
 
 
 

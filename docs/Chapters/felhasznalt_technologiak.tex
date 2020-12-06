@@ -47,7 +47,7 @@ Egy absztrakt port feladata kell legyen a külvilággal való kapcsolat, így az
 
 Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\textit{The Clean Architecture}} cikkében \cite{The_Clean_Architecture} összeszedte, a port-adapter és a hasonló architektúrával készülő alkalmazások mind:	
 \begin{itemize}
-	\item Könnyen, és önmagukban is tesztelhetőek. Mivel az üzleti szabályoknak, nincs külső függőségük.
+	\item Könnyen, és önmagukban is tesztelhetőek, mivel az üzleti szabályoknak nincs külső függőségük.
 	
 	\item Függetlenek a külső tényezőktől. Így az alkalmazás által használt felület vagy adatbázis könnyen cserélhető.
 	
@@ -90,7 +90,7 @@ A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megold
 	
 	Ha más rendszernek szüksége van az aktuális állapotra, az az események újrajátszásával bármikor megkapható.	
 	 
-	Az Apache Kafkát (\ref{sec:apache_kafka}) gyakran használják az események kezelésére, mert natívan támogatja az események csoportosítását egyedi azonosító alapján . Beállítható hogy UUID alapján mindig csak a legfrissebb állapot legyen elérhető, ezzel lecsökkentve a kezdeti olvasáshoz szükséges időt.
+	Az Apache Kafkát (\ref{sec:apache_kafka}) gyakran használják az események kezelésére, mert natívan támogatja az események csoportosítását egyedi azonosító alapján. Beállítható hogy UUID alapján mindig csak a legfrissebb állapot legyen elérhető, ezzel lecsökkentve a kezdeti olvasáshoz szükséges időt.
 		
 	\item[Elosztott tranzakciók és Saga] Ha nem csak más szervizek adatainak olvasásáról van szó, hanem több szervizen átívelő, visszagörgethető tranzakciót kell megvalósítani, arra az esetre találták ki a \textit{Saga}-t.
 	
@@ -103,16 +103,16 @@ Az apache kafka egy üzenet tárolásra és továbbításra kifejlesztett hibat�
 
 A feladó az üzenetet nem közvetlenül a fogadónak küldi, hanem egy üzenetbrókeren keresztül egy (\textit{topic})-ba teszi közzé. A fogadó fél hogy megkaphassa az üzenetet, feliratkozik az adott témára. 
 
-Redundancia és skálázhatóság miatt egy \textit{topic} több particióra van elosztva, és ezen felül minden partició replikálva is van~\cite{OReally_Kafka_Internals}. A pratíciók eltérő szerveren lehetnek, ezáltal egy \textit{topic} horizontálisan skálázható. Egy \textit{node} esetleges kiesése esetén a többi \textit{node} át tudja venni a kiesett \textit{node} szerepét.
+Redundancia és skálázhatóság miatt egy \textit{topic} több partícióra van elosztva, és ezen felül minden partíció replikálva is van~\cite{OReally_Kafka_Internals}. A partíciók eltérő szerveren lehetnek, ezáltal egy \textit{topic} horizontálisan skálázható. Egy szerver esetleges kiesése esetén a többi szerver át tudja venni a kiesett szerver szerepét.
 
-A üzenetbórkerek összehaangolását a Zookeper szerviz végzi. MIvel minden kafka bróker beregisztálja magát a szervízbe, a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
+Az üzenetbórkerek összehangolását a Zookeper szerviz végzi. Mivel minden kafka bróker beregisztrálja magát a szervizbe, a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
 
 Az üzeneteket Apache Avroval szerializálom. Az Avro lehetővé teszi a kompakt bináris tárolást, de natívan támogatja a JSON reprezentációt is. Az Avrohoz szükséges séma nyilvántartásért és az eltérő verziók kezelésért a Schemaregistry szerver felelős. A kafka kliensek a Schemaregistry szerveren keresztül tudják az üzeneteket olvasni és írni. 
 
 
 
 \section{Angular}\label{sec:angular}
-Az \foreignlanguage{british}{Angular} egy a \foreignlanguage{british}{Google} által fejlesztett \foreignlanguage{british}{TypeScript} alapú platform és		 keretrendszer~\cite{angular_docs}. A segítségével létrehozott kód erősen modularizált, így könnyű vele újra felhasználható és az MVC-elveit követő alkalmazást létrehozni.
+Az \foreignlanguage{british}{Angular} egy a \foreignlanguage{british}{Google} által fejlesztett \foreignlanguage{british}{TypeScript} alapú platform és	keretrendszer~\cite{angular_docs}. A segítségével létrehozott kód erősen modularizált, így könnyű vele újra felhasználható és az MVC-elveit követő alkalmazást létrehozni.
 
 Az Angularral készített honlap teljes mértében a kliens oldalon fut, így a szerver oldalon elegendő egy egyszerű, statikus HTML-oldalt visszaadó alkalmazásszerver használata.
 

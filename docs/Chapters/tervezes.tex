@@ -1,17 +1,16 @@
-Ebben a fejezetben szeretném összegyűjteni a tervezés során felmerülő kérdésekre adott válaszokat. Egy-egy eszköz kiválasztása során figyelembe vett alternatívákat.
-
+Ebben a fejezetben összegyűjtöttem a tervezés során felmerült kérdéseket, az azokra adott válaszaimat, és az egy-egy eszköz kiválasztása során figyelembe vett alternatívákat.
 
 
 
 \section{Webszerver}
-A megfelelő webszerver kiválasztása során a három legelterjedtebb\cite{W3Techs_Usage_statistics_of_webservers} webszerveret --Apache, Nginx és a Cloudflare-- vettem számításba. A főbb szempontjaim a következők voltak:
+A megfelelő webszerver kiválasztása során a három legelterjedtebb\cite{W3Techs_Usage_statistics_of_webservers} webszerveret --Apache, Nginx és az Internet Information Services-- vettem számításba. A főbb szempontjaim a következők voltak:
 \begin{itemize}
 	\item legyen open source, vagy ingyenesen használható, ezzel minimalizálva a költségeket,
 	\item lehetőleg minél kevesebb erőforrást használjon fel,
 	\item úgy hogy közben elegendő csak statikus tartalmat kiszolgálnia.
 \end{itemize}
 
-Az IIS\footnote{Internet Information Services} --a többi open source alternatívál ellentétben-- nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
+Az IIS\footnote{Internet Information Services} --a többi open source alternatívával ellentétben-- nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
 
 Az Nginx alapvetően jobb az Apache-nál a statikus oldalak, a párhuzamos lekérések kiszolgálásában~\cite{nginx_performance}, emiatt szívesen használják a két alkalmazást együtt. Ilyenkor az Nginx egy fordított proxyként kezeli az ügyfeleket és a statikus tartalmak kiszolgálását, a dinamikus tartalmakat pedig továbbítja az Apache szerver felé.
 
@@ -32,7 +31,7 @@ Az Oracle adatbázist a drága licence miatt nem tartom jó választásnak, hely
 
 Az alkalmazás működése szempontjából lényeges funkciók a MySQL és a PostgreSQL adatbázisban is elérhetőek.
 
-A backend alkalmazásban az adatokat JPA-n keresztül kezelem, így --a megfelelő adatbázis kiválasztásában-- a legfontosabb szempontnak a két adatbázis Hibernaten keresztül elért teljesítményét tartom.
+A backend alkalmazásban az adatokat JPA-n keresztül kezelem, így --a megfelelő adatbázis kiválasztásában-- a legfontosabb szempontnak a két adatbázis Hibernate-en keresztül elért teljesítményét tartom.
 
 \subsection{Teljesítményvizsgálat}
 Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a saját --memóriában futtatott-- adatbázisuk teljesítményéhez hasonlítja többi alkalmazás teljesítményét (\ref{eq:normalizalt} egyenlet). Így a normalizált mérőszámok egymással összevethetőek.
@@ -59,11 +58,11 @@ Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a sa
 		Tesztesetek átlaga & 2,7 & 9,1
 	\end{tabular} 
 	
-	\caption{JPA teljesítményvizsgálata Hibernate implemetációval és  MySQL illetve PostgreSQL adatbázissal }
+	\caption{JPA teljesítményvizsgálata Hibernate implementációval és  MySQL illetve PostgreSQL adatbázissal }
 	\label{tabl:teljesitmenyvizsgalat}
 \end{table}
 
-\Aref{tabl:teljesitmenyvizsgalat} táblázatban látszódik, hogy a PostgreSQL adatbázis a Hibernate implmentációval átlagosan háromszor olyan jól teljesít, mint a MySQL adatbázis. Ám ha figyelembe vesszük, hogy a két leggyakrabban előforduló funkció az elsődleges kulcs valamint szóeleji egyezés alapján keresés, akkor egyértelmű hogy a PostgreSQL adatbázist érdemes választani.
+\Aref{tabl:teljesitmenyvizsgalat} táblázatban látszódik, hogy a PostgreSQL adatbázis a Hibernate implementációval átlagosan háromszor olyan jól teljesít, mint a MySQL adatbázis. Ám ha figyelembe vesszük, hogy a két leggyakrabban előforduló funkció az elsődleges kulcs valamint szóeleji egyezés alapján keresés, akkor egyértelmű hogy a PostgreSQL adatbázist érdemes választani.
 
 
 \section{JPA implementáció}
@@ -76,7 +75,7 @@ A számtalan --EclipseLink, Hibernate, Spring Data JPA, etc.-- ORM-et megvalós�
 	\item és a JPA implementáción felül, az adatok auditálására szeretném használni a projekten.
 \end{itemize}
 
-Így a Hibernate használatával jelentős mennyiségű forráskód elkészítését és karbantartását lehet kiváltani, hiszen az adatok tárolásáráért, módosításáért, verziókezeléséért mind a Hibernate a felelős.
+Így a Hibernate használatával jelentős mennyiségű forráskód elkészítését és karbantartását lehet kiváltani, hiszen az adatok tárolásáráért, módosításáért, verziókezeléséé	rt mind a Hibernate a felelős.
 
 A használatával kiváltott munka mennyisége bőven meghaladja a megismerésével és beállításával eltöltött időt.
 
@@ -127,7 +126,7 @@ A Grafana legnagyobb előnye a \textit{dashboard}-jaiban rejlik. A felületen --
 A grafana oldalán ezen kívül számos előre elkészített és szabadon felhasználható \textit{dashboard} érhető el. A leggyakrabban használt alkalmazások metrikái újra használhatóan és szerkeszthetően hozzáférhetőek. Így a fejlesztést jelentősen leegyszerűsítve, elegendő csupán az alkalmazás specifikus paneleket letölteni és testre szabni.
 
 \subsection{Graphite}
-A Graphite idősoros tárolására és megjelenítésére alkalmas open source moniorozó eszköz. Összesen két feladatot lát el, a Whisper könyvtárral tárolja a neki küldött adatokat, valamint megjeleníti a tárolt adatot a webes felületén.
+A Graphite idősoros tárolására és megjelenítésére alkalmas open source monitorozó eszköz. Összesen két feladatot lát el, a Whisper könyvtárral tárolja a neki küldött adatokat, valamint megjeleníti a tárolt adatot a webes felületén.
 
 Az adatok tárolása nem olyan kifinomult mint a Prometheuson; passzívan képes csak fogadni az adatokat és nem rendelkezik a PromQL-hez hasonló lekérdező nyelvvel sem.
 

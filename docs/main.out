@@ -10,7 +10,7 @@
 \BOOKMARK [2][-]{subsection.1.2.1}{Sk\341l\341zhat\363s\341g}{section.1.2}% 10
 \BOOKMARK [2][-]{subsection.1.2.2}{Granul\341ris felosztotts\341g}{section.1.2}% 11
 \BOOKMARK [2][-]{subsection.1.2.3}{M\351rheto indik\341torok}{section.1.2}% 12
-\BOOKMARK [2][-]{subsection.1.2.4}{I18N}{section.1.2}% 13
+\BOOKMARK [2][-]{subsection.1.2.4}{L10N}{section.1.2}% 13
 \BOOKMARK [0][-]{chapter.2}{Technol\363giai \341ttekint\351s}{}% 14
 \BOOKMARK [1][-]{section.2.1}{Mikroszerviz architekt\372ra}{chapter.2}% 15
 \BOOKMARK [1][-]{section.2.2}{Hexagon\341lis architekt\372ra}{chapter.2}% 16
@@ -62,8 +62,8 @@
 \BOOKMARK [1][-]{section.5.8}{Helpdesk backend \351s a Keycloak elk\374l\366n\355t\351se}{chapter.5}% 62
 \BOOKMARK [0][-]{chapter.6}{Alkalmaz\341s bemutat\341sa}{}% 63
 \BOOKMARK [1][-]{section.6.1}{Alkalmaz\341s elind\355t\341sa}{chapter.6}% 64
-\BOOKMARK [1][-]{section.6.2}{T\366bb p\351ld\341ny}{chapter.6}% 65
-\BOOKMARK [1][-]{section.6.3}{Deployment}{chapter.6}% 66
+\BOOKMARK [1][-]{section.6.2}{Deployment}{chapter.6}% 65
+\BOOKMARK [1][-]{section.6.3}{T\366bb p\351ld\341ny}{chapter.6}% 66
 \BOOKMARK [1][-]{section.6.4}{E-mail fogad\341s\341nak \351s k\374ld\351s\351nek folyamata}{chapter.6}% 67
 \BOOKMARK [1][-]{section.6.5}{Adatb\341zist\341bl\341k}{chapter.6}% 68
 \BOOKMARK [2][-]{subsection.6.5.1}{Liquibase}{section.6.5}% 69

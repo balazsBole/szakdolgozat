@@ -5,7 +5,7 @@
 
   <groupId>hu.gdf.balazsbole</groupId>
   <artifactId>helpdesk-parent</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>helpdesk</name>
 
