@@ -3,18 +3,18 @@ Ebben a fejezetben összegyűjtöttem a tervezés során felmerült kérdéseket
 
 
 \section{Webszerver}
-A megfelelő webszerver kiválasztása során a három legelterjedtebb\cite{W3Techs_Usage_statistics_of_webservers} webszerveret --Apache, Nginx és az Internet Information Services-- vettem számításba. A főbb szempontjaim a következők voltak:
+A megfelelő webszerver kiválasztása során a három legelterjedtebb\cite{W3Techs_Usage_statistics_of_webservers} webszerveret --  Apache, Nginx és az Internet Information Services -- vettem számításba. A főbb szempontjaim a következők voltak:
 \begin{itemize}
 	\item legyen open source, vagy ingyenesen használható, ezzel minimalizálva a költségeket,
 	\item lehetőleg minél kevesebb erőforrást használjon fel,
 	\item úgy hogy közben elegendő csak statikus tartalmat kiszolgálnia.
 \end{itemize}
 
-Az IIS\footnote{Internet Information Services} --a többi open source alternatívával ellentétben-- nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
+Az IIS\footnote{Internet Information Services} --  a többi open source alternatívával ellentétben --   nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
 
 Az Nginx alapvetően jobb az Apache-nál a statikus oldalak, a párhuzamos lekérések kiszolgálásában~\cite{nginx_performance}, emiatt szívesen használják a két alkalmazást együtt. Ilyenkor az Nginx egy fordított proxyként kezeli az ügyfeleket és a statikus tartalmak kiszolgálását, a dinamikus tartalmakat pedig továbbítja az Apache szerver felé.
 
-Mivel a webszervernek elegendő statikus tartalmat kiszolgálni --hiszen a helpdesk frontend egy egyszerű statikus HTML-oldallá fordul (lásd \ref{sec:angular}~pont)-- így adja magát, hogy webszerverként az Nginx-et használjam.
+Mivel a webszervernek elegendő statikus tartalmat kiszolgálni --  hiszen a helpdesk frontend egy egyszerű statikus HTML-oldallá fordul (lásd \ref{sec:angular}~pont) --   így adja magát, hogy webszerverként az Nginx-et használjam.
 
 
 
@@ -31,10 +31,10 @@ Az Oracle adatbázist a drága licenc miatt nem tartom jó választásnak, helye
 
 Az alkalmazás működése szempontjából lényeges funkciók a MySQL és a PostgreSQL adatbázisban is elérhetőek.
 
-A backend alkalmazásban az adatokat JPA-n keresztül kezelem, így --a megfelelő adatbázis kiválasztásában-- a legfontosabb szempontnak a két adatbázis Hibernate-en keresztül elért teljesítményét tartom.
+A backend alkalmazásban az adatokat JPA-n keresztül kezelem, így --  a megfelelő adatbázis kiválasztásában --   a legfontosabb szempontnak a két adatbázis Hibernate-en keresztül elért teljesítményét tartom.
 
 \subsection{Teljesítményvizsgálat}
-Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a saját --memóriában futtatott-- adatbázisuk teljesítményéhez hasonlítja többi alkalmazás teljesítményét (\ref{eq:normalizalt} egyenlet). Így a normalizált mérőszámok egymással összevethetőek.
+Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a saját --  memóriában futtatott --   adatbázisuk teljesítményéhez hasonlítja többi alkalmazás teljesítményét (\ref{eq:normalizalt} egyenlet). Így a normalizált mérőszámok egymással összevethetőek.
 
 \begin{equation}
 \textrm{vizsgált rendszer mérőszáma} = 100 \cdot
@@ -43,7 +43,7 @@ Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a sa
 \label{eq:normalizalt}
 \end{equation}
 
-\Aref{tabl:teljesitmenyvizsgalat} táblázatban --a dokumentált eredményekből\cite{JPA_benchmark}-- összegyűjtöttem a vizsgálat szempontjából mérvadó adatokat. Mindegyik mérés külön példányon, egyesével, egyenként $100~000$ véletlenszerű entitás létrehozásával készült. \Aref{eq:normalizalt} egyenletből következik, hogy egy mérőszám minél magasabb értékű, a rendszer annál jobb teljesítményűnek számít.
+\Aref{tabl:teljesitmenyvizsgalat} táblázatban --  a dokumentált eredményekből\cite{JPA_benchmark} --   összegyűjtöttem a vizsgálat szempontjából mérvadó adatokat. Mindegyik mérés külön példányon, egyesével, egyenként $100~000$ véletlenszerű entitás létrehozásával készült. \Aref{eq:normalizalt} egyenletből következik, hogy egy mérőszám minél magasabb értékű, a rendszer annál jobb teljesítményűnek számít.
 
 \begin{table}[hbt]
 	
@@ -69,7 +69,7 @@ Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a sa
 A helpdesk backend által használt adatok kezelésére objektum-relációs leképzést használok, mert az ORM nagy mértékben leegyszerűsíti az adatbázis és az entitások egymásnak való megfeleltetését.
 
 
-A számtalan --EclipseLink, Hibernate, Spring Data JPA, \dots-- ORM-et megvalósító JPA implementációk közül a Hibernate mellett döntöttem, mert
+A számtalan --  EclipseLink, Hibernate, Spring Data JPA, \dots --   ORM-et megvalósító JPA implementációk közül a Hibernate mellett döntöttem, mert
 \begin{itemize}
 	\item PostgreSQL adatbázissal hatékonyan működik együtt,
 	\item és a JPA implementáción felül, az adatok auditálására szeretném használni a projekten.
@@ -84,7 +84,7 @@ A használatával kiváltott munka mennyisége bőven meghaladja a megismerésé
 Az eszköz célja az adatbázis verziókövetésének javítása. A megvalósítás alapja, hogy ha az adatbázis változásait egy szöveges dokumentumban tároljuk az alkalmazás forráskódjával együtt, akkor a verziókövető rendszerrel nyomon lehet követni a kód aktuális állapotához tartozó adatbázis-struktúrát is. Összesen két eszközt találtam és vizsgáltam meg: a Liquibase-t és a Flywayt.
 
 \subsection{Liquibase}
-A Liquibase egy --adatbázis sémaváltozások nyilvántartására és alkalmazására létrehozott-- nyílt forráskódú adatbázis-független könyvtár.
+A Liquibase egy --  adatbázis sémaváltozások nyilvántartására és alkalmazására létrehozott --   nyílt forráskódú adatbázis-független könyvtár.
 	
 A sémaváltozásokat tudja kezelni SQL, XML, JSON és YAML formátumban is. A nem SQL formátumban tárolt változásokból adatbázis-specifikus SQL-t tud generálni, és szükség esetén akár automatikusan visszagörgetni is képes azokat.
 
@@ -98,7 +98,7 @@ A változások csak SQL formátumban hozhatóak létre, és sorrendjük az őket
 
 
 \subsection{Felhasznált eszköz}
-A Liquibase --a Flyway funkcióinak megvalósítása mellett-- sokkal több, szélesebb körű felhasználást tesz lehetővé. A visszagörgethetőség és a változások egyszerűbb csoportosíthatósága miatt célszerű a Liquibase-t választani.
+A Liquibase --  a Flyway funkcióinak megvalósítása mellett --   sokkal több, szélesebb körű felhasználást tesz lehetővé. A visszagörgethetőség és a változások egyszerűbb csoportosíthatósága miatt célszerű a Liquibase-t választani.
 
 
 
@@ -109,7 +109,7 @@ Hogy megtaláljam a legmegfelelőbb monitorozó eszközt, összevetettem a háro
 \subsection{Prometheus}
 Prometheus egy open source monitorozó eszköz. Kifejezetten alkalmas a metrikák idősoros tárolására, gyűjtésére és megjelenítésére.
 
-A Prometheus által létrehozott és használt PromQL\footnote{Prometheus Query Language} lekérdező nyelv segítségével könnyen lehet az adatokból táblázatot vagy grafikont készíteni. A PromQL-ben létrehozott kifejezések alkalmasak riasztások létrehozására is, ilyenkor a hibásnak tekintett eseményről --a Prometheus \textit{Alertmanager}-én keresztül-- képes a riasztást kiváltó helyzet elhárításában érintetteket értesíteni.
+A Prometheus által létrehozott és használt PromQL\footnote{Prometheus Query Language} lekérdező nyelv segítségével könnyen lehet az adatokból táblázatot vagy grafikont készíteni. A PromQL-ben létrehozott kifejezések alkalmasak riasztások létrehozására is, ilyenkor a hibásnak tekintett eseményről --  a Prometheus \textit{Alertmanager}-én keresztül --   képes a riasztást kiváltó helyzet elhárításában érintetteket értesíteni.
 
 A megjelenítésre használt \textit{Console template} meglehetősen sok és szerteágazó funkcióval rendelkezik. A rendelkezésre álló átfogó dokumentáció ellenére is jelentős időt vesz igénybe a legalapvetőbb grafikonok elkészítése.
 
@@ -118,10 +118,10 @@ A Prometheus HTTP-n keresztül tudja a megfigyelt rendszerek állapotát szabál
 \subsection{Grafana}
 Grafana egy open source adatelemző, megjelenítő és monitorozó eszköz.
 
-Nem tárol vagy gyűjt adatot, de támogat többféle --Graphite, Prometheus, Influx DB, ElasticSearch, MySQL, PostgreSQL-- adatforrással való kapcsolatot. \textit{Pluginok}on keresztül továbbá támogatja a felhő alapú AWS Cloudwatch és OpenStack Gnocchi adatforrást is.
+Nem tárol vagy gyűjt adatot, de támogat többféle --  Graphite, Prometheus, Influx DB, ElasticSearch, MySQL, PostgreSQL --   adatforrással való kapcsolatot. \textit{Pluginok}on keresztül továbbá támogatja a felhő alapú AWS Cloudwatch és OpenStack Gnocchi adatforrást is.
 
 
-A Grafana legnagyobb előnye a \textit{dashboard}-jaiban rejlik. A felületen --mint egy műszerfalon-- egymás mellett rendszerezve helyezkednek el a különböző paneleken ábrázolt metrikák. Számtalan előre elkészített típusú panelből lehet válogatni, többek között elérhetőek hisztogramok, grafikonok, hőtérképek, táblázatok, riasztások, RSS- és naplóbejegyzés-olvasó felületek.
+A Grafana legnagyobb előnye a \textit{dashboard}-jaiban rejlik. A felületen --  mint egy műszerfalon --   egymás mellett rendszerezve helyezkednek el a különböző paneleken ábrázolt metrikák. Számtalan előre elkészített típusú panelből lehet válogatni, többek között elérhetőek hisztogramok, grafikonok, hőtérképek, táblázatok, riasztások, RSS- és naplóbejegyzés-olvasó felületek.
 
 A Grafana oldalán ezen kívül számos előre elkészített és szabadon felhasználható \textit{dashboard} érhető el. A leggyakrabban használt alkalmazások metrikái újra használhatóan és szerkeszthetően hozzáférhetőek. Így a fejlesztést jelentősen leegyszerűsítve, elegendő csupán az alkalmazás specifikus paneleket letölteni és testre szabni.
 
@@ -130,7 +130,7 @@ A Graphite idősoros tárolására és megjelenítésére alkalmas open source m
 
 Az adatok tárolása nem olyan kifinomult mint a Prometheuson: passzívan képes csak fogadni az adatokat és nem rendelkezik a PromQL-hez hasonló lekérdező nyelvvel sem.
 
-A beépített felülete --körülbelül a Prometheus-éhoz hasonlóan-- messze nem olyan részletes mint a Grafanáé. Egyszerű grafikonok és táblázatok ugyanúgy elkészíthetőek vele, de ezen kívül támogatja még \textit{dashboard}ok létrehozását.
+A beépített felülete --  körülbelül a Prometheus-éhoz hasonlóan --   messze nem olyan részletes mint a Grafanáé. Egyszerű grafikonok és táblázatok ugyanúgy elkészíthetőek vele, de ezen kívül támogatja még \textit{dashboard}ok létrehozását.
 
 
 \subsection{Megvalósítás}

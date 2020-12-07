@@ -2,9 +2,9 @@ Hogy információt szerezzek arról, hogyan viselkedik az alkalmazás nagyobb te
 
 
 \section{Terheléses teszt}
-A terheléses teszt egy --a teljesítménytesztelés alá tartozó-- nem funkcionális vizsgálat. Célja a rendszer működésének vizsgálata, viselkedésének megértése bizonyos előre meghatározott terhelés esetén.
+A terheléses teszt egy --  a teljesítménytesztelés alá tartozó --   nem funkcionális vizsgálat. Célja a rendszer működésének vizsgálata, viselkedésének megértése bizonyos előre meghatározott terhelés esetén.
 
-A vizsgálat párhuzamos felhasználók modellezésén alapszik. A vizsgált alkalmazás folyamatos monitorozás alatt áll, miközben a felhasználók --azonos időben-- végre próbálják hajtani az előre meghatározott üzleti igényeiket.
+A vizsgálat párhuzamos felhasználók modellezésén alapszik. A vizsgált alkalmazás folyamatos monitorozás alatt áll, miközben a felhasználók --  azonos időben --   végre próbálják hajtani az előre meghatározott üzleti igényeiket.
 
 A tesztelés során rögzített válaszidőket ezután célszerű összevetni a rendszer metrikáival, hogy feltárhatóak legyenek az alkalmazás összteljesítményét kritikusan érintő szűk keresztmetszetek.
 
@@ -12,9 +12,9 @@ A tesztelés során rögzített válaszidőket ezután célszerű összevetni a 
 \section{Apache JMeter}	
 Az Apache Jmeter egy nyílt forrású terheléses teszt végrehajtására alkalmas eszköz. Számos protokollt képes kezelni, a helpdesk alkalmazás vizsgálatánál HTTP üzenetek küldésével modelleztem a párhuzamos felhasználókat.
 
-Mivel a helpdesk frontend a kliens oldalon (\ref{sec:angular}~pont) --a felhasználó számítógépén-- fut, így elegendő csak a frontend-backend közötti kommunikációt imitálni.
+Mivel a helpdesk frontend a kliens oldalon (\ref{sec:angular}~pont) --  a felhasználó számítógépén --   fut, így elegendő csak a frontend-backend közötti kommunikációt imitálni.
 
-Minden teszt egy rövid felfutási idővel kezdődik, ami során a JMeter elindítja a párhuzamos teszteléshez használt szálakat (\ref{fig:active_threads_over_time} ábra). A szálak --a teszt teljes ideje alatt-- folyamatosan hajtják végre a számukra kijelölt feladatot. A JMeter méri és rögzíti a vizsgált rendszer válaszait és válaszidejét. A rögzített adatok további elemzésével meghatározható a vizsgált rendszer viselkedése, a Grafana-ban megjelenített metrikák összevetésével pedig azonosíthatóak a teljesítmény szempontjából kritikus rendszerek.
+Minden teszt egy rövid felfutási idővel kezdődik, ami során a JMeter elindítja a párhuzamos teszteléshez használt szálakat (\ref{fig:active_threads_over_time} ábra). A szálak --  a teszt teljes ideje alatt --   folyamatosan hajtják végre a számukra kijelölt feladatot. A JMeter méri és rögzíti a vizsgált rendszer válaszait és válaszidejét. A rögzített adatok további elemzésével meghatározható a vizsgált rendszer viselkedése, a Grafana-ban megjelenített metrikák összevetésével pedig azonosíthatóak a teljesítmény szempontjából kritikus rendszerek.
 
 A létrehozott JMeter tesztjeim a leggyakrabban és a legtöbb erőforrást igénylő funkciókat tesztelik $120$~másodpercig.
 
@@ -22,7 +22,7 @@ A létrehozott JMeter tesztjeim a leggyakrabban és a legtöbb erőforrást igé
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.8\textwidth]{active_threads_over_time.png}
-	\caption[A JMeter tesztelés során használt-- szálai]{A JMeter --tesztelés során használt-- szálai. A különböző üzleti funkciókat hívó szálak eltérő színnel szerepelnek.}
+	\caption[A JMeter tesztelés során használt --   szálai]{A JMeter --  tesztelés során használt --   szálai. A különböző üzleti funkciókat hívó szálak eltérő színnel szerepelnek.}
 	\label{fig:active_threads_over_time}
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
@@ -177,7 +177,7 @@ A JMeter által indított kérés az alábbi rendszereken megy keresztül (\ref{
 \subsection{Nginx}
 Ahhoz hogy az Nginx párhuzamosan kiszolgáljon legalább $6~000$ felhasználót\footnote{Az alapbeállítás $1~024$ kapcsolat}, a beállításaiban felül kell írni a \mbox{\textit{worker\textunderscore connections}} paramétert.
 
-Ha az alapbeállításoktól való eltérés okozza a kérések --még backend előtti-- feltorlódását, vagy a megnövekedett processzorigényt, akkor az Nginx kihagyásával jelentős javulás lenne elérhető.
+Ha az alapbeállításoktól való eltérés okozza a kérések --  még backend előtti --   feltorlódását, vagy a megnövekedett processzorigényt, akkor az Nginx kihagyásával jelentős javulás lenne elérhető.
 
 \bigskip
 \begin{table}[hbt]
@@ -193,16 +193,16 @@ Ha az alapbeállításoktól való eltérés okozza a kérések --még backend e
 	\label{tabl:without_nginx}
 \end{table}
 
-Ezért a megismételt a JMeter tesztben a backendet közvetlenül az IP-címén keresztül értem el. Az új mérés --\ref{tabl:without_nginx} táblázat-- adataiból látszódik, hogy
+Ezért a megismételt a JMeter tesztben a backendet közvetlenül az IP-címén keresztül értem el. Az új mérés --  \ref{tabl:without_nginx} táblázat --   adataiból látszódik, hogy
 
 \begin{itemize}
 	\item az átlagos és a medián válaszidő, valamint áteresztőképesség nem változott,
-	\item a három másodperc alatt megérkező válaszok aránya --az első esethez (\ref{sec:peak_1_instance}) képest-- meg két és félszereződött, $26,41\%$-ra nőtt.
+	\item a három másodperc alatt megérkező válaszok aránya --  az első esethez (\ref{sec:peak_1_instance}) képest --   meg két és félszereződött, $26,41\%$-ra nőtt.
 \end{itemize}
 
 
 
-Ugyanez jelenik meg \aref{fig:without_nginx_min_median_max_over_time} ábrán is, a teszt első háromnegyedében a backend néhány kérésre azonnal válaszol, míg a többségre --lásd medián-- csak sokkal később.
+Ugyanez jelenik meg \aref{fig:without_nginx_min_median_max_over_time} ábrán is, a teszt első háromnegyedében a backend néhány kérésre azonnal válaszol, míg a többségre --  lásd medián --   csak sokkal később.
 
 \begin{figure}[hbt]
 	\begin{subfigure}{.49\textwidth}
@@ -245,7 +245,7 @@ akkor arra a következtetésre juthatunk, hogy az Nginx használata nem hogy ron
 
 Ha az adatbázissal való kapcsolat a szűk keresztmetszet, akkor a HikariCP pooljának megnövelésével jelentős javulás lenne elérhető.
 
-Ezért a megismételt a JMeter tesztben a backendben megháromszoroztam a HikariCP pooljának a méretét. A mérési eredmények --\ref{tabl:hikari_30}~táblázat-- nem mutatnak eltérést az első, kiinduló állapothoz képest.
+Ezért a megismételt a JMeter tesztben a backendben megháromszoroztam a HikariCP pooljának a méretét. A mérési eredmények --  \ref{tabl:hikari_30}~táblázat --   nem mutatnak eltérést az első, kiinduló állapothoz képest.
 
 \begin{table}[hbt]
 	\begin{tabular}{ccccc|c|cc}
@@ -294,7 +294,7 @@ Mivel a teszteredményekben nincs jelentős változás, nem a HikariCp a szűk k
 \subsection{Megnövekedett processzorigény}
 \Aref{fig:cpu_1_instance} ábrán látszódik hogy még van szabad processzoridő. Ha a helpdesk backend  képes lenne magának még processzoridőt allokálni, azzal javulhatna a rendszer áteresztőképessége. 
 
-Ha a processzoridő a szűk keresztmetszet, akkor új backend példányok indításával --és így újabb erőforrások bevonásával-- jelentős javulást lehetne elérni.
+Ha a processzoridő a szűk keresztmetszet, akkor új backend példányok indításával --  és így újabb erőforrások bevonásával --   jelentős javulást lehetne elérni.
 
 Ezért a megismételt JMeter tesztben a backendből három példányt indítottam el. Az eredmények így összemérhetőek maradtak \aref{sec:hikari}. ponttal, hiszen összességében ugyanannyi kapcsolat van a backend és az adatbázis között.
 
@@ -371,9 +371,9 @@ Az elvégzett tesztekből látszódik, hogy horizontális skálázhatósággal j
 Az alkalmazás minden probléma nélkül teljesíti az átlagos terhelés esetére meghatározott követelményeket. Legrosszabb esetben is 1 másodpercen belül válaszol.
 
 \subsection{Csúcsteljesítmény vizsgálata}
-A rendszerrel szembeni elvárások teljesíthetőségére nem lehet egyértelmű választ adni. A tesztelt számítógépen --erőforráshiány miatt (\ref{sec:szuk_keresztmetszet})-- az alkalmazás nem teljesíti a három másodperces válaszidőre vonatkozó megkötést.
+A rendszerrel szembeni elvárások teljesíthetőségére nem lehet egyértelmű választ adni. A tesztelt számítógépen --  erőforráshiány miatt (\ref{sec:szuk_keresztmetszet}) --   az alkalmazás nem teljesíti a három másodperces válaszidőre vonatkozó megkötést.
 
-A mérésekből azonban arra lehet következtetni, hogy a valós rendszer --akár több különálló számítógépen-- bírni fogja a terhelést, nem jelent majd gondot neki a csúcsterhelés során sem feladatainak ellátása.
+A mérésekből azonban arra lehet következtetni, hogy a valós rendszer --  akár több különálló számítógépen --   bírni fogja a terhelést, nem jelent majd gondot neki a csúcsterhelés során sem feladatainak ellátása.
 
 
 

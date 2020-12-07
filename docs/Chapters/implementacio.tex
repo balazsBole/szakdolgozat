@@ -14,13 +14,13 @@ Az Nginx-nek három különböző szerepe van:
 	\item \foreignlanguage{british}{HTTP cache}-ként működik a frontend és a backend között.
 \end{itemize}
 
-A loadbalancer funkcionalitás --mivel a docker azt natívan támogatja, így-- a \foreignlanguage{british}{docker round-robin DNS}-én (\ref{sec:docker}) keresztül valósul meg.
+A loadbalancer funkcionalitás --  mivel a docker azt natívan támogatja, így --   a \foreignlanguage{british}{docker round-robin DNS}-én (\ref{sec:docker}) keresztül valósul meg.
 
 
 \subsection{Docker konténerizáció}\label{sec:docker}
 Az alakalmazás összes szervize saját docker konténerben fut. A docker konfigurációs leírása a \textit{docker-compose.yml} állományban van. A \textit{docker-compose} parancs ez alapján indítja el az alkalmazást, hozza létre a saját alhálózatát, valósítja meg a hálózaton belüli DNS-funkciót.
 
-A konténerek skálázása is a dockeren keresztül (\textit{docker-compose --scale}) valósul meg.
+A konténerek skálázása is a dockeren keresztül (\textit{docker-compose --  scale}) valósul meg.
 
 
 \subsection{Metrikák}\label{sec:metrikak}
@@ -28,7 +28,7 @@ A konténerek skálázása is a dockeren keresztül (\textit{docker-compose --sc
 
 A Prometheus az Eurekán keresztül találja meg az instance-eket, és 15 másodpercenként összegyűjti a metrikákat. Az alkalmazások információt küldenek a Kafka konnektoraikról, REST interfészeikről és az adatbázis kapcsolataikról\footnote{HikariCP-t használok JDBC kapcsolathoz}.
 
-A Prometheus által összegyűjtött adatokat Grafanában létrehozott --Spring Boot és JVM metrikákat tartalmazó-- \textit{dashboard}okon ábrázolom.
+A Prometheus által összegyűjtött adatokat Grafanában létrehozott --  Spring Boot és JVM metrikákat tartalmazó --   \textit{dashboard}okon ábrázolom.
 
 
 \section{E-mail kliens}
@@ -37,7 +37,7 @@ Az e-mail kliens szerepe az üzenetek küldése és fogadása egy meghatározott
 \Aref{fig:email-client_sequence_diagram}. ábrán látható a két irányú kommunikáció megvalósulása:
 \begin{itemize}
 	\item az IMAP-on keresztül fogadott e-mailt az \textit{email.in.v1.pub} kafka topicba írja,
-	\item a saját --e-mail cím specifikus-- topic-jából kiolvassa az üzenetet és továbbítja  az SMTP szerver felé.
+	\item a saját --  e-mail cím specifikus --   topic-jából kiolvassa az üzenetet és továbbítja  az SMTP szerver felé.
 \end{itemize}
 
 
@@ -88,25 +88,25 @@ A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készül
 
 
 \subsection{Adatbázis}\label{sec:adatbazis}
-A Spring kezeli --HikariCP-n keresztül-- a PostgreSQL adatbázishoz való kapcsolódást.
+A Spring kezeli --  HikariCP-n keresztül --   a PostgreSQL adatbázishoz való kapcsolódást.
 Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, ami objektum relációs leképzést valósít meg}-en keresztül, az adatbázis verziókövetését Liquibase-en (\ref{sec:liquibase} pont) keresztül valósítom meg. 
 
-Az e-mail szálak audit információinak és verzióinak követésére a Hibernate saját -- Envers (\ref{sec:hubernate_envers} pont) eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi az annotációval megjelölt entitások állapotát.
+Az e-mail szálak audit információinak és verzióinak követésére a Hibernate saját  --   Envers (\ref{sec:hubernate_envers} pont) eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi az annotációval megjelölt entitások állapotát.
 
 \subsection{Pesszimista konkurenciakezelés}
 Pesszimista konkurenciakezelésre jó példával szolgál a Liquibase (\ref{sec:liquibase} pont) működése. 
 
-Minden indítás során a Liquibase --az adatbázis módosításának befejezéséig-- zárolja a \textit{databasechangeloglock} táblát. Így --a várakozás miatt-- egyszerre mindig maximum egy Liquibase példány tud elindulni és módosításokat végrehajtani.
+Minden indítás során a Liquibase --  az adatbázis módosításának befejezéséig --   zárolja a \textit{databasechangeloglock} táblát. Így --  a várakozás miatt --   egyszerre mindig maximum egy Liquibase példány tud elindulni és módosításokat végrehajtani.
 
 
 \subsection{Optimista konkurenciakezelés}
 A \ref{sec:konkurencia_kezekese} pontban ismertetett optimista konkurenciakezelést az e-mail szálak módosítása során valósítja meg a backend.
 
-A frontend kérésére egy verziószámmal ellátott e-mail szálat küld a backend. Ezt a HTTP-protokollnak megfelelő \textit{eTag}-et a frontend megőrzi, majd a módosítások elvégzését követően --mint \textit{if-match} paraméter-- visszaküldi a módosítási kérésével együtt.
+A frontend kérésére egy verziószámmal ellátott e-mail szálat küld a backend. Ezt a HTTP-protokollnak megfelelő \textit{eTag}-et a frontend megőrzi, majd a módosítások elvégzését követően --  mint \textit{if-match} paraméter --   visszaküldi a módosítási kérésével együtt.
 
 A backend összehasonlítja a módosítani kívánt erőforrás verziószámát a kérésben érkezett \textit{if-match} verziószámmal. Ha a két szám egyezik, akkor végrehajtja a változásokat, és az erőforrás új állapota új verziószámot kap.
 
-Ha a két verzió nem egyezik --ami csak úgy történhet meg, ha valaki más időközben módosította a kérdéses adatot-- akkor a tranzakció nem hajtódik végre, és a kliens egy HTTP \textit{Conflict} hibaüzenettel értesül a történtekről. A felhasználó ilyenkor az oldal frissítése után megvizsgálja az aktuális állapotot és --amennyiben a módosításaira még mindig szükség van-- újból kezdi a folyamatot.
+Ha a két verzió nem egyezik --  ami csak úgy történhet meg, ha valaki más időközben módosította a kérdéses adatot --   akkor a tranzakció nem hajtódik végre, és a kliens egy HTTP \textit{Conflict} hibaüzenettel értesül a történtekről. A felhasználó ilyenkor az oldal frissítése után megvizsgálja az aktuális állapotot és --  amennyiben a módosításaira még mindig szükség van --   újból kezdi a folyamatot.
 
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
 A \textit{DTO}-k és az \textit{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \textit{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumentációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
@@ -150,7 +150,7 @@ A Keycloak egy open source jogosultság- és hozzáférés-kezelő. Támogatja a
 
 A helpdesk alkalmazásban feladata a felhasználók azonosítása, és adataiknak nyilvántartása. Különálló mikroszervizként, saját adatbázissal rendelkezik.
 
-Adminisztrátor felülete segítségével nyomon követhető a különböző autentikációhoz köthető események, szerkeszthetőek az aktuálisan érvényes szerepkörök, és --hibakezelési céllal-- megszemélyesíthetőek a felhasználók.
+Adminisztrátor felülete segítségével nyomon követhető a különböző autentikációhoz köthető események, szerkeszthetőek az aktuálisan érvényes szerepkörök, és --  hibakezelési céllal --   megszemélyesíthetőek a felhasználók.
 
 
 \subsection{Jogosultságkezelés}
@@ -177,8 +177,8 @@ A felhasználók adataiért a Keycloak (\ref{sec:keycloak}), az e-mail szálaké
 
 A felhasználók a Keycloak felületén keresztül tudnak regisztrálni, és a személyes adataikat kezelni. A Keycloak által generált JSON Web Token (\ref{sec:JWT}) tartalmazza a felhasználók egyedi azonosítóját, a backendnek ezen az azonosítón keresztül kell a felhasználókat nyilvántartania és kiszolgálnia.
 
-A felhasználók regisztrációja és adatainak változása --\aref{sec:alkalmazasok_szeparalasa} pontban megismert CQRS útnak megfelelően,-- a \textit{user.v1.pub} kafka (\ref{sec:implementacio_kafka}) topicban követhetőek nyomon.
+A felhasználók regisztrációja és adatainak változása --  \aref{sec:alkalmazasok_szeparalasa} pontban megismert CQRS útnak megfelelően, --   a \textit{user.v1.pub} kafka (\ref{sec:implementacio_kafka}) topicban követhetőek nyomon.
 
-A Keycloak Kafka integrációjának céljából hoztam létre a \textit{keycloak-plugin} (\ref{fig:deployment_diagram} ábra) maven modult. A Keycloak esemény figyelőként működő plugin, a megfigyelt eseményekről kafka üzenetet küld a kijelölt topicba. A helpdesk backend --a topic üzeneteit olvasva-- tartja karban a \textit{users} táblát (\ref{fig:basic_database_uml}, \ref{fig:extended_database_uml} ábra). Így a helpdesk backend a felhasználókról mindig aktuális információval rendelkezik.
+A Keycloak Kafka integrációjának céljából hoztam létre a \textit{keycloak-plugin} (\ref{fig:deployment_diagram} ábra) maven modult. A Keycloak esemény figyelőként működő plugin, a megfigyelt eseményekről kafka üzenetet küld a kijelölt topicba. A helpdesk backend --  a topic üzeneteit olvasva --   tartja karban a \textit{users} táblát (\ref{fig:basic_database_uml}, \ref{fig:extended_database_uml} ábra). Így a helpdesk backend a felhasználókról mindig aktuális információval rendelkezik.
 
 

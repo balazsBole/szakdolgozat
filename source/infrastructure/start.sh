@@ -1,7 +1,7 @@
 #!/bin/bash
-sudo chown -R 472:472 grafana/
+sudo chown -R 472:472 "$(dirname $(readlink -f $0))/grafana/"
 
-docker-compose -f docker-compose.yaml up -d \
+docker-compose -f "$(dirname $(readlink -f $0))/docker-compose.yaml" up -d \
   --scale helpdesk-backend=3 \
   --scale email-client-generic=3 \
   --scale email-client-travel=2 \

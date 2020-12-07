@@ -8,15 +8,15 @@ A következő logikus lépés tehát az alkalmazás \textit{cluster}re migrálá
 
 \bigskip
 \section{A kódról}
-A helpdesk alkalmazásba --architektúrája miatt-- könnyű új funkciót fejleszteni. A most működő modulok mind lazán kapcsolódnak egymáshoz, így könnyű egy teljesen különböző, akár eltérő programnyelven íródott új funkció integrálása.
+A helpdesk alkalmazásba --  architektúrája miatt --   könnyű új funkciót fejleszteni. A most működő modulok mind lazán kapcsolódnak egymáshoz, így könnyű egy teljesen különböző, akár eltérő programnyelven íródott új funkció integrálása.
 
 Mivel az összes technikai megkötés csupán a protokollok megvalósítása, nyugodtan lehet az új funkció tervezésénél a feladathoz választani a programnyelvet vagy a programozási módszertant is. 
 
-Ha az új funkciónak szüksége lenne az alkalmazás más rendszeréhez tartozó adatára, akkor a kérdéses rendszer --ahogy a Keycloak plugin példáján megmutattam-- ugyanúgy bővíthető, a komponensek közötti laza kapcsolat megőrizhető.
+Ha az új funkciónak szüksége lenne az alkalmazás más rendszeréhez tartozó adatára, akkor a kérdéses rendszer --  ahogy a Keycloak plugin példáján megmutattam --   ugyanúgy bővíthető, a komponensek közötti laza kapcsolat megőrizhető.
 
 Hasonlóképpen, a laza kapcsolatok és jól definiált határok miatt, egyszerű egy-egy modult teljesen lecserélni, vagy más nyelven, más technológiával újraírni.
 
 Mivel egy szerviz egy feladattal foglalkozik, ha például le	 kell cserélni a frontendet, akkor az új felhasználói felületen csak a megjelenítéssel kell foglalkozni, az üzleti funkciók megvalósítása a backend feladata, így azok továbbra is változatlanok maradnak.
 
-Ugyanez nem csak a szervizek, hanem a kód szintjén is igaz. A hexagonális architektúra miatt, az adatbázis --mint külső függőség-- könnyen cserélhető. 
+Ugyanez nem csak a szervizek, hanem a kód szintjén is igaz. A hexagonális architektúra miatt, az adatbázis --  mint külső függőség --   könnyen cserélhető. 
 

@@ -12,7 +12,7 @@ Bár a kifejezés már régóta ismert, nincs egy központilag elfogadott, egys�
 	\item	decentralizált, tehát nincs egy a munkáját befolyásoló központi irányítórendszer.
 \end{itemize}
 
-A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --nem kötelezően, de legtöbbször-- együtt fordul elő a mikroszerviz architektúrával. A legfontosabb ilyen fogalmak a:
+A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --  nem kötelezően, de legtöbbször --   együtt fordul elő a mikroszerviz architektúrával. A legfontosabb ilyen fogalmak a:
 \begin{description}
 	\item[skálázhatóság] a rendszer képessége az áteresztőképességének növelésére.
 	Létezik vertikális\footnote{több processzor vagy memória bevonása} és horizontális skálázhatóság\footnote{újabb példányok futtatása}.
@@ -29,7 +29,7 @@ A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --nem k
 
 
 \section{Hexagonális architektúra}\label{sec:hexagonalis_architektura}
-A hexagonális architektúra --vagy más néven portok és adapterek architektúrája-- egy \foreignlanguage{british}{Alistair Cockburn} által létrehozott \cite{Alistair_Cockburn} szoftverterezési minta. Nevét a cikkben felrajzolt hatszögletű rendszerábrázolásról kapta (\ref{fig:Alistair_Cockburn_hexagonal_architecture} ábra), ami szembemegy a korábban elterjedt réteges elrendezéssel.
+A hexagonális architektúra --  vagy más néven portok és adapterek architektúrája --   egy \foreignlanguage{british}{Alistair Cockburn} által létrehozott \cite{Alistair_Cockburn} szoftverterezési minta. Nevét a cikkben felrajzolt hatszögletű rendszerábrázolásról kapta (\ref{fig:Alistair_Cockburn_hexagonal_architecture} ábra), ami szembemegy a korábban elterjedt réteges elrendezéssel.
 
 Az eredeti szándék mögötte az alkalmazás függetlenítése mindennemű külső függőségtől\footnote{például adatbázis, felhasználók, automatizált tesztek}, így lehetővé téve az üzleti és a technikai igények nagy mértékű szeparálását.
 Egy absztrakt port feladata kell legyen a külvilággal való kapcsolat, így az üzleti logika csak az üzenet tartalmáért felelős, az üzenetküldés módjáért már nem.
@@ -60,20 +60,20 @@ Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\t
 A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a hasonló \textit{clean code} \cite{clean_code_chapter_systems} elvek sokszor a különböző szoftver rétegek elkülönítésén alapszanak.
 
 
-Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --a fordítási időben-- kódot generáló eszköz a Mapstruct és a Lombok.
+Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --  a fordítási időben --   kódot generáló eszköz a Mapstruct és a Lombok.
 
 
 \section{Konkurencia kezelése}\label{sec:konkurencia_kezekese}
 Ha az alkalmazásnak egyszerre több felhasználót kell kiszolgálnia, vagy bármilyen oknál fogva ugyanazt az adatot egy időben több program módosítaná, akkor az inkonzisztens állapot elkerülése érdekében célszerű valamilyen konkurenciakezelési stratégiát alkalmazni. Alapvetően két fajta konkurenciakezelő megoldás létezik:
 
 \begin{description}
-	\item[optimista] konkurenciakezelést akkor érdemes használni, mikor számíthatunk arra, hogy az esetek többségében nincs párhuzamos módosítás. Ütközés esetén --ha egyszerre kellene ugyanazt az adatot módosítani-- a tranzakciót elvetjük és értesítjük a módosítást kezdeményező felet, hogy időközben  az adat megváltozott.
+	\item[optimista] konkurenciakezelést akkor érdemes használni, mikor számíthatunk arra, hogy az esetek többségében nincs párhuzamos módosítás. Ütközés esetén --  ha egyszerre kellene ugyanazt az adatot módosítani --   a tranzakciót elvetjük és értesítjük a módosítást kezdeményező felet, hogy időközben  az adat megváltozott.
 	
 	Ez a megoldás tehát nagy mennyiségű adat, és hozzá képest relatív kis számú felhasználó esetén ideális.
 	
 	\item[pesszimista] konkurenciakezelés esetén, a módosítani kívánt adatot olvasáskor zároljuk, az csak a módosítás befejezése után lesz újra hozzáférhető a többi fél számára.
 	
-	Az adatok a teljes tranzakció ideje alatt zárolva vannak, ezért ez a megoldás gyakran jár együtt teljesítménycsökkenéssel. A kölcsönös zárolás pedig, --mikor két vagy több tranzakció egymás befejezésére vár-- könnyen vezethet \textit{deadlock}hoz.
+	Az adatok a teljes tranzakció ideje alatt zárolva vannak, ezért ez a megoldás gyakran jár együtt teljesítménycsökkenéssel. A kölcsönös zárolás pedig, --  mikor két vagy több tranzakció egymás befejezésére vár --   könnyen vezethet \textit{deadlock}hoz.
 \end{description}
 
 

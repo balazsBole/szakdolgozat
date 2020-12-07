@@ -19,7 +19,7 @@ A \textit{script} indítása után a helpdesk alkalmazás elérhető a  \href{ht
 
 
 \section{Deployment}
-A könyebb bemutathatóság érdekében a szemléletesebb szervizeket --hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni-- a docker hálózaton kívül is elérhetővé tettem. 
+A könyebb bemutathatóság érdekében a szemléletesebb szervizeket --  hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni --   a docker hálózaton kívül is elérhetővé tettem. 
 
 A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \textit{container}t a \textit{localhost} melyik portján lehet elérni.
 
@@ -171,13 +171,13 @@ A helpdesk backend szerviz minden induláskor elindítja a Liquibase-t. A Liquib
 
 A \mbox{\textit{db.changelog-master.yaml}} állományba fel van véve az összes olyan DDL-utasítás és más SQL-parancs, ami az adatbázis kezdő állapotának létrehozásához szükséges. Mivel a Liquibase ezeket a parancsokat a \textit{helpdesk} felhasználóval hajtja végre, a létrejött táblák is \textit{helpdesk} felhasználóhoz fognak tartozni. 
 
-A helpdesk backend alkalmazás rendes működése során --a Liquibase futása után-- a \textit{helpdesk\textunderscore app} felhasználón keresztül kapcsolódik az adatbázishoz, így csak a Liquibase utasításokban meghatározott táblákhoz fér hozzá, és csak olyan típusú --CRUD-- utasítást tud végrehajtani, ami külön engedélyezve van neki.
+A helpdesk backend alkalmazás rendes működése során --  a Liquibase futása után --   a \textit{helpdesk\textunderscore app} felhasználón keresztül kapcsolódik az adatbázishoz, így csak a Liquibase utasításokban meghatározott táblákhoz fér hozzá, és csak olyan típusú --  CRUD --   utasítást tud végrehajtani, ami külön engedélyezve van neki.
 
 Így biztosítható, hogy a helpdesk alkalmazás csak a feladatinak ellátásához szükséges szinten férjen hozzá az alkalmazáshoz, és hogy futása során ne módosíthassa a táblákat. 
 
 
 \subsection{Hibernate Envers}\label{sec:hubernate_envers}
-A \textit{revinfo} és az összes \textit{\textunderscore aud} végződésú táblát --\textit{\mbox{users\textunderscore aud}, \mbox{queue\textunderscore aud} és \mbox{thread\textunderscore aud}}-- a Hibernate Envers használja az e-mail szál és a kapcsolódó entitások állapotának követésére.
+A \textit{revinfo} és az összes \textit{\textunderscore aud} végződésú táblát --  \textit{\mbox{users\textunderscore aud}, \mbox{queue\textunderscore aud} és \mbox{thread\textunderscore aud}} --   a Hibernate Envers használja az e-mail szál és a kapcsolódó entitások állapotának követésére.
 
 \begin{description}
 	\item[revinfo] tábla tartalmazza a módosítás időpontját és sorszámát.
@@ -185,9 +185,9 @@ A \textit{revinfo} és az összes \textit{\textunderscore aud} végződésú tá
 	\item[\textunderscore aud] tábla tartalmazza a módosítás típusát, sorszámát és az entitás új értékeit.
 \end{description}
 
-Az Envers --a \textit{Hibernate Event system}en keresztül-- figyeli, és feltartóztatja az e-mail szál állapotváltozásait. Hozzáadja a saját verziókövetéshez szükséges kódját, és csak akkor engedi sikeresen lezárni a tranzakciót, ha az \textunderscore aud tábla is sikeresen módosul.
+Az Envers --  a \textit{Hibernate Event system}en keresztül --   figyeli, és feltartóztatja az e-mail szál állapotváltozásait. Hozzáadja a saját verziókövetéshez szükséges kódját, és csak akkor engedi sikeresen lezárni a tranzakciót, ha az \textunderscore aud tábla is sikeresen módosul.
 
-Az Envers minden állapothoz eltárolja a módosítás típusát --\textit{insert, update}, vagy \textit{delete}-- sorszámát és dátumát. Így mindig visszakereshető hogy melyik időpillanatban mi volt az entitás értéke.
+Az Envers minden állapothoz eltárolja a módosítás típusát --  \textit{insert, update}, vagy \textit{delete} --   sorszámát és dátumát. Így mindig visszakereshető hogy melyik időpillanatban mi volt az entitás értéke.
 
 
 
@@ -220,7 +220,7 @@ A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
 \end{description}
 
 
-Az alkalmazás három kafka brókert futtat egy clusterben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --a \textunderscore schemas-on kívül mindegyik-- három partícióval és kettes replikációs faktorral lett létrehozva.
+Az alkalmazás három kafka brókert futtat egy clusterben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --  a \textunderscore schemas-on kívül mindegyik --   három partícióval és kettes replikációs faktorral lett létrehozva.
 Így a kafka cluster egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
 
 
