@@ -27,7 +27,7 @@ A virtuális gépbe a \texttt{dxqrpj} felhasználóval és jelszóval lehet beje
 
 Az első indítás a virtuális számítógép szűk erőforrásai, valamint a \emph{docker image}-ek letöltése miatt, --~a natív indítástól eltérő módon~-- akár 5-10 percet is igénybe vehet.
 
-A helpdesk alkalmazás elindulása után, a Firefox webböngészővel elérhető a \href{http://helpdesk}{http://helpdesk} cím. A böngésző három felhasználót tárol:
+A helpdesk alkalmazás elindulása után, --~a \href{http://helpdesk}{http://helpdesk} címen~-- a Firefox webböngészővel elérhető. A böngésző három felhasználót tárol:
 \begin{description}
 	\item[admin] felhasználót, aki az \texttt{admin\textunderscore user} jogkörrel (\ref{sec:Jogosultságkezelés} pont) rendelkezik, és a \texttt{generic} sorhoz tartozik;
 	\item[test] felhasználót, aki a \texttt{regular\textunderscore user} jogkörrel (\ref{sec:Jogosultságkezelés} pont) rendelkezik, és a \texttt{generic} sorhoz tartozik;
@@ -36,25 +36,38 @@ A helpdesk alkalmazás elindulása után, a Firefox webböngészővel elérhető
  
 A felhasználók bejelentkezése után, \aref{todo} pontban összegyűjtött funkciók elérhetővá válnak. Az alkalmazás a már említett három --~\texttt{generic}, \texttt{travel} és \texttt{theater}~-- sorhoz tartozó e-mail címről fogad és küld üzeneteket. Az indítás után nem sokkal, az alkalmazásban megjelennek az e-mail címekre --~korábban, tesztelési és bemutatási céllal~-- küldött teszt üzenetek.
 
-
-
 \section{Deployment}
 A könyebb bemutathatóság érdekében a szemléletesebb szolgáltatásokat --~hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni~-- a docker hálózaton kívül is elérhetővé tettem:
-\begin{description}
-	\item[helpdesk] konténer a szolgáltatás az nginx
-\end{description}
 
-A \texttt{docker-compose} (\ref{sec:elinditas}) által elindított \emph{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \emph{container} a \texttt{localhost} melyik portján érhető el.
 
 
 \begin{figure}[hbt] 
 	\centering
-	\includegraphics[width=0.95\textwidth]{deployment_diagram_drawio.pdf}
+	\includegraphics[width=0.97\textwidth]{deployment_diagram_drawio.pdf}
 	\caption[Deployment diagram]{Deployment diagram}
 	\label{fig:deployment_diagram}
-	\floatfoot{Forrás: saját ábra}
+	\floatfoot{Forrás: saját~ábra}
 \end{figure}
 
+
+\begin{description}
+	\item[infrastructure\textunderscore helpdesk\textunderscore 1] konténerben fut az nginx szolgáltatás. Elérhető a \texttt{helpdesk} és a \texttt{localhost} cím 80-as portján.
+	
+	\item[infrastructure\textunderscore db\textunderscore 1] konténerben fut a \texttt{helpdesk backend} Postgres adatbázisa, a \texttt{localhost} 5432-es portján érhető el.
+	
+	\item[infrastructure\textunderscore eureka-service\textunderscore 1] konténerben fut, és a 8761-es porton keresztül érhető el az Eureka discovery szolgáltatás.
+	
+	\item[infrastructure\textunderscore prometheus\textunderscore 1] konténerben fut a Prometheus monitorozó szolgáltatás. A dockert futtató felhasználó számára, a Prometheus a \texttt{localhost} 9090-es portján érhető el.
+	
+	\item[infrastructure\textunderscore grafana\textunderscore 1] konténerben fut a Grafana adatelemző és megjelenítő eszköz. A Grafanában létrehozott \emph{dashboard}ok a 3000-es porton keresztül érhetőek el.
+
+	\item[infrastructure\textunderscore kafka-ui\textunderscore 1] konténerben fut a Kafka \emph{topic}okat monitorozó Kafka Topics UI eszköz. Az alkalmazás felülete a 9093-as porton érhető el.	
+\end{description}
+
+
+
+
+A \texttt{docker-compose} (\ref{sec:elinditas}.~pont) által elindított \emph{container}eket \aref{fig:deployment_diagram}.~ábrán foglaltam össze. Minden, a helpdesk alkalmazás alá tartozó konténer az \texttt{infrastructure} előtagot kapta. Az ábrán feltüntettem, hogy az adott \emph{container} a \texttt{localhost} melyik portján érhető el.
 
 
 \section{Több példány}
@@ -68,9 +81,9 @@ A különböző szolgáltatásokból a terhelésnek megfelelően eltérő szám�
 	\item és a Kafka brókerből (\ref{sec:kafka_topics}) szintén három darab.
 \end{itemize}
 
-A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (\ref{fig:backend_receive_kafka} ábra). Az oldal elérhető a  \texttt{Spring metrics} menüpont alatt.
+A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (\ref{fig:backend_receive_kafka}~ábra). Az oldal elérhető a  \texttt{Spring metrics} és a \texttt{Backend metrics} menüpontok alatt. A bejelentkezéshez, az \texttt{admin} felhasználónév és jelszó szükséges.
 
-\Aref{fig:backend_receive_kafka} ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
+\Aref{fig:backend_receive_kafka}~ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
 
 \begin{itemize}
 	\item a legfelső sorban a Java Virtual Machine, által aktuálisan felhasznált Heap space,	
@@ -82,28 +95,8 @@ A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre
 
 
 \section{E-mail fogadásának és küldésének folyamata}
-\Aref{ch:felepites}. fejezetben \aref{fig:path_of_an_email}. ábrán bemutattam egy e-mail fogadásának elméleti útját. Most \aref{fig:email_send_receive_visible}. ábrán bemutatom hogyan követhető végig a rendszerben egy e-mail valódi útja.
+\Aref{ch:felepites}. fejezetben \aref{fig:path_of_an_email}.~ábrán bemutattam egy e-mail fogadásának elméleti útját. Most \aref{fig:email_send_receive_visible}.~ábrán bemutatom hogyan követhető végig a rendszerben --~a rendelkezésre álló monitorozó eszközök segítségével~-- egy e-mail valódi útja.
 
-E-mail fogadása:
-\begin{enumerate}
-	\item Egy teszt üzenet érkezik a \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre
-	\emph{E-mail fogadásának és küldésének folyamata} tárggyal.
-	\item Az e-mail kliens kafka üzenetként publikálja az üzenetet az \texttt{email.in.v1.pub} topicba (\ref{fig:email_client_send_kafka}. ábra).
-	\item A backend megkapja a kafka üzenetet (\ref{fig:backend_receive_kafka}. ábra).
-	\item A backend elmenti az új üzenet az adatbázisba (\ref{fig:datbase_received_email}. ábra).
-	\item A felhasználói felületen (\ref{fig:frontend_read_email}. ábra) elérhető az új üzenet.
-\end{enumerate}
-
-\bigskip
-
-E-mail küldése:
-\begin{enumerate}
-	\item A felhasználó elküldi a válaszát a felhasználói felületen (\ref{fig:frontend_send_answer}. ábra).
-	\item A backend megkapja az üzenetet és eltárolja az adatbázisba (\ref{fig:database_answer}. ábra).
-	\item A \texttt{h.gdf.theater\textunderscore gmx.com.v1.pub} topicban megjelenik. (\ref{fig:kafka_topic_send_email}. ábra) a backend által publikált kafka üzenet.
-	\item A topicra feliratkozott e-mail kliens fogadja és továbbítja az üzenetet. (\ref{fig:email_client_receives_kafka}. ábra).
-\end{enumerate}
- 
 
 \begin{figure}
 	\begin{subfigure}{.49\textwidth}
@@ -133,52 +126,74 @@ E-mail küldése:
 		\caption{A válasz e-mail az adatbázisban}
 		\label{fig:database_answer}
 	\end{subfigure}
-
+	
 	\quad
-
-\begin{subfigure}{.49\textwidth}
-	\centering
-	\includegraphics[width=.9\linewidth]{databse_incoming_email.png}  
-	\caption{Az új e-mail az adatbázisban}
-	\label{fig:datbase_received_email}
-\end{subfigure}
-\begin{subfigure}{.49\textwidth}
-	\centering
-	\includegraphics[width=.9\linewidth]{kafka_topic_with_the_sent_email.png}  
-	\caption{A \texttt{h.gdf.theater\textunderscore gmx.com.v1.pub} topic új üzenete}
-	\label{fig:kafka_topic_send_email}
-\end{subfigure}
-
+	
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{databse_incoming_email.png}  
+		\caption{Az új e-mail az adatbázisban}
+		\label{fig:datbase_received_email}
+	\end{subfigure}
+	\begin{subfigure}{.49\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{kafka_topic_with_the_sent_email.png}  
+		\caption{A \texttt{h.gdf.theater\textunderscore gmx.com.v1.pub} topic új üzenete}
+		\label{fig:kafka_topic_send_email}
+	\end{subfigure}
+	
 	\quad
-
-\begin{subfigure}{.45\textwidth}
-	\centering
-	\includegraphics[width=.9\linewidth]{helpdesk_frontend_receive_incoming_email.png}  
-	\caption{A felületen elérhető az új e-mail}
-	\label{fig:frontend_read_email}
-\end{subfigure}
-\begin{subfigure}{.45\textwidth}
-	\centering
-	\includegraphics[width=.9\linewidth]{email_client_sending_email.png}  
-	\caption{Az egyes instance kafka üzenet fogad}
-	\label{fig:email_client_receives_kafka}
-\end{subfigure}
-
+	
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{helpdesk_frontend_receive_incoming_email.png}  
+		\caption{A felületen elérhető az új e-mail}
+		\label{fig:frontend_read_email}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{email_client_sending_email.png}  
+		\caption{Az egyes instance kafka üzenet fogad}
+		\label{fig:email_client_receives_kafka}
+	\end{subfigure}
+	
 	\caption[E-mail fogadásának és küldésének folyamata]{E-mail fogadásának és küldésének folyamata során követhető lépések}
 	\label{fig:email_send_receive_visible}
 \end{figure}
 
 
+\newpage
+E-mail fogadása:
+\begin{enumerate}
+	\item Egy teszt üzenet érkezik a \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre
+	\emph{E-mail fogadásának és küldésének folyamata} tárggyal.
+	\item Az e-mail kliens kafka üzenetként publikálja az üzenetet az \texttt{email.in.v1.pub} topicba (\ref{fig:email_client_send_kafka}.~ábra). Az esemény megjelenik az e-mail klienshez tartozó Grafana monitorozó \emph{dashboard}on.
+	\item A backend megkapja a kafka üzenetet (\ref{fig:backend_receive_kafka}.~ábra). A kafka üzenet olvasáshoz köthető esemény megjelenik a helpdesk backendhez tartozó Grafana monitorozó \emph{dashboard}on.
+	\item A backend elmenti az új üzenet az adatbázisba (\ref{fig:datbase_received_email}.~ábra).
+	\item A felhasználói felületen (\ref{fig:frontend_read_email}.~ábra) elérhető az új üzenet.
+\end{enumerate}
+
+\bigskip
+
+E-mail küldése:
+\begin{enumerate}
+	\item A felhasználó elküldi a válaszát a felhasználói felületen (\ref{fig:frontend_send_answer}.~ábra).
+	\item A backend megkapja az üzenetet és eltárolja az adatbázisba (\ref{fig:database_answer}.~ábra).
+	\item A \texttt{h.gdf.theater\textunderscore gmx.com.v1.pub} topicban --~a Kafka Topics UI felületen~-- megjelenik (\ref{fig:kafka_topic_send_email}.~ábra) a backend által publikált kafka üzenet.
+	\item A topicra feliratkozott e-mail kliens fogadja és továbbítja az üzenetet. Az esemény megjelenik az e-mail klienshez tartozó Grafana monitorozó \emph{dashboard}on (\ref{fig:email_client_receives_kafka}.~ábra).
+\end{enumerate}
+ 
+
 
 \section{Adatbázistáblák}
-A helpdesk backend adatbázistábláit \aref{fig:extended_database_uml}. ábra tartalmazza.
+A helpdesk backend adatbázistábláit \aref{fig:extended_database_uml}.~ábra tartalmazza. \Aref{sec:felepites_adatbazis}.~pontban ismertetett táblákon kívül ezen az ábrán már szerepel a Liquibase és a Hibernate Envers által használt táblák.
 
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.85\textwidth]{extended_database_uml.png}
 	\caption{A backend összes adatbázistáblája}
 	\label{fig:extended_database_uml}
-	\floatfoot{Forrás: saját ábra}
+	\floatfoot{Forrás: saját~ábra}
 \end{figure}
 
 
@@ -208,21 +223,21 @@ A \texttt{revinfo} és az összes \texttt{\textunderscore aud} végződésú tá
 	\item[\textunderscore aud] tábla tartalmazza a módosítás típusát, sorszámát és az entitás új értékeit.
 \end{description}
 
-Az Envers --~a \emph{Hibernate Event system}en keresztül~--   figyeli, és feltartóztatja az e-mail szál állapotváltozásait. Hozzáadja a saját verziókövetéshez szükséges kódját, és csak akkor engedi sikeresen lezárni a tranzakciót, ha az \textunderscore aud tábla is sikeresen módosul.
+Az Envers --~a \emph{Hibernate Event system}en keresztül~--   figyeli, és feltartóztatja az e-mail szál állapotváltozásait. Hozzáadja a saját verziókövetéshez szükséges utasításait, és csak akkor engedi sikeresen lezárni a tranzakciót, ha az \textunderscore aud tábla is sikeresen módosul.
 
-Az Envers minden állapothoz eltárolja a módosítás típusát --~\texttt{insert, update}, vagy \texttt{delete}~--   sorszámát és dátumát. Így mindig visszakereshető hogy melyik időpillanatban mi volt az entitás értéke.
+Az Envers minden állapothoz eltárolja a módosítás típusát --~\texttt{insert, update}, vagy \texttt{delete}~--,   sorszámát és dátumát. Így mindig visszakereshető hogy melyik időpillanatban mi volt az entitás értéke.
 
 
 
 \section{Apache Kafka}\label{sec:kafka_topics}
-A kafka \emph{topic}ok és üzenetek elérhetőek és követhetőek a \texttt{Kafka messages} menü pontja alatti Kafka Topics UI (\ref{fig:Kafka_Topics_UI}. ábra) eszközzel.
+A kafka \emph{topic}ok és üzenetek elérhetőek és követhetőek a \texttt{Kafka messages} menü pontja alatti Kafka Topics UI (\ref{fig:Kafka_Topics_UI} és \ref{fig:kafka_topic_send_email}~ábra) eszközzel.
 
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.9\textwidth]{Kafka_topic_ui.png}
 	\caption[A Kafka Topics UI felülete]{A Kafka Topics UI eszközzel követhetőek a kafka \emph{topic}ok üzenetei, partíciói és beállításai}
 	\label{fig:Kafka_Topics_UI}
-	\floatfoot{Forrás: saját ábra}
+	\floatfoot{Forrás: saját~ábra}
 \end{figure}
 
 
@@ -250,7 +265,7 @@ Az alkalmazás három kafka brókert futtat egy clusterben, avagy számítógép
 \section{Eureka}
 \Aref{sec:metrikak}. pontban említett szolgáltatások felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens az elindításuk után közvetlenül beregisztrálják magukat az Eureka szolgáltatásba.
 
-Az Eureka szerveren keresztül megtekinthető és más szolgáltatások számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \emph{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
+Az Eureka szerveren keresztül megtekinthető és más szolgáltatások számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \emph{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}.~ábra).
 
 
 \begin{figure}[hbt] 
@@ -258,6 +273,6 @@ Az Eureka szerveren keresztül megtekinthető és más szolgáltatások számár
 	\includegraphics[width=0.85\textwidth]{eureka.png}
 	\caption[Az Eureka service discovery felülete]{Az Eureka service discovery-n látható a mikroszerviz példányainak állapota és egyedi azonosítója}
 	\label{fig:eureka}
-	\floatfoot{Forrás: saját ábra}
+	\floatfoot{Forrás: saját~ábra}
 \end{figure}
 

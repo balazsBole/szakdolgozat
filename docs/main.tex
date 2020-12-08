@@ -24,11 +24,6 @@
 \pagestyle{front}
 \tableofcontents
 
-\begingroup
-\let\clearpage\relax
-\listoffigures
-\endgroup
-
 
 \clearpage
 \pagenumbering{arabic}
@@ -88,6 +83,11 @@
 \bibliographystyle{unsrturl}
 \bibliography{references.bib}
 
+\newpage
+\begingroup
+\let\clearpage\relax
+\listoffigures
+\endgroup
 
 \appendix
 \chapter{OpenApi dokumentáció}\label{appendix:openapi}

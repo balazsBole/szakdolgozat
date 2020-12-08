@@ -179,6 +179,6 @@ A felhasználók a Keycloak felületén keresztül tudnak regisztrálni, és a s
 
 A felhasználók regisztrációja és adatainak változása --~\aref{sec:alkalmazasok_szeparalasa} pontban megismert CQRS útnak megfelelően~-- a \texttt{user.v1.pub} kafka (\ref{sec:implementacio_kafka}) topicban követhetőek nyomon.
 
-A Keycloak Kafka integrációjának céljából hoztam létre a \texttt{keycloak-plugin} (\ref{fig:deployment_diagram} ábra) maven modult. A Keycloak esemény figyelőként működő plugin, a megfigyelt eseményekről kafka üzenetet küld a kijelölt topicba. A helpdesk backend --~a topic üzeneteit olvasva~-- tartja karban a \texttt{users} táblát (\ref{fig:basic_database_uml}, \ref{fig:extended_database_uml} ábra). Így a helpdesk backend a felhasználókról mindig aktuális információval rendelkezik.
+A Keycloak Kafka integrációjának céljából hoztam létre a \texttt{keycloak-plugin} (\ref{fig:deployment_diagram} ábra) maven modult. A Keycloak esemény figyelőként működő plugin, a megfigyelt eseményekről kafka üzenetet küld a kijelölt topicba. A helpdesk backend --~a topic üzeneteit olvasva~--   tartja karban a \texttt{users} táblát (\ref{fig:basic_database_uml}, \ref{fig:extended_database_uml} ábra). Így a helpdesk backend a felhasználókról mindig aktuális információval rendelkezik.
 
 
