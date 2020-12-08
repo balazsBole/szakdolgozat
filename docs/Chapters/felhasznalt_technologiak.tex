@@ -12,7 +12,7 @@ Bár a kifejezés már régóta ismert, nincs egy központilag elfogadott, egys�
 	\item	decentralizált, tehát nincs egy a munkáját befolyásoló központi irányítórendszer.
 \end{itemize}
 
-A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --  nem kötelezően, de legtöbbször --   együtt fordul elő a mikroszerviz architektúrával. A legfontosabb ilyen fogalmak a:
+A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --~nem kötelezően, de legtöbbször~--   együtt fordul elő a mikroszerviz architektúrával. A legfontosabb ilyen fogalmak a:
 \begin{description}
 	\item[skálázhatóság] a rendszer képessége az áteresztőképességének növelésére.
 	Létezik vertikális\footnote{több processzor vagy memória bevonása} és horizontális skálázhatóság\footnote{újabb példányok futtatása}.
@@ -20,16 +20,16 @@ A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --  nem
 	\item[konténerizálás] az adott szolgáltatás futtatása saját elszeparált környezetében hardveres virtualizáció segítsége nélkül.	
 
 	\item[szolgáltatás felderítés] a rendszer által nyújtott szolgáltatások, szervizek automatikus
-	felfedezhetősége\footnote{angolul \textit{service discovery}-nek hívják}.
+	felfedezhetősége\footnote{angolul \emph{service discovery}-nek hívják}.
 	
-	\item[loadbalancer] az a folyamat, ami a bejövő feladatokat erőforrásokhoz rendeli. Legegyszerűbb megvalósítása a \foreignlanguage{british}{\textit{round robin}} algoritmus, célja a terhelés egyforma elosztása.
+	\item[loadbalancer] az a folyamat, ami a bejövő feladatokat erőforrásokhoz rendeli. Legegyszerűbb megvalósítása a \foreignlanguage{british}{\emph{round robin}} algoritmus, célja a terhelés egyforma elosztása.
 	
 	\item[monitorozás] az önálló szolgáltatások állapotának felügyelése. A monitorozás során nyújtott metrikák kiterjedhetnek a felhasznált memória mennyiségére, processzorigényére, vagy processzeire is.
 \end{description}
 
 
 \section{Hexagonális architektúra}\label{sec:hexagonalis_architektura}
-A hexagonális architektúra --  vagy más néven portok és adapterek architektúrája --   egy \foreignlanguage{british}{Alistair Cockburn} által létrehozott \cite{Alistair_Cockburn} szoftverterezési minta. Nevét a cikkben felrajzolt hatszögletű rendszerábrázolásról kapta (\ref{fig:Alistair_Cockburn_hexagonal_architecture} ábra), ami szembemegy a korábban elterjedt réteges elrendezéssel.
+A hexagonális architektúra --~vagy más néven portok és adapterek architektúrája~--   egy \foreignlanguage{british}{Alistair Cockburn} által létrehozott \cite{Alistair_Cockburn} szoftverterezési minta. Nevét a cikkben felrajzolt hatszögletű rendszerábrázolásról kapta (\ref{fig:Alistair_Cockburn_hexagonal_architecture} ábra), ami szembemegy a korábban elterjedt réteges elrendezéssel.
 
 Az eredeti szándék mögötte az alkalmazás függetlenítése mindennemű külső függőségtől\footnote{például adatbázis, felhasználók, automatizált tesztek}, így lehetővé téve az üzleti és a technikai igények nagy mértékű szeparálását.
 Egy absztrakt port feladata kell legyen a külvilággal való kapcsolat, így az üzleti logika csak az üzenet tartalmáért felelős, az üzenetküldés módjáért már nem.
@@ -45,7 +45,7 @@ Egy absztrakt port feladata kell legyen a külvilággal való kapcsolat, így az
 
 
 
-Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\textit{The Clean Architecture}} című cikkében \cite{The_Clean_Architecture} összeszedte, a port-adapter és a hasonló architektúrával készülő alkalmazások mind:	
+Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\emph{The Clean Architecture}} című cikkében \cite{The_Clean_Architecture} összeszedte, a port-adapter és a hasonló architektúrával készülő alkalmazások mind:	
 \begin{itemize}
 	\item Könnyen, és önmagukban is tesztelhetőek, mivel az üzleti szabályoknak nincs külső függőségük.
 	
@@ -57,23 +57,23 @@ Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\t
 
 
 \section{Rétegek szeparálása}\label{sec:retegek_szeparalasa}
-A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a hasonló \textit{clean code} \cite{clean_code_chapter_systems} elvek sokszor a különböző szoftver rétegek elkülönítésén alapszanak.
+A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a hasonló \emph{clean code} \cite{clean_code_chapter_systems} elvek sokszor a különböző szoftver rétegek elkülönítésén alapszanak.
 
 
-Annak érdekében, hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --  a fordítási időben --   kódot generáló eszköz a Mapstruct és a Lombok.
+Annak érdekében, hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --~a fordítási időben~--   kódot generáló eszköz a Mapstruct és a Lombok.
 
 
 \section{Konkurencia kezelése}\label{sec:konkurencia_kezekese}
 Ha az alkalmazásnak egyszerre több felhasználót kell kiszolgálnia, vagy bármilyen oknál fogva ugyanazt az adatot egy időben több program módosítaná, akkor az inkonzisztens állapot elkerülése érdekében célszerű valamilyen konkurenciakezelési stratégiát alkalmazni. Alapvetően két fajta konkurenciakezelő megoldás létezik:
 
 \begin{description}
-	\item[optimista] konkurenciakezelést akkor érdemes használni, mikor számíthatunk arra, hogy az esetek többségében nincs párhuzamos módosítás. Ütközés esetén --  ha egyszerre kellene ugyanazt az adatot módosítani --   a tranzakciót elvetjük és értesítjük a módosítást kezdeményező felet, hogy időközben  az adat megváltozott.
+	\item[optimista] konkurenciakezelést akkor érdemes használni, mikor számíthatunk arra, hogy az esetek többségében nincs párhuzamos módosítás. Ütközés esetén --~ha egyszerre kellene ugyanazt az adatot módosítani~--   a tranzakciót elvetjük és értesítjük a módosítást kezdeményező felet, hogy időközben  az adat megváltozott.
 	
 	Ez a megoldás tehát nagy mennyiségű adat, és hozzá képest relatív kis számú felhasználó esetén ideális.
 	
 	\item[pesszimista] konkurenciakezelés esetén, a módosítani kívánt adatot olvasáskor zároljuk, az csak a módosítás befejezése után lesz újra hozzáférhető a többi fél számára.
 	
-	Az adatok a teljes tranzakció ideje alatt zárolva vannak, ezért ez a megoldás gyakran jár együtt teljesítménycsökkenéssel. A kölcsönös zárolás pedig, --  mikor két vagy több tranzakció egymás befejezésére vár --   könnyen vezethet \textit{deadlock}hoz.
+	Az adatok a teljes tranzakció ideje alatt zárolva vannak, ezért ez a megoldás gyakran jár együtt teljesítménycsökkenéssel. A kölcsönös zárolás pedig, --~mikor két vagy több tranzakció egymás befejezésére vár~--   könnyen vezethet \emph{deadlock}hoz.
 \end{description}
 
 
@@ -92,18 +92,18 @@ A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megold
 	 
 	Az Apache Kafkát (\ref{sec:apache_kafka}) gyakran használják az események kezelésére, mert natívan támogatja az események csoportosítását egyedi azonosító alapján. Beállítható, hogy UUID alapján mindig csak a legfrissebb állapot legyen elérhető, ezzel lecsökkentve a kezdeti olvasáshoz szükséges időt.
 		
-	\item[Elosztott tranzakciók és Saga] Ha nem csak más szolgáltatások adatainak olvasásáról van szó, hanem több szolgáltatáson átívelő, visszagörgethető tranzakciókat kell megvalósítani, arra az esetre találták ki a \textit{Saga}-t.
+	\item[Elosztott tranzakciók és Saga] Ha nem csak más szolgáltatások adatainak olvasásáról van szó, hanem több szolgáltatáson átívelő, visszagörgethető tranzakciókat kell megvalósítani, arra az esetre találták ki a \emph{Saga}-t.
 	
-	A \textit{Saga} egy hosszú életű elosztott tranzakció~\cite{OReally_Microservice_Architecture_Saga}. A folyamat lépései sorban hajtódnak végre, minden lépés tartalmaz egy utasítást arra az esetre ha vissza kellene görgetni a teljes folyamatot. Ha a folyamat bármelyik lépésnél meghiúsul, onnantól fogva visszafelé minden rendszer egyesével visszaáll a tranzakció előtti állapotra.
+	A \emph{Saga} egy hosszú életű elosztott tranzakció~\cite{OReally_Microservice_Architecture_Saga}. A folyamat lépései sorban hajtódnak végre, minden lépés tartalmaz egy utasítást arra az esetre ha vissza kellene görgetni a teljes folyamatot. Ha a folyamat bármelyik lépésnél meghiúsul, onnantól fogva visszafelé minden rendszer egyesével visszaáll a tranzakció előtti állapotra.
 \end{description}
 
 
 \section{Apache Kafka}\label{sec:apache_kafka}
 Az Apache Kafka egy üzenet tárolásra és továbbításra kifejlesztett hibatűrő, magas áteresztő képességű, nyílt forráskódú alkalmazás~\cite{OReally_Kafka}.
 
-A feladó az üzenetet nem közvetlenül a fogadónak küldi, hanem egy üzenetbrókeren keresztül egy (\textit{topic})-ba teszi közzé. A fogadó fél dönti el, hogy melyik téma üzeneteit szeretné megkapni. Annak érdekében, hogy megkaphassa az üzenetet, feliratkozik az üzenet témájára.
+A feladó az üzenetet nem közvetlenül a fogadónak küldi, hanem egy üzenetbrókeren keresztül egy (\emph{topic})-ba teszi közzé. A fogadó fél dönti el, hogy melyik téma üzeneteit szeretné megkapni. Annak érdekében, hogy megkaphassa az üzenetet, feliratkozik az üzenet témájára.
 
-Redundancia és skálázhatóság miatt egy \textit{topic} több partícióra van elosztva, és ezen felül minden partíció replikálva is van~\cite{OReally_Kafka_Internals}. A partíciók eltérő szerveren lehetnek, ezáltal egy \textit{topic} horizontálisan skálázható. Egy szerver esetleges kiesése esetén a többi szerver át tudja venni a kiesett szerver szerepét.
+Redundancia és skálázhatóság miatt egy \emph{topic} több partícióra van elosztva, és ezen felül minden partíció replikálva is van~\cite{OReally_Kafka_Internals}. A partíciók eltérő szerveren lehetnek, ezáltal egy \emph{topic} horizontálisan skálázható. Egy szerver esetleges kiesése esetén a többi szerver át tudja venni a kiesett szerver szerepét.
 
 Az üzenetbrókerek összehangolását a Zookeper szolgáltatás végzi. Mivel minden kafka bróker beregisztrálja magát a szolgáltatásba, így a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
 
@@ -118,11 +118,11 @@ Az Angularral készített honlap teljes mértében a kliens oldalon fut, így a 
 
 
 \section{Spring Boot}\label{sec:spring_boot}
-A \foreignlanguage{british}{Spring Boot}, egy a Springre épülő keretrendszer. Mindkét rendszer alapja a függőség befecskendezése\footnote{Angolul \foreignlanguage{british}{\textit{Dependency Injection}}}, ami egy \aref{sec:retegek_szeparalasa} pontban említett tiszta kód \cite{clean_code_chapter_systems} eszköze.
+A \foreignlanguage{british}{Spring Boot}, egy a Springre épülő keretrendszer. Mindkét rendszer alapja a függőség befecskendezése\footnote{Angolul \foreignlanguage{british}{\emph{Dependency Injection}}}, ami egy \aref{sec:retegek_szeparalasa} pontban említett tiszta kód \cite{clean_code_chapter_systems} eszköze.
 
 A Spring Boot \cite{introducing_spring_boot} célja, hogy gyorsan és egyszerűen lehessen önálló, magas minőségű alkalmazásokat fejleszteni:
 \begin{itemize}
-	\item az alapbeállítástól való eltérést kell meghatározni\footnote{A Spring Boot dokumentációban ezt röviden \textit{convention over configuration}-nek hívják} ezzel lecsökkentve a konfigurációval töltött időt,
+	\item az alapbeállítástól való eltérést kell meghatározni\footnote{A Spring Boot dokumentációban ezt röviden \emph{convention over configuration}-nek hívják} ezzel lecsökkentve a konfigurációval töltött időt,
 	\item valamint sok gyakran visszatérő problémára\footnote{Például: metrikák, biztonság, adattárolás} nyújt könnyen elérhető megoldást.
 \end{itemize}
 

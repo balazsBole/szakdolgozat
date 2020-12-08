@@ -1,27 +1,45 @@
 A helpdesk alkalmazás \aref{ch:uzleti_igenyek}. fejezetben leírtaknak megfelelően szolgál ki három különböző e-mail címet:
 
 \begin{itemize}
-	\item a \textit{generic} sorhoz tarozó  \href{mailto:helpdesk.gdf@yandex.com}{\nolinkurl{helpdesk.gdf@yandex.com}}-ot, 
-	\item a \textit{travel} sorhoz tarozó  \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}}-ot,
-	\item és a \textit{theater} sorhoz tarozó  \href{mailto:h.gdf.theater@gmx.com}{\nolinkurl{h.gdf.theater@gmx.com}}-ot.
+	\item a \texttt{generic} sorhoz tarozó  \href{mailto:helpdesk.gdf@yandex.com}{\nolinkurl{helpdesk.gdf@yandex.com}}-ot, 
+	\item a \texttt{travel} sorhoz tarozó  \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}}-ot,
+	\item és a \texttt{theater} sorhoz tarozó  \href{mailto:h.gdf.theater@gmx.com}{\nolinkurl{h.gdf.theater@gmx.com}}-ot.
 \end{itemize}
 
 
 
 \section{Alkalmazás elindítása}\label{sec:elinditas}
-Az alkalmazás a \textit{start.sh} bash \textit{script}tel indítható el. A \textit{script} két dolgot csinál:
+Az alkalmazás a \texttt{start.sh} bash \texttt{script}tel indítható el. A \texttt{script} két dolgot csinál:
 \begin{enumerate}
-	\item a \textit{docker-compose} parancssal elindítja a docker \textit{container}eket~(\ref{sec:docker} pont),
-	\item  ``helpdesk'' domain névvel hozzáadja az Nginx (\ref{sec:nginx} pont) IP címét a \mbox{\textit{/etc/hosts}} állományhoz.
+	\item a \texttt{docker-compose} parancssal elindítja a docker \emph{container}eket~(\ref{sec:docker} pont),
+	\item  \texttt{helpdesk} domain névvel hozzáadja az Nginx (\ref{sec:nginx} pont) IP címét a \mbox{\texttt{/etc/hosts}} állományhoz.
 \end{enumerate}
 
-A \textit{script} indítása után a helpdesk alkalmazás elérhető a  \href{http://helpdesk}{http://helpdesk} domain alatt.
+A \texttt{script} indítása után a helpdesk alkalmazás elérhető a \href{http://helpdesk}{http://helpdesk} domain alatt.
+
+\section{Virtuális gép}
+Annak érdekében, hogy a létrehozott alkalmazást könnyedén ki lehessen próbálni, egy virtuális számítógépre letöltöttem az alkalmazás $1.0.0$ verzióját. A virtuális számítógép elérhető a DVD mellékleten, vagy letölthető a: \\
+\href{http://todo}{todo} címről.
+
+A virtuális gépbe a \texttt{dxqrpj} felhasználóval és jelszóval lehet bejelentkezni. Bejelentkezés után a háttérben automatikusan elindul a helpdesk alkalmazás, így \aref{sec:elinditas} pontban írt \texttt{start.sh} bash \texttt{script} kézi futtatása nem szükséges.
+
+Az első indítás a virtuális számítógép szűk erőforrásai, valamint a \emph{docker image}-ek letöltése miatt, --~a natív indítástól eltérő módon~-- akár 5-10 percet is igénybe vehet.
+
+A helpdesk alkalmazás elindulása után, a Firefox webböngészővel elérhető a \href{http://helpdesk}{http://helpdesk} cím. A böngésző három felhasználót tárol:
+\begin{description}
+	\item[admin] felhasználót, aki az \texttt{admin\textunderscore user} jogkörrel (\ref{sec:Jogosultságkezelés} pont) rendelkezik, és a \texttt{generic} sorhoz tartozik;
+	\item[test] felhasználót, aki a \texttt{regular\textunderscore user} jogkörrel (\ref{sec:Jogosultságkezelés} pont) rendelkezik, és a \texttt{generic} sorhoz tartozik.;
+	\item[testTheater] felhasználót, aki szintén a \texttt{regular\textunderscore user} jogkörrel rendelkezik, viszont a \texttt{theater} sorhoz tartozik.
+\end{description}
+ 
+A felhasználók bejelentkezése után elérhetőek \aref{todo} pontban összegyűjtött funkciók. Az alkalmazás a már említett három --~\texttt{generic}, \texttt{travel} és \texttt{theater}~-- sorhoz tartozó e-mail címről fogad és küld üzeneteket. Az indítás után nem sokkal, az alkalmazásban megjelennek az e-mail címekre küldött teszt üzenetek.
+
 
 
 \section{Deployment}
 A könyebb bemutathatóság érdekében a szemléletesebb szolgáltatásokat --~hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni~--   a docker hálózaton kívül is elérhetővé tettem. 
 
-A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \textit{container}t a \textit{localhost} melyik portján lehet elérni.
+A \texttt{docker-compose} (\ref{sec:elinditas}) által elindított \emph{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \emph{container}t a \texttt{localhost} melyik portján lehet elérni.
 
 
 \begin{figure}[hbt] 
@@ -39,13 +57,13 @@ A különböző szolgáltatásokból a terhelésnek megfelelően eltérő szám�
 
 \begin{itemize}
 	\item a helpdesk-backendből három,
-	\item a \textit{theater} sort kezelő email-kliensből egy,
-	\item a \textit{travel} sort kezelő email-kliensből kettő,
-	\item a \textit{generic} sort kezelő email-kliensből három,
+	\item a \texttt{theater} sort kezelő email-kliensből egy,
+	\item a \texttt{travel} sort kezelő email-kliensből kettő,
+	\item a \texttt{generic} sort kezelő email-kliensből három,
 	\item és a Kafka brókerből (\ref{sec:kafka_topics}) szintén három darab.
 \end{itemize}
 
-A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (\ref{fig:backend_receive_kafka} ábra). Az oldal elérhető a  \textit{Spring metrics} menüpont alatt.
+A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre a célra létrehozott Grafana oldalon (\ref{fig:backend_receive_kafka} ábra). Az oldal elérhető a  \texttt{Spring metrics} menüpont alatt.
 
 \Aref{fig:backend_receive_kafka} ábrán csak a Grafana oldal legfelső néhány panele látható, az instance-okra lebontott legfontosabb mérőszámokkal:
 
@@ -64,8 +82,8 @@ A példányok metrikáit (\ref{sec:metrikak} pont) nyomon lehet követni az erre
 E-mail fogadása:
 \begin{enumerate}
 	\item Egy teszt üzenet érkezik a \href{mailto:helpdesk.gdf.travel@yandex.com}{\nolinkurl{helpdesk.gdf.travel@yandex.com}} címre
-	\textit{E-mail fogadásának és küldésének folyamata} tárggyal.
-	\item Az e-mail kliens kafka üzenetként publikálja az üzenetet az \textit{email.in.v1.pub} topicba (\ref{fig:email_client_send_kafka}. ábra).
+	\emph{E-mail fogadásának és küldésének folyamata} tárggyal.
+	\item Az e-mail kliens kafka üzenetként publikálja az üzenetet az \texttt{email.in.v1.pub} topicba (\ref{fig:email_client_send_kafka}. ábra).
 	\item A backend megkapja a kafka üzenetet (\ref{fig:backend_receive_kafka}. ábra).
 	\item A backend elmenti az új üzenet az adatbázisba (\ref{fig:datbase_received_email}. ábra).
 	\item A felhasználói felületen (\ref{fig:frontend_read_email}. ábra) elérhető az új üzenet.
@@ -77,7 +95,7 @@ E-mail küldése:
 \begin{enumerate}
 	\item A felhasználó elküldi a válaszát a felhasználói felületen (\ref{fig:frontend_send_answer}. ábra).
 	\item A backend megkapja az üzenetet és eltárolja az adatbázisba (\ref{fig:database_answer}. ábra).
-	\item A \textit{h.gdf.theater\textunderscore gmx.com.v1.pub} topicban megjelenik. (\ref{fig:kafka_topic_send_email}. ábra) a backend által publikált kafka üzenet.
+	\item A \texttt{h.gdf.theater\textunderscore gmx.com.v1.pub} topicban megjelenik. (\ref{fig:kafka_topic_send_email}. ábra) a backend által publikált kafka üzenet.
 	\item A topicra feliratkozott e-mail kliens fogadja és továbbítja az üzenetet. (\ref{fig:email_client_receives_kafka}. ábra).
 \end{enumerate}
  
@@ -122,7 +140,7 @@ E-mail küldése:
 \begin{subfigure}{.49\textwidth}
 	\centering
 	\includegraphics[width=.9\linewidth]{kafka_topic_with_the_sent_email.png}  
-	\caption{A \textit{h.gdf.theater\textunderscore gmx.com.v1.pub} topic új üzenete}
+	\caption{A \texttt{h.gdf.theater\textunderscore gmx.com.v1.pub} topic új üzenete}
 	\label{fig:kafka_topic_send_email}
 \end{subfigure}
 
@@ -160,24 +178,24 @@ A helpdesk backend adatbázistábláit \aref{fig:extended_database_uml}. ábra t
 
 
 \subsection{Liquibase}\label{sec:liquibase}
-A \textit{databasechangelog} és \textit{databasechangeloglock} táblákat a Liquibase (\ref{sec:adatbazis}. pont) az adatbázis séma verziójának karbantartására használja:
+A \texttt{databasechangelog} és \texttt{databasechangeloglock} táblákat a Liquibase (\ref{sec:adatbazis}. pont) az adatbázis séma verziójának karbantartására használja:
 \begin{description}
-	\item[databasechangelog] tábla tartalmazza a \mbox{\textit{resources/db.changelog}} könyvtárban található,  \mbox{\textit{db.changelog-master.yaml}} állományban tárolt utasítások futási eredményeit.
+	\item[databasechangelog] tábla tartalmazza a \mbox{\texttt{resources/db.changelog}} könyvtárban található,  \mbox{\texttt{db.changelog-master.yaml}} állományban tárolt utasítások futási eredményeit.
 	
 	\item[databasechangeloglockot] minden végrehajtásnál a Liquibase példánya  zárolja, ezzel biztosítva hogy mindig maximum egy példány hajtson végre módosításokat az adatbázison (lásd \ref{sec:konkurencia_kezekese} pont, pesszimista konkurenciakezelési stratégia).
 \end{description}
 
-A helpdesk backend szolgáltatás minden induláskor elindítja a Liquibase-t. A Liquibase csatlakozik az adatbázishoz a \textit{helpdesk} felhasználóval, és lefuttatja a \mbox{\textit{db.changelog-master.yaml}} állományban tárolt utasításokat.
+A helpdesk backend szolgáltatás minden induláskor elindítja a Liquibase-t. A Liquibase csatlakozik az adatbázishoz a \texttt{helpdesk} felhasználóval, és lefuttatja a \mbox{\texttt{db.changelog-master.yaml}} állományban tárolt utasításokat.
 
-A \mbox{\textit{db.changelog-master.yaml}} állományba fel van véve az összes olyan DDL-utasítás és más SQL-parancs, ami az adatbázis kezdő állapotának létrehozásához szükséges. Mivel a Liquibase ezeket a parancsokat a \textit{helpdesk} felhasználóval hajtja végre, a létrejött táblák is \textit{helpdesk} felhasználóhoz fognak tartozni. 
+A \mbox{\texttt{db.changelog-master.yaml}} állományba fel van véve az összes olyan DDL-utasítás és más SQL-parancs, ami az adatbázis kezdő állapotának létrehozásához szükséges. Mivel a Liquibase ezeket a parancsokat a \texttt{helpdesk} felhasználóval hajtja végre, a létrejött táblák is \texttt{helpdesk} felhasználóhoz fognak tartozni. 
 
-A helpdesk backend alkalmazás rendes működése során --  a Liquibase futása után --   a \textit{helpdesk\textunderscore app} felhasználón keresztül kapcsolódik az adatbázishoz, így csak a Liquibase utasításokban meghatározott táblákhoz fér hozzá, és csak olyan típusú --  CRUD --   utasítást tud végrehajtani, ami külön engedélyezve van neki.
+A helpdesk backend alkalmazás rendes működése során --~a Liquibase futása után~--   a \texttt{helpdesk\textunderscore app} felhasználón keresztül kapcsolódik az adatbázishoz, így csak a Liquibase utasításokban meghatározott táblákhoz fér hozzá, és csak olyan típusú --~CRUD~--   utasítást tud végrehajtani, ami külön engedélyezve van neki.
 
 Így biztosítható, hogy a helpdesk alkalmazás csak a feladatinak ellátásához szükséges szinten férjen hozzá az alkalmazáshoz, és hogy futása során ne módosíthassa a táblákat. 
 
 
 \subsection{Hibernate Envers}\label{sec:hubernate_envers}
-A \textit{revinfo} és az összes \textit{\textunderscore aud} végződésú táblát --  \textit{\mbox{users\textunderscore aud}, \mbox{queue\textunderscore aud} és \mbox{thread\textunderscore aud}} --   a Hibernate Envers használja az e-mail szál és a kapcsolódó entitások állapotának követésére.
+A \texttt{revinfo} és az összes \texttt{\textunderscore aud} végződésú táblát --~\texttt{\mbox{users\textunderscore aud}, \mbox{queue\textunderscore aud} és \mbox{thread\textunderscore aud}}~--   a Hibernate Envers használja az e-mail szál és a kapcsolódó entitások állapotának követésére.
 
 \begin{description}
 	\item[revinfo] tábla tartalmazza a módosítás időpontját és sorszámát.
@@ -185,25 +203,25 @@ A \textit{revinfo} és az összes \textit{\textunderscore aud} végződésú tá
 	\item[\textunderscore aud] tábla tartalmazza a módosítás típusát, sorszámát és az entitás új értékeit.
 \end{description}
 
-Az Envers --  a \textit{Hibernate Event system}en keresztül --   figyeli, és feltartóztatja az e-mail szál állapotváltozásait. Hozzáadja a saját verziókövetéshez szükséges kódját, és csak akkor engedi sikeresen lezárni a tranzakciót, ha az \textunderscore aud tábla is sikeresen módosul.
+Az Envers --~a \emph{Hibernate Event system}en keresztül~--   figyeli, és feltartóztatja az e-mail szál állapotváltozásait. Hozzáadja a saját verziókövetéshez szükséges kódját, és csak akkor engedi sikeresen lezárni a tranzakciót, ha az \textunderscore aud tábla is sikeresen módosul.
 
-Az Envers minden állapothoz eltárolja a módosítás típusát --  \textit{insert, update}, vagy \textit{delete} --   sorszámát és dátumát. Így mindig visszakereshető hogy melyik időpillanatban mi volt az entitás értéke.
+Az Envers minden állapothoz eltárolja a módosítás típusát --~\texttt{insert, update}, vagy \texttt{delete}~--   sorszámát és dátumát. Így mindig visszakereshető hogy melyik időpillanatban mi volt az entitás értéke.
 
 
 
 \section{Apache Kafka}\label{sec:kafka_topics}
-A kafka \textit{topic}ok és üzenetek elérhetőek és követhetőek a \textit{Kafka messages} menü pontja alatti Kafka Topics UI (\ref{fig:Kafka_Topics_UI}. ábra) eszközzel.
+A kafka \emph{topic}ok és üzenetek elérhetőek és követhetőek a \texttt{Kafka messages} menü pontja alatti Kafka Topics UI (\ref{fig:Kafka_Topics_UI}. ábra) eszközzel.
 
 \begin{figure}[hbt] 
 	\centering
 	\includegraphics[width=0.9\textwidth]{Kafka_topic_ui.png}
-	\caption[A Kafka Topics UI felülete]{A Kafka Topics UI eszközzel követhetőek a kafka \textit{topic}ok üzenetei, partíciói és beállításai}
+	\caption[A Kafka Topics UI felülete]{A Kafka Topics UI eszközzel követhetőek a kafka \emph{topic}ok üzenetei, partíciói és beállításai}
 	\label{fig:Kafka_Topics_UI}
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
 
-A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
+A helpdesk alakalmazás összesen hat \emph{topic}-ot használ:
 \begin{description}
 	\item[user.v1.pub] a Keycloak-ban regisztrált és karbantartott felhasználókat tartalmazza,
 	
@@ -216,18 +234,18 @@ A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
 	
 	\item[h.gdf.theater\textunderscore gmx.com.v1.pub] a \href{mailto:h.gdf.theater@gmx.com}{\nolinkurl{h.gdf.theater@gmx.com}} címre küldött e-maileket tartalmazza,
 	
-	\item[\textunderscore schemas] a Schemaregistry ebben a \textit{topic}ban tárolja az alkalmazásban használt Avro schemákat.
+	\item[\textunderscore schemas] a Schemaregistry ebben a \emph{topic}ban tárolja az alkalmazásban használt Avro schemákat.
 \end{description}
 
 
-Az alkalmazás három kafka brókert futtat egy clusterben, avagy számítógépfürtben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --~a \textunderscore schemas-on kívül mindegyik~-- három partícióval és kettes replikációs faktorral lett létrehozva.
+Az alkalmazás három kafka brókert futtat egy clusterben, avagy számítógépfürtben. Továbbá minden üzleti funkcionalitást hordozó \emph{topic} --~a \textunderscore schemas-on kívül mindegyik~-- három partícióval és kettes replikációs faktorral lett létrehozva.
 Így a kafka fürt egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
 
 
 \section{Eureka}
 \Aref{sec:metrikak}. pontban említett szolgáltatások felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens az elindításuk után közvetlenül beregisztrálják magukat az Eureka szolgáltatásba.
 
-Az Eureka szerveren keresztül megtekinthető és más szolgáltatások számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \textit{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
+Az Eureka szerveren keresztül megtekinthető és más szolgáltatások számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \emph{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
 
 
 \begin{figure}[hbt] 

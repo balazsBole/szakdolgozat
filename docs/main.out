@@ -62,29 +62,30 @@
 \BOOKMARK [1][-]{section.5.8}{Helpdesk backend \351s a Keycloak elk\374l\366n\355t\351se}{chapter.5}% 62
 \BOOKMARK [0][-]{chapter.6}{Alkalmaz\341s bemutat\341sa}{}% 63
 \BOOKMARK [1][-]{section.6.1}{Alkalmaz\341s elind\355t\341sa}{chapter.6}% 64
-\BOOKMARK [1][-]{section.6.2}{Deployment}{chapter.6}% 65
-\BOOKMARK [1][-]{section.6.3}{T\366bb p\351ld\341ny}{chapter.6}% 66
-\BOOKMARK [1][-]{section.6.4}{E-mail fogad\341s\341nak \351s k\374ld\351s\351nek folyamata}{chapter.6}% 67
-\BOOKMARK [1][-]{section.6.5}{Adatb\341zist\341bl\341k}{chapter.6}% 68
-\BOOKMARK [2][-]{subsection.6.5.1}{Liquibase}{section.6.5}% 69
-\BOOKMARK [2][-]{subsection.6.5.2}{Hibernate Envers}{section.6.5}% 70
-\BOOKMARK [1][-]{section.6.6}{Apache Kafka}{chapter.6}% 71
-\BOOKMARK [1][-]{section.6.7}{Eureka}{chapter.6}% 72
-\BOOKMARK [0][-]{chapter.7}{Terhel\351ses tesztel\351s}{}% 73
-\BOOKMARK [1][-]{section.7.1}{Terhel\351ses teszt}{chapter.7}% 74
-\BOOKMARK [1][-]{section.7.2}{Apache JMeter}{chapter.7}% 75
-\BOOKMARK [1][-]{section.7.3}{\301tlagos teljes\355tm\351ny vizsg\341lata}{chapter.7}% 76
-\BOOKMARK [1][-]{section.7.4}{Cs\372csteljes\355tm\351ny vizsg\341lata}{chapter.7}% 77
-\BOOKMARK [1][-]{section.7.5}{Szuk keresztmetszet meghat\341roz\341sa}{chapter.7}% 78
-\BOOKMARK [2][-]{subsection.7.5.1}{Nginx}{section.7.5}% 79
-\BOOKMARK [2][-]{subsection.7.5.2}{HikariCP}{section.7.5}% 80
-\BOOKMARK [2][-]{subsection.7.5.3}{Megn\366vekedett processzorig\351ny}{section.7.5}% 81
-\BOOKMARK [2][-]{subsection.7.5.4}{Szuk keresztmetszet meghat\341roz\341sa}{section.7.5}% 82
-\BOOKMARK [1][-]{section.7.6}{\326sszevet\351s a k\366vetelm\351nyekkel}{chapter.7}% 83
-\BOOKMARK [2][-]{subsection.7.6.1}{\301tlagos teljes\355tm\351ny vizsg\341lata}{section.7.6}% 84
-\BOOKMARK [2][-]{subsection.7.6.2}{Cs\372csteljes\355tm\351ny vizsg\341lata}{section.7.6}% 85
-\BOOKMARK [0][-]{chapter.8}{Tov\341bbfejleszt\351si lehetos\351gek}{}% 86
-\BOOKMARK [1][-]{section.8.1}{A deploymentrol}{chapter.8}% 87
-\BOOKMARK [1][-]{section.8.2}{A k\363dr\363l}{chapter.8}% 88
-\BOOKMARK [0][-]{chapter*.35}{Irodalomjegyz\351k}{}% 89
-\BOOKMARK [0][-]{appendix.A}{OpenApi dokument\341ci\363}{}% 90
+\BOOKMARK [1][-]{section.6.2}{Virtu\341lis g\351p}{chapter.6}% 65
+\BOOKMARK [1][-]{section.6.3}{Deployment}{chapter.6}% 66
+\BOOKMARK [1][-]{section.6.4}{T\366bb p\351ld\341ny}{chapter.6}% 67
+\BOOKMARK [1][-]{section.6.5}{E-mail fogad\341s\341nak \351s k\374ld\351s\351nek folyamata}{chapter.6}% 68
+\BOOKMARK [1][-]{section.6.6}{Adatb\341zist\341bl\341k}{chapter.6}% 69
+\BOOKMARK [2][-]{subsection.6.6.1}{Liquibase}{section.6.6}% 70
+\BOOKMARK [2][-]{subsection.6.6.2}{Hibernate Envers}{section.6.6}% 71
+\BOOKMARK [1][-]{section.6.7}{Apache Kafka}{chapter.6}% 72
+\BOOKMARK [1][-]{section.6.8}{Eureka}{chapter.6}% 73
+\BOOKMARK [0][-]{chapter.7}{Terhel\351ses tesztel\351s}{}% 74
+\BOOKMARK [1][-]{section.7.1}{Terhel\351ses teszt}{chapter.7}% 75
+\BOOKMARK [1][-]{section.7.2}{Apache JMeter}{chapter.7}% 76
+\BOOKMARK [1][-]{section.7.3}{\301tlagos teljes\355tm\351ny vizsg\341lata}{chapter.7}% 77
+\BOOKMARK [1][-]{section.7.4}{Cs\372csteljes\355tm\351ny vizsg\341lata}{chapter.7}% 78
+\BOOKMARK [1][-]{section.7.5}{Szuk keresztmetszet meghat\341roz\341sa}{chapter.7}% 79
+\BOOKMARK [2][-]{subsection.7.5.1}{Nginx}{section.7.5}% 80
+\BOOKMARK [2][-]{subsection.7.5.2}{HikariCP}{section.7.5}% 81
+\BOOKMARK [2][-]{subsection.7.5.3}{Megn\366vekedett processzorig\351ny}{section.7.5}% 82
+\BOOKMARK [2][-]{subsection.7.5.4}{Szuk keresztmetszet meghat\341roz\341sa}{section.7.5}% 83
+\BOOKMARK [1][-]{section.7.6}{\326sszevet\351s a k\366vetelm\351nyekkel}{chapter.7}% 84
+\BOOKMARK [2][-]{subsection.7.6.1}{\301tlagos teljes\355tm\351ny vizsg\341lata}{section.7.6}% 85
+\BOOKMARK [2][-]{subsection.7.6.2}{Cs\372csteljes\355tm\351ny vizsg\341lata}{section.7.6}% 86
+\BOOKMARK [0][-]{chapter.8}{Tov\341bbfejleszt\351si lehetos\351gek}{}% 87
+\BOOKMARK [1][-]{section.8.1}{A deploymentrol}{chapter.8}% 88
+\BOOKMARK [1][-]{section.8.2}{A k\363dr\363l}{chapter.8}% 89
+\BOOKMARK [0][-]{chapter*.35}{Irodalomjegyz\351k}{}% 90
+\BOOKMARK [0][-]{appendix.A}{OpenApi dokument\341ci\363}{}% 91

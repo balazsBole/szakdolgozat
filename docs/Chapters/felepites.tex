@@ -39,8 +39,8 @@ A helpdesk backend adatbázis legfontosabb tábláit \aref{fig:basic_database_um
 A könnyebb átláthatóság érdekében, a folyamatokat egy e-mail szemszögéből mutatom be \aref{fig:path_of_an_email}. ábrán. Az e-mail fogadása az alábbi felsorolás által leírt folyamat szerint történik.
 \begin{enumerate}
 	\item Az e-mail kliens IMAP protokollon keresztül megkapja az új e-mailt.
-	\item Az e-mail kliens a bejövő e-mailt egy kafka üzenetként teszi közzé a bejövő e-mailek kafka \textit{topicban}.
-	\item A bejövő e-mailek \textit{topic}ra feliratkozott helpdesk backend megkapja a kafka üzenetet.
+	\item Az e-mail kliens a bejövő e-mailt egy kafka üzenetként teszi közzé a bejövő e-mailek kafka \emph{topicban}.
+	\item A bejövő e-mailek \emph{topic}ra feliratkozott helpdesk backend megkapja a kafka üzenetet.
 	\item A helpdesk backend eltárolja az új üzenetet az adatbázisban
 	\item A felhasználó a frontend segítségével lekérdezi az újonnan beérkezett e-maileket.
 	\item A helpdesk backend a kérésre elküldi az újonnan fogadott e-mailt.
@@ -51,8 +51,8 @@ Az email küldése pedig az alábbi felsorolás szerint hajtódik végre.
 \begin{enumerate}
 	\item A felhasználó az új e-mail elolvasása után a frontend segítségével megírja a választ.
 	\item A felhasználó elküldi a választ a helpdesk backendnek.
-	\item A helpdesk backend eltárolja az adatbázisba az új e-mailt, majd az e-mail szálnak megfelelő kimenő e-mail \textit{topic}ba közzéteszi az új üzenetet.
-	\item Az e-mail cím specifikus kimenő e-mailek \textit{topic}ra feliratkozott e-mail kliens megkapja a kafka üzenetet.
+	\item A helpdesk backend eltárolja az adatbázisba az új e-mailt, majd az e-mail szálnak megfelelő kimenő e-mail \emph{topic}ba közzéteszi az új üzenetet.
+	\item Az e-mail cím specifikus kimenő e-mailek \emph{topic}ra feliratkozott e-mail kliens megkapja a kafka üzenetet.
 	\item Az e-mail kliens SMTP protokollon keresztül elküldi az új e-mailt.
 \end{enumerate}
 
