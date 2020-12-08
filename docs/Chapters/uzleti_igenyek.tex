@@ -3,11 +3,13 @@ Ebben a fejezetben bemutatom a \foreignlanguage{british}{Helpdesk} alkalmazás f
 
 
 \section{Funkcionális igények}
+Az alkalmazásnak az alábbi funkcionális igényeknek kell megfelelnie.
+
 
 \subsection{E-mail fogadása és küldése}\label{sec:email_fogadas_kuldes}
-Az ügyfelektől érkező e-maileket az alkalmazás képes fogadni, hosszú távra megőrizni. Számukra formázott válasz e-mail küldhető.
+Az ügyfelektől érkező e-maileket az alkalmazás képes fogadni, hosszú távra megőrizni. Az ügyfelek számára formázott válasz e-mail küldhető.
 
-A rendszernek képesnek kell lennie több e-mail cím kezelésére. A beérkező új üzeneteket a címzettnek megfelelő előre definiált sorhoz kell hozzárendelni.
+A rendszernek képesnek kell lennie több e-mail cím kezelésére. A beérkező új üzeneteket --~a kapcsolódó üzenetszálon keresztül~-- a címzettnek megfelelő előre definiált sorhoz kell hozzárendelnie.
 
 
 
@@ -46,17 +48,9 @@ Az üzenetszálakra vonatkozó összes adat historikusan lekérdezhető, státus
 
 
 \subsection{Több felhasználó}\label{sec:tobb_felhasznalo}
-A rendszert egyszerre több felhasználó használhatja. Minden felhasználó csak a saját üzenetszálait kezelheti, csak azokra válaszolhat.
+A rendszert egyszerre több felhasználó használhatja. Regisztrációjukat az alkalmazásba, és saját adataik kezelését egyénileg végzik.
 
-	
-Minden felhasználó pontosan egy \aref{sec:email_fogadas_kuldes} fejezetben említett sorhoz tartozik. Csak az ugyanabba a sorba tartozó e-mail szál rendelhető hozzá.
-A számára kijelölt szálakat képes --~a saját során belül~--  más felhasználóhoz rendelni. 
-
-A felhasználók eltérő jogkörökkel rendelkezhetnek. Az adminisztratív jogkörrel rendelkező felhasználó végzi az új emailszál felhasználóhoz rendelését, valamint a \foreignlanguage{british}{\emph{change queue}} státuszban (\ref{fig:statusz_diagram} ábra) lévő üzenetszálak új sorba irányítását.
-
-A konfigurációs jogkörrel rendelkező felhasználó feladata az alkalmazásban használt jogkörök (\foreignlanguage{british}{\emph{role}}-ok) kezelése. Lehetősége van továbbá autentikációs események megtekintésére, jelszó visszaállítására és más felhasználók megszemélyesítésére (\foreignlanguage{british}{\emph{impersonate}}).
-
-A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} ábra foglalja össze.
+A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} ábrán foglaltam össze.
 
 \begin{figure}[hbt] 
 	\centering
@@ -67,9 +61,17 @@ A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} á
 \end{figure}
 
 
+Minden felhasználó csak a saját üzenetszálait kezelheti, csak azokra válaszolhat. Pontosan egy,  \aref{sec:email_fogadas_kuldes} pontban említett sorhoz tartozik, és csak az ugyanabba a sorba tartozó e-mail szál rendelhető hozzá. A számára kijelölt szálakat képes --~a saját során belül~-- más felhasználóhoz rendelni. 
 
-\pagebreak
-\section{Nem funkcionális igények}	
+A felhasználók eltérő jogkörökkel rendelkezhetnek. Az adminisztratív jogkörrel rendelkező felhasználó végzi az új emailszál felhasználóhoz rendelését, valamint a \foreignlanguage{british}{\textsc{change\textunderscore queue}} státuszban (\ref{fig:statusz_diagram} ábra) lévő üzenetszálak új sorba irányítását.
+
+
+A konfigurációs jogkörrel rendelkező felhasználó feladata az alkalmazásban használt jogkörök (\foreignlanguage{british}{\emph{role}}-ok) kezelése, felhasználók adminisztrációs jogkörhöz rendelése. Lehetősége van továbbá az autentikációs események megtekintésére, jelszó visszaállítására és más felhasználók kizárására vagy megszemélyesítésére (\foreignlanguage{british}{\emph{impersonate}}).
+
+
+\section{Nem funkcionális igények}
+Az alkalmazásnak az alábbi nem funkcionális igényeknek kell megfelelnie.
+	
 
 \subsection[Skálázhatóság]{Horizontális skálázhatóság}
 A kiszolgálandó kliensek száma napi és havi szinten is eltérő. Az év egyes időszakaiban nagyobb volumenű ügyfél-interakció prognosztizálható. A hibatűrés javítása, és a megnövekedett forgalom érdekében --~ezekben az előre meghatározott időszakokban~--  horizontális skálázódás szükséges.
@@ -88,4 +90,6 @@ A rendszernek átlagosan $100$ felhasználót kell kiszolgálnia másodpercenké
 
 
 \subsection[L10N]{L10N\footnote{A nyelvi lokalizációt, vagy kulturális beágyazást szokás L10N-ként rövidíteni.}}
-A felhasználói, adminisztratív és karbantartói felületek angol nyelven érhetőek el. Több nyelv kezelése nem szükséges.
+A felhasználói, adminisztratív és karbantartói felületek angol nyelven érhetőek el. A magyar, vagy attól eltérő egyéb nyelv kezelése nem szükséges.
+
+Tervezés során, a honosításhoz, vagy többnyelvűsítéshez szükséges szempontokat nem kell figyelembe venni.
