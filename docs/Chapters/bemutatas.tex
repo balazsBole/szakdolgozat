@@ -21,25 +21,30 @@ A \texttt{script} indítása után a helpdesk alkalmazás elérhető a \href{htt
 Annak érdekében, hogy a létrehozott alkalmazást könnyedén ki lehessen próbálni, egy virtuális számítógépre letöltöttem az alkalmazás $1.0.0$ verzióját. A virtuális számítógép elérhető a DVD mellékleten, vagy letölthető a: \\
 \href{http://todo}{todo} címről.
 
-A virtuális gépbe a \texttt{dxqrpj} felhasználóval és jelszóval lehet bejelentkezni. Bejelentkezés után a háttérben automatikusan elindul a helpdesk alkalmazás, így \aref{sec:elinditas} pontban írt \texttt{start.sh} bash \texttt{script} kézi futtatása nem szükséges.
+Annak érdekében hogy az elkészült \texttt{ova}\footnote{Az Open Virtual Appliance által használt állományok kiterjesztése.} állomány minél kevesebb helyet használjon, egy minimális rendszerigényű \emph{Ubuntu server}t telepítettem. A virtuális gépre ezen kívül még a \texttt{xubuntu-core}, \texttt{docker} és a \texttt{Firefox} csomagot telepítettem. A helpdesk alkalmazás forráskódját \texttt{git} helyett böngészőn keresztül töltöttem le.
+
+A virtuális gépbe a \texttt{dxqrpj} felhasználóval és jelszóval lehet bejelentkezni. Bejelentkezés után a háttérben automatikusan elindul a helpdesk alkalmazás, így \aref{sec:elinditas} pontban említett \texttt{start.sh} bash \texttt{script} kézi futtatása nem szükséges.
 
 Az első indítás a virtuális számítógép szűk erőforrásai, valamint a \emph{docker image}-ek letöltése miatt, --~a natív indítástól eltérő módon~-- akár 5-10 percet is igénybe vehet.
 
 A helpdesk alkalmazás elindulása után, a Firefox webböngészővel elérhető a \href{http://helpdesk}{http://helpdesk} cím. A böngésző három felhasználót tárol:
 \begin{description}
 	\item[admin] felhasználót, aki az \texttt{admin\textunderscore user} jogkörrel (\ref{sec:Jogosultságkezelés} pont) rendelkezik, és a \texttt{generic} sorhoz tartozik;
-	\item[test] felhasználót, aki a \texttt{regular\textunderscore user} jogkörrel (\ref{sec:Jogosultságkezelés} pont) rendelkezik, és a \texttt{generic} sorhoz tartozik.;
+	\item[test] felhasználót, aki a \texttt{regular\textunderscore user} jogkörrel (\ref{sec:Jogosultságkezelés} pont) rendelkezik, és a \texttt{generic} sorhoz tartozik;
 	\item[testTheater] felhasználót, aki szintén a \texttt{regular\textunderscore user} jogkörrel rendelkezik, viszont a \texttt{theater} sorhoz tartozik.
 \end{description}
  
-A felhasználók bejelentkezése után elérhetőek \aref{todo} pontban összegyűjtött funkciók. Az alkalmazás a már említett három --~\texttt{generic}, \texttt{travel} és \texttt{theater}~-- sorhoz tartozó e-mail címről fogad és küld üzeneteket. Az indítás után nem sokkal, az alkalmazásban megjelennek az e-mail címekre küldött teszt üzenetek.
+A felhasználók bejelentkezése után, \aref{todo} pontban összegyűjtött funkciók elérhetővá válnak. Az alkalmazás a már említett három --~\texttt{generic}, \texttt{travel} és \texttt{theater}~-- sorhoz tartozó e-mail címről fogad és küld üzeneteket. Az indítás után nem sokkal, az alkalmazásban megjelennek az e-mail címekre --~korábban, tesztelési és bemutatási céllal~-- küldött teszt üzenetek.
 
 
 
 \section{Deployment}
-A könyebb bemutathatóság érdekében a szemléletesebb szolgáltatásokat --~hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni~--   a docker hálózaton kívül is elérhetővé tettem. 
+A könyebb bemutathatóság érdekében a szemléletesebb szolgáltatásokat --~hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni~-- a docker hálózaton kívül is elérhetővé tettem:
+\begin{description}
+	\item[helpdesk] konténer a szolgáltatás az nginx
+\end{description}
 
-A \texttt{docker-compose} (\ref{sec:elinditas}) által elindított \emph{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \emph{container}t a \texttt{localhost} melyik portján lehet elérni.
+A \texttt{docker-compose} (\ref{sec:elinditas}) által elindított \emph{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \emph{container} a \texttt{localhost} melyik portján érhető el.
 
 
 \begin{figure}[hbt] 
