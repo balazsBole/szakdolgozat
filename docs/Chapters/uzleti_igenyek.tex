@@ -14,7 +14,8 @@ A rendszernek képesnek kell lennie több e-mail cím kezelésére. A beérkező
 \subsection{E-mail szálak kezelése}
 A rendszer által kezelt üzenetek szálakba rendezve érhetőek el. Egy szál az ügyfél és a felhasználó közötti üzenetváltásokból épül fel.
 
-Az üzenetszálakra vonatkozó összes adat historikusan lekérdezhető, státuszuk \aref{fig:statusz_diagram} ábrán definiált útvonalaknak megfelelően változtatható.  
+Az üzenetszálakra vonatkozó összes adat historikusan lekérdezhető, státuszuk \aref{fig:statusz_diagram} ábrán definiált útvonalaknak megfelelően változtatható.
+
 
 \begin{figure}[hbt] 
 	\centering
@@ -26,8 +27,26 @@ Az üzenetszálakra vonatkozó összes adat historikusan lekérdezhető, státus
 
 
 
+\begin{description}
+	\item[\textsc{open}] vagy nyitott állapotba kerül az üzenetszál, ha új e-mail érkezik az ügyféltől, vagy ha a felhasználó átállítja az e-mail szál státuszát \textsc{open}-re. A felhasználók csak \textsc{open} állapotú e-mail szálra képesek válaszüzenet küldeni.
+	
+	\item[\textsc{resolved}] vagy lezárt állapotú egy e-mail szál, ha a felhasználó a válasz üzenet küldése során a szálat \textsc{resolved} státusszal jelöli meg. A felhasználó ezzel az állapottal jelezheti, ha szerinte az üzenetszál lezárható, egy e-mail szál lezárt státuszban marad mindaddig, míg az ügyféltől nem érkezik kapcsolódó üzenet, ekkor az üzenetszál visszakerül \textsc{open} státuszba.
+	
+	\item[\textsc{clarification}] vagy tisztázandó állapotba kerül az üzenetszál, ha a felhasználó a válasz üzenet küldése során a szálat \textsc{clarification} státusszal jelöli meg. A felhasználó ezzel az állapottal jelezheti, ha szerinte az üzenetszál még nem zárható le, a továbblépéshez több információ, vagy az ügyfél általi további tisztázás szükséges.
+	
+	A \textsc{clarification} státuszú üzenetszál állapota a felhasználó által, kézzel is állítható. Abban az esetben, ha az ügyféltől válaszüzenet érkezik, akkor a szál státusza automatikusan \textsc{open} állapotúra változik.
+	
+	\item[\textsc{change\textunderscore queue}] vagy sor váltására várakozó állapottal jelezheti a felhasználó, ha úgy érzi, hogy az üzenetszál másik sorba, másik felhasználóhoz tartozik. 
+	
+	A \textsc{change\textunderscore queue} állapotú üzenetszálakat az adminisztrációs jogkörrel rendelkező felhasználók megvizsgálják, a sor váltására vonatkozó igényt elbírálják, és a megfelelő sor, felhasználó és státusz kiválasztásával, az üzenetszál állapotát véglegesítik.
+	
+\end{description}
+
+
+
+
 \subsection{Több felhasználó}\label{sec:tobb_felhasznalo}
-A rendszert egyszerre több felhasználó használhatja. Minden felhasználó csak a saját emailszálait kezelheti, csak azokra válaszolhat.
+A rendszert egyszerre több felhasználó használhatja. Minden felhasználó csak a saját üzenetszálait kezelheti, csak azokra válaszolhat.
 
 	
 Minden felhasználó pontosan egy \aref{sec:email_fogadas_kuldes} fejezetben említett sorhoz tartozik. Csak az ugyanabba a sorba tartozó e-mail szál rendelhető hozzá.
@@ -35,7 +54,7 @@ A számára kijelölt szálakat képes --~a saját során belül~--  más felhas
 
 A felhasználók eltérő jogkörökkel rendelkezhetnek. Az adminisztratív jogkörrel rendelkező felhasználó végzi az új emailszál felhasználóhoz rendelését, valamint a \foreignlanguage{british}{\emph{change queue}} státuszban (\ref{fig:statusz_diagram} ábra) lévő üzenetszálak új sorba irányítását.
 
-A konfigurációs jogkörrel rendelkező felhasználó feladata más felhasználók regisztrálása, valamint az alkalmazásban használt jogkörök (\foreignlanguage{british}{\emph{role}}-ok) kezelése. Lehetősége van továbbá autentikációs események megtekintésére, jelszó visszaállítására és más felhasználók megszemélyesítésére (\foreignlanguage{british}{\emph{impersonate}}).
+A konfigurációs jogkörrel rendelkező felhasználó feladata az alkalmazásban használt jogkörök (\foreignlanguage{british}{\emph{role}}-ok) kezelése. Lehetősége van továbbá autentikációs események megtekintésére, jelszó visszaállítására és más felhasználók megszemélyesítésére (\foreignlanguage{british}{\emph{impersonate}}).
 
 A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} ábra foglalja össze.
 
@@ -47,9 +66,10 @@ A felhasználói felületen elérhető funkciókat \aref{fig:funkcio_diagram} á
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
+
+
 \pagebreak
 \section{Nem funkcionális igények}	
-
 
 \subsection[Skálázhatóság]{Horizontális skálázhatóság}
 A kiszolgálandó kliensek száma napi és havi szinten is eltérő. Az év egyes időszakaiban nagyobb volumenű ügyfél-interakció prognosztizálható. A hibatűrés javítása, és a megnövekedett forgalom érdekében --~ezekben az előre meghatározott időszakokban~--  horizontális skálázódás szükséges.
