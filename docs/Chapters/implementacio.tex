@@ -18,7 +18,7 @@ A loadbalancer funkcionalitás --  mivel a docker azt natívan támogatja, így 
 
 
 \subsection{Docker konténerizáció}\label{sec:docker}
-Az alakalmazás összes szervize saját docker konténerben fut. A docker konfigurációs leírása a \textit{docker-compose.yml} állományban van. A \textit{docker-compose} parancs ez alapján indítja el az alkalmazást, hozza létre a saját alhálózatát, valósítja meg a hálózaton belüli DNS-funkciót.
+Az alakalmazás összes szolgáltatása saját docker konténerben fut. A docker konfigurációs leírása a \textit{docker-compose.yml} állományban van. A \textit{docker-compose} parancs ez alapján indítja el az alkalmazást, hozza létre a saját alhálózatát, valósítja meg a hálózaton belüli DNS-funkciót.
 
 A konténerek skálázása is a dockeren keresztül (\textit{docker-compose --  scale}) valósul meg.
 
@@ -118,7 +118,7 @@ A frontend az e-mailek és e-mail szálakkal összefüggő üzleti feladatok meg
 
 
 \subsection{Kommunikáció a backenddel}
-A backenddel való kommunikáció HTTP protokollon keresztül zajlik, a szükséges \textit{service}-eket az OpenApi dokumentációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
+A backenddel való kommunikáció HTTP protokollon keresztül zajlik, a szükséges \textit{service} osztályokat az OpenApi dokumentációból (\ref{sec:backend_egyeb_eszkozok}) a \textit{swagger angular generator} hozza létre.
 
 Az aszinkron HTTP hívásokat az NgRx könyvtár alakítja adatfolyamokká. 
 Az így \textit{Observable}-ként kezelt események már támogatják a stream műveleteket, megkönnyítik a filterezhetőséget és az egységes hibakezelést. 
@@ -128,7 +128,7 @@ Az NgRx használatával továbbá elkerülhetőek az aszinkron hívások mellék
 \subsection{Komponensek}
 Az egységes megjelenés és az ismerős kinézet miatt a komponenseim alapjának az Angular Material UI könyvtárat választottam. A könyvtár népszerű az Angular fejlesztők körében, mert a leggyakrabban előforduló felhasználói igényekre elérhető benne kész, könnyen használható megoldás.
 
-A válasz e-mail létrehozására az open source Quill szövegszerkesztőt használtam, mert egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
+A válasz e-mail létrehozására a nyílt forráskódú Quill szövegszerkesztőt használtam, mert egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
 
 
 \subsection{Futtatási környezet}
@@ -146,7 +146,7 @@ A frontend működését, és függőségeit \aref{fig:frontend_sequence_diagram
 
 
 \section{Keycloak}\label{sec:keycloak}
-A Keycloak egy open source jogosultság- és hozzáférés-kezelő. Támogatja az LDAP-ot, SSO-t és a kétlépcsős azonosítást~\cite{Keycloak_website}. 
+A Keycloak egy nyílt forráskódú jogosultság- és hozzáférés-kezelő. Támogatja az LDAP-ot, SSO-t és a kétlépcsős azonosítást~\cite{Keycloak_website}. 
 
 A helpdesk alkalmazásban feladata a felhasználók azonosítása, és adataiknak nyilvántartása. Különálló mikroszervizként, saját adatbázissal rendelkezik.
 

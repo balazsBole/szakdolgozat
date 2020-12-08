@@ -1,14 +1,14 @@
 \section{A deploymentről}
 
-A helpdesk alkalmazás szervizei úgy lettek kialakítva, hogy képesek legyenek egymástól függetlenül, akár több példányban is működni. Ezáltal költséghatékonnyá téve a működést, leegyszerűsítve a hibatűrést, és lehetővé téve a változó terhelés miatti skálázhatóságot.
+A helpdesk alkalmazás szolgáltatásai úgy lettek kialakítva, hogy képesek legyenek egymástól függetlenül, akár több példányban is működni. Ezáltal költséghatékonnyá téve a működést, leegyszerűsítve a hibatűrést, és lehetővé téve a változó terhelés miatti skálázhatóságot.
 
 Azonban amíg a docker konténerek egy host gépen futnak és egy erőforráson osztoznak, soha nem lehet gazdaságosan megoldani a skálázást, és nem tud a rendszer felkészülni a számítógép kiesésére.
 
-A következő logikus lépés tehát az alkalmazás \textit{cluster}re migrálása. A docker natívan támogatja a Microsoft Azure és az Amazon \cite{docker_website_deploy_ECS} szolgáltatókat. Így tehát a kód és a beállítások módosítása nélkül lehetséges az alkalmazás \textit{cluster}esítése docker swarmmal.
+A következő logikus lépés tehát az alkalmazás számítógépfürtre migrálása. A docker natívan támogatja a Microsoft Azure és az Amazon \cite{docker_website_deploy_ECS} szolgáltatókat. Így tehát a kód és a beállítások módosítása nélkül lehetséges az alkalmazás fürtösítése docker swarmmal.
 
 \bigskip
 \section{A kódról}
-A helpdesk alkalmazásba --  architektúrája miatt --   könnyű új funkciót fejleszteni. A most működő modulok mind lazán kapcsolódnak egymáshoz, így könnyű egy teljesen különböző, akár eltérő programnyelven íródott új funkció integrálása.
+A helpdesk alkalmazásba --~architektúrája miatt~-- könnyű új funkciót fejleszteni. A most működő modulok mind lazán kapcsolódnak egymáshoz, így könnyű egy teljesen különböző, akár eltérő programnyelven íródott új funkció integrálása.
 
 Mivel az összes technikai megkötés csupán a protokollok megvalósítása, nyugodtan lehet az új funkció tervezésénél a feladathoz választani a programnyelvet vagy a programozási módszertant is. 
 
@@ -16,7 +16,7 @@ Ha az új funkciónak szüksége lenne az alkalmazás más rendszeréhez tartoz�
 
 Hasonlóképpen, a laza kapcsolatok és jól definiált határok miatt, egyszerű egy-egy modult teljesen lecserélni, vagy más nyelven, más technológiával újraírni.
 
-Mivel egy szerviz egy feladattal foglalkozik, ha például le	 kell cserélni a frontendet, akkor az új felhasználói felületen csak a megjelenítéssel kell foglalkozni, az üzleti funkciók megvalósítása a backend feladata, így azok továbbra is változatlanok maradnak.
+Mivel egy szolgáltatás egy feladattal foglalkozik, ha például le	 kell cserélni a frontendet, akkor az új felhasználói felületen csak a megjelenítéssel kell foglalkozni, az üzleti funkciók megvalósítása a backend feladata, így azok továbbra is változatlanok maradnak.
 
-Ugyanez nem csak a szervizek, hanem a kód szintjén is igaz. A hexagonális architektúra miatt, az adatbázis --  mint külső függőség --   könnyen cserélhető. 
+Ugyanez nem csak a szolgáltatások, hanem a kód szintjén is igaz. A hexagonális architektúra miatt, az adatbázis --  mint külső függőség --   könnyen cserélhető. 
 

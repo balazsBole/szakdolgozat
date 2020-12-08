@@ -5,12 +5,12 @@ Ebben a fejezetben összegyűjtöttem a tervezés során felmerült kérdéseket
 \section{Webszerver}
 A megfelelő webszerver kiválasztása során a három legelterjedtebb\cite{W3Techs_Usage_statistics_of_webservers} webszerveret --  Apache, Nginx és az Internet Information Services -- vettem számításba. A főbb szempontjaim a következők voltak:
 \begin{itemize}
-	\item legyen open source, vagy ingyenesen használható, ezzel minimalizálva a költségeket,
+	\item legyen nyílt forráskódú, vagy ingyenesen használható, ezzel minimalizálva a költségeket,
 	\item lehetőleg minél kevesebb erőforrást használjon fel,
-	\item úgy hogy közben elegendő csak statikus tartalmat kiszolgálnia.
+	\item úgy, hogy közben elegendő csak statikus tartalmat kiszolgálnia.
 \end{itemize}
 
-Az IIS\footnote{Internet Information Services} --  a többi open source alternatívával ellentétben --   nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
+Az IIS\footnote{Internet Information Services} --  a többi nyílt forráskódú alternatívával ellentétben --   nem felel meg az első pontnak, mivel Windows NT licenc alá tartozik.
 
 Az Nginx alapvetően jobb az Apache-nál a statikus oldalak, a párhuzamos lekérések kiszolgálásában~\cite{nginx_performance}, emiatt szívesen használják a két alkalmazást együtt. Ilyenkor az Nginx egy fordított proxyként kezeli az ügyfeleket és a statikus tartalmak kiszolgálását, a dinamikus tartalmakat pedig továbbítja az Apache szerver felé.
 
@@ -27,7 +27,7 @@ A megfelelő relációs adatbázis kiválasztása során, a következő három a
 	\item és PostgreSQL.
 \end{itemize}
 
-Az Oracle adatbázist a drága licenc miatt nem tartom jó választásnak, helyette inkább egy open source megoldást választanék.
+Az Oracle adatbázist a drága licenc miatt nem tartom jó választásnak, helyette inkább egy nyílt forráskódú megoldást választanék.
 
 Az alkalmazás működése szempontjából lényeges funkciók a MySQL és a PostgreSQL adatbázisban is elérhetőek.
 
@@ -62,7 +62,7 @@ Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a sa
 	\label{tabl:teljesitmenyvizsgalat}
 \end{table}
 
-\Aref{tabl:teljesitmenyvizsgalat} táblázatban látszódik, hogy a PostgreSQL adatbázis a Hibernate implementációval átlagosan háromszor olyan jól teljesít, mint a MySQL adatbázis. Ám ha figyelembe vesszük, hogy a két leggyakrabban előforduló funkció az elsődleges kulcs valamint szóeleji egyezés alapján keresés, akkor egyértelmű hogy a PostgreSQL adatbázist érdemes választani.
+\Aref{tabl:teljesitmenyvizsgalat} táblázatban látszódik, hogy a PostgreSQL adatbázis a Hibernate implementációval átlagosan háromszor olyan jól teljesít, mint a MySQL adatbázis. Ám ha figyelembe vesszük, hogy a két leggyakrabban előforduló funkció az elsődleges kulcs valamint szóeleji egyezés alapján keresés, akkor egyértelmű, hogy a PostgreSQL adatbázist érdemes választani.
 
 
 \section{JPA implementáció}
@@ -107,7 +107,7 @@ A Liquibase --  a Flyway funkcióinak megvalósítása mellett --   sokkal több
 Hogy megtaláljam a legmegfelelőbb monitorozó eszközt, összevetettem a három leginkább használt alternatívát, a Prometheust, Grafanát és a Graphite-ot.
 
 \subsection{Prometheus}
-Prometheus egy open source monitorozó eszköz. Kifejezetten alkalmas a metrikák idősoros tárolására, gyűjtésére és megjelenítésére.
+Prometheus egy nyílt forráskódú monitorozó eszköz. Kifejezetten alkalmas a metrikák idősoros tárolására, gyűjtésére és megjelenítésére.
 
 A Prometheus által létrehozott és használt PromQL\footnote{Prometheus Query Language} lekérdező nyelv segítségével könnyen lehet az adatokból táblázatot vagy grafikont készíteni. A PromQL-ben létrehozott kifejezések alkalmasak riasztások létrehozására is, ilyenkor a hibásnak tekintett eseményről --  a Prometheus \textit{Alertmanager}-én keresztül --   képes a riasztást kiváltó helyzet elhárításában érintetteket értesíteni.
 
@@ -116,7 +116,7 @@ A megjelenítésre használt \textit{Console template} meglehetősen sok és sze
 A Prometheus HTTP-n keresztül tudja a megfigyelt rendszerek állapotát szabályos időintervallumokban lekérdezni. Az integrációt nagyban segíti, hogy összeköthető \textit{service discovery} szerverekkel.
 
 \subsection{Grafana}
-Grafana egy open source adatelemző, megjelenítő és monitorozó eszköz.
+Grafana egy nyílt forráskódú adatelemző, megjelenítő és monitorozó eszköz.
 
 Nem tárol vagy gyűjt adatot, de támogat többféle --  Graphite, Prometheus, Influx DB, ElasticSearch, MySQL, PostgreSQL --   adatforrással való kapcsolatot. \textit{Pluginok}on keresztül továbbá támogatja a felhő alapú AWS Cloudwatch és OpenStack Gnocchi adatforrást is.
 
@@ -126,11 +126,11 @@ A Grafana legnagyobb előnye a \textit{dashboard}-jaiban rejlik. A felületen --
 A Grafana oldalán ezen kívül számos előre elkészített és szabadon felhasználható \textit{dashboard} érhető el. A leggyakrabban használt alkalmazások metrikái újra használhatóan és szerkeszthetően hozzáférhetőek. Így a fejlesztést jelentősen leegyszerűsítve, elegendő csupán az alkalmazás specifikus paneleket letölteni és testre szabni.
 
 \subsection{Graphite}
-A Graphite idősoros tárolására és megjelenítésére alkalmas open source monitorozó eszköz. Összesen két feladatot lát el, a Whisper könyvtárral tárolja a neki küldött adatokat, valamint megjeleníti a tárolt adatot a webes felületén.
+A Graphite idősoros tárolására és megjelenítésére alkalmas nyílt forráskódú monitorozó eszköz. Összesen két feladatot lát el, a Whisper könyvtárral tárolja a neki küldött adatokat, valamint megjeleníti a tárolt adatot a webes felületén.
 
-Az adatok tárolása nem olyan kifinomult mint a Prometheuson: passzívan képes csak fogadni az adatokat és nem rendelkezik a PromQL-hez hasonló lekérdező nyelvvel sem.
+Az adatok tárolása nem olyan kifinomult, mint a Prometheuson: passzívan képes csak fogadni az adatokat és nem rendelkezik a PromQL-hez hasonló lekérdező nyelvvel sem.
 
-A beépített felülete --  körülbelül a Prometheus-éhoz hasonlóan --   messze nem olyan részletes mint a Grafanáé. Egyszerű grafikonok és táblázatok ugyanúgy elkészíthetőek vele, de ezen kívül támogatja még \textit{dashboard}ok létrehozását.
+A beépített felülete --  körülbelül a Prometheus-éhoz hasonlóan --   messze nem olyan részletes, mint a Grafanáé. Egyszerű grafikonok és táblázatok ugyanúgy elkészíthetőek vele, de ezen kívül támogatja még \textit{dashboard}ok létrehozását.
 
 
 \subsection{Megvalósítás}

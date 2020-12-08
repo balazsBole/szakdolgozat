@@ -1,11 +1,11 @@
 Dolgozatom célja egy több e-mail címet és szálat kezelő teljes értékű elosztott alkalmazás létrehozása volt.
 
 \bigskip
-Az alkalmazás teljes funkcionalitását több, egymástól függetlenül működő, pontosan egy körülhatárolt részfeladatért felelős mikroszerviz látja el. A szervizek egymáshoz lazán, HTTP-n és kafkán keresztül kapcsolódnak.
+Az alkalmazás teljes funkcionalitását több, egymástól függetlenül működő, pontosan egy körülhatárolt részfeladatért felelős mikroszerviz látja el. A szolgáltatások egymáshoz lazán, HTTP-n és kafkán keresztül kapcsolódnak.
 
-A moduláris felépítés, és a szervizek laza kapcsolata nagy mértékben leegyszerűsíti a helpdesk alkalmazás akár mások által fejlesztett programokkal való együttműködését is. A rendelkezésre álló számtalan, szabadon használható, nyílt forrású program használata pedig nagy mértékben megkönnyíti az új alkalmazás fejlesztését.
+A moduláris felépítés, és a szolgáltatások laza kapcsolata nagy mértékben leegyszerűsíti a helpdesk alkalmazás akár mások által fejlesztett programokkal való együttműködését is. A rendelkezésre álló számtalan, szabadon használható, nyílt forrású program használata pedig nagy mértékben megkönnyíti az új alkalmazás fejlesztését.
 
-Jó példa erre a Keycloak szerviz esete, ahol egy biztonságos és megannyi funkcióval rendelkező jogosultság- és hozzáférés-kezelőt sikerült a helpdesk alkalmazásba integrálni. Így a jelszókezelésnél vagy más hozzáféréssel és jogosultsággal kapcsolatos részletnél hagyatkozhattam a Keycloak funkcionalitására, nekem elegendő volt a felhasználók üzletileg is releváns, e-mailekhez köthető kapcsolatával foglalkoznom.
+Jó példa erre a Keycloak szolgáltatás esete, ahol egy biztonságos és megannyi funkcióval rendelkező jogosultság- és hozzáférés-kezelőt sikerült a helpdesk alkalmazásba integrálni. Így a jelszókezelésnél vagy más hozzáféréssel és jogosultsággal kapcsolatos részletnél hagyatkozhattam a Keycloak funkcionalitására, nekem elegendő volt a felhasználók üzletileg is releváns, e-mailekhez köthető kapcsolatával foglalkoznom.
 
 \bigskip
 Három fő részfeladatra osztottam fel az alkalmazás működését. Az e-mail szerverekkel való kapcsolattartásért az \textit{e-mail kliens}, az e-mailek, e-mail szálak logikai rendszerezésért, tárolásáért a \textit{helpdesk backend}, és az e-mail szálak megjelenítéséért, a felhasználókkal való interakcióért a \textit{helpdesk frontend} lett a felelős.

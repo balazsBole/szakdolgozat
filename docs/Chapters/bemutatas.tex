@@ -19,7 +19,7 @@ A \textit{script} indítása után a helpdesk alkalmazás elérhető a  \href{ht
 
 
 \section{Deployment}
-A könyebb bemutathatóság érdekében a szemléletesebb szervizeket --  hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni --   a docker hálózaton kívül is elérhetővé tettem. 
+A könyebb bemutathatóság érdekében a szemléletesebb szolgáltatásokat --~hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni~--   a docker hálózaton kívül is elérhetővé tettem. 
 
 A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{container}eket \aref{fig:deployment_diagram}. ábrán foglaltam össze. Az ábrán feltüntettem, hogy az adott \textit{container}t a \textit{localhost} melyik portján lehet elérni.
 
@@ -35,7 +35,7 @@ A \textit{docker-compose} (\ref{sec:elinditas}) által elindított \textit{conta
 
 
 \section{Több példány}
-A különböző szervizekből a terhelésnek megfelelően eltérő számú példány indul el:
+A különböző szolgáltatásokból a terhelésnek megfelelően eltérő számú példány indul el:
 
 \begin{itemize}
 	\item a helpdesk-backendből három,
@@ -167,7 +167,7 @@ A \textit{databasechangelog} és \textit{databasechangeloglock} táblákat a Liq
 	\item[databasechangeloglockot] minden végrehajtásnál a Liquibase példánya  zárolja, ezzel biztosítva hogy mindig maximum egy példány hajtson végre módosításokat az adatbázison (lásd \ref{sec:konkurencia_kezekese} pont, pesszimista konkurenciakezelési stratégia).
 \end{description}
 
-A helpdesk backend szerviz minden induláskor elindítja a Liquibase-t. A Liquibase csatlakozik az adatbázishoz a \textit{helpdesk} felhasználóval, és lefuttatja a \mbox{\textit{db.changelog-master.yaml}} állományban tárolt utasításokat.
+A helpdesk backend szolgáltatás minden induláskor elindítja a Liquibase-t. A Liquibase csatlakozik az adatbázishoz a \textit{helpdesk} felhasználóval, és lefuttatja a \mbox{\textit{db.changelog-master.yaml}} állományban tárolt utasításokat.
 
 A \mbox{\textit{db.changelog-master.yaml}} állományba fel van véve az összes olyan DDL-utasítás és más SQL-parancs, ami az adatbázis kezdő állapotának létrehozásához szükséges. Mivel a Liquibase ezeket a parancsokat a \textit{helpdesk} felhasználóval hajtja végre, a létrejött táblák is \textit{helpdesk} felhasználóhoz fognak tartozni. 
 
@@ -220,14 +220,14 @@ A helpdesk alakalmazás összesen hat \textit{topic}-ot használ:
 \end{description}
 
 
-Az alkalmazás három kafka brókert futtat egy clusterben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --  a \textunderscore schemas-on kívül mindegyik --   három partícióval és kettes replikációs faktorral lett létrehozva.
-Így a kafka cluster egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
+Az alkalmazás három kafka brókert futtat egy clusterben, avagy számítógépfürtben. Továbbá minden üzleti funkcionalitást hordozó \textit{topic} --~a \textunderscore schemas-on kívül mindegyik~-- három partícióval és kettes replikációs faktorral lett létrehozva.
+Így a kafka fürt egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
 
 
 \section{Eureka}
-\Aref{sec:metrikak}. pontban említett szerviz felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens az elindításuk után közvetlenül beregisztrálják magukat az Eureka szervizbe.
+\Aref{sec:metrikak}. pontban említett szolgáltatások felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens az elindításuk után közvetlenül beregisztrálják magukat az Eureka szolgáltatásba.
 
-Az Eureka szerveren keresztül megtekinthető és más szervizek számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \textit{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
+Az Eureka szerveren keresztül megtekinthető és más szolgáltatások számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \textit{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}. ábra).
 
 
 \begin{figure}[hbt] 

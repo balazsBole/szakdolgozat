@@ -6,7 +6,7 @@ Bár a kifejezés már régóta ismert, nincs egy központilag elfogadott, egys�
 
 \begin{itemize}
 	\item	pontosan egy üzleti funkció köré szerveződik,
-	\item   más	szervizekkel laza, általában hálózaton keresztül megvalósuló kapcsolatban áll,
+	\item   más	szolgáltatásokkal laza, általában hálózaton keresztül megvalósuló kapcsolatban áll,
 	\item   ha szüksége van adatbázisra, akkor sajáttal rendelkezik, más rendszer ezt az adatbázist nem éri el,
 	\item	önmagában is működőképes,
 	\item	decentralizált, tehát nincs egy a munkáját befolyásoló központi irányítórendszer.
@@ -17,14 +17,14 @@ A hasonló felépítésükből adódóan, számos olyan eszköz van, ami --  nem
 	\item[skálázhatóság] a rendszer képessége az áteresztőképességének növelésére.
 	Létezik vertikális\footnote{több processzor vagy memória bevonása} és horizontális skálázhatóság\footnote{újabb példányok futtatása}.
 	
-	\item[konténerizálás] a szerviz futtatása saját elszeparált környezetében hardveres virtualizáció segítsége nélkül.	
+	\item[konténerizálás] az adott szolgáltatás futtatása saját elszeparált környezetében hardveres virtualizáció segítsége nélkül.	
 
-	\item[szerviz felderítés] a rendszer által nyújtott szolgáltatások, szervizek automatikus
+	\item[szolgáltatás felderítés] a rendszer által nyújtott szolgáltatások, szervizek automatikus
 	felfedezhetősége\footnote{angolul \textit{service discovery}-nek hívják}.
 	
 	\item[loadbalancer] az a folyamat, ami a bejövő feladatokat erőforrásokhoz rendeli. Legegyszerűbb megvalósítása a \foreignlanguage{british}{\textit{round robin}} algoritmus, célja a terhelés egyforma elosztása.
 	
-	\item[monitorozás] az önálló szervizek állapotának felügyelése. A monitorozás során nyújtott metrikák kiterjedhetnek a felhasznált memória mennyiségére, processzorigényére, vagy processzeire is.
+	\item[monitorozás] az önálló szolgáltatások állapotának felügyelése. A monitorozás során nyújtott metrikák kiterjedhetnek a felhasznált memória mennyiségére, processzorigényére, vagy processzeire is.
 \end{description}
 
 
@@ -60,7 +60,7 @@ Ahogy \foreignlanguage{british}{Robert C. Martin} a \foreignlanguage{british}{\t
 A hexagonális architektúra (\ref{sec:hexagonalis_architektura} pont) és a hasonló \textit{clean code} \cite{clean_code_chapter_systems} elvek sokszor a különböző szoftver rétegek elkülönítésén alapszanak.
 
 
-Hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --  a fordítási időben --   kódot generáló eszköz a Mapstruct és a Lombok.
+Annak érdekében, hogy a feladatok elkülönítése ne vonzza magával az ismétlődő program részletek megnövekedését, célszerű generálni a visszatérő, üzleti funkciót nem hordozó sorokat. Ilyen --  a fordítási időben --   kódot generáló eszköz a Mapstruct és a Lombok.
 
 
 \section{Konkurencia kezelése}\label{sec:konkurencia_kezekese}
@@ -78,7 +78,7 @@ Ha az alkalmazásnak egyszerre több felhasználót kell kiszolgálnia, vagy bá
 
 
 \section{Alkalmazások szeparálása}\label{sec:alkalmazasok_szeparalasa}
-Ahogy azt \aref{sec:mikroszerviz}. pontban is írtam, hogy megvalósítható legyen a szervizek laza kapcsolata és egymástól független működése, a mikroszerviz csak a saját adatbázisához férhet hozzá. Ez lehetővé teszi a feladatnak megfelelő adatbázis választását is.
+Ahogy azt \aref{sec:mikroszerviz}. pontban is írtam, hogy megvalósítható legyen a szolgáltatások laza kapcsolata és egymástól független működése, a mikroszerviz csak a saját adatbázisához férhet hozzá. Ez lehetővé teszi a feladatnak megfelelő adatbázis választását is.
 
 A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megoldás is létezik:
 \begin{description}
@@ -92,35 +92,35 @@ A mikroszervizeken átnyúló üzleti funkciók megvalósítására több megold
 	 
 	Az Apache Kafkát (\ref{sec:apache_kafka}) gyakran használják az események kezelésére, mert natívan támogatja az események csoportosítását egyedi azonosító alapján. Beállítható, hogy UUID alapján mindig csak a legfrissebb állapot legyen elérhető, ezzel lecsökkentve a kezdeti olvasáshoz szükséges időt.
 		
-	\item[Elosztott tranzakciók és Saga] Ha nem csak más szervizek adatainak olvasásáról van szó, hanem több szervizen átívelő, visszagörgethető tranzakciót kell megvalósítani, arra az esetre találták ki a \textit{Saga}-t.
+	\item[Elosztott tranzakciók és Saga] Ha nem csak más szolgáltatások adatainak olvasásáról van szó, hanem több szolgáltatáson átívelő, visszagörgethető tranzakciókat kell megvalósítani, arra az esetre találták ki a \textit{Saga}-t.
 	
 	A \textit{Saga} egy hosszú életű elosztott tranzakció~\cite{OReally_Microservice_Architecture_Saga}. A folyamat lépései sorban hajtódnak végre, minden lépés tartalmaz egy utasítást arra az esetre ha vissza kellene görgetni a teljes folyamatot. Ha a folyamat bármelyik lépésnél meghiúsul, onnantól fogva visszafelé minden rendszer egyesével visszaáll a tranzakció előtti állapotra.
 \end{description}
 
 
 \section{Apache Kafka}\label{sec:apache_kafka}
-Az Apache Kafka egy üzenet tárolásra és továbbításra kifejlesztett hibatűrő, magas áteresztő képességű, open source alkalmazás~\cite{OReally_Kafka}.
+Az Apache Kafka egy üzenet tárolásra és továbbításra kifejlesztett hibatűrő, magas áteresztő képességű, nyílt forráskódú alkalmazás~\cite{OReally_Kafka}.
 
-A feladó az üzenetet nem közvetlenül a fogadónak küldi, hanem egy üzenetbrókeren keresztül egy (\textit{topic})-ba teszi közzé. A fogadó fél hogy megkaphassa az üzenetet, feliratkozik az adott témára. 
+A feladó az üzenetet nem közvetlenül a fogadónak küldi, hanem egy üzenetbrókeren keresztül egy (\textit{topic})-ba teszi közzé. A fogadó fél dönti el, hogy melyik téma üzeneteit szeretné megkapni. Annak érdekében, hogy megkaphassa az üzenetet, feliratkozik az üzenet témájára.
 
 Redundancia és skálázhatóság miatt egy \textit{topic} több partícióra van elosztva, és ezen felül minden partíció replikálva is van~\cite{OReally_Kafka_Internals}. A partíciók eltérő szerveren lehetnek, ezáltal egy \textit{topic} horizontálisan skálázható. Egy szerver esetleges kiesése esetén a többi szerver át tudja venni a kiesett szerver szerepét.
 
-Az üzenetbrókerek összehangolását a Zookeper szerviz végzi. Mivel minden kafka bróker beregisztrálja magát a szervizbe, a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
+Az üzenetbrókerek összehangolását a Zookeper szolgáltatás végzi. Mivel minden kafka bróker beregisztrálja magát a szolgáltatásba, így a Zookeper mindig naprakész információval rendelkezik az üzenetbrókerekről.
 
 Az üzeneteket Apache Avroval szerializálom. Az Avro lehetővé teszi a kompakt bináris tárolást, de natívan támogatja a JSON reprezentációt is. Az Avrohoz szükséges séma nyilvántartásért és az eltérő verziók kezelésért a Schemaregistry szerver felelős. A kafka kliensek a Schemaregistry szerveren keresztül tudják az üzeneteket olvasni és írni. 
 
 
 
 \section{Angular}\label{sec:angular}
-Az \foreignlanguage{british}{Angular} egy a \foreignlanguage{british}{Google} által fejlesztett \foreignlanguage{british}{TypeScript} alapú platform és	keretrendszer~\cite{angular_docs}. A segítségével létrehozott kód erősen modularizált, így könnyű vele újra felhasználható és az MVC-elveit követő alkalmazást létrehozni.
+Az \foreignlanguage{british}{Angular} egy a \foreignlanguage{british}{Google} által fejlesztett \foreignlanguage{british}{TypeScript} alapú platform és	keretrendszer~\cite{angular_docs}. A segítségével létrehozott kód erősen modularizált, így könnyű vele újra felhasználható és a modell-nézet-vezérlő elvet követő alkalmazást létrehozni.
 
 Az Angularral készített honlap teljes mértében a kliens oldalon fut, így a szerver oldalon elegendő egy egyszerű, statikus HTML-oldalt visszaadó alkalmazásszerver használata.
 
 
 \section{Spring Boot}\label{sec:spring_boot}
-A \foreignlanguage{british}{Spring Boot} egy a Springre épülő keretrendszer. Mindkét rendszer alapja a függőség befecskendezése\footnote{Angolul \foreignlanguage{british}{\textit{Dependency Injection}}}, ami egy \aref{sec:retegek_szeparalasa} pontban említett tiszta kód \cite{clean_code_chapter_systems} eszköze.
+A \foreignlanguage{british}{Spring Boot}, egy a Springre épülő keretrendszer. Mindkét rendszer alapja a függőség befecskendezése\footnote{Angolul \foreignlanguage{british}{\textit{Dependency Injection}}}, ami egy \aref{sec:retegek_szeparalasa} pontban említett tiszta kód \cite{clean_code_chapter_systems} eszköze.
 
-A Spring Boot \cite{introducing_spring_boot} célja hogy gyorsan és egyszerűen lehessen önálló, magas minőségű alkalmazásokat fejleszteni:
+A Spring Boot \cite{introducing_spring_boot} célja, hogy gyorsan és egyszerűen lehessen önálló, magas minőségű alkalmazásokat fejleszteni:
 \begin{itemize}
 	\item az alapbeállítástól való eltérést kell meghatározni\footnote{A Spring Boot dokumentációban ezt röviden \textit{convention over configuration}-nek hívják} ezzel lecsökkentve a konfigurációval töltött időt,
 	\item valamint sok gyakran visszatérő problémára\footnote{Például: metrikák, biztonság, adattárolás} nyújt könnyen elérhető megoldást.

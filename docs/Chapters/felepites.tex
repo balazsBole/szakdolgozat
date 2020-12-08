@@ -10,13 +10,13 @@ Ebben a fejezetben átfogó képet adok az általam létrehozott helpdesk alkalm
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
-\Aref{fig:komponens_diagram}. ábrán a legfontosabb szervizeket gyűjtöttem össze. Az üzleti funkcionalitás megvalósulása az itt bemutatott komponensek összehangolt munkáján keresztül valósul meg.
+\Aref{fig:komponens_diagram}. ábrán a legfontosabb szolgáltatásokat gyűjtöttem össze. Az üzleti funkcionalitás megvalósulása az itt bemutatott komponensek összehangolt munkáján keresztül valósul meg.
 
 
 
 \begin{itemize}
 	\item A felhasználó az nginx-en (\ref{sec:nginx} pont) keresztül éri el a heldesk alkalmazást.
-	\item Az nginx dönti el, hogy melyik URL-t melyik szerviz szolgálja ki.
+	\item Az nginx dönti el, hogy melyik URL-t melyik szolgáltatás szolgálja ki.
 	\item Az email kliens és a heldpesk backend kafka streamen keresztül éri el egymást.
 	\item Az email kliensek kezelik az e-mail szerverekkel való adatcserét.
 \end{itemize}
