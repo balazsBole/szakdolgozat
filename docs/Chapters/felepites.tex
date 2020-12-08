@@ -13,27 +13,39 @@ Ebben a fejezetben átfogó képet adok az általam létrehozott helpdesk alkalm
 \Aref{fig:komponens_diagram}. ábrán a legfontosabb szolgáltatásokat gyűjtöttem össze. Az üzleti funkcionalitás megvalósulása az itt bemutatott komponensek összehangolt munkáján keresztül valósul meg.
 
 
-
 \begin{itemize}
-	\item A felhasználó az nginx-en (\ref{sec:nginx} pont) keresztül éri el a heldesk alkalmazást.
-	\item Az nginx dönti el, hogy melyik URL-t melyik szolgáltatás szolgálja ki.
-	\item Az email kliens és a heldpesk backend kafka streamen keresztül éri el egymást.
-	\item Az email kliensek kezelik az e-mail szerverekkel való adatcserét.
+	\item A felhasználó az nginx-en (\ref{sec:nginx} pont) keresztül éri el a helpdesk alkalmazást. Az ő perspektívájából nem látszik az alkalmazás réteges, széttagolt felépítése.
+	\item Az nginx az üzenet URL-je alapján dönti el, hogy melyik kérést, melyik szolgáltatás szolgáljon ki.
+	\item Az email kliens és a heldpesk backend kafka streamen keresztül éri el egymást. Közvetlenül nem kommunikálnak.
+	\item Az email kliensek kezelik az e-mail szerverekkel való adatcserét. Az e-mailek fogadásáért és küldéséért felelősek.
+	\item A Keycloak szolgáltatás adatot küld a kafka streamen keresztül, amit a helpdesk backend fogad.
 \end{itemize}
 
 
 \section{Adatbázis UML diagram}\label{sec:felepites_adatbazis}
-A helpdesk backend adatbázis legfontosabb tábláit \aref{fig:basic_database_uml}. ábra tartalmazza. Az ábrán nem szerepelnek az audit és a Liquibase által használt táblák~(\ref{sec:adatbazis} pont). \Aref{ch:bemutatas}. fejezetben található \ref{fig:extended_database_uml}. ábra tartalmazza az adatbázis összes tábláját.
+A helpdesk backend adatbázis legfontosabb tábláit \aref{fig:basic_database_uml}. ábra tartalmazza. Az ábrán nem szerepelnek az audit és a Liquibase által használt táblák~(\ref{sec:adatbazis} pont), azokat --~az összes többi táblával együtt~-- \aref{ch:bemutatas}. fejezetben található \ref{fig:extended_database_uml}. ábra tartalmazza.
  
+ \begin{figure}[hbt] 
+ 	\centering
+ 	\includegraphics[width=0.85\textwidth]{basic_database_uml.png}
+ 	\caption{A backend legfontosabb adatbázistáblái}
+ 	\label{fig:basic_database_uml}
+ 	\floatfoot{Forrás: saját ábra}
+ \end{figure}
 
 
-\begin{figure}[hbt] 
-	\centering
-	\includegraphics[width=0.85\textwidth]{basic_database_uml.png}
-	\caption{A backend legfontosabb adatbázistáblái}
-	\label{fig:basic_database_uml}
-	\floatfoot{Forrás: saját ábra}
-\end{figure}
+\Aref{fig:basic_database_uml}. ábrán megjelenített adatszerkezetről elmondható, hogy:
+\begin{itemize}
+	\item egy felhasználó (\texttt{users}~tábla) pontosan egy sorhoz (\texttt{queue}~tábla) tartozik, és több e-mail szállal rendelkezhet;
+	
+	\item egy e-mail szál (\texttt{threads}~tábla) potosan egy sorhoz tartozik, és csupán egy felhasználóhoz tartozhat. Egy e-mail szálhoz legalább egy e-mail tartozik;
+	
+	\item egy e-mailnek (\texttt{email}~tábla) pontosan egy fejléce (\texttt{header}~tábla) és egy tartalma (\texttt{content}~tábla) van, valamint pontosan egy  e-mail szálhoz tartozik. Ezen kívül, minden e-mail legfeljebb egy szülő e-mail alá tartozhat;
+
+	\item egy e-mail tartalomnak (\texttt{content}~tábla) nulla vagy több csatolmánya (\texttt{attachment}~tábla) lehet.
+\end{itemize}
+
+
 
 \section{E-mail fogadásának és küldésének folyamata}
 A könnyebb átláthatóság érdekében, a folyamatokat egy e-mail szemszögéből mutatom be \aref{fig:path_of_an_email}. ábrán. Az e-mail fogadása az alábbi felsorolás által leírt folyamat szerint történik.
