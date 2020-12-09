@@ -16,8 +16,8 @@ Ebben a fejezetben átfogó képet adok az általam létrehozott helpdesk alkalm
 \begin{itemize}
 	\item A felhasználó az nginx-en (\ref{sec:nginx} pont) keresztül éri el a helpdesk alkalmazást. Az ő perspektívájából nem látszik az alkalmazás réteges, széttagolt felépítése.
 	\item Az nginx az üzenet URL-je alapján dönti el, hogy melyik kérést, melyik szolgáltatás szolgáljon ki.
-	\item Az email kliens és a heldpesk backend kafka streamen keresztül éri el egymást. Közvetlenül nem kommunikálnak.
-	\item Az email kliensek kezelik az e-mail szerverekkel való adatcserét. Az e-mailek fogadásáért és küldéséért felelősek.
+	\item Az e-mail kliens és a heldpesk backend kafka streamen keresztül éri el egymást. Közvetlenül nem kommunikálnak.
+	\item Az e-mail kliensek kezelik az e-mail szerverekkel való adatcserét. Az e-mailek fogadásáért és küldéséért felelősek.
 	\item A Keycloak szolgáltatás adatot küld a kafka streamen keresztül, amit a helpdesk backend fogad.
 \end{itemize}
 
@@ -61,7 +61,7 @@ A könnyebb átláthatóság érdekében, a folyamatokat egy e-mail szemszögéb
 \end{enumerate}
 
 \bigskip
-Az email küldése pedig az alábbi felsorolás szerint hajtódik végre.
+Az e-mail küldése pedig az alábbi felsorolás szerint hajtódik végre.
 \begin{enumerate}
 	\item A felhasználó az új e-mail elolvasása után a frontend segítségével megírja a választ.
 	\item A felhasználó elküldi a választ a helpdesk backendnek.
