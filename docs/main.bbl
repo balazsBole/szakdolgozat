@@ -104,6 +104,11 @@ Json web token (jwt).
 \newblock Letöltve: 2020. Nov. 18.
 \newblock URL: \url{https://tools.ietf.org/html/rfc7519}.
 
+\bibitem{rfc6749_OAuth_2_0}
+The oauth 2.0 authorization framework.
+\newblock Letöltve: 2020. Dec. 9.
+\newblock URL: \url{https://tools.ietf.org/html/rfc6749}.
+
 \bibitem{docker_website_deploy_ECS}
 Deploying docker containers on ecs.
 \newblock Letöltve: 2020. Nov. 22.

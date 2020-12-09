@@ -13,8 +13,8 @@
 \select@language {magyar} \contentsline {figure}{\numberline {5.2.}{\ignorespaces Helpdesk backend szekvencia diagramja\relax }}{27}{figure.caption.11}% 
 \select@language {magyar} \contentsline {figure}{\numberline {5.3.}{\ignorespaces Helpdesk frontend szekvencia diagramja\relax }}{31}{figure.caption.12}% 
 \select@language {magyar} \addvspace {10\p@ }
-\select@language {magyar} \contentsline {figure}{\numberline {6.1.}{\ignorespaces Deployment diagram}}{36}{figure.caption.13}% 
-\select@language {magyar} \contentsline {figure}{\numberline {6.2.}{\ignorespaces E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}}{39}{figure.caption.14}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.1.}{\ignorespaces Deployment diagram}}{37}{figure.caption.13}% 
+\select@language {magyar} \contentsline {figure}{\numberline {6.2.}{\ignorespaces E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}}{40}{figure.caption.14}% 
 \select@language {magyar} \contentsline {figure}{\numberline {6.3.}{\ignorespaces A backend \IeC {\"o}sszes adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}ja\relax }}{41}{figure.caption.15}% 
 \select@language {magyar} \contentsline {figure}{\numberline {6.4.}{\ignorespaces A Kafka Topics UI fel\IeC {\"u}lete}}{43}{figure.caption.16}% 
 \select@language {magyar} \contentsline {figure}{\numberline {6.5.}{\ignorespaces Az Eureka service discovery fel\IeC {\"u}lete}}{44}{figure.caption.17}% 

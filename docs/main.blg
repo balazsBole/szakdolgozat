@@ -24,55 +24,57 @@ Warning--entry type for "introducing_spring_boot" isn't style-file defined
 --line 74 of file references.bib
 Warning--entry type for "rfc7519_JSON_Web_Token" isn't style-file defined
 --line 82 of file references.bib
-Warning--entry type for "Keycloak_website" isn't style-file defined
+Warning--entry type for "rfc6749_OAuth_2_0" isn't style-file defined
 --line 90 of file references.bib
+Warning--entry type for "Keycloak_website" isn't style-file defined
+--line 98 of file references.bib
 Warning--entry type for "docker_website_deploy_ECS" isn't style-file defined
---line 118 of file references.bib
+--line 126 of file references.bib
 Warning--entry type for "nginx_performance" isn't style-file defined
---line 145 of file references.bib
+--line 153 of file references.bib
 Warning--entry type for "W3Techs_Usage_statistics_of_webservers" isn't style-file defined
---line 155 of file references.bib
-Warning--entry type for "JPA_benchmark" isn't style-file defined
 --line 163 of file references.bib
-You've used 19 entries,
+Warning--entry type for "JPA_benchmark" isn't style-file defined
+--line 171 of file references.bib
+You've used 20 entries,
             2555 wiz_defined-function locations,
-            676 strings with 7525 characters,
-and the built_in function-call counts, 5060 in all, are:
-= -- 474
-> -- 119
+            681 strings with 7654 characters,
+and the built_in function-call counts, 5281 in all, are:
+= -- 495
+> -- 121
 < -- 6
-+ -- 44
++ -- 45
 - -- 25
-* -- 156
-:= -- 556
-add.period$ -- 57
-call.type$ -- 19
-change.case$ -- 19
+* -- 160
+:= -- 573
+add.period$ -- 60
+call.type$ -- 20
+change.case$ -- 20
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 163
-empty$ -- 714
+cite$ -- 20
+duplicate$ -- 170
+empty$ -- 750
 format.name$ -- 25
-if$ -- 1574
+if$ -- 1648
 int.to.chr$ -- 0
-int.to.str$ -- 19
+int.to.str$ -- 20
 missing$ -- 12
-newline$ -- 98
+newline$ -- 103
 num.names$ -- 11
-pop$ -- 238
+pop$ -- 252
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 452
+skip$ -- 474
 stack$ -- 0
 substring$ -- 0
-swap$ -- 25
+swap$ -- 26
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
 while$ -- 11
-width$ -- 21
-write$ -- 196
-(There were 13 warnings)
+width$ -- 22
+write$ -- 205
+(There were 14 warnings)

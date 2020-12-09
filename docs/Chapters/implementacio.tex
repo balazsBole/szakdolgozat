@@ -191,13 +191,49 @@ A \texttt{helpdesk realm}on belül további két jogkört különböztetek meg. 
 
 
 \subsection{JSON Web Token}\label{sec:JWT}
-A jogosultságkezelés technikai alapját az \emph{rfc7519}-es szabványban \cite{rfc7519_JSON_Web_Token} leírt JSON Web Token (JWT) adja. 
+A jogosultságkezelés technikai alapját az \emph{rfc7519}-es szabványban~\cite{rfc7519_JSON_Web_Token} leírt JSON Web Token (JWT) adja. 
 
-A Keycloak szervere által digitálisan aláírt token tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja a Keycloaktól kapott azonosítót. A backend hitelesíti a tokent a Keycloak publikus kulcsával (lásd \ref{fig:frontend_sequence_diagram} ábra), és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
+A Keycloak szervere által digitálisan aláírt \emph{acces\textunderscore token} (lásd \ref{sec:oauth_2_0}~pont) tartalmazza a felhasználó jogosultságait. A frontend minden HTTP lekérdezéshez csatolja ezt a Keycloaktól kapott azonosítót. A backend hitelesíti a tokent a Keycloak publikus kulcsával (lásd \ref{fig:frontend_sequence_diagram} ábra), és a megfelelő jogosultság megléte esetén engedélyezi a hozzáférést az erőforráshoz.
+
+\subsection{OAuth 2.0 keretrendszer}\label{sec:oauth_2_0}
+Mivel a Keycloak az ~emph{rfc7519}-es szabványban~\cite{rfc6749_OAuth_2_0} leírtaknak megfelelően állítja ki a jogosultságkezeléshez használt JSON Web Tokent, ezért Helpdesk Frontendnek ismernie kell, és a szabványban meghatározott módon szükséges az \emph{acces\textunderscore token}t kérvényeznie.
+
+A Helpdesk Frontend az itt ismertetett módon kapja meg az \emph{acces\textunderscore token}t. A folyamat, az OAuth~2.0 jogosultságkezelő keretrendszernek megfelelően valósul meg.
+
+
+\begin{enumerate}
+	\item A Helpdesk Frontend a \emph{Login} gombra kattintva átirányítja a felhasználót a Key\-cloak regisztrációt és bejelentkezést kezelő oldalára. Az alkalmazás a kéréshez hozzáfűzi a Keycloak rendszerben tárolt kliensre jellemző azonosítót, belső állapotát és a --~harmadik lépésben~-- átirányításra használt webcímet.
+	
+	
+	\item A Keycloak szerver megvizsgálja az egyes pontban kapott adatokat. Amennyiben a kérés a kliensazonosítónak megfelelő webcímről érkezett, az adatok pedig a klienshez regisztrált lehetséges értékekkel megegyeznek, akkor elkéri a felhasználó nevét és jelszavát. A szolgáltatás eldönti, hogy a megadott felhasználónév és jelszó alapján engedélyezhető-e a hozzáférés.
+		
+	
+	\item Amennyiben a hozzáférés engedélyezhető, a szolgáltatás átirányítja a felhasználót az első pontban megadott webcímre, a címhez hozzáfűzi a négyes pontban használt hozzáférési kódot.
+	
+	 A \emph{Login} gomb a felhasználót a Frontend üdvözlő oldalára irányítja vissza.
+	
+	
+	\item A Frontend a Keycloak szervertől HTTP POST metódussal kérvényezi az \emph{acces\textunderscore token}t. A lekérdezéssel elküldi az URL paraméterből kiolvasott hozzáférési kódot, a kliens azonosítót, és az egyes pontban használt átirányítási címet.
+	
+	
+	\item A Keycloak ellenőrzi a hozzáférési kódot és megbizonyosodik arról, hogy az átirányítási cím megegyezik-e a hármas pontban használt címmel. Sikeres ellenőrzés után visszaküldi az \emph{acces\textunderscore token}t és a \emph{refresh\textunderscore token}t
+	
+	
+	\item Az \emph{acces\textunderscore token} csupán 10 percig használható. Az idő lejárta után a Frontendnek új \emph{acces\textunderscore token}t kell igényelnie az előző pontban kapott \emph{refresh\textunderscore token} segítségével.
+\end{enumerate}
+
+A fent ismertetett folyamattal elérhető, hogy
+\begin{itemize}
+	\item az azonosításra használt érzékeny adatok --~az \emph{acces\textunderscore token} és a \emph{refresh\textunderscore token}~-- védetten, csupán a POST metódus paramétereként elérhetőek,
+	
+	\item a Helpdesk Frontendnek nem szükséges a felhasználó jelszavát kezelnie
+	
+	\item  és bejelentkezés illetve a regisztráció folyamata aszinkron módon történhet.
+\end{itemize}
 
 
 \section{Kafka}\label{sec:implementacio_kafka}
-Hogy teljesen elválasszam egymástól az e-mail klienst és a helpdesk backendet, a bejövő és kimenő e-mailek Kafka \emph{topic}-okon (\ref{sec:apache_kafka} pont) mennek keresztül. A szeparációval függetlenné teszem egymástól a két rendszer működését, ami lehetővé teszi az eltérő igénybevételnek (\ref{sec:granularitas} pont) megfelelő skálázhatóságot.
+Annak érdekében, hogy teljesen elválasszam egymástól az e-mail klienst és a helpdesk backendet, a bejövő és kimenő e-mailek Kafka \emph{topic}-okon (\ref{sec:apache_kafka} pont) mennek keresztül. A szeparációval függetlenné teszem egymástól a két rendszer működését, ami lehetővé teszi az eltérő igénybevételnek (\ref{sec:granularitas} pont) megfelelő skálázhatóságot.
 
 Ugyanígy, a funkciók szeparálása (\ref{sec:backend_keycloak_separation}) miatt a felhasználók adatai egy külön kafka topicban érhetőek el. Bármelyik mikroszerviznek szüksége lenne valamilyen felhasználóval kapcsolatos információra, azokat a topic végigolvasásával megkaphatja.
 
