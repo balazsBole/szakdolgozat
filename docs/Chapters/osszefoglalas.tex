@@ -1,20 +1,22 @@
 Dolgozatom célja egy több e-mail címet és szálat kezelő teljes értékű elosztott alkalmazás létrehozása volt.
 
-\bigskip
+\subsubsection*{Egyszerűen integrálható}
 Az alkalmazás teljes funkcionalitását több, egymástól függetlenül működő, pontosan egy körülhatárolt részfeladatért felelős mikroszerviz látja el. A szolgáltatások egymáshoz lazán, HTTP-n és kafkán keresztül kapcsolódnak.
 
 A moduláris felépítés, és a szolgáltatások laza kapcsolata nagy mértékben leegyszerűsíti a helpdesk alkalmazás akár mások által fejlesztett programokkal való együttműködését is. A rendelkezésre álló számtalan, szabadon használható, nyílt forrású program használata pedig nagy mértékben megkönnyíti az új alkalmazás fejlesztését.
 
 Jó példa erre a Keycloak szolgáltatás esete, ahol egy biztonságos és megannyi funkcióval rendelkező jogosultság- és hozzáférés-kezelőt sikerült a helpdesk alkalmazásba integrálni. Így a jelszókezelésnél vagy más hozzáféréssel és jogosultsággal kapcsolatos részletnél hagyatkozhattam a Keycloak funkcionalitására, nekem elegendő volt a felhasználók üzletileg is releváns, e-mailekhez köthető kapcsolatával foglalkoznom.
 
-\bigskip
+
+\subsubsection*{Célorientált megvalósítás}
 Három fő részfeladatra osztottam fel az alkalmazás működését. Az e-mail szerverekkel való kapcsolattartásért az \texttt{e-mail kliens}, az e-mailek, e-mail szálak logikai rendszerezésért, tárolásáért a \texttt{helpdesk backend}, és az e-mail szálak megjelenítéséért, a felhasználókkal való interakcióért a \texttt{helpdesk frontend} lett a felelős.
 
 A közöttük fennálló laza kapcsolat miatt az adott feladatnak megfelelően választhattam meg a programnyelvet és technológiát. Így az \texttt{e-mail kliens}t és a \texttt{helpdesk backend}et Java alapon Spring Boottal, a \texttt{helpdesk frontend}et pedig TypeScript alapon Angularral készítettem.
 
+	
+\subsubsection*{Változó igényeknek megfelelő}
+Terheléses tesztel megvizsgáltam a helpdesk alkalmazás komoly igénybevétel során mérhető teljesítményét. Az alkalmazás monitorozásához használt eszközök segítségével elemeztem a vizsgálat eredményét, És az alkalmazás horizontális skálázásával sikerült jelentős teljesítményjavulást elérni.
 
 \bigskip
-Terheléses tesztel megvizsgáltam a helpdesk alkalmazás komoly igénybevétel során mérhető teljesítményét. Az alkalmazás monitorozásához használt eszközök segítségével elemeztem a vizsgálat eredményét, az alkalmazás horizontális skálázásával sikerült jelentős teljesítményjavulást elérni.
-
-\pagebreak
+\bigskip
 Összességében elmondható, hogy sikerült egy modern, időtálló, mikroszerviz alapú elosztott alkalmazást létrehoznom. Bemutattam a megvalósítás során felmerült problémákat, azok megoldását, a felhasznált technológiákat és módszertanokat.

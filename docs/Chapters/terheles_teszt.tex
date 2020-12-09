@@ -175,7 +175,7 @@ A JMeter által indított kérés az alábbi rendszereken megy keresztül (\ref{
 \pagebreak
 
 \subsection{Nginx}
-Ahhoz hogy az Nginx párhuzamosan kiszolgáljon legalább $6~000$ felhasználót\footnote{Az alapbeállítás $1~024$ kapcsolat}, a beállításaiban felül kell írni a \mbox{\texttt{worker\textunderscore connections}} paramétert.
+Ahhoz, hogy az Nginx párhuzamosan kiszolgáljon legalább $6~000$ felhasználót\footnote{Az alapbeállítás $1~024$ kapcsolat}, a beállításaiban felül kell írni a \mbox{\texttt{worker\textunderscore connections}} paramétert.
 
 Ha az alapbeállításoktól való eltérés okozza a kérések --~még backend előtti~--   feltorlódását, vagy a megnövekedett processzorigényt, akkor az Nginx kihagyásával jelentős javulás lenne elérhető.
 

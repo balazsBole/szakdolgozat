@@ -97,7 +97,7 @@ Az e-mail szálak audit információinak és verzióinak követésére a Hiberna
 \subsection{Pesszimista konkurenciakezelés}
 Pesszimista konkurenciakezelésre jó példával szolgál a Liquibase (\ref{sec:liquibase} pont) működése. 
 
-Minden indítás során a Liquibase --~az adatbázis módosításának befejezéséig~--   zárolja a \texttt{databasechangeloglock} táblát. Így --~a várakozás miatt~-- egyszerre mindig maximum egy Liquibase példány tud elindulni és módosításokat végrehajtani.
+Minden indítás alkalmával a Liquibase --~az adatbázis módosításának befejezéséig~--   zárolja a \texttt{databasechangeloglock} táblát. Így --~a várakozás miatt~-- egyszerre mindig maximum egy Liquibase példány tud elindulni és módosításokat végrehajtani.
 
 
 \subsection{Optimista konkurenciakezelés}
@@ -132,14 +132,14 @@ Az egységes megjelenés és az ismerős kinézet miatt a komponenseim alapjána
 A válasz e-mail létrehozására a nyílt forráskódú Quill szövegszerkesztőt használtam, mert egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
 
 \subsection{Üzleti funkciók megvalósítása}\label{sec:uzleti_funkciok}
-Az üzleti funkciók megvalósításának bemutatása érdekében, ismertetem a helpdesk frontend menüjét és a menüpontok által megvalósított üzleti funkciókat.
+Az üzleti funkciók megvalósításának bemutatása érdekében ismertetem a helpdesk frontend menüjét és a menüpontok által megvalósított üzleti funkciókat.
 \begin{description}
 	\item[Reply] a menüpont minden felhasználónak elérhető. Segítségével az \textsc{open} státuszú üzenetszálak elolvashatóak --~az üzenetek olvasottnak és olvasatlannak jelölhetőek~-- és megválaszolhatóak.
 	A válasz e-mail küldése során az üzenetszál új állapotra állítható.
 	
-	\item[Edit threads] a menüpont minden felhasználónak elérhető. Segítségével a felhasználóhoz tartozó \textsc{open}, \textsc{resolved} és \textsc{clarification} státuszú e-mail szálak szerkeszthetőek. Az üzenetszálak tulajdonos, státusz valamint --~adminisztrátor jogkörrel rendelkező felhasználó esetén~-- sor tulajdonsága változtatható meg.
+	\item[Edit threads] a menüpont minden felhasználónak elérhető. Segítségével a felhasználóhoz tartozó \textsc{open}, \textsc{resolved} és \textsc{clarification} státuszú e-mail szálak szerkeszthetőek. Az üzenetszálak tulajdonos, státusz, valamint --~adminisztrátor jogkörrel rendelkező felhasználó esetén~-- sor tulajdonsága változtatható meg.
 	
-	\item[History] szintén minden felhasználó számára elérhető menüpont. Segítségével --~táblázatba rendezve~-- lekérdezhetőek és visszakereshetőek a bejelentkezett felhasználóval kapcsolatba került e-mail szálak tulajdonságainak historikus változásai.		
+	\item[History] szintén minden felhasználó számára elérhető menüpont. Segítségével --~táblázatba rendezve~-- lekérdezhetőek és visszakereshetőek a bejelentkezett felhasználóval kapcsolatba került e-mail szálak tulajdonságainak korábbi változásai.		
 	
 	\item[Change queue] csak az adminisztrátor felhasználónak elérhető menüpont. A felhasználó aktuális sorához tartozó \textsc{change\textunderscore queue} státuszú e-mail szálak érhetőek el és módosíthatóak vele. A kiválasztott e-mail szál az \texttt{Edit~threads} menüponthoz hasonlóan szerkeszthető.
 	
@@ -157,7 +157,7 @@ Az üzleti funkciók megvalósításának bemutatása érdekében, ismertetem a 
 
 	\item[Eureka service discovery] \aref{sec:bemutatas_eureka} pontban részletesen bemutatott Eureka szolgáltatás oldalára navigáló menüpont. 
 	
-	\item[Kafka messages] mindenkinem megjelenő, a Kafka Topics UI oldalára navigáló menüpont. Részletes bemutatása \aref{sec:kafka_topics} pontban olvasható.
+	\item[Kafka messages] mindenkinek megjelenő, a Kafka Topics UI oldalára navigáló menüpont. Részletes bemutatása \aref{sec:kafka_topics} pontban olvasható.
 	
 \end{description}
 
