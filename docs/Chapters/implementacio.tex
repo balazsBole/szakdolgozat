@@ -2,8 +2,9 @@ Ebben  fejezetben külön-külön bemutatom a helpdesk alkalmazást felépítő 
 
 
 \section{Mikroszerviz infrastruktúra}
+A mikroszerviz specifikus funkciók megvalósításáért az itt bemutatott eszközök felelősek.
 
-\section{Nginx}\label{sec:nginx}
+\subsection{Nginx}\label{sec:nginx}
 Az Nginx-nek három különböző szerepe van:
 
 \begin{itemize}
@@ -18,7 +19,7 @@ A loadbalancer funkcionalitás --~mivel a docker azt natívan támogatja, így~-
 
 
 \subsection{Docker konténerizáció}\label{sec:docker}
-Az alakalmazás összes szolgáltatása saját docker konténerben fut. A docker konfigurációs leírása a \texttt{docker-compose.yml} állományban van. A \texttt{docker-compose} parancs ez alapján indítja el az alkalmazást, hozza létre a saját alhálózatát, valósítja meg a hálózaton belüli DNS-funkciót.
+Az alakalmazás összes szolgáltatása saját docker konténerben fut. A docker konfigurációs leírása a \texttt{docker-compose.yml} állományban van. A \texttt{docker-compose} parancs ez alapján indítja el az alkalmazást, tölti le a szükséges \emph{image}-eket, hozza létre a saját alhálózatát, valósítja meg a hálózaton belüli DNS-funkciót.
 
 A konténerek skálázása is a dockeren keresztül (\texttt{docker-compose ----scale}) valósul meg.
 
@@ -67,9 +68,9 @@ Az elküldött üzenetek megfelelnek az \emph{rfc5322} szabványnak, különös 
 \section{Helpdesk backend}\label{sec:backend}
 A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátásáért. \Aref{fig:backend_sequence_diagram}. ábrán láthatóak a helpdesk backend funkciói:
 \begin{itemize}
-	\item fogadja az \texttt{email.in.v1.pub} kafka topic-ból érkező e-maileket, 
-	\item kiszolgálja a frontend Nginx-en keresztül érkező kéréseit,
-	\item a megfelelő kafka topic-ba írja az elküldendő üzeneteket,
+	\item fogadja és adatbázisban tárolja az \texttt{email.in.v1.pub} kafka topic-ból érkező e-maileket, 
+	\item kiszolgálja a bejelentkezett felhasználók Nginx-en keresztül érkező kéréseit,
+	\item válasz e-mail küldése esetén, adatbázisban tárolja, és a megfelelő kafka topic-ba írja az elküldendő üzeneteket,
 	\item tárolja az e-mail szálakkal kapcsolatos adatokat.
 \end{itemize}
 
@@ -84,12 +85,12 @@ A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátás�
 
 
 \subsection{Spring Boot}
-A forráskód Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a data-jpa-t az adatbázis \texttt{repository}-jaihoz, a security-t a keycloak integrációhoz, a webet a \texttt{rest controller}ekhez, a micrometert és az actuatort a metrikák elkészítéséhez használtam.	
+A forráskód a Spring Boot (\ref{sec:spring_boot} pont) keretrendszerrel készült. Az elérhető modulok közül a \emph{data-jpa}-t az adatbázis \texttt{repository}-jaihoz, a \emph{security}-t a keycloak integrációhoz, a \emph{web}et a \texttt{rest controller}ekhez, a \emph{micrometer}t és az \emph{actuator}t a metrikák elkészítéséhez használtam.	
 
 
 \subsection{Adatbázis}\label{sec:adatbazis}
 A Spring kezeli --~HikariCP-n keresztül~--   a PostgreSQL adatbázishoz való kapcsolódást.
-Az adatok kezelését Hibernate\footnote{A Hibernate egy JPA implementáció, ami objektum relációs leképzést valósít meg}-en keresztül, az adatbázis verziókövetését Liquibase-en (\ref{sec:liquibase} pont) keresztül valósítom meg. 
+Az adatok kezelését Hibernate-en (\ref{sec:JPA_implementacio_hibernate} pont) keresztül, az adatbázis verziókövetését Liquibase-en (\ref{sec:liquibase} pont) keresztül valósítom meg. 
 
 Az e-mail szálak audit információinak és verzióinak követésére a Hibernate Envers (\ref{sec:hubernate_envers} pont) eszközét használom. Az Envers a neki létrehozott táblában automatikusan követi az annotációval megjelölt entitások állapotát.
 
@@ -130,6 +131,36 @@ Az egységes megjelenés és az ismerős kinézet miatt a komponenseim alapjána
 
 A válasz e-mail létrehozására a nyílt forráskódú Quill szövegszerkesztőt használtam, mert egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
 
+\subsection{Üzleti funkciók megvalósítása}\label{sec:uzleti_funkciok}
+Az üzleti funkciók megvalósításának bemutatása érdekében, ismertetem a helpdesk frontend menüjét és a menüpontok által megvalósított üzleti funkciókat.
+\begin{description}
+	\item[Reply] a menüpont minden felhasználónak elérhető. Segítségével az \textsc{open} státuszú üzenetszálak elolvashatóak --~az üzenetek olvasottnak és olvasatlannak jelölhetőek~-- és megválaszolhatóak.
+	A válasz e-mail küldése során az üzenetszál új állapotra állítható.
+	
+	\item[Edit threads] a menüpont minden felhasználónak elérhető. Segítségével a felhasználóhoz tartozó \textsc{open}, \textsc{resolved} és \textsc{clarification} státuszú e-mail szálak szerkeszthetőek. Az üzenetszálak tulajdonos, státusz valamint --~adminisztrátor jogkörrel rendelkező felhasználó esetén~-- sor tulajdonsága változtatható meg.
+	
+	\item[History] szintén minden felhasználó számára elérhető menüpont. Segítségével --~táblázatba rendezve~-- lekérdezhetőek és visszakereshetőek a bejelentkezett felhasználóval kapcsolatba került e-mail szálak tulajdonságainak historikus változásai.		
+	
+	\item[Change queue] csak az adminisztrátor felhasználónak elérhető menüpont. A felhasználó aktuális sorához tartozó \textsc{change\textunderscore queue} státuszú e-mail szálak érhetőek el és módosíthatóak vele. A kiválasztott e-mail szál az \texttt{Edit~threads} menüponthoz hasonlóan szerkeszthető.
+	
+	
+	\item[User account] minden felhasználónak elérhető. A menüpont a felhasználó Keycloak profil oldalára navigál. Az oldalon megváltoztathatóak a bejelentkezett felhasználó személyes adatai és jelszava, megtekinthetőek a jogosultságai és azonosítással kapcsolatos eseményei, valamint érvényteleníthetőek a munkamenetei.
+	
+	\item[Choose queue] a menüpont adminisztrátor felhasználónak többször is, minden más felhasználónak csak egyszer érhető el. Segítségével --~az aktív felhasználót~-- a rendelkezésre álló sorok valamelyikéhez lehet rendelni.
+	
+	\bigskip
+	\item[Login service] minden felhasználónak megjelenő, de csak az konfigurációs jogkörrel rendelkező felhasználónak elérhető menüpont. Az elérhető funkciók leírását \aref{sec:keycloak} pont tartalmazza.
+	
+	\item[Spring metrics] \aref{sec:metrikak} pontban leírt Spring Boot metrikákat ábrázoló Grafana oldalra navigáló menüpont.
+	
+	\item[Backend metrics] hasonlóan a Grafan oldalra navigáló --~a JVM metrikákat tartalmazó~-- menüpont.
+
+	\item[Eureka service discovery] \aref{sec:bemutatas_eureka} pontban részletesen bemutatott Eureka szolgáltatás oldalára navigáló menüpont. 
+	
+	\item[Kafka messages] mindenkinem megjelenő, a Kafka Topics UI oldalára navigáló menüpont. Részletes bemutatása \aref{sec:kafka_topics} pontban olvasható.
+	
+\end{description}
+
 
 \subsection{Futtatási környezet}
 A kész program egy egyszerű HTML, CSS és JavaScript állománnyá fordul. A körülbelül $1,5$~MB-nyi forráskódot elegendő a böngészőbe egyszer letölteni, onnantól a program a kliens oldalon fut (lásd \ref{fig:frontend_sequence_diagram} ábra). A backend felé induló REST kéréseket a webszerver (\ref{sec:nginx}) osztja szét a rendelkezésre álló példányok között.
@@ -144,7 +175,7 @@ A frontend működését, és függőségeit \aref{fig:frontend_sequence_diagram
 	\floatfoot{Forrás: saját ábra}
 \end{figure}
 
-
+\pagebreak
 \section{Keycloak}\label{sec:keycloak}
 A Keycloak egy nyílt forráskódú jogosultság- és hozzáférés-kezelő. Támogatja az LDAP-ot, SSO-t és a kétlépcsős azonosítást~\cite{Keycloak_website}. 
 
@@ -179,6 +210,5 @@ A felhasználók a Keycloak felületén keresztül tudnak regisztrálni, és a s
 
 A felhasználók regisztrációja és adatainak változása --~\aref{sec:alkalmazasok_szeparalasa} pontban megismert CQRS útnak megfelelően~-- a \texttt{user.v1.pub} kafka (\ref{sec:implementacio_kafka}) topicban követhetőek nyomon.
 
-A Keycloak Kafka integrációjának céljából hoztam létre a \texttt{keycloak-plugin} (\ref{fig:deployment_diagram} ábra) maven modult. A Keycloak esemény figyelőként működő plugin, a megfigyelt eseményekről kafka üzenetet küld a kijelölt topicba. A helpdesk backend --~a topic üzeneteit olvasva~--   tartja karban a \texttt{users} táblát (\ref{fig:basic_database_uml}, \ref{fig:extended_database_uml} ábra). Így a helpdesk backend a felhasználókról mindig aktuális információval rendelkezik.
-
+A Keycloak Kafka integrációjának céljából hoztam létre a \texttt{keycloak-plugin} (\ref{fig:deployment_diagram} ábra) maven modult. A Keycloak eseményfigyelőként működő plugin, a megfigyelt eseményekről kafka üzenetet küld a kijelölt topicba. A helpdesk backend --~a topic üzeneteit olvasva~-- tartja karban a \texttt{users} táblát (\ref{fig:basic_database_uml}, \ref{fig:extended_database_uml} ábra). Így a helpdesk backend a felhasználókról mindig aktuális információval rendelkezik.
 

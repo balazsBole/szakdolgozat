@@ -19,7 +19,7 @@ A \texttt{script} indítása után a helpdesk alkalmazás elérhető a \href{htt
 
 \section{Virtuális gép}
 Annak érdekében, hogy a létrehozott alkalmazást könnyedén ki lehessen próbálni, egy virtuális számítógépre letöltöttem az alkalmazás $1.0.0$ verzióját. A virtuális számítógép elérhető a DVD mellékleten, vagy letölthető a: \\
-\href{http://todo}{todo} címről.
+\href{https://github.com/balazsBole/szakdolgozat/releases/}{https://github.com/balazsBole/szakdolgozat/releases/} címről.
 
 Annak érdekében hogy az elkészült \texttt{ova}\footnote{Az Open Virtual Appliance által használt állományok kiterjesztése.} állomány minél kevesebb helyet használjon, egy minimális rendszerigényű \emph{Ubuntu server}t telepítettem. A virtuális gépre ezen kívül még a \texttt{xubuntu-core}, \texttt{docker} és a \texttt{Firefox} csomagot telepítettem. A helpdesk alkalmazás forráskódját \texttt{git} helyett böngészőn keresztül töltöttem le.
 
@@ -34,7 +34,9 @@ A helpdesk alkalmazás elindulása után, --~a \href{http://helpdesk}{http://hel
 	\item[testTheater] felhasználót, aki szintén a \texttt{regular\textunderscore user} jogkörrel rendelkezik, viszont a \texttt{theater} sorhoz tartozik.
 \end{description}
  
-A felhasználók bejelentkezése után, \aref{todo} pontban összegyűjtött funkciók elérhetővá válnak. Az alkalmazás a már említett három --~\texttt{generic}, \texttt{travel} és \texttt{theater}~-- sorhoz tartozó e-mail címről fogad és küld üzeneteket. Az indítás után nem sokkal, az alkalmazásban megjelennek az e-mail címekre --~korábban, tesztelési és bemutatási céllal~-- küldött teszt üzenetek.
+A felhasználók bejelentkezése után, \aref{sec:uzleti_funkciok} pontban összegyűjtött funkciók elérhetővá válnak. Az alkalmazás a már említett három --~\texttt{generic}, \texttt{travel} és \texttt{theater}~-- sorhoz tartozó e-mail címről fogad és küld üzeneteket. Az indítás után nem sokkal, az alkalmazásban megjelennek az e-mail címekre --~korábban, tesztelési és bemutatási céllal~-- küldött teszt üzenetek.
+
+A Grafana és a Keycloak konfigurációs felülete az \texttt{admin} felhasználónév-jelszó párossal érhető el.
 
 \section{Deployment}
 A könyebb bemutathatóság érdekében a szemléletesebb szolgáltatásokat --~hogy ne a docker daemon által kiosztott IP címen keresztül kelljen elérni~-- a docker hálózaton kívül is elérhetővé tettem:
@@ -262,7 +264,7 @@ Az alkalmazás három kafka brókert futtat egy clusterben, avagy számítógép
 Így a kafka fürt egy bróker kiesése, vagy egy partíció sérülése esetén is működőképes marad.
 
 
-\section{Eureka}
+\section{Eureka}\label{sec:bemutatas_eureka}
 \Aref{sec:metrikak}. pontban említett szolgáltatások felderítésre az Eureka szervert használom. A helpdesk backend és az e-mail kliens az elindításuk után közvetlenül beregisztrálják magukat az Eureka szolgáltatásba.
 
 Az Eureka szerveren keresztül megtekinthető és más szolgáltatások számára elérhető a példányok aktuális állapota és neve. Az oldal elérhető a \emph{Eureka service discovery} menüpont alatt~(\ref{fig:eureka}.~ábra).

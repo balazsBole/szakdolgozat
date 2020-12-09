@@ -65,13 +65,13 @@ Az ObjectDB által készített teljesítményvizsgálat\cite{JPA_benchmark} a sa
 \Aref{tabl:teljesitmenyvizsgalat} táblázatban látszódik, hogy a PostgreSQL adatbázis a Hibernate implementációval átlagosan háromszor olyan jól teljesít, mint a MySQL adatbázis. Ám ha figyelembe vesszük, hogy a két leggyakrabban előforduló funkció az elsődleges kulcs valamint szóeleji egyezés alapján keresés, akkor egyértelmű, hogy a PostgreSQL adatbázist érdemes választani.
 
 
-\section{JPA implementáció}
+\section{JPA implementáció}\label{sec:JPA_implementacio_hibernate}
 A helpdesk backend által használt adatok kezelésére objektum-relációs leképzést használok, mert az ORM nagy mértékben leegyszerűsíti az adatbázis és az entitások egymásnak való megfeleltetését.
 
 
 A számtalan --~EclipseLink, Hibernate, Spring Data JPA,~\dots~--   ORM-et megvalósító JPA implementációk közül a Hibernate mellett döntöttem, mert
 \begin{itemize}
-	\item PostgreSQL adatbázissal hatékonyan működik együtt,
+	\item PostgreSQL adatbázissal hatékonyan működik együtt
 	\item és a JPA implementáción felül, az adatok auditálására szeretném használni a projekten.
 \end{itemize}
 

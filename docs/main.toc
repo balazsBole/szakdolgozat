@@ -1,91 +1,92 @@
 \select@language {magyar} \contentsline {chapter}{Tartalomjegyz\'ek}{vi}{chapter*.1}% 
-\select@language {magyar} \contentsline {chapter}{\'Abr\'ak jegyz\'eke}{ix}{chapter*.2}% 
-\select@language {magyar} \contentsline {chapter}{\nameref {ch:bevezetes}}{1}{chapter*.3}% 
+\select@language {magyar} \contentsline {chapter}{\nameref {ch:bevezetes}}{1}{chapter*.2}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {1}\IeC {\"U}zleti ig\IeC {\'e}nyek}{2}{chapter.1}% 
 \select@language {magyar} \contentsline {section}{\numberline {1.1}Funkcion\IeC {\'a}lis ig\IeC {\'e}nyek}{2}{section.1.1}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {1.1.1}E-mail fogad\IeC {\'a}sa \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}se}{2}{subsection.1.1.1}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {1.1.2}E-mail sz\IeC {\'a}lak kezel\IeC {\'e}se}{2}{subsection.1.1.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {1.1.3}T\IeC {\"o}bb felhaszn\IeC {\'a}l\IeC {\'o}}{2}{subsection.1.1.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {1.2}Nem funkcion\IeC {\'a}lis ig\IeC {\'e}nyek}{4}{section.1.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {1.2.1}Sk\IeC {\'a}l\IeC {\'a}zhat\IeC {\'o}s\IeC {\'a}g}{4}{subsection.1.2.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {1.2.2}Granul\IeC {\'a}ris felosztotts\IeC {\'a}g}{4}{subsection.1.2.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {1.1.3}T\IeC {\"o}bb felhaszn\IeC {\'a}l\IeC {\'o}}{4}{subsection.1.1.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {1.2}Nem funkcion\IeC {\'a}lis ig\IeC {\'e}nyek}{5}{section.1.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {1.2.1}Sk\IeC {\'a}l\IeC {\'a}zhat\IeC {\'o}s\IeC {\'a}g}{5}{subsection.1.2.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {1.2.2}Granul\IeC {\'a}ris felosztotts\IeC {\'a}g}{5}{subsection.1.2.2}% 
 \select@language {magyar} \contentsline {subsection}{\numberline {1.2.3}M\IeC {\'e}rhet\IeC {\H o} indik\IeC {\'a}torok}{5}{subsection.1.2.3}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {1.2.4}L10N}{5}{subsection.1.2.4}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {2}Technol\IeC {\'o}giai \IeC {\'a}ttekint\IeC {\'e}s}{6}{chapter.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.1}Mikroszerviz architekt\IeC {\'u}ra}{6}{section.2.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.2}Hexagon\IeC {\'a}lis architekt\IeC {\'u}ra}{7}{section.2.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.3}R\IeC {\'e}tegek szepar\IeC {\'a}l\IeC {\'a}sa}{8}{section.2.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.4}Konkurencia kezel\IeC {\'e}se}{8}{section.2.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.5}Alkalmaz\IeC {\'a}sok szepar\IeC {\'a}l\IeC {\'a}sa}{9}{section.2.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.6}Apache Kafka}{10}{section.2.6}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.7}Angular}{10}{section.2.7}% 
-\select@language {magyar} \contentsline {section}{\numberline {2.8}Spring Boot}{11}{section.2.8}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Az alkalmaz\IeC {\'a}s fel\IeC {\'e}p\IeC {\'\i }t\IeC {\'e}se}{12}{chapter.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {3.1}Legfontosabb komponensek}{12}{section.3.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {3.2}Adatb\IeC {\'a}zis UML diagram}{13}{section.3.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {3.3}E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}{14}{section.3.3}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {4}Technikai tervez\IeC {\'e}s}{16}{chapter.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.1}Webszerver}{16}{section.4.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.2}Adatb\IeC {\'a}zis}{17}{section.4.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Teljes\IeC {\'\i }tm\IeC {\'e}nyvizsg\IeC {\'a}lat}{17}{subsection.4.2.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.3}JPA implement\IeC {\'a}ci\IeC {\'o}}{18}{section.4.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.4}Adatb\IeC {\'a}zis migr\IeC {\'a}ci\IeC {\'o}s eszk\IeC {\"o}z}{18}{section.4.4}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.4.1}Liquibase}{19}{subsection.4.4.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.4.2}Flyway}{19}{subsection.4.4.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.4.3}Felhaszn\IeC {\'a}lt eszk\IeC {\"o}z}{19}{subsection.4.4.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {4.5}Monitoroz\IeC {\'a}s}{19}{section.4.5}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.5.1}Prometheus}{19}{subsection.4.5.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.5.2}Grafana}{20}{subsection.4.5.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.5.3}Graphite}{20}{subsection.4.5.3}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {4.5.4}Megval\IeC {\'o}s\IeC {\'\i }t\IeC {\'a}s}{21}{subsection.4.5.4}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {5}Implement\IeC {\'a}ci\IeC {\'o}}{22}{chapter.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.1}Mikroszerviz infrastrukt\IeC {\'u}ra}{22}{section.5.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.2}Nginx}{22}{section.5.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.2.1}Docker kont\IeC {\'e}neriz\IeC {\'a}ci\IeC {\'o}}{22}{subsection.5.2.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.2.2}Metrik\IeC {\'a}k}{23}{subsection.5.2.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.3}E-mail kliens}{23}{section.5.3}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.3.1}E-mail szabv\IeC {\'a}ny}{23}{subsection.5.3.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.4}Helpdesk backend}{24}{section.5.4}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.4.1}Spring Boot}{24}{subsection.5.4.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.4.2}Adatb\IeC {\'a}zis}{25}{subsection.5.4.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.4.3}Pesszimista konkurenciakezel\IeC {\'e}s}{25}{subsection.5.4.3}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.4.4}Optimista konkurenciakezel\IeC {\'e}s}{26}{subsection.5.4.4}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.4.5}Egy\IeC {\'e}b eszk\IeC {\"o}z\IeC {\"o}k}{26}{subsection.5.4.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.5}Helpdesk frontend}{26}{section.5.5}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.5.1}Kommunik\IeC {\'a}ci\IeC {\'o} a backenddel}{26}{subsection.5.5.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.5.2}Komponensek}{27}{subsection.5.5.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.5.3}Futtat\IeC {\'a}si k\IeC {\"o}rnyezet}{27}{subsection.5.5.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.6}Keycloak}{27}{section.5.6}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.6.1}Jogosults\IeC {\'a}gkezel\IeC {\'e}s}{27}{subsection.5.6.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {5.6.2}JSON Web Token}{29}{subsection.5.6.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.7}Kafka}{29}{section.5.7}% 
-\select@language {magyar} \contentsline {section}{\numberline {5.8}Helpdesk backend \IeC {\'e}s a Keycloak elk\IeC {\"u}l\IeC {\"o}n\IeC {\'\i }t\IeC {\'e}se}{29}{section.5.8}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {6}Alkalmaz\IeC {\'a}s bemutat\IeC {\'a}sa}{30}{chapter.6}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.1}Alkalmaz\IeC {\'a}s elind\IeC {\'\i }t\IeC {\'a}sa}{30}{section.6.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.2}Virtu\IeC {\'a}lis g\IeC {\'e}p}{30}{section.6.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.3}Deployment}{31}{section.6.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.4}T\IeC {\"o}bb p\IeC {\'e}ld\IeC {\'a}ny}{31}{section.6.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.5}E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}{33}{section.6.5}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.6}Adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}k}{33}{section.6.6}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {6.6.1}Liquibase}{35}{subsection.6.6.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {6.6.2}Hibernate Envers}{36}{subsection.6.6.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.7}Apache Kafka}{36}{section.6.7}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.8}Eureka}{37}{section.6.8}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {7}Terhel\IeC {\'e}ses tesztel\IeC {\'e}s}{39}{chapter.7}% 
-\select@language {magyar} \contentsline {section}{\numberline {7.1}Terhel\IeC {\'e}ses teszt}{39}{section.7.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {7.2}Apache JMeter}{39}{section.7.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {7.3}\IeC {\'A}tlagos teljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{40}{section.7.3}% 
-\select@language {magyar} \contentsline {section}{\numberline {7.4}Cs\IeC {\'u}csteljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{41}{section.7.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {7.5}Sz\IeC {\H u}k keresztmetszet meghat\IeC {\'a}roz\IeC {\'a}sa}{43}{section.7.5}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {7.5.1}Nginx}{44}{subsection.7.5.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {7.5.2}HikariCP}{46}{subsection.7.5.2}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {7.5.3}Megn\IeC {\"o}vekedett processzorig\IeC {\'e}ny}{47}{subsection.7.5.3}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {7.5.4}Sz\IeC {\H u}k keresztmetszet meghat\IeC {\'a}roz\IeC {\'a}sa}{48}{subsection.7.5.4}% 
-\select@language {magyar} \contentsline {section}{\numberline {7.6}\IeC {\"O}sszevet\IeC {\'e}s a k\IeC {\"o}vetelm\IeC {\'e}nyekkel}{49}{section.7.6}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {7.6.1}\IeC {\'A}tlagos teljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{49}{subsection.7.6.1}% 
-\select@language {magyar} \contentsline {subsection}{\numberline {7.6.2}Cs\IeC {\'u}csteljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{49}{subsection.7.6.2}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {8}Tov\IeC {\'a}bbfejleszt\IeC {\'e}si lehet\IeC {\H o}s\IeC {\'e}gek}{50}{chapter.8}% 
-\select@language {magyar} \contentsline {section}{\numberline {8.1}A deploymentr\IeC {\H o}l}{50}{section.8.1}% 
-\select@language {magyar} \contentsline {section}{\numberline {8.2}A k\IeC {\'o}dr\IeC {\'o}l}{50}{section.8.2}% 
-\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{54}{chapter*.35}% 
-\select@language {magyar} \contentsline {chapter}{\numberline {A}OpenApi dokument\IeC {\'a}ci\IeC {\'o}}{56}{appendix.A}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {1.2.4}L10N}{6}{subsection.1.2.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Technol\IeC {\'o}giai \IeC {\'a}ttekint\IeC {\'e}s}{7}{chapter.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Mikroszerviz architekt\IeC {\'u}ra}{7}{section.2.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Hexagon\IeC {\'a}lis architekt\IeC {\'u}ra}{8}{section.2.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.3}R\IeC {\'e}tegek szepar\IeC {\'a}l\IeC {\'a}sa}{9}{section.2.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.4}Konkurencia kezel\IeC {\'e}se}{9}{section.2.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.5}Alkalmaz\IeC {\'a}sok szepar\IeC {\'a}l\IeC {\'a}sa}{10}{section.2.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.6}Apache Kafka}{11}{section.2.6}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.7}Angular}{11}{section.2.7}% 
+\select@language {magyar} \contentsline {section}{\numberline {2.8}Spring Boot}{12}{section.2.8}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Az alkalmaz\IeC {\'a}s fel\IeC {\'e}p\IeC {\'\i }t\IeC {\'e}se}{13}{chapter.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Legfontosabb komponensek}{13}{section.3.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Adatb\IeC {\'a}zis UML diagram}{14}{section.3.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {3.3}E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}{15}{section.3.3}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Technikai tervez\IeC {\'e}s}{18}{chapter.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.1}Webszerver}{18}{section.4.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.2}Adatb\IeC {\'a}zis}{19}{section.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.2.1}Teljes\IeC {\'\i }tm\IeC {\'e}nyvizsg\IeC {\'a}lat}{19}{subsection.4.2.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.3}JPA implement\IeC {\'a}ci\IeC {\'o}}{20}{section.4.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.4}Adatb\IeC {\'a}zis migr\IeC {\'a}ci\IeC {\'o}s eszk\IeC {\"o}z}{20}{section.4.4}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.4.1}Liquibase}{21}{subsection.4.4.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.4.2}Flyway}{21}{subsection.4.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.4.3}Felhaszn\IeC {\'a}lt eszk\IeC {\"o}z}{21}{subsection.4.4.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {4.5}Monitoroz\IeC {\'a}s}{21}{section.4.5}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.1}Prometheus}{21}{subsection.4.5.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.2}Grafana}{22}{subsection.4.5.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.3}Graphite}{22}{subsection.4.5.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {4.5.4}Megval\IeC {\'o}s\IeC {\'\i }t\IeC {\'a}s}{23}{subsection.4.5.4}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {5}Implement\IeC {\'a}ci\IeC {\'o}}{24}{chapter.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.1}Mikroszerviz infrastrukt\IeC {\'u}ra}{24}{section.5.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.1}Nginx}{24}{subsection.5.1.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.2}Docker kont\IeC {\'e}neriz\IeC {\'a}ci\IeC {\'o}}{24}{subsection.5.1.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.1.3}Metrik\IeC {\'a}k}{25}{subsection.5.1.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.2}E-mail kliens}{25}{section.5.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.2.1}E-mail szabv\IeC {\'a}ny}{25}{subsection.5.2.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.3}Helpdesk backend}{26}{section.5.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.1}Spring Boot}{26}{subsection.5.3.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.2}Adatb\IeC {\'a}zis}{27}{subsection.5.3.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.3}Pesszimista konkurenciakezel\IeC {\'e}s}{27}{subsection.5.3.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.4}Optimista konkurenciakezel\IeC {\'e}s}{28}{subsection.5.3.4}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.3.5}Egy\IeC {\'e}b eszk\IeC {\"o}z\IeC {\"o}k}{28}{subsection.5.3.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.4}Helpdesk frontend}{28}{section.5.4}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.4.1}Kommunik\IeC {\'a}ci\IeC {\'o} a backenddel}{28}{subsection.5.4.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.4.2}Komponensek}{29}{subsection.5.4.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.4.3}\IeC {\"U}zleti funkci\IeC {\'o}k megval\IeC {\'o}s\IeC {\'\i }t\IeC {\'a}sa}{29}{subsection.5.4.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.4.4}Futtat\IeC {\'a}si k\IeC {\"o}rnyezet}{30}{subsection.5.4.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.5}Keycloak}{32}{section.5.5}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.5.1}Jogosults\IeC {\'a}gkezel\IeC {\'e}s}{32}{subsection.5.5.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {5.5.2}JSON Web Token}{32}{subsection.5.5.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.6}Kafka}{32}{section.5.6}% 
+\select@language {magyar} \contentsline {section}{\numberline {5.7}Helpdesk backend \IeC {\'e}s a Keycloak elk\IeC {\"u}l\IeC {\"o}n\IeC {\'\i }t\IeC {\'e}se}{33}{section.5.7}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {6}Alkalmaz\IeC {\'a}s bemutat\IeC {\'a}sa}{34}{chapter.6}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.1}Alkalmaz\IeC {\'a}s elind\IeC {\'\i }t\IeC {\'a}sa}{34}{section.6.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.2}Virtu\IeC {\'a}lis g\IeC {\'e}p}{34}{section.6.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.3}Deployment}{35}{section.6.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.4}T\IeC {\"o}bb p\IeC {\'e}ld\IeC {\'a}ny}{37}{section.6.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.5}E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}{38}{section.6.5}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.6}Adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}k}{40}{section.6.6}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.6.1}Liquibase}{40}{subsection.6.6.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {6.6.2}Hibernate Envers}{42}{subsection.6.6.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.7}Apache Kafka}{42}{section.6.7}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.8}Eureka}{43}{section.6.8}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {7}Terhel\IeC {\'e}ses tesztel\IeC {\'e}s}{45}{chapter.7}% 
+\select@language {magyar} \contentsline {section}{\numberline {7.1}Terhel\IeC {\'e}ses teszt}{45}{section.7.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {7.2}Apache JMeter}{45}{section.7.2}% 
+\select@language {magyar} \contentsline {section}{\numberline {7.3}\IeC {\'A}tlagos teljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{46}{section.7.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {7.4}Cs\IeC {\'u}csteljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{47}{section.7.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {7.5}Sz\IeC {\H u}k keresztmetszet meghat\IeC {\'a}roz\IeC {\'a}sa}{49}{section.7.5}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {7.5.1}Nginx}{50}{subsection.7.5.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {7.5.2}HikariCP}{52}{subsection.7.5.2}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {7.5.3}Megn\IeC {\"o}vekedett processzorig\IeC {\'e}ny}{53}{subsection.7.5.3}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {7.5.4}Sz\IeC {\H u}k keresztmetszet meghat\IeC {\'a}roz\IeC {\'a}sa}{54}{subsection.7.5.4}% 
+\select@language {magyar} \contentsline {section}{\numberline {7.6}\IeC {\"O}sszevet\IeC {\'e}s a k\IeC {\"o}vetelm\IeC {\'e}nyekkel}{55}{section.7.6}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {7.6.1}\IeC {\'A}tlagos teljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{55}{subsection.7.6.1}% 
+\select@language {magyar} \contentsline {subsection}{\numberline {7.6.2}Cs\IeC {\'u}csteljes\IeC {\'\i }tm\IeC {\'e}ny vizsg\IeC {\'a}lata}{55}{subsection.7.6.2}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {8}Tov\IeC {\'a}bbfejleszt\IeC {\'e}si lehet\IeC {\H o}s\IeC {\'e}gek}{56}{chapter.8}% 
+\select@language {magyar} \contentsline {section}{\numberline {8.1}A deploymentr\IeC {\H o}l}{56}{section.8.1}% 
+\select@language {magyar} \contentsline {section}{\numberline {8.2}A k\IeC {\'o}dr\IeC {\'o}l}{56}{section.8.2}% 
+\select@language {magyar} \contentsline {chapter}{Irodalomjegyz\'ek}{60}{chapter*.34}% 
+\select@language {magyar} \contentsline {chapter}{\'Abr\'ak jegyz\'eke}{62}{chapter*.35}% 
+\select@language {magyar} \contentsline {chapter}{\numberline {A}OpenApi dokument\IeC {\'a}ci\IeC {\'o}}{63}{appendix.A}% 
