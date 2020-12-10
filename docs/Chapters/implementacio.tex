@@ -64,7 +64,19 @@ Az elküldött üzenetek megfelelnek az \emph{rfc5322} szabványnak, különös 
 	\item[References] azonosítja az üzenet szálat, értéke az eredeti üzenetek \texttt{Message-ID}-jai vesszővel elválasztva.
 \end{description}
 
+\subsection{Üzleti funkciók megvalósítása}
+Az e-mail kliens fontosabb Java csomagjain keresztül bemutatom a forráskód felépítését, így betekintést nyújtva a megvalósított funkciókba.
 
+\begin{description}
+	\item[imap] csomag tartalmazza az IMAP protokoll megvalósításához szükséges kódrészleteket. A kapcsolat felépítéséért az \texttt{ImapMailReceiver}, míg az e-mailek fogadásáért az \texttt{EmailReceiver} osztály felelős. 
+	
+	\item[kafka] csomagba tartozó osztályok a \texttt{springframework.kafka} csomagja segítségével Kafka üzenetet küldenek (\texttt{EmailKafkaProducer} osztály) és fogadnak (\texttt{OutgoingEmailObserver} osztály).
+	
+	\item[smtp] csomagba tartozó \texttt{EmailSender} osztály a \texttt{springframework.mail} segítségével üzenetet küld az SMTP-szerveren keresztül.
+\end{description}
+
+
+\pagebreak
 \section{Helpdesk backend}\label{sec:backend}
 A backend felelős az e-mail szálakkal kapcsolatos üzleti feladatok ellátásáért. \Aref{fig:backend_sequence_diagram}. ábrán láthatóak a helpdesk backend funkciói:
 \begin{itemize}
@@ -109,8 +121,41 @@ A backend összehasonlítja a módosítani kívánt erőforrás verziószámát 
 
 Ha a két verzió nem egyezik --~ami csak úgy történhet meg, ha valaki más időközben módosította a kérdéses adatot~-- akkor a tranzakció nem hajtódik végre, és a kliens egy HTTP \texttt{Conflict} hibaüzenettel értesül a történtekről. A felhasználó ilyenkor az oldal frissítése után megvizsgálja az aktuális állapotot és --~amennyiben a módosításaira még mindig szükség van --~újból kezdi a folyamatot.
 
+\subsection{Üzleti funkciók megvalósítása}
+A backend által elvégzett feladatok bemutatása érdekében --~a legfontosabb csomagok ismertetésével~-- áttekintést adok a forráskód felépítéséről.
+
+
+\begin{description}
+	\item[kafka] csomagba a \texttt{springframework.kafka} csomagot használó, Kafka üzenetek kezelését végző osztályok tartoznak. Külön osztály foglalkozik a felhasználók (\texttt{UserObserver}) és az e-mailek (\texttt{IncomingEmailObserver}) fogadásával, és külön az e-mailek küldésével (\texttt{EmailKafkaProducer}).
+	
+	
+	\item[security] a csomag feladata az alkalmazás HTTP protokollal kapcsolatos biztonsági paramétereinek beállítása. Itt lehet többek között a \emph{referrerPolicy}-t, \emph{CORS}-t és a jogosultság kezeléshez használt \emph{JSON Web Token} (\ref{sec:JWT}~pont) adatait megadni.
+	
+	
+	\item[service] a csomagban az üzleti feladatok ellátásért felelős \texttt{service} interfészek és az azokat megvalósító osztályok találhatóak. Feladatuk az adatok üzleti szempontból lényeges tulajdonságainak ellenőrzése, valamint az üzleti logika végrehajtásához szükséges technikai feladatok delegálása. 
+	
+
+	\item[web.rest] csomagban találhatóak a \texttt{RestController}ek. A Spring ezeknek az osztályoknak továbbítja a REST kéréseket. Az osztályok fő célja a HTTP specifikus feladatok leválasztása az alkalmazásról, továbbá az üzleti igények továbbítása a megfelelő \texttt{service}-ek számára.	
+\end{description}
+
+Az \texttt{email-kliens}, a \texttt{keycloak-plugin} (lásd \aref{sec:backend_keycloak_separation}~pont), és a \texttt{helpdesk-backend} által közösen használt kódot --~a moduláris felépítés érdekében~-- külön, a \texttt{helpdesk-domain} maven projektben helyeztem el. A közösen használt modul legfontosabb csomagjait szintén itt mutatom be.
+
+
+\begin{description}
+	\item[dto] csomag nevét a \emph{Data Transfer Object} elnevezésről kapta. A csomag olyan érték osztályokat tartalmaz, amiknek nincs önálló viselkedésük, egyetlen feladatuk az adatok reprezentálása. Ezeknek a \texttt{dto}-k segítségével küldenek és fogadnak adatot a \texttt{RestController}ek.
+
+	\item[entity] csomagban találhatóak a JPA entitások. Minden entitás osztály egy adatbázistábla Java oldali leképezése, és minden entitás objektum a tábla egy sorának a megfelelője. Az entitások állapotainak kezeléséért a Hibernate felel.
+	
+	\item[repository] csomagban a Spring \texttt{JpaRepository} interfészből öröklődő \texttt{repository} interfészek találhatóak. Feladatuk az adatbázisnak küldött utasítások reprezentálása. A szükséges SQL-t az interfészt implementáló Spring osztály hozza létre a metódus annotációjából vagy elnevezéséből~\cite{spring_boot_Query_Creation}.
+	
+	\item[mapper] csomagba tartozó osztályok feladata az adatok különböző reprezentációk --~\texttt{dto, entity, avro}~-- közötti leképezés megvalósítása. A \texttt{@Mapper} annotációival ellátott interfészek implementációját a Mapstruct (\ref{sec:retegek_szeparalasa}~pont) generálja fordítási időben.
+	
+	\item[avro] a Kafka üzenetekhez használt avro (lásd \ref{sec:apache_kafka}~pont) üzenetek Java reprezentációit a \texttt{hu.gdf.balazsbole.kafka} csomag tartalmazza. A csomagban található osztályokat fordítási időben az adatstruktúrát leíró \texttt{avdl} fájlból hozza létre az \texttt{avro-maven-plugin}.
+\end{description}
+
+
 \subsection{Egyéb eszközök}\label{sec:backend_egyeb_eszkozok}
-A \texttt{DTO}-k és az \texttt{entity}k közötti leképezést a Mapstruct (\ref{sec:retegek_szeparalasa}) segítségével végzem. A REST \texttt{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált osztályokból és metódusokból szabványos OpenApi dokumentációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
+A \texttt{DTO}-kban és az \texttt{entity}kben használt getter és setter  metódusok generálását a Lombok (\ref{sec:retegek_szeparalasa}~pont) segítségével végzem. A REST \texttt{endpoint}ok dokumentációját Swagger segítségével generálom. A Swagger a felannotált \texttt{dto} osztályokból és \texttt{RestController} metódusokból szabványos OpenApi dokumentációt készít. A dokumentációt \aref{appendix:openapi} függelékben csatoltam a dolgozatomhoz.
 
 
 
@@ -131,7 +176,7 @@ Az egységes megjelenés és az ismerős kinézet miatt a komponenseim alapjána
 
 A válasz e-mail létrehozására a nyílt forráskódú Quill szövegszerkesztőt használtam, mert egyszerűen beilleszthető az Angular környezetbe, és a felhasználó számára intuitív kezelőfelülettel rendelkezik.
 
-\subsection{Üzleti funkciók megvalósítása}\label{sec:uzleti_funkciok}
+\subsection{Üzleti funkciók megvalósítása}\label{sec:frontend_uzleti_funkciok}
 Az üzleti funkciók megvalósításának bemutatása érdekében ismertetem a helpdesk frontend menüjét és a menüpontok által megvalósított üzleti funkciókat.
 \begin{description}
 	\item[Reply] a menüpont minden felhasználónak elérhető. Segítségével az \textsc{open} státuszú üzenetszálak elolvashatóak --~az üzenetek olvasottnak és olvasatlannak jelölhetőek~-- és megválaszolhatóak.

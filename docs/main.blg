@@ -22,59 +22,61 @@ Warning--entry type for "rfc5322_Identification_Fields" isn't style-file defined
 --line 56 of file references.bib
 Warning--entry type for "introducing_spring_boot" isn't style-file defined
 --line 74 of file references.bib
-Warning--entry type for "rfc7519_JSON_Web_Token" isn't style-file defined
+Warning--entry type for "spring_boot_Query_Creation" isn't style-file defined
 --line 82 of file references.bib
-Warning--entry type for "rfc6749_OAuth_2_0" isn't style-file defined
+Warning--entry type for "rfc7519_JSON_Web_Token" isn't style-file defined
 --line 90 of file references.bib
-Warning--entry type for "Keycloak_website" isn't style-file defined
+Warning--entry type for "rfc6749_OAuth_2_0" isn't style-file defined
 --line 98 of file references.bib
+Warning--entry type for "Keycloak_website" isn't style-file defined
+--line 106 of file references.bib
 Warning--entry type for "docker_website_deploy_ECS" isn't style-file defined
---line 126 of file references.bib
+--line 134 of file references.bib
 Warning--entry type for "nginx_performance" isn't style-file defined
---line 153 of file references.bib
+--line 161 of file references.bib
 Warning--entry type for "W3Techs_Usage_statistics_of_webservers" isn't style-file defined
---line 163 of file references.bib
-Warning--entry type for "JPA_benchmark" isn't style-file defined
 --line 171 of file references.bib
-You've used 20 entries,
+Warning--entry type for "JPA_benchmark" isn't style-file defined
+--line 179 of file references.bib
+You've used 21 entries,
             2555 wiz_defined-function locations,
-            681 strings with 7654 characters,
-and the built_in function-call counts, 5281 in all, are:
-= -- 495
-> -- 121
+            686 strings with 7844 characters,
+and the built_in function-call counts, 5502 in all, are:
+= -- 516
+> -- 123
 < -- 6
-+ -- 45
++ -- 46
 - -- 25
-* -- 160
-:= -- 573
-add.period$ -- 60
-call.type$ -- 20
-change.case$ -- 20
+* -- 164
+:= -- 590
+add.period$ -- 63
+call.type$ -- 21
+change.case$ -- 21
 chr.to.int$ -- 0
-cite$ -- 20
-duplicate$ -- 170
-empty$ -- 750
+cite$ -- 21
+duplicate$ -- 177
+empty$ -- 786
 format.name$ -- 25
-if$ -- 1648
+if$ -- 1722
 int.to.chr$ -- 0
-int.to.str$ -- 20
+int.to.str$ -- 21
 missing$ -- 12
-newline$ -- 103
+newline$ -- 108
 num.names$ -- 11
-pop$ -- 252
+pop$ -- 266
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 474
+skip$ -- 496
 stack$ -- 0
 substring$ -- 0
-swap$ -- 26
+swap$ -- 27
 text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
 while$ -- 11
-width$ -- 22
-write$ -- 205
-(There were 14 warnings)
+width$ -- 23
+write$ -- 214
+(There were 15 warnings)

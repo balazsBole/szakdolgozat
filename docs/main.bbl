@@ -94,6 +94,12 @@ Identification fields.
 \newblock Letöltve: 2020. Nov. 16.
 \newblock URL: \url{https://tools.ietf.org/html/rfc5322#section-3.6.4}.
 
+\bibitem{spring_boot_Query_Creation}
+Query creation.
+\newblock Letöltve: 2020. Dec. 09.
+\newblock URL:
+  \url{https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation}.
+
 \bibitem{Keycloak_website}
 Keycloak.
 \newblock Letöltve: 2020. Nov. 18.
