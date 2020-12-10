@@ -1,6 +1,6 @@
-CREATE USER sonarqube WITH PASSWORD 'sonarqube';
-CREATE DATABASE sonarqube;
-GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;
+CREATE USER keycloak WITH PASSWORD 'keycloak';
+CREATE DATABASE keycloak;
+GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
 
 CREATE USER HELPDESK WITH PASSWORD 'helpdesk';
 CREATE DATABASE helpdesk;

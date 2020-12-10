@@ -27,7 +27,7 @@ services:
       DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Tha0xi7k
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client63"
+      SPRING_MAIL_IMAP_USERFLAG: "client64"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -46,7 +46,7 @@ services:
       DOMAIN: yandex.com
       SPRING_MAIL_PASSWORD: Xo8nua4o
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client63"
+      SPRING_MAIL_IMAP_USERFLAG: "client64"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -68,7 +68,7 @@ services:
       SPRING_MAIL_PROPERTIES_MAIL_SMTP_SOCKETFACTORY_PORT: 587
       SPRING_MAIL_PORT: 587
       EUREKA_CLIENT_ENABLED: "true"
-      SPRING_MAIL_IMAP_USERFLAG: "client63"
+      SPRING_MAIL_IMAP_USERFLAG: "client64"
       SPRING_KAFKA_CONSUMER_GROUPID: "email-client-0001"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-service:8761/eureka/
       SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:9092
@@ -104,6 +104,12 @@ services:
       KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json
       PROXY_ADDRESS_FORWARDING: "true"
       KEYCLOAK_LOGLEVEL: "true"
+      DB_VENDOR: postgres
+      DB_ADDR: db
+      DB_PORT: 5432
+      DB_DATABASE: 'keycloak'
+      DB_USER: 'keycloak'
+      DB_PASSWORD: 'keycloak'
     depends_on:
       - kafka
       - schema-registry
