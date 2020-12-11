@@ -66,7 +66,7 @@
 \select@language {magyar} \contentsline {chapter}{\numberline {6}Alkalmaz\IeC {\'a}s bemutat\IeC {\'a}sa}{37}{chapter.6}% 
 \select@language {magyar} \contentsline {section}{\numberline {6.1}Alkalmaz\IeC {\'a}s elind\IeC {\'\i }t\IeC {\'a}sa}{37}{section.6.1}% 
 \select@language {magyar} \contentsline {section}{\numberline {6.2}Virtu\IeC {\'a}lis g\IeC {\'e}p}{37}{section.6.2}% 
-\select@language {magyar} \contentsline {section}{\numberline {6.3}Deployment}{38}{section.6.3}% 
+\select@language {magyar} \contentsline {section}{\numberline {6.3}Deployment}{39}{section.6.3}% 
 \select@language {magyar} \contentsline {section}{\numberline {6.4}T\IeC {\"o}bb p\IeC {\'e}ld\IeC {\'a}ny}{40}{section.6.4}% 
 \select@language {magyar} \contentsline {section}{\numberline {6.5}E-mail fogad\IeC {\'a}s\IeC {\'a}nak \IeC {\'e}s k\IeC {\"u}ld\IeC {\'e}s\IeC {\'e}nek folyamata}{41}{section.6.5}% 
 \select@language {magyar} \contentsline {section}{\numberline {6.6}Adatb\IeC {\'a}zist\IeC {\'a}bl\IeC {\'a}k}{43}{section.6.6}% 

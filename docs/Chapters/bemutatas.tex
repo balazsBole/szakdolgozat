@@ -25,7 +25,18 @@ Annak érdekében, hogy az elkészült \texttt{ova}\footnote{Az Open Virtual App
 
 A virtuális gépbe a \texttt{dxqrpj} felhasználóval és jelszóval lehet bejelentkezni. Bejelentkezés után a háttérben automatikusan elindul a helpdesk alkalmazás, így \aref{sec:elinditas} pontban említett \texttt{start.sh} bash \texttt{script} kézi futtatása nem szükséges.
 
-Az alkalmazás elindítása a virtuális számítógép szűk erőforrásai miatt, --~a natív indítástól eltérő módon~-- akár 5-7 percet is igénybe vehet. Érdemes lehet a \texttt{docker~ps} vagy a \texttt{docker~ps~-a} parancs segítségével a konténerek állapotáról megbizonyosodni. Az első indítás sebessége, a \emph{docker image}-ek letöltése miatt, nagy mértékben függ a számítógép sávszélességtől.
+
+
+Az alkalmazás elindítása, a virtuális számítógép szűk erőforrásai miatt, a natív indításhoz képest akár hatszor annyi időt is igénybe vehet:
+\begin{description}
+	\item[natívan] futtatva, az én számítógépemen az alkalmazás indítása --~a konténerek közötti függőségek miatt~-- 1~perc 10~másodpercet vesz igénybe;
+	
+	\item[virtualizálva, az első indításkor] a \texttt{start.sh} bash \texttt{script} letölti az összes szükséges (5,3~GB-nyi) \emph{docker image}-et, ez a folyamat az én gépemen 5~perc 20~másodperccel növelte az alkalmazás első indításának idejét;
+	
+	\item[virtualizálva, második indításkor,] az én gépemen az alkalmazás 6~perc 50~másodperc alatt elindul.
+
+\end{description}
+A konténerek állapotáról, és az indítás óta eltelt időről, \texttt{docker~ps} és a \texttt{docker~ps~-a} parancs nyújt információt.
 
 A helpdesk alkalmazás elindulása után, --~a \href{http://helpdesk}{http://helpdesk} címen~-- a Firefox webböngészővel elérhető. A böngésző három felhasználót tárol:
 \begin{description}
