@@ -1,4 +1,4 @@
-\select@language {magyar} \contentsline {chapter}{Tartalomjegyz\'ek}{vi}{chapter*.1}% 
+\select@language {magyar} \contentsline {chapter}{Tartalomjegyz\'ek}{vii}{chapter*.1}% 
 \select@language {magyar} \contentsline {chapter}{\nameref {ch:bevezetes}}{1}{chapter*.2}% 
 \select@language {magyar} \contentsline {chapter}{\numberline {1}\IeC {\"U}zleti ig\IeC {\'e}nyek}{2}{chapter.1}% 
 \select@language {magyar} \contentsline {section}{\numberline {1.1}Funkcion\IeC {\'a}lis ig\IeC {\'e}nyek}{2}{section.1.1}% 
